@@ -79,6 +79,67 @@ body {
   line-height: 1.5;
 }
 
+.heading-underline--inverse {
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Button utilities */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background-color: theme('colors.hbb-amber');
+  color: theme('colors.hbb-dark');
+  font-family: var(--font-archivo-narrow);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.625rem 1.25rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: theme('colors.hbb-gold');
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+  color: theme('colors.hbb-teal-deep');
+  font-family: var(--font-archivo-narrow);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.625rem 1.25rem;
+  text-decoration: none;
+  border: 1px solid theme('colors.hbb-teal-deep');
+  cursor: pointer;
+}
+
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  background-color: theme('colors.hbb-dark');
+  color: white;
+  font-family: var(--font-archivo-narrow);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-dark:hover {
+  background-color: theme('colors.hbb-black');
+}
+
 /* Reduced motion — global */
 @media (prefers-reduced-motion: reduce) {
   *,

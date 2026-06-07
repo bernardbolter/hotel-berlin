@@ -1,6 +1,8 @@
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 
+import { Link } from '@/i18n/routing'
+
 const badgeColorClasses = {
   teal: 'bg-hbb-teal/10 text-hbb-teal',
   amber: 'bg-hbb-amber/15 text-hbb-amber',
@@ -65,24 +67,26 @@ export function ContentCard({
         )}
         <p className="flex-1 font-ui text-ui-sm text-gray-600">{body}</p>
         {meta && <p className="label-tag text-gray-400">{meta}</p>}
-        <a
-          href={ctaHref}
-          className="mt-auto flex items-center gap-1 font-ui text-ui-sm font-medium text-hbb-teal"
-          {...(ctaExternal
-            ? {
-                target: '_blank',
-                rel: 'noopener noreferrer',
-                'aria-label': `${ctaLabel} (opens in new tab)`,
-              }
-            : {})}
-        >
-          {ctaLabel}
-          {ctaExternal ? (
+        {ctaExternal ? (
+          <a
+            href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${ctaLabel} (opens in new tab)`}
+            className="mt-auto flex items-center gap-1 font-ui text-ui-sm font-medium text-hbb-teal"
+          >
+            {ctaLabel}
             <ExternalLink aria-hidden="true" size={13} />
-          ) : (
+          </a>
+        ) : (
+          <Link
+            href={ctaHref}
+            className="mt-auto flex items-center gap-1 font-ui text-ui-sm font-medium text-hbb-teal"
+          >
+            {ctaLabel}
             <ArrowRight aria-hidden="true" size={13} />
-          )}
-        </a>
+          </Link>
+        )}
       </div>
     </article>
   )

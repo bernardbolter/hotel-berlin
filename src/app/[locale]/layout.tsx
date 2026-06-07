@@ -36,8 +36,37 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const messages = await getMessages()
 
+  const hotelJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LodgingBusiness',
+    '@id': 'https://hotel-berlin.de/#hotel',
+    name: 'Hotel Berlin, Berlin',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Lützowplatz 17',
+      addressLocality: 'Berlin',
+      postalCode: '10785',
+      addressCountry: 'DE',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 52.5027,
+      longitude: 13.3583,
+    },
+    telephone: '+493026050',
+    email: 'info@hotel-berlin.de',
+    url: 'https://hotel-berlin.de',
+    sameAs: ['https://www.wikidata.org/wiki/Q1630833'],
+  }
+
   return (
     <html lang={locale} className={`${archivoNarrow.variable} ${lora.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd) }}
+        />
+      </head>
       <body>
         <a href="#main-content" className="skip-link">
           Skip to main content

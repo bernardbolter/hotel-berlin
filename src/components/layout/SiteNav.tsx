@@ -33,6 +33,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
+  const drawerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!mobileOpen) return
@@ -53,6 +54,33 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
     return () => {
       document.body.style.overflow = ''
     }
+  }, [mobileOpen])
+
+  useEffect(() => {
+    if (!mobileOpen || !drawerRef.current) return
+
+    const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])',
+    )
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+
+    first?.focus()
+
+    const handleTab = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || focusable.length === 0) return
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last?.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleTab)
+    return () => document.removeEventListener('keydown', handleTab)
   }, [mobileOpen])
 
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
@@ -165,6 +193,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
       </div>
 
       <div
+        ref={drawerRef}
         id="mobile-nav"
         hidden={!mobileOpen}
         role="dialog"

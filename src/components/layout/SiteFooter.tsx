@@ -184,7 +184,7 @@ export async function SiteFooter() {
       <div className="border-t border-white/8 bg-hbb-footer px-section-sm py-4 md:px-section-x">
         <p className="sr-only">{tc('awardsAria')}</p>
         <ul role="list" className="flex flex-wrap items-center gap-4">
-          <li className="font-ui text-label uppercase tracking-ui-label text-white/30">
+          <li className="font-ui text-label uppercase tracking-ui-label text-hbb-footer-muted">
             {t('recognition')}
           </li>
           {awards.map((award) => (
@@ -204,7 +204,7 @@ export async function SiteFooter() {
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/6 bg-hbb-footer px-section-sm py-3 md:px-section-x">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-ui text-[9px] uppercase tracking-ui-label text-white/30">
+          <span className="font-ui text-[9px] uppercase tracking-ui-label text-hbb-footer-muted">
             {t('partOf')}
           </span>
           <a
@@ -242,7 +242,7 @@ export async function SiteFooter() {
                 {i > 0 && <span aria-hidden="true" className="text-[10px] text-white/20">·</span>}
                 <a
                   href={link.href}
-                  className="font-ui text-[10.5px] text-white/30 hover:text-hbb-footer-muted"
+                  className="font-ui text-[10.5px] text-hbb-footer-muted hover:text-hbb-footer-link"
                 >
                   {link.label}
                 </a>
@@ -251,12 +251,12 @@ export async function SiteFooter() {
           </ul>
         </nav>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-ui text-[10.5px] text-white/20">{t('copyright')}</span>
+          <span className="font-ui text-[10.5px] text-hbb-footer-muted">{t('copyright')}</span>
           <a
             href="https://smoothism.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-ui text-[10.5px] text-white/20 hover:text-white/40"
+            className="font-ui text-[10.5px] text-hbb-footer-muted hover:text-hbb-footer-link"
           >
             {t('designBy')}
             <span className="sr-only"> {tc('opensInNewTab')}</span>

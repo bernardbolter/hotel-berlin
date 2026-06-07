@@ -37,7 +37,7 @@ export async function LutzeSection() {
             <span className="font-ui text-[28px] font-medium text-hbb-teal-deep">
               {t('name')}
             </span>
-            <span className="rounded-pill border border-hbb-amber px-2 py-0.5 font-ui text-[10px] uppercase tracking-ui-label text-hbb-amber">
+            <span className="rounded-pill border border-hbb-amber px-2 py-0.5 font-ui text-[10px] uppercase tracking-ui-label text-hbb-teal-deep">
               {t('tagline')}
             </span>
           </div>
@@ -77,7 +77,7 @@ export async function LutzeSection() {
             </a>
             <Link
               href="/here/dining"
-              className="border-b border-gray-300 pb-px font-ui text-ui-xs text-gray-400"
+              className="border-b border-gray-500 pb-px font-ui text-ui-xs text-gray-600"
             >
               {t('ctaDining')}
             </Link>

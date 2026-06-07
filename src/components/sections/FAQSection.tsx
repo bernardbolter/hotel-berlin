@@ -30,7 +30,7 @@ export function FAQSection({ pageContext, showAllLink = true }: FAQSectionProps)
             aria-hidden="true"
             className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-hbb-purple"
           >
-            <HelpCircle size={16} className="text-hbb-purple" />
+            <HelpCircle aria-hidden="true" size={16} className="text-hbb-purple" />
           </span>
           <h2 id="faq-heading" className="font-serif text-serif-lg font-medium text-hbb-black">
             {t('title')}

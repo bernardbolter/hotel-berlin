@@ -22,7 +22,7 @@ export function SectionHeading({
   return (
     <div className={className}>
       {label && (
-        <p className={`label-tag mb-1 ${isInverse ? 'text-hbb-footer-teal' : ''}`}>{label}</p>
+        <p className={`label-tag mb-1 ${isInverse ? 'label-tag--inverse' : ''}`}>{label}</p>
       )}
       <HeadingTag
         id={id}

@@ -21,7 +21,7 @@ export function KenBurnsSlider({
   images,
   interval = 5000,
   className = '',
-  'aria-label': ariaLabel = 'Photo gallery',
+  'aria-label': ariaLabel,
   children,
   currentIndex: controlledIndex,
   onIndexChange,
@@ -83,9 +83,12 @@ export function KenBurnsSlider({
     return null
   }
 
+  const resolvedAriaLabel = ariaLabel ?? tc('gallerySlides')
+
   return (
-    <section
-      aria-label={ariaLabel}
+    <div
+      role="region"
+      aria-label={resolvedAriaLabel}
       aria-roledescription="carousel"
       className={`relative h-full w-full overflow-hidden ${className}`}
     >
@@ -158,6 +161,6 @@ export function KenBurnsSlider({
           ))}
         </div>
       )}
-    </section>
+    </div>
   )
 }

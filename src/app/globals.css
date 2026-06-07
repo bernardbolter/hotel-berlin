@@ -71,6 +71,10 @@ body {
   color: theme('colors.hbb-teal');
 }
 
+.label-tag--inverse {
+  color: theme('colors.hbb-footer-teal');
+}
+
 /* Section heading underline pattern */
 .heading-underline {
   display: inline;

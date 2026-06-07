@@ -6,8 +6,8 @@ import { Link } from '@/i18n/routing'
 
 const badgeColorClasses = {
   teal: 'bg-hbb-teal/10 text-hbb-teal',
-  amber: 'bg-hbb-amber/15 text-hbb-amber',
-  green: 'bg-hbb-green/10 text-hbb-green',
+  amber: 'bg-hbb-amber/20 text-hbb-dark',
+  green: 'bg-hbb-green/15 text-hbb-teal-deep',
   purple: 'bg-hbb-purple/10 text-hbb-purple',
 } as const
 

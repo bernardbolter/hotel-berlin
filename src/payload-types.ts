@@ -69,6 +69,17 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    tags: Tag;
+    rooms: Room;
+    'meeting-rooms': MeetingRoom;
+    venues: Venue;
+    faqs: Faq;
+    artists: Artist;
+    artworks: Artwork;
+    exhibitions: Exhibition;
+    events: Event;
+    people: Person;
+    places: Place;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,18 +89,33 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    rooms: RoomsSelect<false> | RoomsSelect<true>;
+    'meeting-rooms': MeetingRoomsSelect<false> | MeetingRoomsSelect<true>;
+    venues: VenuesSelect<false> | VenuesSelect<true>;
+    faqs: FaqsSelect<false> | FaqsSelect<true>;
+    artists: ArtistsSelect<false> | ArtistsSelect<true>;
+    artworks: ArtworksSelect<false> | ArtworksSelect<true>;
+    exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    people: PeopleSelect<false> | PeopleSelect<true>;
+    places: PlacesSelect<false> | PlacesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
-  fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('de' | 'en') | ('de' | 'en')[];
+  globals: {
+    hotel: Hotel;
+  };
+  globalsSelect: {
+    hotel: HotelSelect<false> | HotelSelect<true>;
+  };
+  locale: 'de' | 'en';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -122,7 +148,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -147,7 +173,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -163,10 +189,613 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
+  slug: string;
+  type: 'category' | 'medium' | 'theme' | 'amenity' | 'neighbourhood';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rooms".
+ */
+export interface Room {
+  id: number;
+  name: string;
+  slug: string;
+  /**
+   * Max 160 chars. AI citation length.
+   */
+  shortDescription?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * From-price in EUR
+   */
+  fromPrice?: number | null;
+  currency?: string | null;
+  /**
+   * Floor area in m²
+   */
+  floorSizeM2?: number | null;
+  bedConfiguration?: {
+    type?: ('queen' | 'king' | 'twin' | 'bunk') | null;
+    details?: string | null;
+  };
+  occupancy?: {
+    maxAdults?: number | null;
+    maxChildren?: number | null;
+    maxTotal?: number | null;
+  };
+  amenities?: (number | Tag)[] | null;
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Radisson booking deep-link for this room type
+   */
+  bookingUrl?: string | null;
+  /**
+   * Show on homepage rooms teaser
+   */
+  featured?: boolean | null;
+  /**
+   * Order on rooms index page
+   */
+  displayOrder?: number | null;
+  /**
+   * You, Me & Berlin — insider story link
+   */
+  storyConnection?: {
+    hasStory?: boolean | null;
+    storyTeaser?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-rooms".
+ */
+export interface MeetingRoom {
+  id: number;
+  name: string;
+  slug: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortDescription?: string | null;
+  floorSizeM2: number;
+  area?: ('ballroom' | 'area-a' | 'area-b' | 'area-c') | null;
+  capacity?: {
+    classroom?: number | null;
+    theatre?: number | null;
+    banquet?: number | null;
+    uShape?: number | null;
+    cabaret?: number | null;
+    reception?: number | null;
+    block?: number | null;
+  };
+  features?: {
+    screen?: boolean | null;
+    projector?: boolean | null;
+    divisible?: boolean | null;
+    naturalLight?: boolean | null;
+    hybridReady?: boolean | null;
+  };
+  /**
+   * Other rooms this can be combined with
+   */
+  combinableWith?: (number | MeetingRoom)[] | null;
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  enquiryUrl?: string | null;
+  displayOrder?: number | null;
+  /**
+   * Show on meetings page teaser
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "venues".
+ */
+export interface Venue {
+  id: number;
+  name: string;
+  slug: string;
+  venueType: 'Restaurant' | 'Bar' | 'ArtGallery' | 'SportsActivityLocation' | 'EventVenue' | 'LocalBusiness';
+  tagline?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortDescription?: string | null;
+  /**
+   * e.g. "B2 Basement", "Ground Floor", "Lützowplatz 17"
+   */
+  location?: string | null;
+  telephone?: string | null;
+  email?: string | null;
+  website?: string | null;
+  instagramUrl?: string | null;
+  openingHours?:
+    | {
+        /**
+         * e.g. Mo-Su or Monday,Tuesday
+         */
+        dayOfWeek?: string | null;
+        /**
+         * e.g. 10:00
+         */
+        opens?: string | null;
+        /**
+         * e.g. 23:00 or open-end
+         */
+        closes?: string | null;
+        /**
+         * e.g. "Kitchen", "Bar"
+         */
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Restaurant only. e.g. Italian, International
+   */
+  servesCuisine?: string | null;
+  reservationUrl?: string | null;
+  menuUrl?: string | null;
+  priceRange?: string | null;
+  isOpenToPublic?: boolean | null;
+  isGuestFacing?: boolean | null;
+  heroImage?: (number | null) | Media;
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  tags?: (number | Tag)[] | null;
+  sameAs?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  featured?: boolean | null;
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: number;
+  /**
+   * Write as someone would ask an AI assistant. Not "Check-in procedures" but "What time can I check in at Hotel Berlin?"
+   */
+  question: string;
+  /**
+   * Self-contained answer. Front-load the answer. Name the hotel explicitly. Max ~120 words.
+   */
+  answer: string;
+  audience: 'prospect' | 'guest' | 'both';
+  category:
+    | 'check-in'
+    | 'cancellation'
+    | 'payment'
+    | 'parking'
+    | 'pets'
+    | 'transport'
+    | 'dining'
+    | 'amenities'
+    | 'accessibility'
+    | 'local'
+    | 'events';
+  tags?: (number | Tag)[] | null;
+  /**
+   * Lower = shown first. Use for homepage FAQ ordering.
+   */
+  priority?: number | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists".
+ */
+export interface Artist {
+  id: number;
+  name: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  alias?: string | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortBio?: string | null;
+  portrait?: (number | null) | Media;
+  website?: string | null;
+  instagram?: string | null;
+  nationality?: string | null;
+  basedIn?: string | null;
+  medium?: string | null;
+  tags?: (number | Tag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks".
+ */
+export interface Artwork {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  artist: number | Artist;
+  editionNumber?: string | null;
+  medium?: string | null;
+  dimensions?: string | null;
+  year?: number | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  status?: ('available' | 'sold' | 'not-for-sale') | null;
+  tags?: (number | Tag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions".
+ */
+export interface Exhibition {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  subtitle?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  location?: string | null;
+  heroImage?: (number | null) | Media;
+  artists?: (number | Artist)[] | null;
+  artworks?: (number | Artwork)[] | null;
+  status?: ('upcoming' | 'current' | 'past') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  name: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortDescription?: string | null;
+  startDate: string;
+  endDate?: string | null;
+  category?: ('Art' | 'Music' | 'Sport' | 'Food' | 'Community' | 'Neighbourhood' | 'Other') | null;
+  venue?: (number | null) | Venue;
+  price?: number | null;
+  ticketUrl?: string | null;
+  heroImage?: (number | null) | Media;
+  tags?: (number | Tag)[] | null;
+  featured?: boolean | null;
+  isRecurring?: boolean | null;
+  recurrenceNote?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: number;
+  name: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  role?: string | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortBio?: string | null;
+  portrait?: (number | null) | Media;
+  website?: string | null;
+  instagram?: string | null;
+  tags?: (number | Tag)[] | null;
+  /**
+   * Marks as You, Me & Berlin profile
+   */
+  isInsider?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "places".
+ */
+export interface Place {
+  id: number;
+  /**
+   * Display name shown on map and cards
+   */
+  name: string;
+  /**
+   * URL-safe identifier — auto-generated from name, editable
+   */
+  slug: string;
+  /**
+   * Controls which map this place appears on. "Both" = hotel concierge picks visible to all.
+   */
+  context: 'outside' | 'inside' | 'both';
+  /**
+   * Monument = static editorial content. Concierge = team voice, updated seasonally. In the building = Lütze, KTTK, FKKB etc.
+   */
+  type: 'monument' | 'concierge' | 'in-building';
+  category:
+    | 'park'
+    | 'museum'
+    | 'gallery'
+    | 'culture'
+    | 'restaurant'
+    | 'bar'
+    | 'cafe'
+    | 'shop'
+    | 'transport'
+    | 'sport'
+    | 'other';
+  /**
+   * One line — shown in map popup and card previews. Max 120 characters. Write in the hotel voice — direct, specific, no superlatives.
+   */
+  shortDescription: string;
+  /**
+   * German version of short description. Write natively — do not translate.
+   */
+  shortDescriptionDE?: string | null;
+  /**
+   * Used on detail pages and expanded card views. Optional for monuments, recommended for concierge picks.
+   */
+  fullDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  location: {
+    /**
+     * Latitude — e.g. 52.5027
+     */
+    lat: number;
+    /**
+     * Longitude — e.g. 13.3583
+     */
+    lng: number;
+  };
+  /**
+   * Street address — shown in popup. Optional for parks and landmarks.
+   */
+  address?: string | null;
+  /**
+   * Walking time from hotel in minutes. Fill this in manually — the team knows whether it is a nice walk or not. Leave empty for in-building places.
+   */
+  walkingMinutes?: number | null;
+  /**
+   * Optional note on the walk — e.g. "Nice route along the canal". Keep it short.
+   */
+  walkingNote?: string | null;
+  /**
+   * For in-building places only — e.g. "Ground floor", "B2 Basement", "Every floor". Replaces walking time in the UI.
+   */
+  floor?: string | null;
+  /**
+   * Full URL including https://
+   */
+  website?: string | null;
+  /**
+   * Opening hours as a simple string — e.g. "Daily 10:00–22:00" or "Thu–Sun from 18:00"
+   */
+  hours?: string | null;
+  /**
+   * Used in card views and detail pages. Not shown on the map itself.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Overrides the automatic icon set by category. Leave as "auto" unless you need something specific.
+   */
+  pinIcon?: ('auto' | 'building' | 'park' | 'music' | 'cafe' | 'shop' | 'gallery' | 'waves' | 'arch' | 'sport') | null;
+  /**
+   * Schema.org type used in JSON-LD output. Defaults to TouristAttraction — change for restaurants, bars etc.
+   */
+  schemaType?:
+    | (
+        | 'LodgingBusiness'
+        | 'TouristAttraction'
+        | 'LocalBusiness'
+        | 'Restaurant'
+        | 'CafeOrCoffeeShop'
+        | 'BarOrPub'
+        | 'Park'
+        | 'ArtGallery'
+        | 'Museum'
+        | 'SportsActivityLocation'
+      )
+    | null;
+  /**
+   * Featured places are shown on the homepage MapTeaser. Keep to 6–8 maximum.
+   */
+  featured?: boolean | null;
+  /**
+   * Uncheck to hide from maps and lists without deleting the record.
+   */
+  active?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -183,20 +812,64 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'rooms';
+        value: number | Room;
+      } | null)
+    | ({
+        relationTo: 'meeting-rooms';
+        value: number | MeetingRoom;
+      } | null)
+    | ({
+        relationTo: 'venues';
+        value: number | Venue;
+      } | null)
+    | ({
+        relationTo: 'faqs';
+        value: number | Faq;
+      } | null)
+    | ({
+        relationTo: 'artists';
+        value: number | Artist;
+      } | null)
+    | ({
+        relationTo: 'artworks';
+        value: number | Artwork;
+      } | null)
+    | ({
+        relationTo: 'exhibitions';
+        value: number | Exhibition;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'people';
+        value: number | Person;
+      } | null)
+    | ({
+        relationTo: 'places';
+        value: number | Place;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -206,10 +879,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -229,7 +902,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -277,6 +950,317 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rooms_select".
+ */
+export interface RoomsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  shortDescription?: T;
+  description?: T;
+  fromPrice?: T;
+  currency?: T;
+  floorSizeM2?: T;
+  bedConfiguration?:
+    | T
+    | {
+        type?: T;
+        details?: T;
+      };
+  occupancy?:
+    | T
+    | {
+        maxAdults?: T;
+        maxChildren?: T;
+        maxTotal?: T;
+      };
+  amenities?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        caption?: T;
+        id?: T;
+      };
+  bookingUrl?: T;
+  featured?: T;
+  displayOrder?: T;
+  storyConnection?:
+    | T
+    | {
+        hasStory?: T;
+        storyTeaser?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-rooms_select".
+ */
+export interface MeetingRoomsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  shortDescription?: T;
+  floorSizeM2?: T;
+  area?: T;
+  capacity?:
+    | T
+    | {
+        classroom?: T;
+        theatre?: T;
+        banquet?: T;
+        uShape?: T;
+        cabaret?: T;
+        reception?: T;
+        block?: T;
+      };
+  features?:
+    | T
+    | {
+        screen?: T;
+        projector?: T;
+        divisible?: T;
+        naturalLight?: T;
+        hybridReady?: T;
+      };
+  combinableWith?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
+  enquiryUrl?: T;
+  displayOrder?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "venues_select".
+ */
+export interface VenuesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  venueType?: T;
+  tagline?: T;
+  description?: T;
+  shortDescription?: T;
+  location?: T;
+  telephone?: T;
+  email?: T;
+  website?: T;
+  instagramUrl?: T;
+  openingHours?:
+    | T
+    | {
+        dayOfWeek?: T;
+        opens?: T;
+        closes?: T;
+        label?: T;
+        id?: T;
+      };
+  servesCuisine?: T;
+  reservationUrl?: T;
+  menuUrl?: T;
+  priceRange?: T;
+  isOpenToPublic?: T;
+  isGuestFacing?: T;
+  heroImage?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
+  tags?: T;
+  sameAs?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  featured?: T;
+  displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  audience?: T;
+  category?: T;
+  tags?: T;
+  priority?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists_select".
+ */
+export interface ArtistsSelect<T extends boolean = true> {
+  name?: T;
+  generateSlug?: T;
+  slug?: T;
+  alias?: T;
+  bio?: T;
+  shortBio?: T;
+  portrait?: T;
+  website?: T;
+  instagram?: T;
+  nationality?: T;
+  basedIn?: T;
+  medium?: T;
+  tags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks_select".
+ */
+export interface ArtworksSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  artist?: T;
+  editionNumber?: T;
+  medium?: T;
+  dimensions?: T;
+  year?: T;
+  description?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
+  status?: T;
+  tags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions_select".
+ */
+export interface ExhibitionsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  subtitle?: T;
+  description?: T;
+  startDate?: T;
+  endDate?: T;
+  location?: T;
+  heroImage?: T;
+  artists?: T;
+  artworks?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  name?: T;
+  generateSlug?: T;
+  slug?: T;
+  description?: T;
+  shortDescription?: T;
+  startDate?: T;
+  endDate?: T;
+  category?: T;
+  venue?: T;
+  price?: T;
+  ticketUrl?: T;
+  heroImage?: T;
+  tags?: T;
+  featured?: T;
+  isRecurring?: T;
+  recurrenceNote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people_select".
+ */
+export interface PeopleSelect<T extends boolean = true> {
+  name?: T;
+  generateSlug?: T;
+  slug?: T;
+  role?: T;
+  bio?: T;
+  shortBio?: T;
+  portrait?: T;
+  website?: T;
+  instagram?: T;
+  tags?: T;
+  isInsider?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "places_select".
+ */
+export interface PlacesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  context?: T;
+  type?: T;
+  category?: T;
+  shortDescription?: T;
+  shortDescriptionDE?: T;
+  fullDescription?: T;
+  location?:
+    | T
+    | {
+        lat?: T;
+        lng?: T;
+      };
+  address?: T;
+  walkingMinutes?: T;
+  walkingNote?: T;
+  floor?: T;
+  website?: T;
+  hours?: T;
+  image?: T;
+  pinIcon?: T;
+  schemaType?: T;
+  featured?: T;
+  active?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -314,6 +1298,157 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotel".
+ */
+export interface Hotel {
+  id: number;
+  name: string;
+  legalName?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Max 160 chars. Used for meta descriptions and AI citation.
+   */
+  shortDescription?: string | null;
+  url?: string | null;
+  telephone?: string | null;
+  conferencePhone?: string | null;
+  email?: string | null;
+  address?: {
+    streetAddress?: string | null;
+    addressLocality?: string | null;
+    postalCode?: string | null;
+    addressCountry?: string | null;
+  };
+  geo?: {
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+  /**
+   * Google Maps URL
+   */
+  hasMap?: string | null;
+  checkinTime?: string | null;
+  checkoutTime?: string | null;
+  starRating?: number | null;
+  priceRange?: string | null;
+  totalRooms?: number | null;
+  foundingDate?: string | null;
+  brand?: string | null;
+  parentOrganization?: string | null;
+  /**
+   * e.g. Q1630833
+   */
+  wikidataId?: string | null;
+  sameAs?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  amenityFeature?:
+    | {
+        name?: string | null;
+        value?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  certifications?:
+    | {
+        name?: string | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  openingHours?: {
+    reception?: string | null;
+    breakfast?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotel_select".
+ */
+export interface HotelSelect<T extends boolean = true> {
+  name?: T;
+  legalName?: T;
+  description?: T;
+  shortDescription?: T;
+  url?: T;
+  telephone?: T;
+  conferencePhone?: T;
+  email?: T;
+  address?:
+    | T
+    | {
+        streetAddress?: T;
+        addressLocality?: T;
+        postalCode?: T;
+        addressCountry?: T;
+      };
+  geo?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  hasMap?: T;
+  checkinTime?: T;
+  checkoutTime?: T;
+  starRating?: T;
+  priceRange?: T;
+  totalRooms?: T;
+  foundingDate?: T;
+  brand?: T;
+  parentOrganization?: T;
+  wikidataId?: T;
+  sameAs?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  amenityFeature?:
+    | T
+    | {
+        name?: T;
+        value?: T;
+        id?: T;
+      };
+  certifications?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        id?: T;
+      };
+  openingHours?:
+    | T
+    | {
+        reception?: T;
+        breakfast?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

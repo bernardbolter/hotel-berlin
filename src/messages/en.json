@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "rooms": "Rooms & Suites",
+    "restaurant": "Lütze",
+    "meetings": "Meetings & Events",
+    "about": "About",
+    "whatsOn": "What's on",
+    "events": "Events",
+    "art": "Art",
+    "dining": "Dining",
+    "explore": "Explore",
+    "faq": "FAQ",
+    "theHotel": "The hotel",
+    "bookNow": "Book now",
+    "langToggle": "DE"
+  },
+  "home": {
+    "heroHeadline": "Let's start your Berlin story.",
+    "heroSubline": "Hotel Berlin, Berlin — since 1958."
+  },
+  "here": {
+    "heroHeadline": "What's on today.",
+    "heroSubline": "Your stay, your city."
+  },
+  "rooms": {
+    "sectionLabel": "Sleep & Relax",
+    "intro": "Whether it's your first time in Berlin or you're a seasoned traveller — thoughtful design details make every room a personal retreat.",
+    "discoverCta": "Discover our rooms"
+  },
+  "meetings": {
+    "sectionLabel": "Meet & Work",
+    "intro": "Over 4,000m² of flexible conference and meeting space, cutting-edge event technology, and a dedicated team to ensure everything runs smoothly.",
+    "cta": "All meeting rooms"
+  },
+  "arts": {
+    "sectionLabel": "Arts & Culture"
+  },
+  "lutze": {
+    "sectionLabel": "Lütze",
+    "tagline": "The place to eat, play, and hang all day.",
+    "cta": "Visit Lütze",
+    "reserveCta": "Reserve a table"
+  },
+  "footer": {
+    "address": "Lützowplatz 17, 10785 Berlin",
+    "phone": "+49 30 260050",
+    "email": "info@hotel-berlin.de"
+  }
+}

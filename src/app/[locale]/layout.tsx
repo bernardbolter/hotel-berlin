@@ -1,6 +1,6 @@
 import { Archivo_Narrow, Lora } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
@@ -35,6 +35,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   const messages = await getMessages()
+  const tc = await getTranslations('common')
 
   const hotelJsonLd = {
     '@context': 'https://schema.org',
@@ -69,7 +70,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body>
         <a href="#main-content" className="skip-link">
-          Skip to main content
+          {tc('skipToMain')}
         </a>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>

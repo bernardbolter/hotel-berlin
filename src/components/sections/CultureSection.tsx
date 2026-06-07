@@ -1,8 +1,12 @@
+import { getTranslations } from 'next-intl/server'
+
 import { ContentCard } from '@/components/primitives/ContentCard'
 import { SectionHeading } from '@/components/primitives/SectionHeading'
-import { cultureCards } from '@/lib/data/cultureCards'
+import { cultureCardConfig } from '@/lib/data/cultureCards'
 
-export function CultureSection() {
+export async function CultureSection() {
+  const t = await getTranslations('culture')
+
   return (
     <section
       aria-labelledby="culture-heading"
@@ -10,19 +14,33 @@ export function CultureSection() {
     >
       <SectionHeading
         id="culture-heading"
-        label="Arts & Culture"
-        title="The building is the programme"
+        label={t('label')}
+        title={t('title')}
         className="mb-8"
       />
       <ul
         role="list"
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
-        aria-label="Arts and culture at Hotel Berlin, Berlin"
+        aria-label={t('gridAria')}
       >
-        {cultureCards.map((card) => (
-          <li key={card.title}>
-            <ContentCard {...card} />
-          </li>
+        {(await Promise.all(
+          cultureCardConfig.map(async (card) => (
+            <li key={card.id}>
+              <ContentCard
+              badge={t(`cards.${card.id}.badge`)}
+              badgeColor={card.badgeColor}
+              title={t(`cards.${card.id}.title`)}
+              subtitle={t(`cards.${card.id}.subtitle`)}
+              body={t(`cards.${card.id}.body`)}
+              meta={t(`cards.${card.id}.meta`)}
+              ctaLabel={t(`cards.${card.id}.cta`)}
+              ctaHref={card.ctaHref}
+              ctaExternal={card.ctaExternal}
+              image={card.image}
+              imageAlt={t(`cards.${card.id}.imageAlt`)}
+              />
+            </li>
+          )),
         ))}
       </ul>
     </section>

@@ -1,46 +1,43 @@
 [
   {
-    "name": "Berlin 3",
-    "capacityLabel": "Up to 120 guests",
+    "id": "berlin-3",
     "icons": [
-      { "label": "240 m²", "icon": "ruler" },
-      { "label": "Theatre", "icon": "users" },
-      { "label": "AV included", "icon": "monitor" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconTheatre", "icon": "users" },
+      { "key": "iconAv", "icon": "monitor" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
-        "alt": "Berlin 3 conference room"
+        "altKey": "imageAlt"
       }
     ]
   },
   {
-    "name": "Meeting Room A1",
-    "capacityLabel": "Up to 24 guests",
+    "id": "meeting-room-a1",
     "icons": [
-      { "label": "48 m²", "icon": "ruler" },
-      { "label": "Boardroom", "icon": "users" },
-      { "label": "Daylight", "icon": "sun" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconBoardroom", "icon": "users" },
+      { "key": "iconDaylight", "icon": "sun" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-        "alt": "Meeting Room A1 boardroom setup"
+        "altKey": "imageAlt"
       }
     ]
   },
   {
-    "name": "Berlin, Berlin",
-    "capacityLabel": "Up to 600 guests",
+    "id": "berlin-berlin",
     "icons": [
-      { "label": "850 m²", "icon": "ruler" },
-      { "label": "Theatre", "icon": "users" },
-      { "label": "Full AV", "icon": "monitor" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconTheatre", "icon": "users" },
+      { "key": "iconAv", "icon": "monitor" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
-        "alt": "Berlin, Berlin ballroom"
+        "altKey": "imageAlt"
       }
     ]
   }

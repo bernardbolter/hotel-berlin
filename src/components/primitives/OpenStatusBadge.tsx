@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 import { getStatus, type StatusResult, type StatusType } from '@/lib/lutze/openStatus'
@@ -19,6 +20,7 @@ const dotClass: Record<StatusType, string> = {
 }
 
 export function OpenStatusBadge() {
+  const t = useTranslations('lutze.status')
   const [status, setStatus] = useState<StatusResult>(getStatus())
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export function OpenStatusBadge() {
       className={`inline-flex items-center gap-1.5 rounded-pill px-3 py-1 font-ui text-ui-sm font-medium ${badgeClass[status.type]}`}
     >
       <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${dotClass[status.type]}`} />
-      {status.text}
+      {t(status.messageKey)}
     </div>
   )
 }

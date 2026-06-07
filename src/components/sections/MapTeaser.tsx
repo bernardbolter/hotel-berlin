@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
 import { HintDot } from '@/components/primitives/HintDot'
 import { HotelDiscPin } from '@/components/primitives/HotelDiscPin'
@@ -10,7 +11,8 @@ import { getFeaturedPlaces } from '@/lib/queries/places'
 
 import { Link } from '@/i18n/routing'
 
-export function MapTeaser() {
+export async function MapTeaser() {
+  const t = await getTranslations('map')
   const featuredPlaces = getFeaturedPlaces().filter((p) => p.slug !== 'hotel-berlin-berlin')
   const hotelPosition = coordsToPercent(HOTEL_COORDS.lat, HOTEL_COORDS.lng)
 
@@ -19,11 +21,11 @@ export function MapTeaser() {
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <SectionHeading
           id="map-heading"
-          label="Neighbourhood"
-          title="You're in the right part of Berlin"
-          subtitle="Tiergarten, the canal, Ku'damm — all on foot"
+          label={t('label')}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
-        <p className="font-ui text-ui-sm text-gray-500">Everything within 15 min on foot</p>
+        <p className="font-ui text-ui-sm text-gray-500">{t('walkNote')}</p>
       </div>
 
       <div className="relative mb-6 aspect-[16/7] min-h-[220px] overflow-hidden border border-gray-200">
@@ -57,7 +59,7 @@ export function MapTeaser() {
         href="/neighbourhood"
         className="inline-flex items-center gap-1.5 font-ui text-ui-sm font-medium text-hbb-teal"
       >
-        Explore the neighbourhood
+        {t('cta')}
         <ArrowRight aria-hidden="true" size={13} />
       </Link>
     </section>

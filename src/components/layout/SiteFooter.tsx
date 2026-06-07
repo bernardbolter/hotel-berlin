@@ -7,68 +7,70 @@ import {
   Phone,
   Train,
 } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 
 import { FooterNavColumn } from '@/components/layout/FooterNavColumn'
 
 import { Link } from '@/i18n/routing'
 
-const awards = [
-  'BREEAM Certified',
-  'The Green Key',
-  'Cvent Top 25 Europe Independent Hotels',
-  'Sustainable Meetings Berlin Leader',
-  'Sustainable Berlin Leader',
-]
+export async function SiteFooter() {
+  const t = await getTranslations('footer')
+  const tc = await getTranslations('common')
 
-const legalLinks = [
-  { label: 'Imprint', href: '/imprint' },
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms', href: '/terms' },
-  { label: 'Accessibility', href: '/accessibility' },
-]
-
-export function SiteFooter() {
   const stayLinks = [
-    { label: 'Rooms & Suites', href: '/rooms' },
-    { label: 'Offers', href: '/offers' },
-    { label: 'Book direct', href: '/book' },
-    { label: 'Radisson Rewards', href: 'https://radissonhotels.com/rewards', muted: true },
+    { label: t('stayRooms'), href: '/rooms' },
+    { label: t('stayOffers'), href: '/offers' },
+    { label: t('stayBookDirect'), href: '/book' },
+    { label: t('stayRewards'), href: 'https://radissonhotels.com/rewards', muted: true },
   ]
 
   const eatMeetLinks = [
-    { label: 'Lütze', href: 'https://luetze-berlin.de' },
-    { label: 'Meetings & Events', href: '/meetings' },
-    { label: 'Weddings', href: '/meetings' },
-    { label: 'Table tennis — KTTK', href: '/here/explore' },
+    { label: t('eatLutze'), href: 'https://luetze-berlin.de' },
+    { label: t('eatMeetings'), href: '/meetings' },
+    { label: t('eatWeddings'), href: '/meetings' },
+    { label: t('eatKttk'), href: '/here/explore' },
   ]
 
   const helpLinks = [
-    { label: 'FAQs', href: '/faqs' },
-    { label: 'Contact', href: 'mailto:info@hotel-berlin.de' },
-    { label: 'Getting here', href: '/neighbourhood' },
-    { label: 'Careers', href: 'https://careers.radissonhotels.com', muted: true },
+    { label: t('helpFaqs'), href: '/faqs' },
+    { label: t('helpContact'), href: 'mailto:info@hotel-berlin.de' },
+    { label: t('helpGettingHere'), href: '/neighbourhood' },
+    { label: t('helpCareers'), href: 'https://careers.radissonhotels.com', muted: true },
   ]
 
   const insideLinks = [
-    { label: "What's on today", href: '/here/events' },
-    { label: 'Dining & drinks', href: '/here/dining' },
-    { label: 'Neighbourhood picks', href: '/here/explore' },
-    { label: 'Guest FAQs', href: '/here/faq' },
+    { label: t('insideWhatsOn'), href: '/here/events' },
+    { label: t('insideDining'), href: '/here/dining' },
+    { label: t('insideNeighbourhood'), href: '/here/explore' },
+    { label: t('insideFaqs'), href: '/here/faq' },
   ] as const
 
+  const awards = [
+    t('awardBreeam'),
+    t('awardGreenKey'),
+    t('awardCvent'),
+    t('awardMeetings'),
+    t('awardBerlin'),
+  ]
+
+  const legalLinks = [
+    { label: t('legalImprint'), href: '/imprint' },
+    { label: t('legalPrivacy'), href: '/privacy' },
+    { label: t('legalTerms'), href: '/terms' },
+    { label: t('legalAccessibility'), href: '/accessibility' },
+  ]
+
   const socials = [
-    { label: 'Instagram', href: 'https://instagram.com/hotelberlinberlin', icon: Share2 },
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/hotel-berlin-berlin', icon: Globe },
+    { label: t('socialInstagram'), href: 'https://instagram.com/hotelberlinberlin', icon: Share2 },
+    { label: t('socialLinkedIn'), href: 'https://linkedin.com/company/hotel-berlin-berlin', icon: Globe },
   ]
 
   return (
-    <footer aria-label="Site footer">
+    <footer aria-label={tc('siteFooterAria')}>
       <div className="flex flex-col items-start justify-between gap-4 bg-hbb-amber px-section-sm py-3 md:flex-row md:items-center md:px-section-x">
-        <p className="font-ui text-ui-sm font-medium text-hbb-dark">
-          Best rate guaranteed when you book direct
-        </p>
+        <p className="font-ui text-ui-sm font-medium text-hbb-dark">{t('bookingStrip')}</p>
         <a href="/book" className="btn-dark flex items-center gap-1.5 text-ui-sm">
-          Check availability
+          {t('checkAvailability')}
           <ArrowRight aria-hidden="true" size={13} />
         </a>
       </div>
@@ -78,14 +80,14 @@ export function SiteFooter() {
           <div className="grid grid-cols-1 gap-6 pr-0 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-6 lg:pr-10">
             <div>
               <p className="mb-1 font-ui text-ui-sm font-medium text-hbb-footer-primary">
-                Hotel Berlin, Berlin
+                {tc('hotelName')}
               </p>
               <address className="mb-4 font-ui text-ui-xs not-italic leading-relaxed text-hbb-footer-muted">
                 Lützowplatz 17
                 <br />
-                10785 Berlin, Germany
+                10785 Berlin, {tc('germany')}
                 <br />
-                Since 1958
+                {tc('since1958')}
               </address>
               <ul role="list" className="mb-4 flex flex-col gap-1.5">
                 <li>
@@ -108,17 +110,17 @@ export function SiteFooter() {
                 </li>
                 <li className="flex items-center gap-1.5 font-ui text-ui-xs text-hbb-footer-muted">
                   <Train aria-hidden="true" size={11} className="flex-shrink-0 text-hbb-footer-amber" />
-                  Bus 100, 106, 187 · U Nollendorfplatz 7 min · S+U Zoo 10 min
+                  {t('transit')}
                 </li>
               </ul>
-              <ul role="list" className="flex gap-1.5" aria-label="Social media links">
+              <ul role="list" className="flex gap-1.5" aria-label={tc('socialLinksAria')}>
                 {socials.map((social) => (
                   <li key={social.label}>
                     <a
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${social.label} (opens in new tab)`}
+                      aria-label={`${social.label} ${tc('opensInNewTab')}`}
                       className="flex h-7 w-7 items-center justify-center rounded-full border border-white/15 text-hbb-footer-muted hover:border-hbb-footer-amber/40 hover:text-hbb-footer-amber"
                     >
                       <social.icon aria-hidden="true" size={12} />
@@ -129,21 +131,21 @@ export function SiteFooter() {
             </div>
 
             <FooterNavColumn
-              title="Stay"
+              title={t('stayTitle')}
               iconName="bed-double"
-              ariaLabel="Stay navigation"
+              ariaLabel={t('stayNavAria')}
               links={stayLinks}
             />
             <FooterNavColumn
-              title="Eat & Meet"
+              title={t('eatMeetTitle')}
               iconName="utensils"
-              ariaLabel="Eat and meet navigation"
+              ariaLabel={t('eatMeetNavAria')}
               links={eatMeetLinks}
             />
             <FooterNavColumn
-              title="Help"
+              title={t('helpTitle')}
               iconName="help-circle"
-              ariaLabel="Help navigation"
+              ariaLabel={t('helpNavAria')}
               links={helpLinks}
             />
           </div>
@@ -154,16 +156,15 @@ export function SiteFooter() {
             <Link
               href="/here"
               className="mb-3 inline-flex items-center gap-1.5 rounded-pill border border-hbb-footer-teal/30 bg-hbb-footer-teal/8 px-2 py-1 font-ui text-label uppercase tracking-ui-label text-hbb-footer-teal"
-              aria-label="Already here? Enter guest hub"
+              aria-label={t('alreadyHereAria')}
             >
               <DoorOpen aria-hidden="true" size={11} />
-              Already here?
+              {t('alreadyHere')}
             </Link>
             <p className="mb-3 font-ui text-ui-xs leading-relaxed text-hbb-footer-muted">
-              Your guest hub — events, dining, neighbourhood picks, and everything you need during
-              your stay.
+              {t('alreadyHereDesc')}
             </p>
-            <ul role="list" aria-label="Guest hub links" className="flex flex-col">
+            <ul role="list" aria-label={tc('guestHubLinksAria')} className="flex flex-col">
               {insideLinks.map((link) => (
                 <li key={link.label} className="border-t border-white/8 last:border-b">
                   <Link
@@ -181,10 +182,10 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/8 bg-hbb-footer px-section-sm py-4 md:px-section-x">
-        <p className="sr-only">Awards and recognition</p>
+        <p className="sr-only">{tc('awardsAria')}</p>
         <ul role="list" className="flex flex-wrap items-center gap-4">
           <li className="font-ui text-label uppercase tracking-ui-label text-white/30">
-            Recognition
+            {t('recognition')}
           </li>
           {awards.map((award) => (
             <li
@@ -204,7 +205,7 @@ export function SiteFooter() {
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/6 bg-hbb-footer px-section-sm py-3 md:px-section-x">
         <div className="flex flex-wrap items-center gap-3">
           <span className="font-ui text-[9px] uppercase tracking-ui-label text-white/30">
-            Part of
+            {t('partOf')}
           </span>
           <a
             href="https://radissonhotels.com"
@@ -212,8 +213,8 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="font-ui text-[10.5px] text-hbb-footer-muted hover:text-hbb-footer-link"
           >
-            Radisson Individuals
-            <span className="sr-only"> (opens in new tab)</span>
+            {t('radissonIndividuals')}
+            <span className="sr-only"> {tc('opensInNewTab')}</span>
           </a>
           <a
             href="https://radissonhotels.com/rewards"
@@ -221,8 +222,8 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="font-ui text-[10.5px] text-hbb-footer-muted hover:text-hbb-footer-link"
           >
-            Radisson Rewards
-            <span className="sr-only"> (opens in new tab)</span>
+            {t('radissonRewards')}
+            <span className="sr-only"> {tc('opensInNewTab')}</span>
           </a>
           <a
             href="https://pandox.com"
@@ -230,11 +231,11 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="font-ui text-[10.5px] text-hbb-footer-muted hover:text-hbb-footer-link"
           >
-            Pandox
-            <span className="sr-only"> (opens in new tab)</span>
+            {t('pandox')}
+            <span className="sr-only"> {tc('opensInNewTab')}</span>
           </a>
         </div>
-        <nav aria-label="Legal links">
+        <nav aria-label={tc('legalNavAria')}>
           <ul role="list" className="flex flex-wrap items-center gap-2">
             {legalLinks.map((link, i) => (
               <li key={link.label} className="flex items-center gap-2">
@@ -250,15 +251,15 @@ export function SiteFooter() {
           </ul>
         </nav>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-ui text-[10.5px] text-white/20">© 2026 Pandox Berlin GmbH</span>
+          <span className="font-ui text-[10.5px] text-white/20">{t('copyright')}</span>
           <a
             href="https://smoothism.com"
             target="_blank"
             rel="noopener noreferrer"
             className="font-ui text-[10.5px] text-white/20 hover:text-white/40"
           >
-            design by: smoothism.com
-            <span className="sr-only"> (opens in new tab)</span>
+            {t('designBy')}
+            <span className="sr-only"> {tc('opensInNewTab')}</span>
           </a>
         </div>
       </div>

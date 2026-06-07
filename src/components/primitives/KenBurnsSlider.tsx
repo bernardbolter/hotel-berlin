@@ -2,6 +2,7 @@
 
 import { Pause, Play } from 'lucide-react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 export interface KenBurnsSliderProps {
@@ -27,6 +28,7 @@ export function KenBurnsSlider({
   showDots = true,
   showPauseButton = true,
 }: KenBurnsSliderProps) {
+  const tc = useTranslations('common')
   const [internalIndex, setInternalIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -88,7 +90,7 @@ export function KenBurnsSlider({
       className={`relative h-full w-full overflow-hidden ${className}`}
     >
       <div aria-live="polite" aria-atomic="true" className="sr-only">
-        {`Image ${currentIndex + 1} of ${images.length}`}
+        {tc('slideAnnouncement', { current: currentIndex + 1, total: images.length })}
         {images[currentIndex]?.alt ? `: ${images[currentIndex].alt}` : ''}
       </div>
 
@@ -119,7 +121,7 @@ export function KenBurnsSlider({
         <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2">
           <button
             type="button"
-            aria-label={paused ? 'Play slideshow' : 'Pause slideshow'}
+            aria-label={paused ? tc('playSlideshow') : tc('pauseSlideshow')}
             onClick={() => setPaused((p) => !p)}
             className="flex h-8 w-8 items-center justify-center bg-hbb-dark/60 text-white"
           >
@@ -135,7 +137,7 @@ export function KenBurnsSlider({
       {showDots && images.length > 1 && (
         <div
           role="tablist"
-          aria-label="Gallery slides"
+          aria-label={tc('gallerySlides')}
           className="absolute bottom-3 left-3 z-10 flex gap-1.5"
         >
           {images.map((_, i) => (
@@ -144,7 +146,7 @@ export function KenBurnsSlider({
               type="button"
               role="tab"
               aria-selected={i === currentIndex}
-              aria-label={`Slide ${i + 1} of ${images.length}`}
+              aria-label={tc('slideAnnouncement', { current: i + 1, total: images.length })}
               onClick={() => {
                 goTo(i)
                 setPaused(false)

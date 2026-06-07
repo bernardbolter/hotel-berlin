@@ -1,58 +1,55 @@
 [
   {
-    "name": "Superior",
-    "priceLabel": "From €120 per night",
+    "id": "superior",
     "icons": [
-      { "label": "22–26 m²", "icon": "ruler" },
-      { "label": "King or twin", "icon": "bed" },
-      { "label": "2 guests", "icon": "users" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconBed", "icon": "bed" },
+      { "key": "iconGuests", "icon": "users" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80",
-        "alt": "Superior room with king bed"
+        "altKey": "image1Alt"
       },
       {
         "src": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80",
-        "alt": "Superior room bathroom"
+        "altKey": "image2Alt"
       }
     ]
   },
   {
-    "name": "Premium",
-    "priceLabel": "From €165 per night",
+    "id": "premium",
     "icons": [
-      { "label": "32–38 m²", "icon": "ruler" },
-      { "label": "King bed", "icon": "bed" },
-      { "label": "Balcony", "icon": "balcony" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconBed", "icon": "bed" },
+      { "key": "iconBalcony", "icon": "balcony" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1611892440504-42a784e24d32?w=1200&q=80",
-        "alt": "Premium room with balcony"
+        "altKey": "image1Alt"
       },
       {
         "src": "https://images.unsplash.com/photo-1584132965284-7d3f391fcc27?w=1200&q=80",
-        "alt": "Premium room lounge area"
+        "altKey": "image2Alt"
       }
     ]
   },
   {
-    "name": "Junior Suite",
-    "priceLabel": "From €220 per night",
+    "id": "junior-suite",
     "icons": [
-      { "label": "40–45 m²", "icon": "ruler" },
-      { "label": "Separate lounge", "icon": "sofa" },
-      { "label": "3 guests", "icon": "users" }
+      { "key": "iconSize", "icon": "ruler" },
+      { "key": "iconLounge", "icon": "sofa" },
+      { "key": "iconGuests", "icon": "users" }
     ],
     "images": [
       {
         "src": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80",
-        "alt": "Junior suite living area"
+        "altKey": "image1Alt"
       },
       {
         "src": "https://images.unsplash.com/photo-1598928506311-c55ded91a2c2?w=1200&q=80",
-        "alt": "Junior suite bedroom"
+        "altKey": "image2Alt"
       }
     ]
   }

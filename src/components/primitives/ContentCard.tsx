@@ -1,5 +1,6 @@
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/routing'
 
@@ -26,7 +27,7 @@ export interface ContentCardProps {
   imageAlt?: string
 }
 
-export function ContentCard({
+export async function ContentCard({
   badge,
   badgeColor = 'teal',
   title,
@@ -41,6 +42,8 @@ export function ContentCard({
   image,
   imageAlt,
 }: ContentCardProps) {
+  const tc = await getTranslations('common')
+
   return (
     <article className="flex flex-col border border-gray-200">
       {image && (
@@ -72,7 +75,7 @@ export function ContentCard({
             href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${ctaLabel} (opens in new tab)`}
+            aria-label={`${ctaLabel} ${tc('opensInNewTab')}`}
             className="mt-auto flex items-center gap-1 font-ui text-ui-sm font-medium text-hbb-teal"
           >
             {ctaLabel}

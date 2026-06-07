@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
 import { KenBurnsSlider } from '@/components/primitives/KenBurnsSlider'
@@ -14,27 +15,24 @@ import { Link } from '@/i18n/routing'
 type RoomData = (typeof roomsData)[number]
 
 export function RoomsSection() {
+  const t = useTranslations('rooms')
   const rooms = roomsData as RoomData[]
   const [currentRoom, setCurrentRoom] = useState(0)
 
-  const roomImages = useMemo(
-    () => rooms[currentRoom]?.images ?? [],
-    [rooms, currentRoom],
-  )
+  const roomImages = useMemo(() => {
+    const room = rooms[currentRoom]
+    if (!room) return []
+    return room.images.map((img) => ({
+      src: img.src,
+      alt: t(`items.${room.id}.${img.altKey}`),
+    }))
+  }, [rooms, currentRoom, t])
 
   return (
     <section aria-labelledby="rooms-heading" className="bg-hbb-page">
       <div className="grid grid-cols-1 gap-6 px-section-sm pb-6 pt-section-y md:grid-cols-2 md:gap-10 md:px-section-x">
-        <SectionHeading
-          id="rooms-heading"
-          label="Sleep & Relax"
-          title="Room to spread out"
-        />
-        <p className="self-center font-serif text-serif-sm text-gray-600">
-          Quiet, spacious, and genuinely comfortable. Whether you&apos;re here for one night or a
-          week — your place to land. Thoughtful design details and a relaxed, home-like feel make
-          every room a personal retreat.
-        </p>
+        <SectionHeading id="rooms-heading" label={t('label')} title={t('title')} />
+        <p className="self-center font-serif text-serif-sm text-gray-600">{t('body')}</p>
       </div>
 
       <div className="grid grid-cols-1 border-t border-gray-200 md:grid-cols-[1.15fr_1fr]">
@@ -42,7 +40,7 @@ export function RoomsSection() {
           <KenBurnsSlider
             key={currentRoom}
             images={roomImages}
-            aria-label="Hotel Berlin, Berlin room photos"
+            aria-label={t('galleryAria')}
             interval={4500}
             showDots={false}
             className="h-full min-h-[280px] md:min-h-[400px]"
@@ -53,35 +51,38 @@ export function RoomsSection() {
           <SlideDotsNav
             count={rooms.length}
             current={currentRoom}
-            labels={rooms.map((r) => r.name)}
+            labels={rooms.map((r) => t(`items.${r.id}.name`))}
             onSelect={setCurrentRoom}
+            ariaLabel={t('dotNavAria')}
             className="mb-6"
           />
 
           <div className="relative flex-1" aria-live="polite" aria-atomic="true">
             {rooms.map((room, i) => (
               <div
-                key={room.name}
+                key={room.id}
                 aria-hidden={i !== currentRoom}
                 className={`transition-opacity duration-400 ${
                   i === currentRoom ? 'opacity-100' : 'absolute inset-0 opacity-0'
                 }`}
               >
                 <h3 className="mb-1 font-serif text-serif-lg font-medium text-hbb-black">
-                  {room.name}
+                  {t(`items.${room.id}.name`)}
                 </h3>
-                <p className="mb-5 font-ui text-ui-sm text-gray-500">{room.priceLabel}</p>
+                <p className="mb-5 font-ui text-ui-sm text-gray-500">
+                  {t(`items.${room.id}.price`)}
+                </p>
                 <ul role="list" className="grid grid-cols-3 border border-gray-200">
                   {room.icons.map((icon) => {
                     const Icon = getRoomIcon(icon.icon)
                     return (
                       <li
-                        key={icon.label}
+                        key={icon.key}
                         className="flex flex-col items-center gap-1 border-r border-gray-200 py-3 last:border-r-0"
                       >
                         <Icon aria-hidden="true" size={16} className="text-gray-400" />
                         <span className="text-center font-ui text-ui-xs text-gray-500">
-                          {icon.label}
+                          {t(`items.${room.id}.${icon.key}`)}
                         </span>
                       </li>
                     )
@@ -93,14 +94,14 @@ export function RoomsSection() {
 
           <div className="flex items-center gap-4 border-t border-gray-200 pt-5">
             <Link href="/rooms" className="btn-primary flex items-center gap-1.5">
-              Discover our rooms
+              {t('cta')}
               <ArrowRight aria-hidden="true" size={13} />
             </Link>
             <a
               href="/book"
               className="border-b border-gray-300 pb-px font-ui text-ui-sm text-gray-500"
             >
-              Check availability
+              {t('ctaAvailability')}
             </a>
           </div>
         </div>

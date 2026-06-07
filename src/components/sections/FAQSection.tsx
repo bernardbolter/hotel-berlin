@@ -1,10 +1,11 @@
 'use client'
 
 import { ArrowRight, HelpCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 import { FAQAccordion } from '@/components/primitives/FAQAccordion'
-import { faqsByContext, type FAQPageContext } from '@/lib/data/faqs'
+import { faqConfig, type FAQPageContext } from '@/lib/data/faqs'
 
 import { Link } from '@/i18n/routing'
 
@@ -14,7 +15,8 @@ export interface FAQSectionProps {
 }
 
 export function FAQSection({ pageContext, showAllLink = true }: FAQSectionProps) {
-  const faqs = faqsByContext[pageContext]
+  const t = useTranslations('faq')
+  const items = faqConfig[pageContext]
   const [openId, setOpenId] = useState<string | null>(null)
 
   return (
@@ -31,7 +33,7 @@ export function FAQSection({ pageContext, showAllLink = true }: FAQSectionProps)
             <HelpCircle size={16} className="text-hbb-purple" />
           </span>
           <h2 id="faq-heading" className="font-serif text-serif-lg font-medium text-hbb-black">
-            Good questions.
+            {t('title')}
           </h2>
         </div>
         {showAllLink && (
@@ -39,20 +41,20 @@ export function FAQSection({ pageContext, showAllLink = true }: FAQSectionProps)
             href="/faqs"
             className="flex items-center gap-1 border-b border-hbb-purple pb-px font-ui text-ui-sm font-medium text-hbb-purple"
           >
-            All FAQs
+            {t('allFaqs')}
             <ArrowRight aria-hidden="true" size={13} />
           </Link>
         )}
       </div>
 
       <ul role="list" className="flex flex-col">
-        {faqs.map((faq) => (
+        {items.map((faq) => (
           <li key={faq.id}>
             <FAQAccordion
               id={faq.id}
               icon={faq.icon}
-              question={faq.question}
-              answer={faq.answer}
+              question={t(`${pageContext}.${faq.id}.question`)}
+              answer={t(`${pageContext}.${faq.id}.answer`)}
               isOpen={openId === faq.id}
               onToggle={() => setOpenId(openId === faq.id ? null : faq.id)}
             />

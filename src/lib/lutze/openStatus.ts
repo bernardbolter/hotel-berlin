@@ -1,8 +1,16 @@
 export type StatusType = 'closed' | 'open' | 'bar-only' | 'closing'
 
+export type StatusMessageKey =
+  | 'beforeTen'
+  | 'barBeforeKitchen'
+  | 'kitchenAndBar'
+  | 'barOnlyReopens'
+  | 'kitchenClosing'
+  | 'barLate'
+
 export type StatusResult = {
   type: StatusType
-  text: string
+  messageKey: StatusMessageKey
 }
 
 function getBerlinHourMinute(): { hour: number; minute: number } {
@@ -29,28 +37,28 @@ export function getStatus(): StatusResult {
   const time = toMinutes(hour, minute)
 
   if (time < toMinutes(10, 0)) {
-    return { type: 'closed', text: 'Opens today at 10:00' }
+    return { type: 'closed', messageKey: 'beforeTen' }
   }
 
   if (time < toMinutes(11, 30)) {
-    return { type: 'open', text: 'Open now — bar · kitchen opens 11:30' }
+    return { type: 'open', messageKey: 'barBeforeKitchen' }
   }
 
   if (time < toMinutes(15, 0)) {
-    return { type: 'open', text: 'Open now — kitchen & bar' }
+    return { type: 'open', messageKey: 'kitchenAndBar' }
   }
 
   if (time < toMinutes(17, 0)) {
-    return { type: 'bar-only', text: 'Open — bar only · kitchen reopens 17:00' }
+    return { type: 'bar-only', messageKey: 'barOnlyReopens' }
   }
 
   if (time < toMinutes(22, 0)) {
-    return { type: 'open', text: 'Open now — kitchen & bar' }
+    return { type: 'open', messageKey: 'kitchenAndBar' }
   }
 
   if (time < toMinutes(22, 30)) {
-    return { type: 'closing', text: 'Kitchen closing soon · bar stays open' }
+    return { type: 'closing', messageKey: 'kitchenClosing' }
   }
 
-  return { type: 'bar-only', text: 'Open — bar until late' }
+  return { type: 'bar-only', messageKey: 'barLate' }
 }

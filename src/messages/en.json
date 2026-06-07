@@ -1,18 +1,45 @@
 {
+  "common": {
+    "skipToMain": "Skip to main content",
+    "hotelName": "Hotel Berlin, Berlin",
+    "homeAria": "Hotel Berlin, Berlin — home",
+    "welcomeAria": "Hotel Berlin, Berlin — welcome",
+    "opensInNewTab": "(opens in new tab)",
+    "radissonIndividuals": "Radisson Individuals",
+    "primaryNavAria": "Primary navigation",
+    "guestNavAria": "Guest navigation",
+    "navMenuAria": "Navigation menu",
+    "siteFooterAria": "Site footer",
+    "socialLinksAria": "Social media links",
+    "guestHubLinksAria": "Guest hub links",
+    "legalNavAria": "Legal links",
+    "awardsAria": "Awards and recognition",
+    "langDe": "Deutsch",
+    "langEn": "English",
+    "since1958": "Since 1958",
+    "germany": "Germany",
+    "playSlideshow": "Play slideshow",
+    "pauseSlideshow": "Pause slideshow",
+    "gallerySlides": "Gallery slides",
+    "slideAnnouncement": "Image {current} of {total}"
+  },
   "nav": {
-    "rooms": "Rooms & Suites",
-    "restaurant": "Lütze",
-    "meetings": "Meetings & Events",
-    "about": "About",
+    "rooms": "Rooms",
+    "meetings": "Meetings",
+    "eatDrink": "Eat & Drink",
+    "happenings": "Happenings",
+    "neighbourhood": "Neighbourhood",
+    "bookNow": "Book Now",
+    "inBuilding": "In the Building?",
+    "enter": "ENTER",
+    "enterGuestHub": "— Enter guest hub",
     "whatsOn": "What's on",
-    "events": "Events",
-    "art": "Art",
-    "dining": "Dining",
-    "explore": "Explore",
-    "faq": "FAQ",
-    "theHotel": "The hotel",
-    "bookNow": "Book now",
-    "langToggle": "DE"
+    "gettingAround": "Getting around",
+    "localTips": "Local tips",
+    "gallery": "Gallery",
+    "skateboardMuseum": "Skateboard Museum",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
   },
   "home": {
     "heroHeadline": "Let's start your Berlin story.",
@@ -22,28 +49,289 @@
     "heroHeadline": "What's on today.",
     "heroSubline": "Your stay, your city."
   },
+  "hero": {
+    "headingLine1": "Let's start your",
+    "headingLine2": "Berlin story",
+    "subtextLine1": "Hotel Berlin, Berlin is where travellers,",
+    "subtextLine2": "locals, and ideas naturally meet.",
+    "detailLine1": "Sunlight fills the courtyard, artists make real work,",
+    "detailLine2": "and the hum of Berlin is never far away.",
+    "galleryAria": "Hotel Berlin, Berlin photo gallery",
+    "mapsLink": "Hotel Berlin, Berlin on Google Maps — get directions (opens in new tab)",
+    "satelliteAlt": "Satellite view of Hotel Berlin, Berlin at Lützowplatz 17"
+  },
   "rooms": {
-    "sectionLabel": "Sleep & Relax",
-    "intro": "Whether it's your first time in Berlin or you're a seasoned traveller — thoughtful design details make every room a personal retreat.",
-    "discoverCta": "Discover our rooms"
+    "label": "Sleep & Relax",
+    "title": "Room to spread out",
+    "body": "Quiet, spacious, and genuinely comfortable. Whether you're here for one night or a week — your place to land. Thoughtful design details and a relaxed, home-like feel make every room a personal retreat.",
+    "cta": "Discover our rooms",
+    "ctaAvailability": "Check availability",
+    "galleryAria": "Hotel Berlin, Berlin room photos",
+    "dotNavAria": "Room categories",
+    "items": {
+      "superior": {
+        "name": "Superior",
+        "price": "From €120 per night",
+        "iconSize": "22–26 m²",
+        "iconBed": "King or twin",
+        "iconGuests": "2 guests",
+        "image1Alt": "Superior room with king bed",
+        "image2Alt": "Superior room bathroom"
+      },
+      "premium": {
+        "name": "Premium",
+        "price": "From €165 per night",
+        "iconSize": "32–38 m²",
+        "iconBed": "King bed",
+        "iconBalcony": "Balcony",
+        "image1Alt": "Premium room with balcony",
+        "image2Alt": "Premium room lounge area"
+      },
+      "junior-suite": {
+        "name": "Junior Suite",
+        "price": "From €220 per night",
+        "iconSize": "40–45 m²",
+        "iconLounge": "Separate lounge",
+        "iconGuests": "3 guests",
+        "image1Alt": "Junior suite living area",
+        "image2Alt": "Junior suite bedroom"
+      }
+    }
   },
   "meetings": {
-    "sectionLabel": "Meet & Work",
-    "intro": "Over 4,000m² of flexible conference and meeting space, cutting-edge event technology, and a dedicated team to ensure everything runs smoothly.",
-    "cta": "All meeting rooms"
+    "label": "Meet & Work",
+    "title": "Serious business, playful spaces",
+    "body": "Business is in our DNA. With over 4,000 m² of flexible conference and meeting spaces, cutting-edge event technology, and a dedicated team, we ensure everything from conferences to workshops runs smoothly — leaving space for ideas and connections to take the lead.",
+    "cta": "All meeting rooms",
+    "galleryAria": "Hotel Berlin, Berlin meeting room photos",
+    "dotNavAria": "Meeting room categories",
+    "items": {
+      "berlin-3": {
+        "name": "Berlin 3",
+        "capacity": "Up to 120 guests",
+        "iconSize": "240 m²",
+        "iconTheatre": "Theatre",
+        "iconAv": "AV included",
+        "imageAlt": "Berlin 3 conference room"
+      },
+      "meeting-room-a1": {
+        "name": "Meeting Room A1",
+        "capacity": "Up to 24 guests",
+        "iconSize": "48 m²",
+        "iconBoardroom": "Boardroom",
+        "iconDaylight": "Daylight",
+        "imageAlt": "Meeting Room A1 boardroom setup"
+      },
+      "berlin-berlin": {
+        "name": "Berlin, Berlin",
+        "capacity": "Up to 600 guests",
+        "iconSize": "850 m²",
+        "iconTheatre": "Theatre",
+        "iconAv": "Full AV",
+        "imageAlt": "Berlin, Berlin ballroom"
+      }
+    }
   },
-  "arts": {
-    "sectionLabel": "Arts & Culture"
+  "culture": {
+    "label": "Arts & Culture",
+    "title": "The building is the programme",
+    "gridAria": "Arts and culture at Hotel Berlin, Berlin",
+    "cards": {
+      "fkkb": {
+        "badge": "Gallery",
+        "subtitle": "Contemporary art",
+        "title": "Freundeskreis der Künstler Berlin",
+        "body": "FKKB has been part of the hotel since the 1980s — a working gallery where artists make real work, not just display it. Open to guests and the public.",
+        "meta": "Ground floor · Free entry",
+        "cta": "Explore FKKB",
+        "imageAlt": "Contemporary art gallery interior"
+      },
+      "kttk": {
+        "badge": "Sport",
+        "subtitle": "Table tennis",
+        "title": "KTTK — Königlicher Tischtennis Klub",
+        "body": "Four JOOLA tables in the basement. Open to guests and Berliners. Thursday nights — tournament. No booking, no dress code.",
+        "meta": "Basement · €5/30 min",
+        "cta": "Play at KTTK",
+        "imageAlt": "Table tennis tables"
+      },
+      "sissi": {
+        "badge": "Museum",
+        "subtitle": "Urban culture",
+        "title": "Sissi — Skateboard Museum",
+        "body": "One of Europe's largest skateboard collections — decks, graphics, and Berlin skate history. A love letter to the city's counterculture.",
+        "meta": "Every floor · Free for guests",
+        "cta": "Visit the museum",
+        "imageAlt": "Skateboard collection display"
+      },
+      "haus-luetzowplatz": {
+        "badge": "Neighbourhood",
+        "subtitle": "Art centre",
+        "title": "Haus am Lützowplatz",
+        "body": "Berlin's oldest art association — exhibitions, talks, and a café on the square. Two minutes from the hotel.",
+        "meta": "2 min walk",
+        "cta": "See what's on",
+        "imageAlt": "Art exhibition at Haus am Lützowplatz"
+      }
+    }
   },
   "lutze": {
-    "sectionLabel": "Lütze",
-    "tagline": "The place to eat, play, and hang all day.",
-    "cta": "Visit Lütze",
-    "reserveCta": "Reserve a table"
+    "name": "Lütze",
+    "tagline": "For all good rebels",
+    "descriptor": "Italian deli-café · Bar · Garden · Lützowplatz 17",
+    "heading": "The place to eat, play, and hang all day.",
+    "body": "In the heart of the hotel — open to guests and Berliners alike. Breakfast from the counter. Lunch on the terrace. Cocktails until the city stops. Happy hour isn't a time slot. It's a state of mind.",
+    "galleryAria": "Lütze restaurant and bar at Hotel Berlin, Berlin",
+    "hoursBar": "10:00 – open end, daily",
+    "hoursKitchen": "11:30–15:00 & 17:00–22:30",
+    "hoursVinyl": "Every Monday from 18:00",
+    "hoursKttk": "13:00–23:00 · 4 tables · €5/30 min",
+    "hourLabelBar": "Bar",
+    "hourLabelKitchen": "Kitchen",
+    "hourLabelVinyl": "Vinyl Nights",
+    "hourLabelKttk": "KTTK",
+    "ctaVisit": "Visit Lütze",
+    "ctaVisitAria": "Visit Lütze website (opens in new tab)",
+    "ctaReserve": "Reserve a table",
+    "ctaDining": "Staying with us? All dining →",
+    "status": {
+      "beforeTen": "Opens today at 10:00",
+      "barBeforeKitchen": "Open now — bar · kitchen opens 11:30",
+      "kitchenAndBar": "Open now — kitchen & bar",
+      "barOnlyReopens": "Open — bar only · kitchen reopens 17:00",
+      "kitchenClosing": "Kitchen closing soon · bar stays open",
+      "barLate": "Open — bar until late"
+    }
+  },
+  "map": {
+    "label": "Neighbourhood",
+    "title": "You're in the right part of Berlin",
+    "subtitle": "Tiergarten, the canal, Ku'damm — all on foot",
+    "cta": "Explore the neighbourhood",
+    "walkNote": "Everything within 15 min on foot"
+  },
+  "faq": {
+    "title": "Good questions.",
+    "allFaqs": "All FAQs",
+    "homepage": {
+      "checkin-time": {
+        "question": "What are the check-in and check-out times?",
+        "answer": "Check-in is from 15:00. Check-out is by 12:00 noon. Early check-in from 06:00 is available for €30 if your room is ready — or book the night before for guaranteed early access. Self-service kiosks are available in the lobby."
+      },
+      "parking": {
+        "question": "Is there parking at the hotel?",
+        "answer": "Yes — underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available."
+      },
+      "pets": {
+        "question": "Are pets welcome?",
+        "answer": "Yes. Pets are welcome — a fee of €30 per night applies. They're also welcome at breakfast."
+      },
+      "airport": {
+        "question": "How do I get here from BER airport?",
+        "answer": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      }
+    },
+    "rooms": {
+      "bed-types": {
+        "question": "What bed configurations are available?",
+        "answer": "All room categories are available with either a king bed or twin configuration. Request your preference at booking — subject to availability."
+      },
+      "room-size": {
+        "question": "How large are the rooms?",
+        "answer": "Superior rooms are 22–26 m². Comfort rooms are 26–32 m². Suites range from 40–65 m². Studio 45 is available on request."
+      },
+      "cancellation": {
+        "question": "What is the cancellation policy?",
+        "answer": "Flexible rate bookings can be cancelled free of charge until 18:00 on the day of arrival. Non-refundable rates are charged in full at time of booking."
+      },
+      "extra-beds": {
+        "question": "Can extra beds or cots be added?",
+        "answer": "Cots are available for children under 2 at no charge. Rollaway beds can be added to most room types for €30 per night, subject to availability."
+      }
+    },
+    "meetings": {
+      "capacity": {
+        "question": "What is the largest event space?",
+        "answer": "The Berliner Saal accommodates up to 600 guests in theatre configuration. Total event space across all rooms is over 4,000 m²."
+      },
+      "av-tech": {
+        "question": "What AV and technology is included?",
+        "answer": "All meeting rooms include high-speed Wi-Fi, screen or projection, and sound system. Full AV packages including live streaming and simultaneous translation are available."
+      },
+      "catering": {
+        "question": "Is catering included in meeting packages?",
+        "answer": "Day delegate packages include coffee breaks and lunch. Bespoke catering from Lütze is available for all events."
+      },
+      "parking-meet": {
+        "question": "Is parking available for day delegates?",
+        "answer": "Underground parking is available at €4 per hour. Pre-bookable delegate parking rates are available — ask the events team when enquiring."
+      }
+    },
+    "restaurant": {
+      "lutze-open": {
+        "question": "What are Lütze's opening hours?",
+        "answer": "The bar is open daily from 10:00. The kitchen serves 11:30–15:00 and 17:00–22:30. Vinyl Nights are every Monday from 18:00."
+      },
+      "reservations": {
+        "question": "Do I need to book a table?",
+        "answer": "Reservations are recommended for dinner but not required. Walk-ins are always welcome at the bar. For large groups of 8 or more, please book in advance."
+      },
+      "dietary": {
+        "question": "Are dietary requirements catered for?",
+        "answer": "Yes — vegan, vegetarian, and gluten-free options are available. Please mention any allergies or dietary requirements when booking."
+      },
+      "kttk-book": {
+        "question": "Do I need to book a table tennis table?",
+        "answer": "No booking needed — tables are available on a first-come basis during open hours. Thursday tournament nights are open to all. €5 entry."
+      }
+    }
   },
   "footer": {
-    "address": "Lützowplatz 17, 10785 Berlin",
-    "phone": "+49 30 260050",
-    "email": "info@hotel-berlin.de"
+    "bookingStrip": "Best rate guaranteed when you book direct",
+    "checkAvailability": "Check availability",
+    "transit": "Bus 100, 106, 187 · U Nollendorfplatz 7 min · S+U Zoo 10 min",
+    "stayNavAria": "Stay navigation",
+    "eatMeetNavAria": "Eat and meet navigation",
+    "helpNavAria": "Help navigation",
+    "stayTitle": "Stay",
+    "eatMeetTitle": "Eat & Meet",
+    "helpTitle": "Help",
+    "stayRooms": "Rooms & Suites",
+    "stayOffers": "Offers",
+    "stayBookDirect": "Book direct",
+    "stayRewards": "Radisson Rewards",
+    "eatLutze": "Lütze",
+    "eatMeetings": "Meetings & Events",
+    "eatWeddings": "Weddings",
+    "eatKttk": "Table tennis — KTTK",
+    "helpFaqs": "FAQs",
+    "helpContact": "Contact",
+    "helpGettingHere": "Getting here",
+    "helpCareers": "Careers",
+    "alreadyHere": "Already here?",
+    "alreadyHereAria": "Already here? Enter guest hub",
+    "alreadyHereDesc": "Your guest hub — events, dining, neighbourhood picks, and everything you need during your stay.",
+    "insideWhatsOn": "What's on today",
+    "insideDining": "Dining & drinks",
+    "insideNeighbourhood": "Neighbourhood picks",
+    "insideFaqs": "Guest FAQs",
+    "recognition": "Recognition",
+    "awardBreeam": "BREEAM Certified",
+    "awardGreenKey": "The Green Key",
+    "awardCvent": "Cvent Top 25 Europe Independent Hotels",
+    "awardMeetings": "Sustainable Meetings Berlin Leader",
+    "awardBerlin": "Sustainable Berlin Leader",
+    "partOf": "Part of",
+    "radissonIndividuals": "Radisson Individuals",
+    "radissonRewards": "Radisson Rewards",
+    "pandox": "Pandox",
+    "legalImprint": "Imprint",
+    "legalPrivacy": "Privacy",
+    "legalTerms": "Terms",
+    "legalAccessibility": "Accessibility",
+    "copyright": "© 2026 Pandox Berlin GmbH",
+    "designBy": "design by: smoothism.com",
+    "socialInstagram": "Instagram",
+    "socialLinkedIn": "LinkedIn"
   }
 }

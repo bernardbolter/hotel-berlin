@@ -1,7 +1,7 @@
 'use client'
 
 import { Menu, X } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
@@ -10,23 +10,25 @@ export interface SiteNavProps {
   context?: 'outside' | 'inside'
 }
 
-const primaryLinks = [
-  { href: '/rooms', label: 'Rooms' },
-  { href: '/meetings', label: 'Meetings' },
-  { href: '/restaurant', label: 'Eat & Drink' },
-  { href: '/happenings', label: 'Happenings' },
-  { href: '/neighbourhood', label: 'Neighbourhood' },
+const primaryLinkKeys = [
+  { href: '/rooms', key: 'rooms' },
+  { href: '/meetings', key: 'meetings' },
+  { href: '/restaurant', key: 'eatDrink' },
+  { href: '/happenings', key: 'happenings' },
+  { href: '/neighbourhood', key: 'neighbourhood' },
 ] as const
 
-const guestLinks = [
-  { href: '/here/events', label: "What's on" },
-  { href: '/here/explore', label: 'Getting around' },
-  { href: '/here/explore', label: 'Local tips' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/skateboard-museum', label: 'Skateboard Museum' },
+const guestLinkKeys = [
+  { href: '/here/events', key: 'whatsOn' },
+  { href: '/here/explore', key: 'gettingAround' },
+  { href: '/here/explore', key: 'localTips' },
+  { href: '/gallery', key: 'gallery' },
+  { href: '/skateboard-museum', key: 'skateboardMuseum' },
 ] as const
 
 export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
+  const t = useTranslations('nav')
+  const tc = useTranslations('common')
   const locale = useLocale()
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -64,26 +66,26 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-hbb-page">
       <div className="hidden lg:block">
         <nav
-          aria-label="Primary navigation"
+          aria-label={tc('primaryNavAria')}
           className="flex items-center justify-between gap-6 px-section-x py-3"
         >
           <Link
             href="/"
-            aria-label="Hotel Berlin, Berlin — home"
+            aria-label={tc('homeAria')}
             className="font-ui text-ui-md font-medium text-hbb-black"
           >
-            Hotel Berlin, Berlin
+            {tc('hotelName')}
           </Link>
 
           <ul role="list" className="flex items-center gap-5">
-            {primaryLinks.map((link) => (
+            {primaryLinkKeys.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   className={navLinkClass(link.href)}
                   aria-current={isCurrent(link.href) ? 'page' : undefined}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               </li>
             ))}
@@ -96,7 +98,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
                 locale="de"
                 hrefLang="de"
                 lang="de"
-                aria-label="Deutsch"
+                aria-label={tc('langDe')}
                 aria-current={locale === 'de' ? 'true' : undefined}
                 className={locale === 'de' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
               >
@@ -108,7 +110,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
                 locale="en"
                 hrefLang="en"
                 lang="en"
-                aria-label="English"
+                aria-label={tc('langEn')}
                 aria-current={locale === 'en' ? 'true' : undefined}
                 className={locale === 'en' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
               >
@@ -116,24 +118,24 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
               </Link>
             </div>
             <a href="/book" className="btn-primary">
-              Book Now
+              {t('bookNow')}
             </a>
           </div>
         </nav>
 
         <nav
-          aria-label="Guest navigation"
+          aria-label={tc('guestNavAria')}
           className="flex items-center justify-between border-t border-gray-100 px-section-x py-2"
         >
           <Link href="/here" className="font-ui text-ui-sm text-hbb-teal">
-            In the Building? <span aria-hidden="true">ENTER</span>
-            <span className="sr-only">— Enter guest hub</span>
+            {t('inBuilding')} <span aria-hidden="true">{t('enter')}</span>
+            <span className="sr-only">{t('enterGuestHub')}</span>
           </Link>
           <ul role="list" className="flex items-center gap-4">
-            {guestLinks.map((link) => (
-              <li key={`${link.href}-${link.label}`}>
+            {guestLinkKeys.map((link) => (
+              <li key={`${link.href}-${link.key}`}>
                 <Link href={link.href} className="font-ui text-ui-xs text-gray-500 hover:text-hbb-teal">
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               </li>
             ))}
@@ -144,15 +146,15 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
       <div className="flex items-center justify-between px-section-sm py-3 lg:hidden">
         <Link
           href="/"
-          aria-label="Hotel Berlin, Berlin — home"
+          aria-label={tc('homeAria')}
           className="font-ui text-ui-sm font-medium text-hbb-black"
         >
-          Hotel Berlin, Berlin
+          {tc('hotelName')}
         </Link>
         <button
           ref={hamburgerRef}
           type="button"
-          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={mobileOpen ? t('closeMenu') : t('openMenu')}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           onClick={() => setMobileOpen((open) => !open)}
@@ -166,13 +168,13 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
         id="mobile-nav"
         hidden={!mobileOpen}
         role="dialog"
-        aria-label="Navigation menu"
+        aria-label={tc('navMenuAria')}
         aria-modal="true"
         className="border-t border-gray-200 bg-hbb-page px-section-sm py-4 lg:hidden"
       >
-        <nav aria-label="Primary navigation" className="mb-6">
+        <nav aria-label={tc('primaryNavAria')} className="mb-6">
           <ul role="list" className="flex flex-col gap-3">
-            {primaryLinks.map((link) => (
+            {primaryLinkKeys.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -180,31 +182,31 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
                   aria-current={isCurrent(link.href) ? 'page' : undefined}
                   onClick={() => setMobileOpen(false)}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        <nav aria-label="Guest navigation" className="mb-6 border-t border-gray-100 pt-4">
+        <nav aria-label={tc('guestNavAria')} className="mb-6 border-t border-gray-100 pt-4">
           <Link
             href="/here"
             className="mb-3 block font-ui text-ui-sm text-hbb-teal"
             onClick={() => setMobileOpen(false)}
           >
-            In the Building? <span aria-hidden="true">ENTER</span>
-            <span className="sr-only">— Enter guest hub</span>
+            {t('inBuilding')} <span aria-hidden="true">{t('enter')}</span>
+            <span className="sr-only">{t('enterGuestHub')}</span>
           </Link>
           <ul role="list" className="flex flex-col gap-2">
-            {guestLinks.map((link) => (
-              <li key={`${link.href}-${link.label}`}>
+            {guestLinkKeys.map((link) => (
+              <li key={`${link.href}-${link.key}`}>
                 <Link
                   href={link.href}
                   className="font-ui text-ui-sm text-gray-600"
                   onClick={() => setMobileOpen(false)}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               </li>
             ))}
@@ -218,7 +220,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
               locale="de"
               hrefLang="de"
               lang="de"
-              aria-label="Deutsch"
+              aria-label={tc('langDe')}
               aria-current={locale === 'de' ? 'true' : undefined}
               className={locale === 'de' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
             >
@@ -230,7 +232,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
               locale="en"
               hrefLang="en"
               lang="en"
-              aria-label="English"
+              aria-label={tc('langEn')}
               aria-current={locale === 'en' ? 'true' : undefined}
               className={locale === 'en' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
             >
@@ -238,7 +240,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
             </Link>
           </div>
           <a href="/book" className="btn-primary">
-            Book Now
+            {t('bookNow')}
           </a>
         </div>
       </div>

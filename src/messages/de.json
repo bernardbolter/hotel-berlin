@@ -1,18 +1,45 @@
 {
+  "common": {
+    "skipToMain": "Zum Hauptinhalt springen",
+    "hotelName": "Hotel Berlin, Berlin",
+    "homeAria": "Hotel Berlin, Berlin — Startseite",
+    "welcomeAria": "Hotel Berlin, Berlin — Willkommen",
+    "opensInNewTab": "(öffnet in neuem Tab)",
+    "radissonIndividuals": "Radisson Individuals",
+    "primaryNavAria": "Hauptnavigation",
+    "guestNavAria": "Gästenavigation",
+    "navMenuAria": "Navigationsmenü",
+    "siteFooterAria": "Seitenfuß",
+    "socialLinksAria": "Social-Media-Links",
+    "guestHubLinksAria": "Gäste-Hub-Links",
+    "legalNavAria": "Rechtliche Links",
+    "awardsAria": "Auszeichnungen und Anerkennung",
+    "langDe": "Deutsch",
+    "langEn": "English",
+    "since1958": "Seit 1958",
+    "germany": "Deutschland",
+    "playSlideshow": "Diashow abspielen",
+    "pauseSlideshow": "Diashow pausieren",
+    "gallerySlides": "Galerie-Folien",
+    "slideAnnouncement": "Bild {current} von {total}"
+  },
   "nav": {
-    "rooms": "Zimmer & Suiten",
-    "restaurant": "Lütze",
-    "meetings": "Meetings & Events",
-    "about": "Über uns",
-    "whatsOn": "Was läuft",
-    "events": "Events",
-    "art": "Kunst",
-    "dining": "Restaurant",
-    "explore": "Entdecken",
-    "faq": "FAQ",
-    "theHotel": "Zum Hotel",
+    "rooms": "Zimmer",
+    "meetings": "Meetings",
+    "eatDrink": "Essen & Trinken",
+    "happenings": "Happenings",
+    "neighbourhood": "Nachbarschaft",
     "bookNow": "Jetzt buchen",
-    "langToggle": "EN"
+    "inBuilding": "Schon im Haus?",
+    "enter": "ENTER",
+    "enterGuestHub": "— Zum Gäste-Hub",
+    "whatsOn": "Was läuft",
+    "gettingAround": "Orientierung",
+    "localTips": "Lokale Tipps",
+    "gallery": "Galerie",
+    "skateboardMuseum": "Skateboard-Museum",
+    "openMenu": "Navigationsmenü öffnen",
+    "closeMenu": "Navigationsmenü schließen"
   },
   "home": {
     "heroHeadline": "Lass deine Berlin-Geschichte beginnen.",
@@ -22,28 +49,289 @@
     "heroHeadline": "Was heute los ist.",
     "heroSubline": "Dein Aufenthalt, deine Stadt."
   },
+  "hero": {
+    "headingLine1": "Lass deine",
+    "headingLine2": "Berlin-Geschichte beginnen",
+    "subtextLine1": "Hotel Berlin, Berlin ist der Ort, an dem Reisende,",
+    "subtextLine2": "Berliner und Ideen aufeinandertreffen.",
+    "detailLine1": "Sonnenlicht im Innenhof, Künstler bei der Arbeit,",
+    "detailLine2": "und das Berliner Leben immer in Reichweite.",
+    "galleryAria": "Fotogalerie Hotel Berlin, Berlin",
+    "mapsLink": "Hotel Berlin, Berlin auf Google Maps — Wegbeschreibung (öffnet in neuem Tab)",
+    "satelliteAlt": "Satellitenansicht des Hotel Berlin, Berlin am Lützowplatz 17"
+  },
   "rooms": {
-    "sectionLabel": "Schlafen & Entspannen",
-    "intro": "Ob erster Berlin-Besuch oder Stammgast — ruhige Zimmer und Suiten mit einem Gefühl wie zu Hause.",
-    "discoverCta": "Alle Zimmer entdecken"
+    "label": "Schlafen & Entspannen",
+    "title": "Raum zum Ausatmen",
+    "body": "Ruhig, großzügig und wirklich komfortabel. Ob eine Nacht oder eine Woche — dein Platz zum Ankommen. Durchdachte Details und ein entspanntes, wohnliches Gefühl machen jedes Zimmer zu einem persönlichen Rückzugsort.",
+    "cta": "Alle Zimmer entdecken",
+    "ctaAvailability": "Verfügbarkeit prüfen",
+    "galleryAria": "Zimmerfotos Hotel Berlin, Berlin",
+    "dotNavAria": "Zimmerkategorien",
+    "items": {
+      "superior": {
+        "name": "Superior",
+        "price": "Ab 120 € pro Nacht",
+        "iconSize": "22–26 m²",
+        "iconBed": "King oder Twin",
+        "iconGuests": "2 Gäste",
+        "image1Alt": "Superior-Zimmer mit Kingsize-Bett",
+        "image2Alt": "Badezimmer Superior-Zimmer"
+      },
+      "premium": {
+        "name": "Premium",
+        "price": "Ab 165 € pro Nacht",
+        "iconSize": "32–38 m²",
+        "iconBed": "Kingsize-Bett",
+        "iconBalcony": "Balkon",
+        "image1Alt": "Premium-Zimmer mit Balkon",
+        "image2Alt": "Wohnbereich Premium-Zimmer"
+      },
+      "junior-suite": {
+        "name": "Junior Suite",
+        "price": "Ab 220 € pro Nacht",
+        "iconSize": "40–45 m²",
+        "iconLounge": "Separater Wohnbereich",
+        "iconGuests": "3 Gäste",
+        "image1Alt": "Wohnbereich Junior Suite",
+        "image2Alt": "Schlafzimmer Junior Suite"
+      }
+    }
   },
   "meetings": {
-    "sectionLabel": "Tagen & Arbeiten",
-    "intro": "Über 4.000 m² flexible Konferenz- und Meetingflächen, modernste Technik, und ein Team das alles reibungslos laufen lässt.",
-    "cta": "Alle Meetingräume"
+    "label": "Tagen & Arbeiten",
+    "title": "Ernsthaftes Business, verspielte Räume",
+    "body": "Business liegt in unserer DNA. Mit über 4.000 m² flexibler Konferenz- und Meetingflächen, modernster Eventtechnik und einem engagierten Team sorgen wir dafür, dass alles von Konferenzen bis Workshops reibungslos läuft — mit Raum für Ideen und Begegnungen.",
+    "cta": "Alle Meetingräume",
+    "galleryAria": "Meetingraumfotos Hotel Berlin, Berlin",
+    "dotNavAria": "Meetingraum-Kategorien",
+    "items": {
+      "berlin-3": {
+        "name": "Berlin 3",
+        "capacity": "Bis zu 120 Gäste",
+        "iconSize": "240 m²",
+        "iconTheatre": "Theater",
+        "iconAv": "AV inklusive",
+        "imageAlt": "Konferenzraum Berlin 3"
+      },
+      "meeting-room-a1": {
+        "name": "Meeting Room A1",
+        "capacity": "Bis zu 24 Gäste",
+        "iconSize": "48 m²",
+        "iconBoardroom": "Boardroom",
+        "iconDaylight": "Tageslicht",
+        "imageAlt": "Meeting Room A1 Boardroom-Setup"
+      },
+      "berlin-berlin": {
+        "name": "Berlin, Berlin",
+        "capacity": "Bis zu 600 Gäste",
+        "iconSize": "850 m²",
+        "iconTheatre": "Theater",
+        "iconAv": "Volles AV",
+        "imageAlt": "Ballroom Berlin, Berlin"
+      }
+    }
   },
-  "arts": {
-    "sectionLabel": "Kunst & Kultur"
+  "culture": {
+    "label": "Kunst & Kultur",
+    "title": "Das Gebäude ist das Programm",
+    "gridAria": "Kunst und Kultur im Hotel Berlin, Berlin",
+    "cards": {
+      "fkkb": {
+        "badge": "Galerie",
+        "subtitle": "Zeitgenössische Kunst",
+        "title": "Freundeskreis der Künstler Berlin",
+        "body": "Der FKKB gehört seit den 1980er Jahren zum Hotel — eine aktive Galerie, in der Künstler wirklich arbeiten, nicht nur ausstellen. Offen für Gäste und die Öffentlichkeit.",
+        "meta": "Erdgeschoss · Freier Eintritt",
+        "cta": "FKKB entdecken",
+        "imageAlt": "Innenraum zeitgenössische Kunstgalerie"
+      },
+      "kttk": {
+        "badge": "Sport",
+        "subtitle": "Tischtennis",
+        "title": "KTTK — Königlicher Tischtennis Klub",
+        "body": "Vier JOOLA-Tische im Keller. Offen für Gäste und Berliner. Donnerstags — Turnier. Keine Reservierung, kein Dresscode.",
+        "meta": "Keller · 5 €/30 Min.",
+        "cta": "Beim KTTK spielen",
+        "imageAlt": "Tischtennis-Tische"
+      },
+      "sissi": {
+        "badge": "Museum",
+        "subtitle": "Urban Culture",
+        "title": "Sissi — Skateboard-Museum",
+        "body": "Eine der größten Skateboard-Sammlungen Europas — Decks, Grafiken und Berliner Skate-Geschichte. Eine Liebeserklärung an die Gegenkultur der Stadt.",
+        "meta": "Jede Etage · Kostenlos für Gäste",
+        "cta": "Museum besuchen",
+        "imageAlt": "Skateboard-Sammlung"
+      },
+      "haus-luetzowplatz": {
+        "badge": "Nachbarschaft",
+        "subtitle": "Kunstzentrum",
+        "title": "Haus am Lützowplatz",
+        "body": "Berlins ältester Kunstverein — Ausstellungen, Gespräche und ein Café am Platz. Zwei Minuten vom Hotel.",
+        "meta": "2 Min. zu Fuß",
+        "cta": "Programm ansehen",
+        "imageAlt": "Ausstellung im Haus am Lützowplatz"
+      }
+    }
   },
   "lutze": {
-    "sectionLabel": "Lütze",
-    "tagline": "Der Ort zum Essen, Spielen und Verweilen.",
-    "cta": "Lütze entdecken",
-    "reserveCta": "Tisch reservieren"
+    "name": "Lütze",
+    "tagline": "Für alle guten Rebellen",
+    "descriptor": "Italienisches Deli-Café · Bar · Garten · Lützowplatz 17",
+    "heading": "Der Ort zum Essen, Spielen und Verweilen.",
+    "body": "Im Herzen des Hotels — offen für Gäste und Berliner. Frühstück an der Theke. Mittagessen auf der Terrasse. Cocktails bis die Stadt schläft. Happy Hour ist kein Zeitfenster. Es ist eine Einstellung.",
+    "galleryAria": "Lütze Restaurant und Bar im Hotel Berlin, Berlin",
+    "hoursBar": "10:00 – open end, täglich",
+    "hoursKitchen": "11:30–15:00 & 17:00–22:30",
+    "hoursVinyl": "Jeden Montag ab 18:00",
+    "hoursKttk": "13:00–23:00 · 4 Tische · 5 €/30 Min.",
+    "hourLabelBar": "Bar",
+    "hourLabelKitchen": "Küche",
+    "hourLabelVinyl": "Vinyl Nights",
+    "hourLabelKttk": "KTTK",
+    "ctaVisit": "Lütze besuchen",
+    "ctaVisitAria": "Lütze-Website besuchen (öffnet in neuem Tab)",
+    "ctaReserve": "Tisch reservieren",
+    "ctaDining": "Bei uns zu Gast? Alle Restaurants →",
+    "status": {
+      "beforeTen": "Öffnet heute um 10:00",
+      "barBeforeKitchen": "Jetzt geöffnet — Bar · Küche ab 11:30",
+      "kitchenAndBar": "Jetzt geöffnet — Küche & Bar",
+      "barOnlyReopens": "Geöffnet — nur Bar · Küche ab 17:00",
+      "kitchenClosing": "Küche schließt bald · Bar bleibt offen",
+      "barLate": "Geöffnet — Bar bis spät"
+    }
+  },
+  "map": {
+    "label": "Nachbarschaft",
+    "title": "Du bist im richtigen Teil Berlins",
+    "subtitle": "Tiergarten, Kanal, Ku'damm — alles zu Fuß",
+    "cta": "Nachbarschaft entdecken",
+    "walkNote": "Alles innerhalb von 15 Min. zu Fuß"
+  },
+  "faq": {
+    "title": "Gute Fragen.",
+    "allFaqs": "Alle FAQs",
+    "homepage": {
+      "checkin-time": {
+        "question": "Wann sind Check-in und Check-out?",
+        "answer": "Check-in ab 15:00 Uhr. Check-out bis 12:00 Uhr mittags. Früher Check-in ab 06:00 Uhr für 30 €, wenn das Zimmer bereit ist — oder buche die Nacht davor für garantierten frühen Zugang. Self-Service-Kioske in der Lobby."
+      },
+      "parking": {
+        "question": "Gibt es Parkplätze im Hotel?",
+        "answer": "Ja — Tiefgarage mit über 200 Stellplätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen verfügbar."
+      },
+      "pets": {
+        "question": "Sind Haustiere willkommen?",
+        "answer": "Ja. Haustiere sind willkommen — 30 € pro Nacht. Auch beim Frühstück."
+      },
+      "airport": {
+        "question": "Wie komme ich vom Flughafen BER hierher?",
+        "answer": "RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 zum Lützowplatz — direkt vor dem Hotel. Etwa 45–55 Minuten."
+      }
+    },
+    "rooms": {
+      "bed-types": {
+        "question": "Welche Bettkonfigurationen gibt es?",
+        "answer": "Alle Zimmerkategorien mit Kingsize-Bett oder Twin-Betten. Wunsch bei der Buchung angeben — je nach Verfügbarkeit."
+      },
+      "room-size": {
+        "question": "Wie groß sind die Zimmer?",
+        "answer": "Superior-Zimmer 22–26 m². Comfort-Zimmer 26–32 m². Suiten 40–65 m². Studio 45 auf Anfrage."
+      },
+      "cancellation": {
+        "question": "Wie lautet die Stornierungsbedingung?",
+        "answer": "Flexible Tarife kostenlos stornierbar bis 18:00 Uhr am Anreisetag. Nicht erstattbare Tarife werden bei Buchung voll berechnet."
+      },
+      "extra-beds": {
+        "question": "Können Zustellbetten oder Kinderbetten hinzugefügt werden?",
+        "answer": "Kinderbetten für unter 2 Jahre kostenlos. Zustellbetten in den meisten Zimmerkategorien für 30 € pro Nacht, je nach Verfügbarkeit."
+      }
+    },
+    "meetings": {
+      "capacity": {
+        "question": "Wie groß ist der größte Veranstaltungsraum?",
+        "answer": "Der Berliner Saal fasst bis zu 600 Gäste im Theater-Setup. Insgesamt über 4.000 m² Veranstaltungsfläche."
+      },
+      "av-tech": {
+        "question": "Welche AV- und Technikausstattung ist inklusive?",
+        "answer": "Alle Meetingräume mit Highspeed-WLAN, Bildschirm oder Beamer und Soundanlage. Volle AV-Pakete inkl. Livestream und Simultanübersetzung verfügbar."
+      },
+      "catering": {
+        "question": "Ist Catering in Meeting-Paketen enthalten?",
+        "answer": "Tagespauschalen inkl. Kaffeepausen und Mittagessen. Individuelles Catering von Lütze für alle Events."
+      },
+      "parking-meet": {
+        "question": "Gibt es Parkplätze für Tagesgäste?",
+        "answer": "Tiefgarage für 4 € pro Stunde. Vorbuchbare Delegierten-Tarife verfügbar — beim Events-Team anfragen."
+      }
+    },
+    "restaurant": {
+      "lutze-open": {
+        "question": "Wann hat Lütze geöffnet?",
+        "answer": "Die Bar täglich ab 10:00. Küche 11:30–15:00 und 17:00–22:30. Vinyl Nights jeden Montag ab 18:00."
+      },
+      "reservations": {
+        "question": "Muss ich einen Tisch reservieren?",
+        "answer": "Reservierung zum Abendessen empfohlen, aber nicht Pflicht. Walk-ins an der Bar immer willkommen. Für Gruppen ab 8 Personen bitte vorab buchen."
+      },
+      "dietary": {
+        "question": "Werden Ernährungswünsche berücksichtigt?",
+        "answer": "Ja — vegane, vegetarische und glutenfreie Optionen verfügbar. Bitte Allergien oder Ernährungswünsche bei der Buchung angeben."
+      },
+      "kttk-book": {
+        "question": "Muss ich einen Tischtennis-Tisch reservieren?",
+        "answer": "Keine Reservierung nötig — Tische nach Verfügbarkeit während der Öffnungszeiten. Donnerstag-Turniere für alle. 5 € Eintritt."
+      }
+    }
   },
   "footer": {
-    "address": "Lützowplatz 17, 10785 Berlin",
-    "phone": "+49 30 260050",
-    "email": "info@hotel-berlin.de"
+    "bookingStrip": "Bester Preis bei Direktbuchung garantiert",
+    "checkAvailability": "Verfügbarkeit prüfen",
+    "transit": "Bus 100, 106, 187 · U Nollendorfplatz 7 Min. · S+U Zoo 10 Min.",
+    "stayNavAria": "Aufenthalt-Navigation",
+    "eatMeetNavAria": "Essen und Tagungen Navigation",
+    "helpNavAria": "Hilfe-Navigation",
+    "stayTitle": "Aufenthalt",
+    "eatMeetTitle": "Essen & Tagungen",
+    "helpTitle": "Hilfe",
+    "stayRooms": "Zimmer & Suiten",
+    "stayOffers": "Angebote",
+    "stayBookDirect": "Direkt buchen",
+    "stayRewards": "Radisson Rewards",
+    "eatLutze": "Lütze",
+    "eatMeetings": "Meetings & Events",
+    "eatWeddings": "Hochzeiten",
+    "eatKttk": "Tischtennis — KTTK",
+    "helpFaqs": "FAQs",
+    "helpContact": "Kontakt",
+    "helpGettingHere": "Anreise",
+    "helpCareers": "Karriere",
+    "alreadyHere": "Schon da?",
+    "alreadyHereAria": "Schon da? Zum Gäste-Hub",
+    "alreadyHereDesc": "Dein Gäste-Hub — Events, Restaurants, Nachbarschaftstipps und alles für deinen Aufenthalt.",
+    "insideWhatsOn": "Was heute läuft",
+    "insideDining": "Essen & Trinken",
+    "insideNeighbourhood": "Nachbarschaftstipps",
+    "insideFaqs": "Gäste-FAQs",
+    "recognition": "Anerkennung",
+    "awardBreeam": "BREEAM-zertifiziert",
+    "awardGreenKey": "The Green Key",
+    "awardCvent": "Cvent Top 25 Europe Independent Hotels",
+    "awardMeetings": "Sustainable Meetings Berlin Leader",
+    "awardBerlin": "Sustainable Berlin Leader",
+    "partOf": "Teil von",
+    "radissonIndividuals": "Radisson Individuals",
+    "radissonRewards": "Radisson Rewards",
+    "pandox": "Pandox",
+    "legalImprint": "Impressum",
+    "legalPrivacy": "Datenschutz",
+    "legalTerms": "AGB",
+    "legalAccessibility": "Barrierefreiheit",
+    "copyright": "© 2026 Pandox Berlin GmbH",
+    "designBy": "design by: smoothism.com",
+    "socialInstagram": "Instagram",
+    "socialLinkedIn": "LinkedIn"
   }
 }

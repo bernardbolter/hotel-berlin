@@ -14,6 +14,7 @@ const config: Config = {
         'hbb-gold': '#A08C38',
         'hbb-dark': '#1E1530',
         'hbb-black': '#141414',
+        'hbb-nav-link': '#5A5550',
 
         // Section backgrounds
         'hbb-page': '#FBFBFB',
@@ -46,6 +47,7 @@ const config: Config = {
         'ui-base': ['13px', { lineHeight: '1.5' }],
         'ui-md': ['14px', { lineHeight: '1.5' }],
         'ui-lg': ['16px', { lineHeight: '1.6' }],
+        'ui-xl': ['20px', { lineHeight: '1.5' }],
         // Utility label scale — uppercase, tracked
         label: ['9.5px', { lineHeight: '1.3', letterSpacing: '0.12em' }],
         // Editorial scale — Lora

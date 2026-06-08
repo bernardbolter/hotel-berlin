@@ -1,10 +1,17 @@
 'use client'
 
 import { Menu, X } from 'lucide-react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
+
+import {
+  HotelBerlinBerlinLogo,
+  LOGO_MOBILE_CLASS,
+} from '@/components/brand/HotelBerlinBerlinLogo'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import { CtaButton } from '@/components/primitives/CtaButton'
 
 export interface SiteNavProps {
   context?: 'outside' | 'inside'
@@ -29,7 +36,6 @@ const guestLinkKeys = [
 export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
   const t = useTranslations('nav')
   const tc = useTranslations('common')
-  const locale = useLocale()
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
@@ -85,7 +91,20 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
 
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
-  const navLinkClass = (href: string) =>
+  const primaryNavLinkClass = (href: string) => {
+    const current = isCurrent(href)
+    return [
+      'relative font-ui text-ui-xl font-medium transition-colors duration-200 ease-out',
+      'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current',
+      'after:w-0 after:transition-[width] after:duration-200 after:ease-out',
+      'motion-reduce:transition-none motion-reduce:after:transition-none',
+      current
+        ? 'text-hbb-teal after:w-full'
+        : 'text-hbb-nav-link hover:text-hbb-black hover:after:w-full',
+    ].join(' ')
+  }
+
+  const mobileNavLinkClass = (href: string) =>
     `font-ui text-ui-sm hover:text-hbb-teal ${
       isCurrent(href) ? 'text-hbb-teal' : 'text-hbb-black'
     }`
@@ -95,59 +114,52 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
       <div className="hidden lg:block">
         <nav
           aria-label={tc('primaryNavAria')}
-          className="flex items-center justify-between gap-6 px-section-x py-3"
+          className="flex items-start justify-between gap-6 px-section-x pt-3 pb-1"
         >
-          <Link
-            href="/"
-            aria-label={tc('homeAria')}
-            className="font-ui text-ui-md font-medium text-hbb-black"
-          >
-            {tc('hotelName')}
-          </Link>
+          <div className="flex min-w-0 items-center gap-5">
+            <Link
+              href="/"
+              aria-label={tc('homeAria')}
+              className="inline-flex shrink-0 self-start"
+            >
+              <HotelBerlinBerlinLogo variant="default" />
+            </Link>
 
-          <ul role="list" className="flex items-center gap-5">
-            {primaryLinkKeys.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={navLinkClass(link.href)}
-                  aria-current={isCurrent(link.href) ? 'page' : undefined}
-                >
-                  {t(link.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <ul role="list" className="flex items-center">
+              {primaryLinkKeys.map((link, index) => (
+                <li key={link.href} className="flex items-center">
+                  {index > 0 ? (
+                    <span
+                      aria-hidden="true"
+                      className="select-none px-2.5 font-ui text-ui-xl font-medium text-hbb-nav-link/35"
+                    >
+                      |
+                    </span>
+                  ) : null}
+                  <Link
+                    href={link.href}
+                    className={primaryNavLinkClass(link.href)}
+                    aria-current={isCurrent(link.href) ? 'page' : undefined}
+                  >
+                    {t(link.key)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5 font-ui text-ui-sm">
-              <Link
-                href="/"
-                locale="de"
-                hrefLang="de"
-                lang="de"
-                aria-label={tc('langDe')}
-                aria-current={locale === 'de' ? 'true' : undefined}
-                className={locale === 'de' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
-              >
-                DE
-              </Link>
-              <span aria-hidden="true">|</span>
-              <Link
-                href="/"
-                locale="en"
-                hrefLang="en"
-                lang="en"
-                aria-label={tc('langEn')}
-                aria-current={locale === 'en' ? 'true' : undefined}
-                className={locale === 'en' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
-              >
-                EN
-              </Link>
-            </div>
-            <a href="/book" className="btn-primary">
+          <div className="flex shrink-0 items-start gap-4">
+            <LanguageSwitcher size="md" />
+            <CtaButton
+              href="/book"
+              unlocalized
+              color="teal"
+              variant="outline"
+              size="xl"
+              className="shrink-0 self-start"
+            >
               {t('bookNow')}
-            </a>
+            </CtaButton>
           </div>
         </nav>
 
@@ -171,13 +183,9 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
         </nav>
       </div>
 
-      <div className="flex items-center justify-between px-section-sm py-3 lg:hidden">
-        <Link
-          href="/"
-          aria-label={tc('homeAria')}
-          className="font-ui text-ui-sm font-medium text-hbb-black"
-        >
-          {tc('hotelName')}
+      <div className="flex items-start justify-between px-section-sm pt-3 pb-1 lg:hidden">
+        <Link href="/" aria-label={tc('homeAria')} className="inline-flex shrink-0 self-start">
+          <HotelBerlinBerlinLogo variant="default" className={LOGO_MOBILE_CLASS} />
         </Link>
         <button
           ref={hamburgerRef}
@@ -207,7 +215,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={navLinkClass(link.href)}
+                  className={mobileNavLinkClass(link.href)}
                   aria-current={isCurrent(link.href) ? 'page' : undefined}
                   onClick={() => setMobileOpen(false)}
                 >
@@ -242,35 +250,18 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
           </ul>
         </nav>
 
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-          <div className="flex items-center gap-1.5 font-ui text-ui-sm">
-            <Link
-              href="/"
-              locale="de"
-              hrefLang="de"
-              lang="de"
-              aria-label={tc('langDe')}
-              aria-current={locale === 'de' ? 'true' : undefined}
-              className={locale === 'de' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
-            >
-              DE
-            </Link>
-            <span aria-hidden="true">|</span>
-            <Link
-              href="/"
-              locale="en"
-              hrefLang="en"
-              lang="en"
-              aria-label={tc('langEn')}
-              aria-current={locale === 'en' ? 'true' : undefined}
-              className={locale === 'en' ? 'font-medium text-hbb-teal' : 'text-gray-500'}
-            >
-              EN
-            </Link>
-          </div>
-          <a href="/book" className="btn-primary">
+        <div className="flex items-end justify-between border-t border-gray-100 pt-4">
+          <LanguageSwitcher align="start" size="lg" />
+          <CtaButton
+            href="/book"
+            unlocalized
+            color="teal"
+            variant="outline"
+            size="lg"
+            className="shrink-0 self-start"
+          >
             {t('bookNow')}
-          </a>
+          </CtaButton>
         </div>
       </div>
     </header>

@@ -1,3 +1,4 @@
+export { CtaButton, type CtaButtonProps, type CtaButtonColor, type CtaButtonSize, type CtaButtonVariant } from './CtaButton'
 export { ContentCard, type ContentCardProps } from './ContentCard'
 export { FAQAccordion, type FAQAccordionProps } from './FAQAccordion'
 export { HintDot, type HintDotProps, type HintDotVariant } from './HintDot'

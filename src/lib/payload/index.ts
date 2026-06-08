@@ -1,4 +1,5 @@
 export { getPayloadClient } from './client'
+export { getSecondaryNavLinks } from './navigation'
 export { getEvents, getEventBySlug } from './events'
 export { getFAQs } from './faqs'
 export { getFeaturedMeetingRooms, getMeetingRoomBySlug, getMeetingRooms } from './meetingRooms'

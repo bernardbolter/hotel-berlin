@@ -10,6 +10,7 @@ import { Artworks } from './collections/Artworks'
 import { Events } from './collections/Events'
 import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
+import { Pages } from './collections/Pages'
 import { Media } from './collections/Media'
 import { MeetingRooms } from './collections/MeetingRooms'
 import { People } from './collections/People'
@@ -19,6 +20,7 @@ import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Venues } from './collections/Venues'
 import { Hotel } from './globals/Hotel'
+import { Navigation } from './globals/Navigation'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,8 +46,9 @@ export default buildConfig({
     Events,
     People,
     Places,
+    Pages,
   ],
-  globals: [Hotel],
+  globals: [Hotel, Navigation],
   editor: lexicalEditor(),
   localization: {
     locales: ['de', 'en'],
@@ -60,6 +63,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    push: process.env.NODE_ENV !== 'production',
   }),
   sharp,
   plugins: [],

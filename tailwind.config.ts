@@ -8,6 +8,7 @@ const config: Config = {
         // Brand palette
         'hbb-teal': '#2C6B7A',
         'hbb-amber': '#F79B2E',
+        'hbb-nav-amber': '#B87A2E',
         'hbb-green': '#4A7A68',
         'hbb-coral': '#F95D62',
         'hbb-purple': '#6A5870',
@@ -15,6 +16,12 @@ const config: Config = {
         'hbb-dark': '#1E1530',
         'hbb-black': '#141414',
         'hbb-nav-link': '#5A5550',
+
+        // Primary + secondary nav (shared bar background)
+        'hbb-nav-bg': '#F3F3F3',
+        'hbb-nav-muted': '#888888',
+        'hbb-nav-secondary': '#555555',
+        'hbb-nav-ghost': '#AAAAAA',
 
         // Section backgrounds
         'hbb-page': '#FBFBFB',
@@ -82,6 +89,9 @@ const config: Config = {
         'ui-label': '0.12em',
         'ui-wide': '0.08em',
         'ui-tight': '0.02em',
+      },
+      screens: {
+        xs: '480px',
       },
     },
   },

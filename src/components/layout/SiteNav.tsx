@@ -5,16 +5,21 @@ import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
+import { useNavScroll } from '@/hooks/useNavScroll'
 
 import {
   HotelBerlinBerlinLogo,
   LOGO_MOBILE_CLASS,
 } from '@/components/brand/HotelBerlinBerlinLogo'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import { NavSecondary } from '@/components/layout/NavSecondary'
 import { CtaButton } from '@/components/primitives/CtaButton'
+
+import type { SecondaryNavLink } from '@/lib/nav/types'
 
 export interface SiteNavProps {
   context?: 'outside' | 'inside'
+  secondaryLinks: SecondaryNavLink[]
 }
 
 const primaryLinkKeys = [
@@ -25,18 +30,11 @@ const primaryLinkKeys = [
   { href: '/neighbourhood', key: 'neighbourhood' },
 ] as const
 
-const guestLinkKeys = [
-  { href: '/here/events', key: 'whatsOn' },
-  { href: '/here/explore', key: 'gettingAround' },
-  { href: '/here/explore', key: 'localTips' },
-  { href: '/gallery', key: 'gallery' },
-  { href: '/skateboard-museum', key: 'skateboardMuseum' },
-] as const
-
-export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
+export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
   const t = useTranslations('nav')
   const tc = useTranslations('common')
   const pathname = usePathname()
+  const { headerRef: navScrollRef, navState } = useNavScroll()
   const [mobileOpen, setMobileOpen] = useState(false)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
@@ -110,11 +108,15 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
     }`
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-hbb-page">
+    <header
+      ref={navScrollRef}
+      data-nav-state={navState}
+      className="site-nav-header sticky top-0 z-50 border-b border-black/[0.08] bg-hbb-page"
+    >
       <div className="hidden lg:block">
         <nav
           aria-label={tc('primaryNavAria')}
-          className="flex items-start justify-between gap-6 px-section-x pt-3 pb-1"
+          className="nav-primary flex items-start justify-between gap-6 bg-hbb-page px-section-x pt-3 pb-1"
         >
           <div className="flex min-w-0 items-center gap-5">
             <Link
@@ -163,27 +165,12 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
           </div>
         </nav>
 
-        <nav
-          aria-label={tc('guestNavAria')}
-          className="flex items-center justify-between border-t border-gray-100 px-section-x py-2"
-        >
-          <Link href="/here" className="font-ui text-ui-sm text-hbb-teal">
-            {t('inBuilding')} <span aria-hidden="true">{t('enter')}</span>
-            <span className="sr-only">{t('enterGuestHub')}</span>
-          </Link>
-          <ul role="list" className="flex items-center gap-4">
-            {guestLinkKeys.map((link) => (
-              <li key={`${link.href}-${link.key}`}>
-                <Link href={link.href} className="font-ui text-ui-xs text-gray-500 hover:text-hbb-teal">
-                  {t(link.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="nav-secondary-clip">
+          <NavSecondary context={context} links={secondaryLinks} />
+        </div>
       </div>
 
-      <div className="flex items-start justify-between px-section-sm pt-3 pb-1 lg:hidden">
+      <div className="flex items-start justify-between bg-hbb-page px-section-sm pt-3 pb-1 lg:hidden">
         <Link href="/" aria-label={tc('homeAria')} className="inline-flex shrink-0 self-start">
           <HotelBerlinBerlinLogo variant="default" className={LOGO_MOBILE_CLASS} />
         </Link>
@@ -207,7 +194,7 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
         role="dialog"
         aria-label={tc('navMenuAria')}
         aria-modal="true"
-        className="border-t border-gray-200 bg-hbb-page px-section-sm py-4 lg:hidden"
+        className="border-t border-black/[0.08] bg-hbb-page px-section-sm py-4 lg:hidden"
       >
         <nav aria-label={tc('primaryNavAria')} className="mb-6">
           <ul role="list" className="flex flex-col gap-3">
@@ -226,29 +213,13 @@ export function SiteNav({ context: _context = 'outside' }: SiteNavProps) {
           </ul>
         </nav>
 
-        <nav aria-label={tc('guestNavAria')} className="mb-6 border-t border-gray-100 pt-4">
-          <Link
-            href="/here"
-            className="mb-3 block font-ui text-ui-sm text-hbb-teal"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t('inBuilding')} <span aria-hidden="true">{t('enter')}</span>
-            <span className="sr-only">{t('enterGuestHub')}</span>
-          </Link>
-          <ul role="list" className="flex flex-col gap-2">
-            {guestLinkKeys.map((link) => (
-              <li key={`${link.href}-${link.key}`}>
-                <Link
-                  href={link.href}
-                  className="font-ui text-ui-sm text-gray-600"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(link.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <NavSecondary
+          context={context}
+          links={secondaryLinks}
+          layout="stacked"
+          className="mb-6 border-t border-black/[0.08] px-0 py-4"
+          onNavigate={() => setMobileOpen(false)}
+        />
 
         <div className="flex items-end justify-between border-t border-gray-100 pt-4">
           <LanguageSwitcher align="start" size="lg" />

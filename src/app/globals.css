@@ -144,6 +144,32 @@ body {
   background-color: theme('colors.hbb-black');
 }
 
+/* Nav scroll — secondary row only for now (see doc/navigation/HotelBerlin_NavBuildBrief.md) */
+.nav-secondary-clip {
+  overflow: hidden;
+  max-height: var(--nav-secondary-height, 3rem);
+  transition: max-height 200ms ease;
+}
+
+[data-nav-state='hidden-secondary'] .nav-secondary-clip {
+  max-height: 0;
+}
+
+[data-nav-state] .nav-secondary-clip > .nav-secondary {
+  transition: transform 200ms ease;
+}
+
+[data-nav-state='hidden-secondary'] .nav-secondary-clip > .nav-secondary {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-secondary-clip,
+  [data-nav-state] .nav-secondary-clip > .nav-secondary {
+    transition: none !important;
+  }
+}
+
 /* Reduced motion — global */
 @media (prefers-reduced-motion: reduce) {
   *,

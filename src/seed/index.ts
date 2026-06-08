@@ -6,13 +6,16 @@ import config from '../payload.config'
 
 type SeedableCollection = keyof Config['collections']
 import {
+  defaultInsideNavSlugs,
   faqsSeed,
   hotelSeed,
   meetingRoomsSeed,
+  pagesSeed,
   roomsSeed,
   tagsSeed,
   venuesSeed,
 } from './data'
+import { upsertPage } from './pages'
 
 async function isSeeded(collection: SeedableCollection): Promise<boolean> {
   const payload = await getPayload({ config })
@@ -24,6 +27,12 @@ async function isHotelSeeded(): Promise<boolean> {
   const payload = await getPayload({ config })
   const hotel = await payload.findGlobal({ slug: 'hotel' })
   return Boolean(hotel.name)
+}
+
+async function isNavigationSeeded(): Promise<boolean> {
+  const payload = await getPayload({ config })
+  const nav = await payload.findGlobal({ slug: 'navigation' })
+  return Boolean(nav.secondaryLinks && nav.secondaryLinks.length > 0)
 }
 
 async function seed() {
@@ -87,6 +96,27 @@ async function seed() {
     for (const faq of faqsSeed) {
       await payload.create({ collection: 'faqs', data: faq, locale: 'en' })
     }
+  }
+
+  const pageIds = new Map<string, number>()
+
+  console.log('Seeding pages (skeleton)...')
+  for (const page of pagesSeed) {
+    const id = await upsertPage(payload, page)
+    pageIds.set(page.slug, id)
+    console.log(`  Seeded: ${page.slug}`)
+  }
+
+  if (!(await isNavigationSeeded())) {
+    console.log('Seeding inside navigation...')
+    await payload.updateGlobal({
+      slug: 'navigation',
+      data: {
+        secondaryLinks: defaultInsideNavSlugs.map((slug) => ({
+          page: pageIds.get(slug),
+        })),
+      },
+    })
   }
 
   console.log('Seed complete.')

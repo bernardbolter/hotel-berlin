@@ -80,6 +80,7 @@ export interface Config {
     events: Event;
     people: Person;
     places: Place;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -100,6 +101,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
     places: PlacesSelect<false> | PlacesSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -111,9 +113,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('de' | 'en') | ('de' | 'en')[];
   globals: {
     hotel: Hotel;
+    navigation: Navigation;
   };
   globalsSelect: {
     hotel: HotelSelect<false> | HotelSelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
   };
   locale: 'de' | 'en';
   widgets: {
@@ -791,6 +795,24 @@ export interface Place {
   createdAt: string;
 }
 /**
+ * Site pages. Inside (/here) pages can be added to the guest hub navigation.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * e.g. "rooms" → /rooms · "here/art" → /here/art (no leading slash)
+   */
+  slug: string;
+  context: 'outside' | 'inside' | 'both' | 'policy';
+  status?: ('skeleton' | 'in-progress' | 'live') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -865,6 +887,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'places';
         value: number | Place;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1261,6 +1287,18 @@ export interface PlacesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  context?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1384,6 +1422,29 @@ export interface Hotel {
   createdAt?: string | null;
 }
 /**
+ * Choose and reorder up to 5 inside (/here) pages for the secondary nav row. Primary nav links stay fixed in code.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  /**
+   * Drag to reorder. Pick from inside pages only — create them under Pages first. Maximum 5 links.
+   */
+  secondaryLinks?:
+    | {
+        /**
+         * Inside (/here) pages only.
+         */
+        page: number | Page;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel_select".
  */
@@ -1445,6 +1506,21 @@ export interface HotelSelect<T extends boolean = true> {
     | {
         reception?: T;
         breakfast?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  secondaryLinks?:
+    | T
+    | {
+        page?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

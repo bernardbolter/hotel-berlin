@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { SiteFooter } from '@/components/layout/SiteFooter'
-import { SiteNav } from '@/components/layout/SiteNav'
+import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import { CultureSection } from '@/components/sections/CultureSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { HeroSection } from '@/components/sections/HeroSection'
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props) {
 export default function HomePage() {
   return (
     <>
-      <SiteNav context="outside" />
+      <SiteNavWithData context="outside" />
       <main id="main-content">
         <HeroSection />
         <RoomsSection />

@@ -144,6 +144,73 @@ body {
   background-color: theme('colors.hbb-black');
 }
 
+/* Home hero — Ken Burns origins (doc/heroComponent/HotelBerlin_HeroSection_BuildBrief.md) */
+@keyframes kb-bottom-left {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(2%, -1%);
+  }
+}
+
+@keyframes kb-top-right {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(-2%, 1%);
+  }
+}
+
+@keyframes kb-top-left {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(2%, 1%);
+  }
+}
+
+@keyframes kb-bottom-right {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(-2%, -1%);
+  }
+}
+
+.kb-bottom-left {
+  transform-origin: bottom left;
+  animation: kb-bottom-left 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.kb-top-right {
+  transform-origin: top right;
+  animation: kb-top-right 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.kb-top-left {
+  transform-origin: top left;
+  animation: kb-top-left 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.kb-bottom-right {
+  transform-origin: bottom right;
+  animation: kb-bottom-right 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kb-pan-inner {
+    animation: none !important;
+  }
+}
+
 /* Nav scroll — secondary row only for now (see doc/navigation/HotelBerlin_NavBuildBrief.md) */
 .nav-secondary-clip {
   overflow: hidden;

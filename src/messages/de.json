@@ -55,15 +55,18 @@
     "heroSubline": "Dein Aufenthalt, deine Stadt."
   },
   "hero": {
-    "headingLine1": "Lass deine",
-    "headingLine2": "Berlin-Geschichte beginnen",
-    "subtextLine1": "Hotel Berlin, Berlin ist der Ort, an dem Reisende,",
-    "subtextLine2": "Berliner und Ideen aufeinandertreffen.",
-    "detailLine1": "Sonnenlicht im Innenhof, Künstler bei der Arbeit,",
-    "detailLine2": "und das Berliner Leben immer in Reichweite.",
-    "galleryAria": "Fotogalerie Hotel Berlin, Berlin",
-    "mapsLink": "Hotel Berlin, Berlin auf Google Maps — Wegbeschreibung (öffnet in neuem Tab)",
-    "satelliteAlt": "Satellitenansicht des Hotel Berlin, Berlin am Lützowplatz 17"
+    "headingLine1": "Deine Berliner",
+    "headingLine2": "Geschichte beginnt hier",
+    "bodyLine1": "Das Hotel Berlin, Berlin ist der Ort, an dem Reisende, Einheimische und Ideen aufeinandertreffen.",
+    "bodyLine2": "Die Sonne füllt den Innenhof, Künstler schaffen echte Werke,",
+    "bodyLine3": "und das Summen Berlins ist nie weit entfernt.",
+    "cta": "Jetzt buchen",
+    "ctaSrOnly": " im Hotel Berlin, Berlin (öffnet Buchungsseite)",
+    "address": "17 Lützowplatz, Tiergarten",
+    "directions": "Wegbeschreibung",
+    "galleryAria": "Hotelfotos",
+    "mapsLink": "Wegbeschreibung zum Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten (öffnet Google Maps)",
+    "satelliteAlt": "Satellitenansicht des Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten"
   },
   "rooms": {
     "label": "Schlafen & Entspannen",

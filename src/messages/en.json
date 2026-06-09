@@ -57,13 +57,16 @@
   "hero": {
     "headingLine1": "Let's start your",
     "headingLine2": "Berlin story",
-    "subtextLine1": "Hotel Berlin, Berlin is where travellers,",
-    "subtextLine2": "locals, and ideas naturally meet.",
-    "detailLine1": "Sunlight fills the courtyard, artists make real work,",
-    "detailLine2": "and the hum of Berlin is never far away.",
-    "galleryAria": "Hotel Berlin, Berlin photo gallery",
-    "mapsLink": "Hotel Berlin, Berlin on Google Maps — get directions (opens in new tab)",
-    "satelliteAlt": "Satellite view of Hotel Berlin, Berlin at Lützowplatz 17"
+    "bodyLine1": "Hotel Berlin, Berlin is where travellers, locals, and ideas naturally meet.",
+    "bodyLine2": "Sunlight fills the courtyard, artists make real work,",
+    "bodyLine3": "and the hum of Berlin is never far away.",
+    "cta": "Book Now",
+    "ctaSrOnly": " at Hotel Berlin, Berlin (opens booking page)",
+    "address": "17 Lützowplatz, Tiergarten",
+    "directions": "Get directions",
+    "galleryAria": "Hotel photos",
+    "mapsLink": "Get directions to Hotel Berlin, Berlin at Lützowplatz 17, Tiergarten (opens Google Maps)",
+    "satelliteAlt": "Aerial satellite view of Hotel Berlin, Berlin at Lützowplatz 17, Tiergarten"
   },
   "rooms": {
     "label": "Sleep & Relax",

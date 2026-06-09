@@ -4,7 +4,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import { CultureSection } from '@/components/sections/CultureSection'
 import { FAQSection } from '@/components/sections/FAQSection'
-import { HeroSection } from '@/components/sections/HeroSection'
+import { HomeHero } from '@/components/home/HomeHero'
 import { LutzeSection } from '@/components/sections/LutzeSection'
 import { MapTeaser } from '@/components/sections/MapTeaser'
 import { MeetingsSection } from '@/components/sections/MeetingsSection'
@@ -37,7 +37,7 @@ export default function HomePage() {
     <>
       <SiteNavWithData context="outside" />
       <main id="main-content">
-        <HeroSection />
+        <HomeHero />
         <RoomsSection />
         <MeetingsSection />
         <CultureSection />

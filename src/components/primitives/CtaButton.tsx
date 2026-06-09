@@ -81,7 +81,7 @@ const colorVariantClasses: Record<
   },
 }
 
-const shellClasses = [
+export const ctaButtonShellClasses = [
   'group relative inline-flex shrink-0 cursor-pointer items-center justify-center overflow-hidden',
   'border border-1 font-ui no-underline',
   'before:pointer-events-none before:absolute before:inset-0 before:z-0 before:origin-left',
@@ -90,6 +90,8 @@ const shellClasses = [
   'hover:before:scale-x-100',
   'motion-reduce:before:transition-none',
 ].join(' ')
+
+export const ctaButtonSizeClasses = sizeClasses
 
 export function CtaButton({
   children,
@@ -106,7 +108,7 @@ export function CtaButton({
   const palette = colorVariantClasses[color][variant]
   const caseClasses = caps ? 'uppercase tracking-ui-wide' : 'normal-case tracking-normal'
   const classes = [
-    shellClasses,
+    ctaButtonShellClasses,
     sizeClasses[size],
     caseClasses,
     palette.shell,

@@ -1,67 +1,99 @@
-# Payload Blank Template
+# Hotel Berlin, Berlin
 
-This template comes configured with the bare minimum to get started on anything you need.
+Marketing site and CMS for [Hotel Berlin, Berlin](https://www.hotel-berlin.de) — Next.js App Router, Payload CMS 3, PostgreSQL, and next-intl (`en` / `de`).
 
-## Quick start
+Preview: [hotel-berlin-berlin.vercel.app](https://hotel-berlin-berlin.vercel.app/)
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## Stack
 
-## Quick Start - local setup
+- **Next.js 16** + React 19
+- **Payload CMS 3** (`@payloadcms/db-postgres`) — admin at `/admin`
+- **next-intl** — locale routes under `/en` and `/de`
+- **Mapbox** — static / vector maps (hero teaser, neighbourhood)
+- **Tailwind CSS** — design tokens in `tailwind.config.ts`
 
-To spin up this template locally, follow these steps:
+## Local setup
 
-### Clone
+1. Clone and install:
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+   ```bash
+   git clone https://github.com/bernardbolter/hotel-berlin.git
+   cd hotel-berlin
+   npm install
+   ```
 
-### Development
+2. Copy env and fill in secrets:
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+   ```bash
+   cp .env.example .env
+   ```
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+   Required:
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+   | Variable | Purpose |
+   | --- | --- |
+   | `DATABASE_URL` | PostgreSQL connection string |
+   | `PAYLOAD_SECRET` | Payload encryption secret |
+   | `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Public Mapbox token (maps) |
 
-#### Docker (Optional)
+   Optional:
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+   | Variable | Purpose |
+   | --- | --- |
+   | `NEXT_PUBLIC_MAPBOX_STYLE_ID` | Map style (default `mapbox/light-v11`) |
+   | `NEXT_PUBLIC_SHOW_FULL_HOMEPAGE` | Set `true` to show Meetings / Culture / Map / FAQ / Footer while V2 homepage work is in progress |
+   | `NEXT_PUBLIC_SITE_URL` | Canonical site URL |
+   | `REVALIDATE_SECRET` | On-demand ISR revalidation |
 
-To do so, follow these steps:
+3. Start Postgres, then:
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+   ```bash
+   npm run dev
+   ```
 
-## How it works
+   - Site: [http://localhost:3000](http://localhost:3000)
+   - Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+## Useful scripts
 
-### Collections
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Next.js + Payload dev server |
+| `npm run build` / `npm start` | Production build & serve |
+| `npm run seed` | Seed CMS content |
+| `npm run seed:rooms` | Seed room types + amenities |
+| `npm run seed:room-images` | Upload room gallery images |
+| `npm run seed:hero-images` | Upload homepage hero slides |
+| `npm run generate:types` | Regenerate `src/payload-types.ts` |
+| `npm run lint` | ESLint |
+| `npm test` | Unit + e2e |
+| `npm run test:a11y` | Accessibility (axe) |
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+## Project layout
 
-- #### Users (Authentication)
+```
+src/
+  app/[locale]/     # Public pages (home, neighbourhood, …)
+  app/(payload)/    # Payload admin & API
+  collections/      # Rooms, Places, HeroSlides, FAQs, …
+  globals/          # Homepage, Hotel, Navigation
+  components/       # UI (home hero, rooms teaser, map, …)
+  lib/              # Payload helpers, map config, room mappers
+  seed/             # Seed scripts + JSON data
+  messages/         # en.json / de.json
+doc/                # Build briefs & component specs
+```
 
-  Users are auth-enabled collections that have access to the admin panel.
+Homepage V2 focuses on the hero (forest + photo, Mapbox directions circle) and the Sleep & Relax rooms teaser. Specs live under `doc/version2/` and `doc/roomsHero/`.
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+## Deploy (Vercel)
 
-- #### Media
+1. Connect this repo (`bernardbolter/hotel-berlin`) to the Vercel project.
+2. Set the same env vars as `.env.example` (use a hosted Postgres URL in production).
+3. Production branch: `main`.
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+Payload needs a reachable database on every deploy/serverless invocation — local Postgres will not work on Vercel.
 
-### Docker
+## License
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+Private project for Hotel Berlin, Berlin.

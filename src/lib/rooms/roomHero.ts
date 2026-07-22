@@ -110,10 +110,12 @@ const SLUG_IMAGE_HINTS: Record<string, string[]> = {
   'studio-45': ['studio', 'hybrid-studio'],
 }
 
-function resolveRoomImages(room: Room): { src: string; alt: string; filename?: string }[] {
+type ResolvedRoomImage = { src: string; alt: string; filename?: string }
+
+function resolveRoomImages(room: Room): ResolvedRoomImage[] {
   const cmsImages =
     room.images
-      ?.map((entry) => {
+      ?.map((entry): ResolvedRoomImage | null => {
         const src = resolveMediaUrl(entry.image)
         if (!src) return null
         return {
@@ -122,7 +124,7 @@ function resolveRoomImages(room: Room): { src: string; alt: string; filename?: s
           filename: resolveMediaFilename(entry.image),
         }
       })
-      .filter((img): img is { src: string; alt: string; filename?: string } => img !== null) ?? []
+      .filter((img): img is ResolvedRoomImage => img !== null) ?? []
 
   if (cmsImages.length > 0) return cmsImages
 

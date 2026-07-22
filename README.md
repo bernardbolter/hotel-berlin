@@ -2,7 +2,7 @@
 
 Marketing site and CMS for [Hotel Berlin, Berlin](https://www.hotel-berlin.de) — Next.js App Router, Payload CMS 3, PostgreSQL, and next-intl (`en` / `de`).
 
-Preview: [hotel-berlin-berlin.vercel.app](https://hotel-berlin-berlin.vercel.app/)
+Staging target: self-hosted on a VPS (Netcup). See [`deploy/netcup/DEPLOY.md`](deploy/netcup/DEPLOY.md).
 
 ## Stack
 
@@ -86,13 +86,23 @@ doc/                # Build briefs & component specs
 
 Homepage V2 focuses on the hero (forest + photo, Mapbox directions circle) and the Sleep & Relax rooms teaser. Specs live under `doc/version2/` and `doc/roomsHero/`.
 
-## Deploy (Vercel)
+## Deploy (Netcup / VPS)
 
-1. Connect this repo (`bernardbolter/hotel-berlin`) to the Vercel project.
-2. Set the same env vars as `.env.example` (use a hosted Postgres URL in production).
-3. Production branch: `main`.
+Prefer running the full app on a VPS so Postgres + media stay on one machine.
 
-Payload needs a reachable database on every deploy/serverless invocation — local Postgres will not work on Vercel.
+Full checklist (including how to **stop Vercel auto-deploys**): [`deploy/netcup/DEPLOY.md`](deploy/netcup/DEPLOY.md).
+
+Short version:
+
+```bash
+git clone https://github.com/bernardbolter/hotel-berlin.git
+cd hotel-berlin && npm install
+cp .env.example .env   # set DATABASE_URL, PAYLOAD_SECRET, Mapbox, SITE_URL
+npm run build && pm2 start deploy/netcup/ecosystem.config.cjs
+# nginx: deploy/netcup/nginx.conf
+```
+
+Updates: `deploy/netcup/update.sh` (pull → build → `pm2 restart`).
 
 ## License
 

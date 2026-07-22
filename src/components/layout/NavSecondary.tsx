@@ -1,6 +1,5 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/routing'
@@ -28,17 +27,16 @@ export function NavSecondary({
   const tc = useTranslations('common')
   const pathname = usePathname()
 
-  const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
+  const isCurrent = (href: string) =>
+    href !== '#' && (pathname === href || pathname.startsWith(`${href}/`))
 
   const isBar = layout === 'bar'
-  const outsideTextSize = isBar ? 'text-[15px]' : 'text-ui-sm'
-  const insideTextSize = isBar ? 'text-[15px]' : 'text-ui-sm'
+  const textSize = isBar ? 'text-[14px]' : 'text-ui-sm'
 
   const secondaryNavLinkClass = (href: string) => {
     const current = isCurrent(href)
-    const textSize = context === 'inside' ? insideTextSize : outsideTextSize
     const base = [
-      'relative font-ui font-normal tracking-[0.03em] transition-colors duration-200 ease-out',
+      'relative font-ui font-normal tracking-[0.02em] transition-colors duration-200 ease-out',
       textSize,
       'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current',
       'after:w-0 after:transition-[width] after:duration-200 after:ease-out',
@@ -62,12 +60,11 @@ export function NavSecondary({
 
   const pipeClass =
     context === 'inside'
-      ? `select-none px-2.5 font-ui font-medium text-hbb-nav-secondary/50 ${insideTextSize}`
-      : `select-none px-2.5 font-ui font-medium text-hbb-nav-amber/35 ${outsideTextSize}`
+      ? `select-none px-2 font-ui font-medium text-hbb-nav-secondary/50 ${textSize}`
+      : `select-none px-2 font-ui font-medium text-hbb-nav-amber/40 ${textSize}`
 
   const bridgeHref = context === 'inside' ? '/' : '/here'
-  const bridgeAria =
-    context === 'inside' ? t('bridgeToMainAria') : t('bridgeToGuestAria')
+  const bridgeAria = context === 'inside' ? t('bridgeToMainAria') : t('bridgeToGuestAria')
 
   const bridgeBlock =
     context === 'inside' ? (
@@ -83,44 +80,57 @@ export function NavSecondary({
           onClick={onNavigate}
         >
           {t('mainSite')}
-          <ArrowRight aria-hidden="true" size={12} strokeWidth={2} />
         </CtaButton>
       </div>
     ) : (
-      <div className="flex shrink-0 flex-nowrap items-center gap-2">
-        <span
-          className={`shrink-0 font-ui text-hbb-nav-amber ${isBar ? 'text-[17px]' : 'text-[14px]'}`}
-        >
+      <div className="flex shrink-0 flex-nowrap items-center gap-2.5">
+        <span className={`shrink-0 font-ui text-hbb-nav-amber ${isBar ? 'text-[15px]' : 'text-[14px]'}`}>
           {t('inBuilding')}
         </span>
-        <CtaButton
+        {/* ENTER — intentional boxed border treatment (PDF) */}
+        <Link
           href={bridgeHref}
-          color="amber"
-          variant="outline"
-          size={isBar ? 'md' : 'sm'}
           aria-label={bridgeAria}
-          className={`shrink-0 whitespace-nowrap !border-hbb-nav-amber !text-hbb-nav-amber before:!bg-hbb-nav-amber ${isBar ? 'text-[14px]' : ''}`}
           onClick={onNavigate}
+          className={`enter-btn ${isBar ? 'text-[12px]' : 'text-ui-xs'}`}
         >
-          <span className="inline-flex items-center gap-1 whitespace-nowrap">
-            {t('enter')}
-            <ArrowRight aria-hidden="true" size={isBar ? 14 : 12} strokeWidth={2} />
-          </span>
-        </CtaButton>
+          <span className="enter-btn__text">{t('enter')}</span>
+        </Link>
       </div>
     )
 
-  const renderLink = (link: SecondaryNavLink) =>
-    link.external ? (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={secondaryNavLinkClass(link.href)}
-      >
-        {link.label}
-      </a>
-    ) : (
+  const renderLink = (link: SecondaryNavLink) => {
+    if (link.comingSoon) {
+      return (
+        <a
+          href="#"
+          className={secondaryNavLinkClass(link.href)}
+          aria-disabled="true"
+          onClick={(event) => {
+            event.preventDefault()
+            onNavigate?.()
+          }}
+        >
+          {link.label}
+          <span className="sr-only"> — {t('comingSoon')}</span>
+        </a>
+      )
+    }
+
+    if (link.external) {
+      return (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={secondaryNavLinkClass(link.href)}
+        >
+          {link.label}
+        </a>
+      )
+    }
+
+    return (
       <Link
         href={link.href}
         className={secondaryNavLinkClass(link.href)}
@@ -130,6 +140,7 @@ export function NavSecondary({
         {link.label}
       </Link>
     )
+  }
 
   if (layout === 'stacked') {
     return (
@@ -150,22 +161,24 @@ export function NavSecondary({
   return (
     <nav
       aria-label={tc('guestNavAria')}
-      className={`nav-secondary flex items-center bg-hbb-nav-bg px-section-x py-1.5 ${className}`}
+      className={`nav-secondary w-full bg-hbb-nav-bg ${className}`}
     >
-      <div className="flex min-w-0 flex-nowrap items-center gap-x-1">
-        {bridgeBlock}
-        {links.length > 0 ? (
-          <ul role="list" className="flex flex-nowrap items-center">
-            {links.map((link) => (
-              <li key={link.id} className="flex items-center">
-                <span aria-hidden="true" className={pipeClass}>
-                  |
-                </span>
-                {renderLink(link)}
-              </li>
-            ))}
-          </ul>
-        ) : null}
+      <div className="site-shell flex items-center px-8 py-2 xl:px-10">
+        <div className="flex min-w-0 flex-nowrap items-center gap-x-1">
+          {bridgeBlock}
+          {links.length > 0 ? (
+            <ul role="list" className="flex flex-nowrap items-center">
+              {links.map((link) => (
+                <li key={link.id} className="flex items-center">
+                  <span aria-hidden="true" className={pipeClass}>
+                    |
+                  </span>
+                  {renderLink(link)}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
       </div>
     </nav>
   )

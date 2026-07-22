@@ -1,24 +1,18 @@
-import { Archivo_Narrow, Lora } from 'next/font/google'
+import { Archivo } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { routing } from '@/i18n/routing'
+import { laica } from '@/lib/fonts/laica'
 
 import '../globals.css'
 
-const archivoNarrow = Archivo_Narrow({
+const archivo = Archivo({
   subsets: ['latin'],
-  variable: '--font-archivo-narrow',
-  weight: ['400', '500'],
-  display: 'swap',
-})
-
-const lora = Lora({
-  subsets: ['latin'],
-  variable: '--font-lora',
-  weight: ['400', '500'],
+  variable: '--font-archivo',
+  weight: ['400', '500', '600'],
   display: 'swap',
 })
 
@@ -61,7 +55,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   return (
-    <html lang={locale} className={`${archivoNarrow.variable} ${lora.variable}`}>
+    <html lang={locale} className={`${archivo.variable} ${laica.variable}`}>
       <head>
         <script
           type="application/ld+json"

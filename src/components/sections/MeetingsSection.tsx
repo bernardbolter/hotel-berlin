@@ -41,14 +41,14 @@ export function MeetingsSection() {
       </div>
 
       <div className="grid grid-cols-1 border-t border-white/10 md:grid-cols-[1.15fr_1fr]">
-        <div className="relative min-h-[280px] md:min-h-[400px]">
+        <div className="relative min-h-70 md:min-h-100">
           <KenBurnsSlider
             key={currentRoom}
             images={roomImages}
             aria-label={t('galleryAria')}
             interval={4500}
             showDots={false}
-            className="h-full min-h-[280px] md:min-h-[400px]"
+            className="h-full min-h-70 md:min-h-100"
           />
         </div>
 

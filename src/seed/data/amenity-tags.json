@@ -1,0 +1,296 @@
+[
+  {
+    "name": "Free WiFi",
+    "slug": "free-wifi",
+    "type": "amenity",
+    "lucideIcon": "Wifi"
+  },
+  {
+    "name": "King bed",
+    "slug": "king-bed",
+    "type": "amenity",
+    "lucideIcon": "BedDouble"
+  },
+  {
+    "name": "King bed freestanding",
+    "slug": "king-bed-freestanding",
+    "type": "amenity",
+    "lucideIcon": "BedDouble"
+  },
+  {
+    "name": "Queen bed",
+    "slug": "queen-bed",
+    "type": "amenity",
+    "lucideIcon": "BedDouble"
+  },
+  {
+    "name": "Twin beds",
+    "slug": "twin-beds",
+    "type": "amenity",
+    "lucideIcon": "Bed"
+  },
+  {
+    "name": "Double bed",
+    "slug": "double-bed",
+    "type": "amenity",
+    "lucideIcon": "Bed"
+  },
+  {
+    "name": "Bunk beds",
+    "slug": "bunk-beds",
+    "type": "amenity",
+    "lucideIcon": "BedSingle"
+  },
+  {
+    "name": "Shower",
+    "slug": "shower",
+    "type": "amenity",
+    "lucideIcon": "ShowerHead"
+  },
+  {
+    "name": "Rain shower",
+    "slug": "rain-shower",
+    "type": "amenity",
+    "lucideIcon": "ShowerHead"
+  },
+  {
+    "name": "Bath & shower",
+    "slug": "bath-shower",
+    "type": "amenity",
+    "lucideIcon": "Bath"
+  },
+  {
+    "name": "Spa bathroom",
+    "slug": "spa-bathroom",
+    "type": "amenity",
+    "lucideIcon": "Bath"
+  },
+  {
+    "name": "Separate guest WC",
+    "slug": "separate-wc",
+    "type": "amenity",
+    "lucideIcon": "Toilet"
+  },
+  {
+    "name": "Hair dryer",
+    "slug": "hair-dryer",
+    "type": "amenity",
+    "lucideIcon": "Wind"
+  },
+  {
+    "name": "Air conditioning",
+    "slug": "air-conditioning",
+    "type": "amenity",
+    "lucideIcon": "AirVent"
+  },
+  {
+    "name": "Adjustable AC",
+    "slug": "adjustable-ac",
+    "type": "amenity",
+    "lucideIcon": "Thermometer"
+  },
+  {
+    "name": "Sound-proof windows",
+    "slug": "soundproof-windows",
+    "type": "amenity",
+    "lucideIcon": "VolumeOff"
+  },
+  {
+    "name": "42\" TV",
+    "slug": "tv-42",
+    "type": "amenity",
+    "lucideIcon": "Tv"
+  },
+  {
+    "name": "49\" TV",
+    "slug": "tv-49",
+    "type": "amenity",
+    "lucideIcon": "Tv"
+  },
+  {
+    "name": "55\" TV",
+    "slug": "tv-55",
+    "type": "amenity",
+    "lucideIcon": "Tv"
+  },
+  {
+    "name": "2× TVs",
+    "slug": "tv-dual",
+    "type": "amenity",
+    "lucideIcon": "Tv2"
+  },
+  {
+    "name": "Teufel sound system",
+    "slug": "teufel-sound",
+    "type": "amenity",
+    "lucideIcon": "Speaker"
+  },
+  {
+    "name": "DJ deck",
+    "slug": "dj-deck",
+    "type": "amenity",
+    "lucideIcon": "Disc3"
+  },
+  {
+    "name": "High-end sound system",
+    "slug": "hifi-sound",
+    "type": "amenity",
+    "lucideIcon": "AudioLines"
+  },
+  {
+    "name": "Instruments",
+    "slug": "instruments",
+    "type": "amenity",
+    "lucideIcon": "Music"
+  },
+  {
+    "name": "200 records",
+    "slug": "vinyl-collection",
+    "type": "amenity",
+    "lucideIcon": "Disc3"
+  },
+  {
+    "name": "Nespresso machine",
+    "slug": "nespresso",
+    "type": "amenity",
+    "lucideIcon": "Coffee"
+  },
+  {
+    "name": "Tea facilities",
+    "slug": "tea",
+    "type": "amenity",
+    "lucideIcon": "Coffee"
+  },
+  {
+    "name": "Room safe",
+    "slug": "room-safe",
+    "type": "amenity",
+    "lucideIcon": "LockKeyhole"
+  },
+  {
+    "name": "Refrigerator",
+    "slug": "refrigerator",
+    "type": "amenity",
+    "lucideIcon": "Refrigerator"
+  },
+  {
+    "name": "Minibar",
+    "slug": "minibar",
+    "type": "amenity",
+    "lucideIcon": "Wine"
+  },
+  {
+    "name": "Desk",
+    "slug": "desk",
+    "type": "amenity",
+    "lucideIcon": "Laptop"
+  },
+  {
+    "name": "Work & dining area",
+    "slug": "work-dining",
+    "type": "amenity",
+    "lucideIcon": "UtensilsCrossed"
+  },
+  {
+    "name": "Seating area",
+    "slug": "seating-area",
+    "type": "amenity",
+    "lucideIcon": "Sofa"
+  },
+  {
+    "name": "Foldout sofa",
+    "slug": "foldout-sofa",
+    "type": "amenity",
+    "lucideIcon": "Sofa"
+  },
+  {
+    "name": "Separate living area",
+    "slug": "separate-living",
+    "type": "amenity",
+    "lucideIcon": "LayoutPanelLeft"
+  },
+  {
+    "name": "Floor-to-ceiling windows",
+    "slug": "ftc-windows",
+    "type": "amenity",
+    "lucideIcon": "Maximize"
+  },
+  {
+    "name": "Parquet flooring",
+    "slug": "parquet",
+    "type": "amenity",
+    "lucideIcon": "Grid2x2"
+  },
+  {
+    "name": "Dimmable lighting",
+    "slug": "dimmable-lighting",
+    "type": "amenity",
+    "lucideIcon": "Lightbulb"
+  },
+  {
+    "name": "Balcony",
+    "slug": "balcony",
+    "type": "amenity",
+    "lucideIcon": "Flower2"
+  },
+  {
+    "name": "Private sauna",
+    "slug": "private-sauna",
+    "type": "amenity",
+    "lucideIcon": "Flame"
+  },
+  {
+    "name": "Non-smoking",
+    "slug": "non-smoking",
+    "type": "amenity",
+    "lucideIcon": "CigaretteOff"
+  },
+  {
+    "name": "Adjoining rooms",
+    "slug": "adjoining-rooms",
+    "type": "amenity",
+    "lucideIcon": "DoorOpen"
+  },
+  {
+    "name": "Wheelchair accessible",
+    "slug": "accessible",
+    "type": "amenity",
+    "lucideIcon": "Accessibility"
+  },
+  {
+    "name": "Pet friendly",
+    "slug": "pet-friendly",
+    "type": "amenity",
+    "lucideIcon": "PawPrint"
+  },
+  {
+    "name": "Berlin door headboards",
+    "slug": "berlin-doors",
+    "type": "amenity",
+    "lucideIcon": "DoorClosed"
+  },
+  {
+    "name": "You, Me & Berlin map",
+    "slug": "ymb-map",
+    "type": "amenity",
+    "lucideIcon": "MapPin"
+  },
+  {
+    "name": "Books",
+    "slug": "books",
+    "type": "amenity",
+    "lucideIcon": "BookOpen"
+  },
+  {
+    "name": "Garden view",
+    "slug": "garden-view",
+    "type": "amenity",
+    "lucideIcon": "Trees"
+  },
+  {
+    "name": "Lützowplatz view",
+    "slug": "luetzowplatz-view",
+    "type": "amenity",
+    "lucideIcon": "Building2"
+  }
+]

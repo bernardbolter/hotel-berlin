@@ -10,6 +10,8 @@ export interface KenBurnsSliderProps {
   interval?: number
   className?: string
   'aria-label'?: string
+  /** Hint for next/image — match the rendered width, not full viewport */
+  sizes?: string
   children?: React.ReactNode
   currentIndex?: number
   onIndexChange?: (index: number) => void
@@ -22,6 +24,7 @@ export function KenBurnsSlider({
   interval = 5000,
   className = '',
   'aria-label': ariaLabel,
+  sizes = '(max-width: 768px) 100vw, 55vw',
   children,
   currentIndex: controlledIndex,
   onIndexChange,
@@ -112,7 +115,7 @@ export function KenBurnsSlider({
                   : 'opacity 1s ease, transform 7s ease',
               }}
             >
-              <Image src={img.src} alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} />
+              <Image src={img.src} alt={img.alt || ''} fill sizes={sizes} style={{ objectFit: 'cover' }} />
             </div>
           )
         })}
@@ -154,8 +157,8 @@ export function KenBurnsSlider({
                 goTo(i)
                 setPaused(false)
               }}
-              className={`h-[2px] rounded-none transition-all ${
-                i === currentIndex ? 'w-8 bg-hbb-amber' : 'w-[18px] bg-white/30'
+              className={`h-0.5 rounded-none transition-all ${
+                i === currentIndex ? 'w-8 bg-hbb-amber' : 'w-4.5 bg-white/30'
               }`}
             />
           ))}

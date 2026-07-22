@@ -47,7 +47,7 @@ export async function ContentCard({
   return (
     <article className="flex flex-col border border-gray-200">
       {image && (
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-4/3 overflow-hidden">
           <Image src={image} alt={imageAlt ?? ''} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
         </div>
       )}

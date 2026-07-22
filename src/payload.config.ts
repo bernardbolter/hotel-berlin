@@ -10,6 +10,7 @@ import { Artworks } from './collections/Artworks'
 import { Events } from './collections/Events'
 import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
+import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
 import { Media } from './collections/Media'
 import { MeetingRooms } from './collections/MeetingRooms'
@@ -20,6 +21,7 @@ import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Venues } from './collections/Venues'
 import { Hotel } from './globals/Hotel'
+import { Homepage } from './globals/Homepage'
 import { Navigation } from './globals/Navigation'
 
 const filename = fileURLToPath(import.meta.url)
@@ -39,6 +41,7 @@ export default buildConfig({
     Rooms,
     MeetingRooms,
     Venues,
+    HeroSlides,
     FAQs,
     Artists,
     Artworks,
@@ -48,7 +51,7 @@ export default buildConfig({
     Places,
     Pages,
   ],
-  globals: [Hotel, Navigation],
+  globals: [Hotel, Homepage, Navigation],
   editor: lexicalEditor(),
   localization: {
     locales: ['de', 'en'],

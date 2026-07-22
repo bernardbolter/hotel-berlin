@@ -42,6 +42,8 @@
     "localTips": "Local tips",
     "gallery": "Gallery",
     "skateboardMuseum": "Skateboard Museum",
+    "wallride": "Wallride",
+    "comingSoon": "Coming soon",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
     "language": "Language"
@@ -62,20 +64,31 @@
     "bodyLine3": "and the hum of Berlin is never far away.",
     "cta": "Book Now",
     "ctaSrOnly": " at Hotel Berlin, Berlin (opens booking page)",
-    "address": "17 Lützowplatz, Tiergarten",
-    "directions": "Get directions",
+    "address": "Lützowplatz 17, Tiergarten",
+    "directions": "Get Directions",
     "galleryAria": "Hotel photos",
     "mapsLink": "Get directions to Hotel Berlin, Berlin at Lützowplatz 17, Tiergarten (opens Google Maps)",
-    "satelliteAlt": "Aerial satellite view of Hotel Berlin, Berlin at Lützowplatz 17, Tiergarten"
+    "satelliteAlt": "Map showing Hotel Berlin, Berlin at Lützowplatz 17, Tiergarten"
   },
   "rooms": {
     "label": "Sleep & Relax",
-    "title": "Room to spread out",
-    "body": "Quiet, spacious, and genuinely comfortable. Whether you're here for one night or a week — your place to land. Thoughtful design details and a relaxed, home-like feel make every room a personal retreat.",
+    "title": "Sleep & Relax",
+    "byline": "Sleep & Relax",
+    "body": "Whether it’s your first time in Berlin or you’re a seasoned traveller, flying solo or arriving with the family our spacious, quiet rooms and suites are your place to land. Thoughtful design details and a relaxed, home-like feel make every room a personal retreat. This is where your Berlin story begins.",
+    "specSize": "Size",
+    "specSleeps": "Sleeps",
+    "specBed": "Bed",
+    "sleepsCount": "{count} guests",
+    "from": "from",
+    "priceScreenReader": "Price from",
     "cta": "Discover our rooms",
+    "ctaSrSuffix": "at Hotel Berlin, Berlin",
     "ctaAvailability": "Check availability",
-    "galleryAria": "Hotel Berlin, Berlin room photos",
-    "dotNavAria": "Room categories",
+    "galleryAria": "Room photography",
+    "dotNavAria": "Room types",
+    "prevRoom": "Previous room",
+    "nextRoom": "Next room",
+    "nowShowing": "Now showing: {name}, from {price}",
     "items": {
       "superior": {
         "name": "Superior",
@@ -217,6 +230,13 @@
     "subtitle": "Tiergarten, the canal, Ku'damm — all on foot",
     "cta": "Explore the neighbourhood",
     "walkNote": "Everything within 15 min on foot"
+  },
+  "neighbourhood": {
+    "label": "Neighbourhood",
+    "title": "Around the hotel",
+    "subtitle": "Parks, galleries, restaurants, and Berlin life — all within walking distance of Lützowplatz.",
+    "mapAria": "Interactive map of places near Hotel Berlin, Berlin",
+    "mapUnavailable": "Map is loading — add a Mapbox access token to enable the interactive map."
   },
   "faq": {
     "title": "Good questions.",

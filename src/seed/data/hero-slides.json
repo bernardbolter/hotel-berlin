@@ -1,0 +1,53 @@
+{
+  "assetsSubpath": "index/images",
+  "slides": [
+    {
+      "file": "hbb-carousel-hm-centred2.jpg",
+      "alt": {
+        "en": "The inner courtyard of Hotel Berlin, Berlin — Lützowplatz 17, Tiergarten, with lush greenery and terrace seating",
+        "de": "Der Innenhof des Hotel Berlin, Berlin — Lützowplatz 17, Tiergarten, mit viel Grün und Terrassenplätzen"
+      },
+      "caption": {
+        "en": "COURTYARD · TIERGARTEN",
+        "de": "INNENHOF · TIERGARTEN"
+      },
+      "kbOrigin": "bottom-left"
+    },
+    {
+      "file": "0lui-tze-interior.jpg",
+      "alt": {
+        "en": "Lütze bar and restaurant at Hotel Berlin, Berlin — warm interior with terracotta seating",
+        "de": "Lütze Bar und Restaurant im Hotel Berlin, Berlin — warmes Interieur mit Terrakotta-Sitzmöbeln"
+      },
+      "caption": {
+        "en": "LÜTZE · GROUND FLOOR",
+        "de": "LÜTZE · ERDGESCHOSS"
+      },
+      "kbOrigin": "top-right"
+    },
+    {
+      "file": "hbb-carousel-hm-centred7.jpg",
+      "alt": {
+        "en": "A guest room at Hotel Berlin, Berlin — designed interior with artwork on the walls",
+        "de": "Ein Gästezimmer im Hotel Berlin, Berlin — gestaltetes Interieur mit Kunst an den Wänden"
+      },
+      "caption": {
+        "en": "ROOMS · ON THE WALLS",
+        "de": "ZIMMER · ON THE WALLS"
+      },
+      "kbOrigin": "top-left"
+    },
+    {
+      "file": "hbb-carousel-hm-centred4.jpg",
+      "alt": {
+        "en": "FKKB gallery at Hotel Berlin, Berlin — exhibition space with large-scale contemporary artworks",
+        "de": "FKKB Galerie im Hotel Berlin, Berlin — Ausstellungsraum mit großformatiger zeitgenössischer Kunst"
+      },
+      "caption": {
+        "en": "FKKB · GALLERY",
+        "de": "FKKB · GALERIE"
+      },
+      "kbOrigin": "bottom-right"
+    }
+  ]
+}

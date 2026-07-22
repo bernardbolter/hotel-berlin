@@ -20,15 +20,15 @@ export async function LutzeSection() {
   return (
     <section
       aria-labelledby="lutze-heading"
-      className="border-l-[3px] border-hbb-amber bg-hbb-amber-wash"
+      className="border-l-3 border-hbb-amber bg-hbb-amber-wash"
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="relative min-h-[280px] md:min-h-[420px]">
+        <div className="relative min-h-70 md:min-h-105">
           <KenBurnsSlider
             images={[...lutzeImages]}
             aria-label={t('galleryAria')}
             interval={5500}
-            className="h-full min-h-[280px] md:min-h-[420px]"
+            className="h-full min-h-70 md:min-h-105"
           />
         </div>
 

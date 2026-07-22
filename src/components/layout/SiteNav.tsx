@@ -7,13 +7,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, usePathname } from '@/i18n/routing'
 import { useNavScroll } from '@/hooks/useNavScroll'
 
-import {
-  HotelBerlinBerlinLogo,
-  LOGO_MOBILE_CLASS,
-} from '@/components/brand/HotelBerlinBerlinLogo'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import { NavSecondary } from '@/components/layout/NavSecondary'
-import { CtaButton } from '@/components/primitives/CtaButton'
 
 import type { SecondaryNavLink } from '@/lib/nav/types'
 
@@ -92,87 +87,102 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
   const primaryNavLinkClass = (href: string) => {
     const current = isCurrent(href)
     return [
-      'relative font-ui text-ui-xl font-medium transition-colors duration-200 ease-out',
+      'relative font-ui text-[15px] font-medium transition-colors duration-200 ease-out',
       'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current',
       'after:w-0 after:transition-[width] after:duration-200 after:ease-out',
       'motion-reduce:transition-none motion-reduce:after:transition-none',
       current
-        ? 'text-hbb-teal after:w-full'
-        : 'text-hbb-nav-link hover:text-hbb-black hover:after:w-full',
+        ? 'text-hbb-black after:w-full'
+        : 'text-[#6B6762] hover:text-hbb-black hover:after:w-full',
     ].join(' ')
   }
 
   const mobileNavLinkClass = (href: string) =>
-    `font-ui text-ui-sm hover:text-hbb-teal ${
-      isCurrent(href) ? 'text-hbb-teal' : 'text-hbb-black'
+    `font-ui text-ui-sm hover:text-hbb-black ${
+      isCurrent(href) ? 'text-hbb-black' : 'text-[#6B6762]'
     }`
+
+  const wordmark = (
+    <Link
+      href="/"
+      aria-label={tc('homeAria')}
+      className="inline-flex shrink-0 self-center font-ui text-[1.65rem] font-semibold leading-none tracking-tight text-hbb-black"
+    >
+      <span className="whitespace-nowrap">{tc('hotelName')}</span>
+    </Link>
+  )
 
   return (
     <header
       ref={navScrollRef}
       data-nav-state={navState}
-      className="site-nav-header sticky top-0 z-50 border-b border-black/[0.08] bg-hbb-page"
+      className="site-nav-header sticky top-0 z-50 bg-white"
     >
       <div className="hidden lg:block">
-        <nav
-          aria-label={tc('primaryNavAria')}
-          className="nav-primary flex items-start justify-between gap-6 bg-hbb-page px-section-x pt-3 pb-1"
-        >
-          <div className="flex min-w-0 items-center gap-5">
-            <Link
-              href="/"
-              aria-label={tc('homeAria')}
-              className="inline-flex shrink-0 self-start"
-            >
-              <HotelBerlinBerlinLogo variant="default" />
-            </Link>
+        <div className="site-shell flex items-center justify-between gap-6 bg-white px-8 py-3.5 xl:px-10">
+          <div className="flex min-w-0 items-center gap-4">
+            {wordmark}
 
-            <ul role="list" className="flex items-center">
-              {primaryLinkKeys.map((link, index) => (
-                <li key={link.href} className="flex items-center">
-                  {index > 0 ? (
-                    <span
-                      aria-hidden="true"
-                      className="select-none px-2.5 font-ui text-ui-xl font-medium text-hbb-nav-link/35"
+            <span
+              aria-hidden="true"
+              className="mx-0.5 h-7 w-0.5 shrink-0 self-center bg-hbb-black"
+            />
+
+            <nav aria-label={tc('primaryNavAria')}>
+              <ul role="list" className="flex items-center">
+                {primaryLinkKeys.map((link, index) => (
+                  <li key={link.href} className="flex items-center">
+                    {index > 0 ? (
+                      <span
+                        aria-hidden="true"
+                        className="select-none px-2 font-ui text-[15px] font-medium text-[#6B6762]/40"
+                      >
+                        |
+                      </span>
+                    ) : null}
+                    <Link
+                      href={link.href}
+                      className={primaryNavLinkClass(link.href)}
+                      aria-current={isCurrent(link.href) ? 'page' : undefined}
                     >
-                      |
-                    </span>
-                  ) : null}
-                  <Link
-                    href={link.href}
-                    className={primaryNavLinkClass(link.href)}
-                    aria-current={isCurrent(link.href) ? 'page' : undefined}
-                  >
-                    {t(link.key)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                      {t(link.key)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
-          <div className="flex shrink-0 items-start gap-4">
-            <LanguageSwitcher size="md" />
-            <CtaButton
-              href="/book"
-              unlocalized
-              color="teal"
-              variant="outline"
-              size="xl"
-              className="shrink-0 self-start"
-            >
-              {t('bookNow')}
-            </CtaButton>
+          <div className="flex shrink-0 items-center gap-5">
+            <LanguageSwitcher
+              size="md"
+              colors={{
+                label: 'text-[#9A9590]',
+                link: 'text-[#6B6762]',
+                active: 'text-hbb-black',
+                hover: 'hover:text-hbb-black',
+                separator: 'text-[#6B6762]/40',
+              }}
+            />
+            <a href="/book" className="book-now-btn">
+              <span className="book-now-btn__text">{t('bookNow')}</span>
+              <span className="book-now-btn__line" aria-hidden="true" />
+            </a>
           </div>
-        </nav>
+        </div>
 
         <div className="nav-secondary-clip">
           <NavSecondary context={context} links={secondaryLinks} />
         </div>
       </div>
 
-      <div className="flex items-start justify-between bg-hbb-page px-section-sm pt-3 pb-1 lg:hidden">
-        <Link href="/" aria-label={tc('homeAria')} className="inline-flex shrink-0 self-start">
-          <HotelBerlinBerlinLogo variant="default" className={LOGO_MOBILE_CLASS} />
+      <div className="flex items-center justify-between bg-white px-section-sm py-3 lg:hidden">
+        <Link
+          href="/"
+          aria-label={tc('homeAria')}
+          className="inline-flex min-w-0 shrink font-ui text-[1.15rem] font-semibold leading-tight tracking-tight text-hbb-black"
+        >
+          <span className="truncate">{tc('hotelName')}</span>
         </Link>
         <button
           ref={hamburgerRef}
@@ -194,7 +204,7 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
         role="dialog"
         aria-label={tc('navMenuAria')}
         aria-modal="true"
-        className="border-t border-black/[0.08] bg-hbb-page px-section-sm py-4 lg:hidden"
+        className="border-t border-black/8 bg-white px-section-sm py-4 lg:hidden"
       >
         <nav aria-label={tc('primaryNavAria')} className="mb-6">
           <ul role="list" className="flex flex-col gap-3">
@@ -217,22 +227,16 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
           context={context}
           links={secondaryLinks}
           layout="stacked"
-          className="mb-6 border-t border-black/[0.08] px-0 py-4"
+          className="mb-6 border-t border-black/8 px-0 py-4"
           onNavigate={() => setMobileOpen(false)}
         />
 
         <div className="flex items-end justify-between border-t border-gray-100 pt-4">
           <LanguageSwitcher align="start" size="lg" />
-          <CtaButton
-            href="/book"
-            unlocalized
-            color="teal"
-            variant="outline"
-            size="lg"
-            className="shrink-0 self-start"
-          >
-            {t('bookNow')}
-          </CtaButton>
+          <a href="/book" className="book-now-btn">
+            <span className="book-now-btn__text">{t('bookNow')}</span>
+            <span className="book-now-btn__line" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </header>

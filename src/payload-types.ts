@@ -73,6 +73,7 @@ export interface Config {
     rooms: Room;
     'meeting-rooms': MeetingRoom;
     venues: Venue;
+    'hero-slides': HeroSlide;
     faqs: Faq;
     artists: Artist;
     artworks: Artwork;
@@ -94,6 +95,7 @@ export interface Config {
     rooms: RoomsSelect<false> | RoomsSelect<true>;
     'meeting-rooms': MeetingRoomsSelect<false> | MeetingRoomsSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
+    'hero-slides': HeroSlidesSelect<false> | HeroSlidesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     artists: ArtistsSelect<false> | ArtistsSelect<true>;
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
@@ -113,10 +115,12 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('de' | 'en') | ('de' | 'en')[];
   globals: {
     hotel: Hotel;
+    homepage: Homepage;
     navigation: Navigation;
   };
   globalsSelect: {
     hotel: HotelSelect<false> | HotelSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
   };
   locale: 'de' | 'en';
@@ -199,6 +203,10 @@ export interface Tag {
   id: number;
   name: string;
   slug: string;
+  /**
+   * Exact PascalCase component name from lucide-react. e.g. "Wifi", "BedDouble", "ShowerHead". Leave blank if no icon needed.
+   */
+  lucideIcon?: string | null;
   type: 'category' | 'medium' | 'theme' | 'amenity' | 'neighbourhood';
   updatedAt: string;
   createdAt: string;
@@ -240,7 +248,7 @@ export interface Room {
    */
   floorSizeM2?: number | null;
   bedConfiguration?: {
-    type?: ('queen' | 'king' | 'twin' | 'bunk') | null;
+    type?: ('double' | 'queen' | 'king' | 'king-freestanding' | 'twin' | 'bunk') | null;
     details?: string | null;
   };
   occupancy?: {
@@ -248,6 +256,43 @@ export interface Room {
     maxChildren?: number | null;
     maxTotal?: number | null;
   };
+  /**
+   * e.g. 5 for bunk beds. Leave blank if no child restriction.
+   */
+  childAgeMin?: number | null;
+  /**
+   * Short label shown in spec strip on homepage and room cards.
+   */
+  bathroomLabel?: ('shower' | 'rain-shower' | 'bath-shower' | 'spa-bathroom') | null;
+  /**
+   * Used on the room detail page. e.g. "Mini SPA bathroom — 2 basins, freestanding tub, walk-in rain shower, makeup table"
+   */
+  bathroomDescription?: string | null;
+  /**
+   * Some Premium rooms only.
+   */
+  hasBalcony?: boolean | null;
+  /**
+   * Studio 45 only.
+   */
+  hasSauna?: boolean | null;
+  hasSeparateLiving?: boolean | null;
+  isAccessible?: boolean | null;
+  accessibilityFeatures?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   amenities?: (number | Tag)[] | null;
   images?:
     | {
@@ -262,13 +307,34 @@ export interface Room {
    */
   bookingUrl?: string | null;
   /**
-   * Show on homepage rooms teaser
+   * Legacy homepage flag — prefer Homepage teaser → Enabled.
    */
   featured?: boolean | null;
   /**
    * Order on rooms index page
    */
   displayOrder?: number | null;
+  /**
+   * Controls the Sleep & Relax rotation on the homepage (Outside_short.pdf).
+   */
+  homepageTeaser?: {
+    /**
+     * Include this room in the homepage teaser rotation.
+     */
+    enabled?: boolean | null;
+    /**
+     * Rotation sequence (lower first).
+     */
+    order?: number | null;
+    /**
+     * Optional. Falls back to the room’s first gallery image if empty.
+     */
+    teaserImage?: (number | null) | Media;
+    /**
+     * Curated amenity subset for the compact teaser (max ~4).
+     */
+    featuredAmenities?: (number | Tag)[] | null;
+  };
   /**
    * You, Me & Berlin — insider story link
    */
@@ -422,6 +488,46 @@ export interface Venue {
     | null;
   featured?: boolean | null;
   displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Homepage hero photo rotation. Unlimited slides — disable to pause without deleting.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-slides".
+ */
+export interface HeroSlide {
+  id: number;
+  /**
+   * Internal label for the admin list (not shown on the site).
+   */
+  adminTitle?: string | null;
+  image: number | Media;
+  /**
+   * Descriptive alt text — required for both DE and EN.
+   */
+  altText: string;
+  /**
+   * Optional. When set, caption is derived from venue name + floor/location.
+   */
+  venue?: (number | null) | Venue;
+  /**
+   * Optional. Used when the slide is not tied to a venue, or needs custom wording.
+   */
+  captionOverride?: string | null;
+  /**
+   * Photographer/agency credit — feeds ImageObject.creditText.
+   */
+  credit?: string | null;
+  /**
+   * Controls rotation sequence (lower first).
+   */
+  order: number;
+  /**
+   * Uncheck to pause this slide without deleting it.
+   */
+  enabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -861,6 +967,10 @@ export interface PayloadLockedDocument {
         value: number | Venue;
       } | null)
     | ({
+        relationTo: 'hero-slides';
+        value: number | HeroSlide;
+      } | null)
+    | ({
         relationTo: 'faqs';
         value: number | Faq;
       } | null)
@@ -981,6 +1091,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  lucideIcon?: T;
   type?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1010,6 +1121,14 @@ export interface RoomsSelect<T extends boolean = true> {
         maxChildren?: T;
         maxTotal?: T;
       };
+  childAgeMin?: T;
+  bathroomLabel?: T;
+  bathroomDescription?: T;
+  hasBalcony?: T;
+  hasSauna?: T;
+  hasSeparateLiving?: T;
+  isAccessible?: T;
+  accessibilityFeatures?: T;
   amenities?: T;
   images?:
     | T
@@ -1022,6 +1141,14 @@ export interface RoomsSelect<T extends boolean = true> {
   bookingUrl?: T;
   featured?: T;
   displayOrder?: T;
+  homepageTeaser?:
+    | T
+    | {
+        enabled?: T;
+        order?: T;
+        teaserImage?: T;
+        featuredAmenities?: T;
+      };
   storyConnection?:
     | T
     | {
@@ -1124,6 +1251,22 @@ export interface VenuesSelect<T extends boolean = true> {
       };
   featured?: T;
   displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-slides_select".
+ */
+export interface HeroSlidesSelect<T extends boolean = true> {
+  adminTitle?: T;
+  image?: T;
+  altText?: T;
+  venue?: T;
+  captionOverride?: T;
+  credit?: T;
+  order?: T;
+  enabled?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1382,6 +1525,19 @@ export interface Hotel {
    * Google Maps URL
    */
   hasMap?: string | null;
+  /**
+   * “Get directions” link — Google Maps directions URL. Falls back to hasMap, then coords.
+   */
+  directionsUrl?: string | null;
+  /**
+   * Viewport for neighbourhood map and homepage map teaser.
+   */
+  mapBounds?: {
+    north?: number | null;
+    south?: number | null;
+    west?: number | null;
+    east?: number | null;
+  };
   checkinTime?: string | null;
   checkoutTime?: string | null;
   starRating?: number | null;
@@ -1417,6 +1573,60 @@ export interface Hotel {
   openingHours?: {
     reception?: string | null;
     breakfast?: string | null;
+  };
+  /**
+   * Hero map CTA label, e.g. "Get Directions" / "Wegbeschreibung".
+   */
+  getDirectionsLabel?: string | null;
+  /**
+   * Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.
+   */
+  heroShortAddress?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Homepage settings. Hero photos live in the Hero slides collection.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  /**
+   * Deprecated — manage slides in the Hero slides collection instead. Kept empty after migration.
+   */
+  heroSlides?:
+    | {
+        image: number | Media;
+        /**
+         * Descriptive alt text for the photo.
+         */
+        alt: string;
+        /**
+         * Short label over the photo, e.g. "LÜTZE · GROUND FLOOR".
+         */
+        caption: string;
+        kbOrigin: 'bottom-left' | 'top-right' | 'top-left' | 'bottom-right';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Homepage “Sleep & Relax” block — editable DE/EN copy.
+   */
+  roomsTeaser?: {
+    /**
+     * Section heading, e.g. "Sleep & Relax".
+     */
+    heading?: string | null;
+    /**
+     * Supporting paragraph under the heading.
+     */
+    body?: string | null;
+    /**
+     * Line-CTA label, e.g. "Discover our rooms" / "Zimmer entdecken".
+     */
+    ctaLabel?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1472,6 +1682,15 @@ export interface HotelSelect<T extends boolean = true> {
         longitude?: T;
       };
   hasMap?: T;
+  directionsUrl?: T;
+  mapBounds?:
+    | T
+    | {
+        north?: T;
+        south?: T;
+        west?: T;
+        east?: T;
+      };
   checkinTime?: T;
   checkoutTime?: T;
   starRating?: T;
@@ -1506,6 +1725,33 @@ export interface HotelSelect<T extends boolean = true> {
     | {
         reception?: T;
         breakfast?: T;
+      };
+  getDirectionsLabel?: T;
+  heroShortAddress?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  heroSlides?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        caption?: T;
+        kbOrigin?: T;
+        id?: T;
+      };
+  roomsTeaser?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        ctaLabel?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -24,7 +24,7 @@ export function HotelBerlinBerlinLogo({
       viewBox="0 0 251 49"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`block aspect-[251/49] shrink-0 ${colorClass} ${className}`}
+      className={`block aspect-251/49 shrink-0 ${colorClass} ${className}`}
     >
       <path d={wordmarkPath} fill="currentColor" />
       <rect

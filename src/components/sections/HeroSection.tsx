@@ -10,14 +10,14 @@ export async function HeroSection() {
 
   return (
     <section aria-label={tc('welcomeAria')} className="relative">
-      <div className="relative aspect-[16/9] min-h-[420px] w-full md:aspect-[21/9] md:min-h-[520px]">
+      <div className="relative aspect-video min-h-105 w-full md:aspect-21/9 md:min-h-130">
         <KenBurnsSlider
           images={[...heroImages]}
           aria-label={t('galleryAria')}
           interval={5000}
           className="absolute inset-0 h-full"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-hbb-dark/70 via-hbb-dark/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-hbb-dark/70 via-hbb-dark/20 to-transparent" />
 
           <div className="absolute inset-0 z-10 flex flex-col justify-end p-section-sm pb-12 md:p-section-x md:pb-16">
             <h1 className="font-serif text-serif-2xl font-medium leading-tight text-white md:text-serif-3xl">

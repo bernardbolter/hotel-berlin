@@ -11,11 +11,14 @@ import {
   hotelSeed,
   meetingRoomsSeed,
   pagesSeed,
-  roomsSeed,
   tagsSeed,
   venuesSeed,
 } from './data'
+import roomsSeed from './data/rooms.json'
 import { upsertPage } from './pages'
+import type { RoomSeedRecord } from './types'
+
+const rooms = roomsSeed as RoomSeedRecord[]
 
 async function isSeeded(collection: SeedableCollection): Promise<boolean> {
   const payload = await getPayload({ config })
@@ -52,8 +55,37 @@ async function seed() {
 
   if (!(await isSeeded('rooms'))) {
     console.log('Seeding rooms...')
-    for (const room of roomsSeed) {
-      await payload.create({ collection: 'rooms', data: room, locale: 'en' })
+
+    const { docs: tagDocs } = await payload.find({ collection: 'tags', limit: 300 })
+    const tagIdBySlug = new Map(tagDocs.map((tag) => [tag.slug, tag.id as number]))
+
+    for (const room of rooms) {
+      const { name, shortDescription, amenities, ...rest } = room
+      const amenityIds = amenities
+        .map((slug) => tagIdBySlug.get(slug))
+        .filter((id): id is number => id != null)
+
+      const doc = await payload.create({
+        collection: 'rooms',
+        data: {
+          ...rest,
+          currency: 'EUR',
+          name: name.en,
+          shortDescription: shortDescription.en,
+          amenities: amenityIds,
+        },
+        locale: 'en',
+      })
+
+      await payload.update({
+        collection: 'rooms',
+        id: doc.id,
+        data: {
+          name: name.de,
+          shortDescription: shortDescription.de,
+        },
+        locale: 'de',
+      })
     }
   }
 

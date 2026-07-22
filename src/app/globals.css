@@ -1,9 +1,21 @@
 @import 'tailwindcss';
+@import 'mapbox-gl/dist/mapbox-gl.css';
 @config '../../tailwind.config.ts';
 
 :root {
-  --font-archivo-narrow: 'Archivo Narrow', sans-serif;
-  --font-lora: 'Lora', Georgia, serif;
+  --font-archivo: 'Archivo', sans-serif;
+  --font-laica: 'Laica A', Georgia, serif;
+  /* Line-CTA highlight swipe — coral; swap here if it doesn't read well live */
+  --cta-highlight: #f95d62;
+  /* Site content max width — 1440px */
+  --site-max: 90rem;
+}
+
+/* Centered content shell — text/controls align inside 1440; full-bleed bgs stay outside */
+.site-shell {
+  width: 100%;
+  max-width: var(--site-max);
+  margin-inline: auto;
 }
 
 /* Base */
@@ -19,7 +31,7 @@ html {
 
 body {
   background-color: theme('colors.hbb-page');
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   color: theme('colors.hbb-black');
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -34,7 +46,7 @@ body {
   color: white;
   padding: 0.5rem 1rem;
   z-index: 9999;
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   font-size: 14px;
   text-decoration: none;
 }
@@ -64,7 +76,7 @@ body {
 
 /* Utility label pattern */
 .label-tag {
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   font-size: 9.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -93,7 +105,7 @@ body {
   align-items: center;
   background-color: theme('colors.hbb-amber');
   color: theme('colors.hbb-dark');
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -113,7 +125,7 @@ body {
   align-items: center;
   background-color: transparent;
   color: theme('colors.hbb-teal-deep');
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -129,7 +141,7 @@ body {
   align-items: center;
   background-color: theme('colors.hbb-dark');
   color: white;
-  font-family: var(--font-archivo-narrow);
+  font-family: var(--font-archivo);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -144,7 +156,526 @@ body {
   background-color: theme('colors.hbb-black');
 }
 
-/* Home hero — Ken Burns origins (doc/heroComponent/HotelBerlin_HeroSection_BuildBrief.md) */
+/* Book Now — 2px bar on the right; dark fill sweeps from that bar over the text */
+.book-now-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  color: theme('colors.hbb-black');
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.book-now-btn__text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45em 0.7em;
+  transition: color 300ms ease-out;
+}
+
+.book-now-btn__line {
+  position: relative;
+  z-index: 2;
+  width: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background: theme('colors.hbb-black');
+}
+
+.book-now-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0 2px 0 0;
+  z-index: 0;
+  background: theme('colors.hbb-black');
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 300ms ease-out;
+}
+
+.book-now-btn:hover::before,
+.book-now-btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.book-now-btn:hover .book-now-btn__text,
+.book-now-btn:focus-visible .book-now-btn__text {
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-now-btn::before,
+  .book-now-btn__text {
+    transition: none;
+  }
+
+  .book-now-btn:hover::before,
+  .book-now-btn:focus-visible::before {
+    transform: scaleX(1);
+  }
+}
+
+/* ENTER boxed button — fill slides from left edge */
+.enter-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid theme('colors.hbb-nav-amber');
+  background: transparent;
+  color: theme('colors.hbb-nav-amber');
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.1em 0.55em;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.enter-btn__text {
+  position: relative;
+  z-index: 1;
+  transition: color 300ms ease-out;
+}
+
+.enter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: theme('colors.hbb-nav-amber');
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms ease-out;
+}
+
+.enter-btn:hover::before,
+.enter-btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.enter-btn:hover .enter-btn__text,
+.enter-btn:focus-visible .enter-btn__text {
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-btn::before,
+  .enter-btn__text {
+    transition: none;
+  }
+
+  .enter-btn:hover::before,
+  .enter-btn:focus-visible::before {
+    transform: scaleX(1);
+  }
+}
+
+/* Hero map circle — forest fill + slight img scale kills the light AA fringe */
+.hero-map-circle {
+  isolation: isolate;
+}
+
+.hero-map-circle__img {
+  display: block;
+  transform: scale(1.03);
+  transform-origin: center center;
+}
+
+/* Hero map — Get Directions strip (ENTER-style L→R white fill) */
+.hero-map-teaser:hover .hero-map-directions::before,
+.hero-map-teaser:focus-visible .hero-map-directions::before {
+  transform: scaleX(1);
+}
+
+.hero-map-teaser:hover .hero-map-directions__label,
+.hero-map-teaser:focus-visible .hero-map-directions__label {
+  color: theme('colors.hbb-forest');
+}
+
+.hero-map-directions {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  overflow: hidden;
+  background: theme('colors.hbb-forest');
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: white;
+}
+
+.hero-map-directions::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms ease-out;
+}
+
+.hero-map-directions__label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: white;
+  transition: color 300ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-map-directions::before,
+  .hero-map-directions__label {
+    transition: none;
+  }
+
+  .hero-map-teaser:hover .hero-map-directions::before,
+  .hero-map-teaser:focus-visible .hero-map-directions::before {
+    transform: scaleX(1);
+  }
+}
+
+/* Line-CTA — underline bar + highlighter swipe (Homepage V2) */
+.line-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 500;
+  color: theme('colors.hbb-black');
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 0 0.2em;
+}
+
+.line-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--cta-highlight) 0%,
+    var(--cta-highlight) 50%,
+    theme('colors.hbb-black') 50%,
+    theme('colors.hbb-black') 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.45s ease;
+}
+
+.line-cta__label {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    var(--cta-highlight) 0%,
+    var(--cta-highlight) 50%,
+    currentColor 50%,
+    currentColor 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.45s ease;
+}
+
+.line-cta:hover .line-cta__label,
+.line-cta:focus-visible .line-cta__label,
+.line-cta:hover::after,
+.line-cta:focus-visible::after {
+  background-position: 0 0;
+}
+
+.line-cta--on-dark {
+  color: white;
+}
+
+.line-cta--on-dark::after {
+  background: linear-gradient(
+    90deg,
+    var(--cta-highlight) 0%,
+    var(--cta-highlight) 50%,
+    white 50%,
+    white 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+}
+
+.line-cta--on-dark .line-cta__label {
+  background: linear-gradient(
+    90deg,
+    var(--cta-highlight) 0%,
+    var(--cta-highlight) 50%,
+    white 50%,
+    white 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-cta__label,
+  .line-cta::after {
+    transition: none;
+  }
+
+  .line-cta:hover .line-cta__label,
+  .line-cta:focus-visible .line-cta__label {
+    background: none;
+    color: var(--cta-highlight);
+    -webkit-text-fill-color: var(--cta-highlight);
+  }
+
+  .line-cta:hover::after,
+  .line-cta:focus-visible::after {
+    background: var(--cta-highlight);
+    background-position: unset;
+  }
+}
+
+/* Rooms discover CTA — Sleep & Relax terracotta; 2px line sweeps over text */
+.rooms-discover-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0.45em 0.95em 0.45em 1.1em;
+  color: #c16157;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rooms-discover-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 2px;
+  background: #c16157;
+  transition: width 320ms ease-out;
+}
+
+.rooms-discover-cta__label {
+  position: relative;
+  z-index: 1;
+  transition: color 320ms ease-out;
+}
+
+.rooms-discover-cta:hover::before,
+.rooms-discover-cta:focus-visible::before {
+  width: 100%;
+}
+
+.rooms-discover-cta:hover .rooms-discover-cta__label,
+.rooms-discover-cta:focus-visible .rooms-discover-cta__label {
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rooms-discover-cta::before,
+  .rooms-discover-cta__label {
+    transition: none;
+  }
+
+  .rooms-discover-cta:hover::before,
+  .rooms-discover-cta:focus-visible::before {
+    width: 100%;
+  }
+}
+
+/* Rooms photo — D-shape + hover scale */
+.rooms-photo-mask {
+  aspect-ratio: 3 / 2;
+  border-radius: 9999px 0 0 9999px;
+  clip-path: none;
+}
+
+.rooms-photo-mask .hero-photo-img {
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.7s ease-out;
+  will-change: transform;
+}
+
+.rooms-photo-mask:hover .hero-photo-img,
+.rooms-photo-mask:focus-within .hero-photo-img {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rooms-photo-mask .hero-photo-img {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* Legacy continuous zoom — kept for any remaining surfaces */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+
+.hero-zoom-inner {
+  transform-origin: center center;
+  animation: hero-zoom 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom-inner {
+    animation: none !important;
+  }
+}
+
+/* Homepage V2 hero — photo scales gently on hover (no continuous Ken Burns) */
+.home-hero__photo .hero-photo-img {
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.7s ease-out;
+  will-change: transform;
+}
+
+.home-hero__photo:hover .hero-photo-img,
+.home-hero__photo:focus-within .hero-photo-img {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__photo .hero-photo-img {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* Homepage V2 hero — square photo anchored right, forest underlap */
+@media (min-width: 1024px) {
+  .home-hero {
+    /* Scales up inside the 1440 shell; larger max than before */
+    --hero-photo: min(44vw, 38rem);
+    --hero-pad: 2rem;
+    /* Right inset is ~2× the vertical pad */
+    --hero-pad-right: calc(var(--hero-pad) * 2);
+    /* Underlap: how far green reaches into the photo from the left */
+    --hero-underlap: calc(var(--hero-photo) * 0.14);
+    /* Gap between green edge and caption start */
+    --hero-caption-inset: 1rem;
+    /* Locked band: equal top + bottom margin around the square */
+    --hero-band: calc(var(--hero-photo) + (var(--hero-pad) * 2));
+  }
+
+  .home-hero__row {
+    height: var(--hero-band);
+    overflow: visible;
+  }
+
+  .home-hero__forest {
+    top: 0;
+    height: var(--hero-band);
+    width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
+  }
+
+  .home-hero__copy {
+    position: relative;
+    flex: 1 1 auto;
+    height: var(--hero-band);
+    min-height: var(--hero-band);
+    max-height: var(--hero-band);
+    max-width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
+    /* Allow DE copy to paint over the map instead of clipping */
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  /* Text stacks above the map; length can overlap the circle, not clip */
+  .home-hero__copy-text {
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Map stays pinned to the band — out of flow */
+  .home-hero__map {
+    position: absolute;
+    right: 1.5rem; /* matches lg:pr-6 */
+    bottom: var(--hero-pad);
+    z-index: 1;
+    margin-top: 0;
+    width: auto;
+  }
+
+  .home-hero__photo-col {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: var(--hero-band);
+    padding-top: var(--hero-pad);
+    padding-bottom: var(--hero-pad);
+    padding-right: var(--hero-pad-right);
+  }
+
+  .home-hero__photo {
+    width: var(--hero-photo);
+    height: var(--hero-photo);
+    max-width: none;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Caption centered vertically in the bottom pad, inset past the green */
+  .home-hero__caption {
+    position: absolute;
+    top: calc(var(--hero-pad) + var(--hero-photo) + (var(--hero-pad) / 2));
+    left: calc(var(--hero-underlap) + var(--hero-caption-inset));
+    width: auto;
+    max-width: calc(var(--hero-photo) - var(--hero-underlap) - var(--hero-caption-inset));
+    transform: translateY(-50%);
+  }
+}
+
+/* Home hero — Ken Burns origins (legacy / other surfaces) */
 @keyframes kb-bottom-left {
   from {
     transform: scale(1) translate(0, 0);
@@ -252,4 +783,16 @@ body {
     transform: none !important;
     transition: opacity 0.5s ease !important;
   }
+}
+
+/* Mapbox GL — neighbourhood map popups */
+.hbb-map-popup .mapboxgl-popup-content {
+  padding: 12px 14px;
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  font-family: var(--font-archivo), sans-serif;
+}
+
+.hbb-map-popup .mapboxgl-popup-tip {
+  border-top-color: #fff;
 }

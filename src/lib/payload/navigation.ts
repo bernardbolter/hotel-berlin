@@ -9,19 +9,33 @@ type InsideLinkRow = {
 
 const fallbackInsideLinks: Record<'de' | 'en', SecondaryNavLink[]> = {
   en: [
-    { id: 'fallback-events', label: "What's on tonight", href: '/here/events' },
+    { id: 'fallback-events', label: "What's on", href: '/here/events' },
     { id: 'fallback-getting-around', label: 'Getting around', href: '/here/getting-around' },
-    { id: 'fallback-explore', label: 'Explore the area', href: '/here/explore' },
+    { id: 'fallback-local-tips', label: 'Local tips', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Gallery', href: '/here/gallery' },
-    { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
+    {
+      id: 'fallback-wallride',
+      label: 'Wallride',
+      href: '#',
+      comingSoon: true,
+    },
   ],
   de: [
-    { id: 'fallback-events', label: 'Was ist los', href: '/here/events' },
-    { id: 'fallback-getting-around', label: 'So kommst du hin', href: '/here/getting-around' },
-    { id: 'fallback-explore', label: 'Die Nachbarschaft', href: '/here/explore' },
+    { id: 'fallback-events', label: 'Was läuft', href: '/here/events' },
+    { id: 'fallback-getting-around', label: 'Orientierung', href: '/here/getting-around' },
+    { id: 'fallback-local-tips', label: 'Lokale Tipps', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Galerie', href: '/here/gallery' },
-    { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
+    {
+      id: 'fallback-wallride',
+      label: 'Wallride',
+      href: '#',
+      comingSoon: true,
+    },
   ],
+}
+
+function isWallrideSlug(slug: string): boolean {
+  return /wallride/i.test(slug)
 }
 
 function toInsideNavLink(row: InsideLinkRow): SecondaryNavLink | null {
@@ -31,11 +45,15 @@ function toInsideNavLink(row: InsideLinkRow): SecondaryNavLink | null {
   const label = page.title?.trim()
   if (!label) return null
 
+  const slug = page.slug.replace(/^\//, '')
+  const wallride = isWallrideSlug(slug)
+
   return {
     id: String(row.id ?? page.id),
     label,
-    href: `/${page.slug.replace(/^\//, '')}`,
+    href: wallride ? '#' : `/${slug}`,
     external: false,
+    comingSoon: wallride || undefined,
   }
 }
 

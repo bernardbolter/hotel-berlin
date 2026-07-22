@@ -3,4 +3,6 @@ export type SecondaryNavLink = {
   label: string
   href: string
   external?: boolean
+  /** Placeholder / coming-soon (e.g. Wallride) — visible but not a live destination */
+  comingSoon?: boolean
 }

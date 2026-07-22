@@ -35,6 +35,27 @@ export const Hotel: GlobalConfig = {
       ],
     },
     { name: 'hasMap', type: 'text', admin: { description: 'Google Maps URL' } },
+    {
+      name: 'directionsUrl',
+      type: 'text',
+      admin: {
+        description:
+          '“Get directions” link — Google Maps directions URL. Falls back to hasMap, then coords.',
+      },
+    },
+    {
+      name: 'mapBounds',
+      type: 'group',
+      admin: {
+        description: 'Viewport for neighbourhood map and homepage map teaser.',
+      },
+      fields: [
+        { name: 'north', type: 'number' },
+        { name: 'south', type: 'number' },
+        { name: 'west', type: 'number' },
+        { name: 'east', type: 'number' },
+      ],
+    },
     { name: 'checkinTime', type: 'text' },
     { name: 'checkoutTime', type: 'text' },
     { name: 'starRating', type: 'number' },
@@ -72,6 +93,23 @@ export const Hotel: GlobalConfig = {
         { name: 'reception', type: 'text', defaultValue: 'Mo-Su 00:00-24:00' },
         { name: 'breakfast', type: 'text', defaultValue: 'Mo-Su 06:30-10:00' },
       ],
+    },
+    {
+      name: 'getDirectionsLabel',
+      type: 'text',
+      localized: true,
+      admin: {
+        description: 'Hero map CTA label, e.g. "Get Directions" / "Wegbeschreibung".',
+      },
+    },
+    {
+      name: 'heroShortAddress',
+      type: 'text',
+      localized: true,
+      admin: {
+        description:
+          'Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.',
+      },
     },
   ],
 }

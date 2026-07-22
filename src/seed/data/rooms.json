@@ -1,0 +1,545 @@
+[
+  {
+    "name": {
+      "en": "Individual",
+      "de": "Einzelzimmer"
+    },
+    "slug": "individual",
+    "featured": true,
+    "displayOrder": 1,
+    "shortDescription": {
+      "en": "A comfortable room with a double bed, fridge, and everything you need for a good night in Berlin.",
+      "de": "Ein ruhiges Zimmer mit Doppelbett, Kühlschrank und allem, was du für eine gute Nacht in Berlin brauchst."
+    },
+    "fromPrice": 72.25,
+    "floorSizeM2": 16,
+    "bedConfiguration": {
+      "type": "double",
+      "details": "Double bed"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "shower",
+    "bathroomDescription": "Bathroom with shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "double-bed",
+      "shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-42",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "air-conditioning"
+    ]
+  },
+  {
+    "name": {
+      "en": "Cosy Small",
+      "de": "Gemütliches Kleines Zimmer"
+    },
+    "slug": "cosy-small",
+    "featured": true,
+    "displayOrder": 2,
+    "shortDescription": {
+      "en": "King or queen bed, rain shower, and everything you need — nothing more. A good room for getting on with Berlin.",
+      "de": "Kingsize- oder Queensize-Bett, Regendusche, alles Wichtige. Ein gutes Zimmer, um Berlin wirklich zu erleben."
+    },
+    "fromPrice": 72.25,
+    "floorSizeM2": 17,
+    "bedConfiguration": {
+      "type": "queen",
+      "details": "King or Queen on request"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "rain-shower",
+    "bathroomDescription": "Bathroom with rain shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "queen-bed",
+      "rain-shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-42",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "air-conditioning"
+    ]
+  },
+  {
+    "name": {
+      "en": "Standard",
+      "de": "Standard"
+    },
+    "slug": "standard",
+    "featured": true,
+    "displayOrder": 3,
+    "shortDescription": {
+      "en": "No two are alike. Every Standard room carries its own piece of Berlin — a face, a neighbourhood, a story on the wall.",
+      "de": "Kein Standardzimmer gleicht dem anderen. Jedes trägt sein eigenes Stück Berlin — ein Gesicht, ein Kiez, eine Geschichte."
+    },
+    "fromPrice": 72.25,
+    "floorSizeM2": 20,
+    "bedConfiguration": {
+      "type": "queen",
+      "details": "Queen bed (160×200cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "shower",
+    "bathroomDescription": "Bathroom with shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411336",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "queen-bed",
+      "shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-42",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "air-conditioning",
+      "desk"
+    ]
+  },
+  {
+    "name": {
+      "en": "Superior",
+      "de": "Superior"
+    },
+    "slug": "superior",
+    "featured": true,
+    "displayOrder": 4,
+    "shortDescription": {
+      "en": "More space, a proper desk, and a You, Me & Berlin story from someone who knows the neighbourhood. King or twin.",
+      "de": "Mehr Platz, ein richtiger Schreibtisch und eine You, Me & Berlin-Geschichte von jemandem, der den Kiez kennt. King oder Twin."
+    },
+    "fromPrice": 80.75,
+    "floorSizeM2": 20,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King (180×200cm) or Twin (2× 90×200cm) on request"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "shower",
+    "bathroomDescription": "Bathroom with shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411337",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "twin-beds",
+      "shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-49",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "adjustable-ac",
+      "desk",
+      "garden-view",
+      "luetzowplatz-view"
+    ]
+  },
+  {
+    "name": {
+      "en": "Family",
+      "de": "Familienzimmer"
+    },
+    "slug": "family",
+    "featured": true,
+    "displayOrder": 5,
+    "shortDescription": {
+      "en": "Room for four. Two bunk beds (for ages 5 and up), a proper double, and Berlin stories to fall asleep to.",
+      "de": "Platz für vier. Zwei Etagenbetten ab 5 Jahren, ein richtiges Doppelbett und Berliner Geschichten zum Einschlafen."
+    },
+    "fromPrice": 97.75,
+    "floorSizeM2": 20,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King (180×200cm) or Twin (2× 90×200cm) — plus 2 bunk beds (90×200cm, ages 5+)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 2,
+      "maxTotal": 4
+    },
+    "childAgeMin": 5,
+    "bathroomLabel": "shower",
+    "bathroomDescription": "Bathroom with shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=447858",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bunk-beds",
+      "shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-42",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "air-conditioning"
+    ]
+  },
+  {
+    "name": {
+      "en": "Premium Family",
+      "de": "Premium Family"
+    },
+    "slug": "premium-family",
+    "featured": true,
+    "displayOrder": 6,
+    "shortDescription": {
+      "en": "Space for six. Four bunk beds, a double, and enough room for everyone to have their own corner of Berlin.",
+      "de": "Platz für sechs. Vier Etagenbetten, ein Doppelbett und genug Raum, damit jeder seine eigene Ecke Berlin bekommt."
+    },
+    "fromPrice": 92.65,
+    "floorSizeM2": 45,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King (180×200cm) or Twin (2× 90×200cm) — plus 4 bunk beds (90×200cm, ages 5+)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 4,
+      "maxTotal": 6
+    },
+    "childAgeMin": 5,
+    "bathroomLabel": "shower",
+    "bathroomDescription": "Bathroom with shower and hair dryer",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=414527",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bunk-beds",
+      "shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-42",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "ymb-map",
+      "air-conditioning"
+    ]
+  },
+  {
+    "name": {
+      "en": "Premium",
+      "de": "Premium"
+    },
+    "slug": "premium",
+    "featured": true,
+    "displayOrder": 7,
+    "shortDescription": {
+      "en": "Quiet, generous, and genuinely calm. Wellness bathroom, king bed, and some rooms with a private balcony.",
+      "de": "Ruhig, großzügig, wirklich entspannt. Wellness-Bad, Kingsize-Bett — und manche Zimmer mit eigenem Balkon."
+    },
+    "fromPrice": 106.25,
+    "floorSizeM2": 32,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King bed (180×200cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "bath-shower",
+    "bathroomDescription": "Wellness bathroom with bath, shower and hair dryer",
+    "hasBalcony": true,
+    "hasSauna": false,
+    "hasSeparateLiving": false,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411338",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bath-shower",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-49",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "adjustable-ac",
+      "seating-area",
+      "balcony",
+      "garden-view"
+    ]
+  },
+  {
+    "name": {
+      "en": "Junior Suite",
+      "de": "Junior Suite"
+    },
+    "slug": "junior-suite",
+    "featured": true,
+    "displayOrder": 8,
+    "shortDescription": {
+      "en": "A proper suite with a king bed, seating area, and separate bathroom. More space to settle in.",
+      "de": "Eine echte Suite: Kingsize-Bett, Sitzbereich, separates Bad. Mehr Platz zum Ankommen."
+    },
+    "fromPrice": 122.4,
+    "floorSizeM2": 35,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King bed (180×200cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "bath-shower",
+    "bathroomDescription": "Separate bathroom and guest WC",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": true,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411339",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bath-shower",
+      "separate-wc",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-49",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "adjustable-ac",
+      "seating-area",
+      "separate-living",
+      "desk"
+    ]
+  },
+  {
+    "name": {
+      "en": "Suite — One Bedroom",
+      "de": "Suite mit einem Schlafzimmer"
+    },
+    "slug": "suite-one-bedroom",
+    "featured": true,
+    "displayOrder": 9,
+    "shortDescription": {
+      "en": "Living room, bedroom, king bed, private bathroom. Room to be in Berlin without being out in it.",
+      "de": "Wohnzimmer, Schlafzimmer, Kingsize-Bett, eigenes Bad. Raum, um in Berlin zu sein, ohne draußen sein zu müssen."
+    },
+    "fromPrice": 122.4,
+    "floorSizeM2": 30,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King bed (180×200cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "bath-shower",
+    "bathroomDescription": "Separate bathroom and guest WC",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": true,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411340",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bath-shower",
+      "separate-wc",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-49",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "adjustable-ac",
+      "seating-area",
+      "separate-living",
+      "desk",
+      "work-dining"
+    ]
+  },
+  {
+    "name": {
+      "en": "Corner Suite",
+      "de": "Corner Suite"
+    },
+    "slug": "corner-suite",
+    "featured": true,
+    "displayOrder": 10,
+    "shortDescription": {
+      "en": "57m². King bed, wellness bathroom, lounge corner. Berlin at its least hectic — which turns out to be very good.",
+      "de": "57 m². Kingsize-Bett, Wellness-Bad, Sofa-Ecke. Berlin von seiner ruhigsten Seite — und die ist wirklich gut."
+    },
+    "fromPrice": 173.4,
+    "floorSizeM2": 57,
+    "bedConfiguration": {
+      "type": "king",
+      "details": "King bed (180×200cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "bath-shower",
+    "bathroomDescription": "Wellness bathroom with shower, hair dryer and separate guest WC",
+    "hasBalcony": false,
+    "hasSauna": false,
+    "hasSeparateLiving": true,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms?&roomtypeid=411341",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed",
+      "bath-shower",
+      "separate-wc",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-49",
+      "tv-dual",
+      "teufel-sound",
+      "refrigerator",
+      "berlin-doors",
+      "adjustable-ac",
+      "seating-area",
+      "separate-living",
+      "desk",
+      "garden-view",
+      "soundproof-windows"
+    ]
+  },
+  {
+    "name": {
+      "en": "Studio 45",
+      "de": "Studio 45"
+    },
+    "slug": "studio-45",
+    "featured": true,
+    "displayOrder": 11,
+    "shortDescription": {
+      "en": "95m². DJ deck, 200 records curated by DJ Dieta Berliner, private sauna, spa bathroom, freestanding king bed. Lionel Hampton once lived here.",
+      "de": "95 m². DJ-Deck, 200 Schallplatten kuratiert von DJ Dieta Berliner, private Sauna, Spa-Bad, freistehendes Kingsize-Bett. Lionel Hampton hat hier gewohnt."
+    },
+    "fromPrice": 389,
+    "floorSizeM2": 95,
+    "bedConfiguration": {
+      "type": "king-freestanding",
+      "details": "Freestanding king bed (200×210cm)"
+    },
+    "occupancy": {
+      "maxAdults": 2,
+      "maxChildren": 0,
+      "maxTotal": 2
+    },
+    "bathroomLabel": "spa-bathroom",
+    "bathroomDescription": "Mini SPA bathroom — 2 basins, freestanding bathtub, walk-in rain shower, makeup table",
+    "hasBalcony": false,
+    "hasSauna": true,
+    "hasSeparateLiving": true,
+    "isAccessible": false,
+    "bookingUrl": "https://www.radissonhotels.com/en-us/hotels/radisson-individuals-berlin/rooms",
+    "amenities": [
+      "non-smoking",
+      "free-wifi",
+      "king-bed-freestanding",
+      "spa-bathroom",
+      "separate-wc",
+      "nespresso",
+      "tea",
+      "room-safe",
+      "tv-55",
+      "tv-dual",
+      "hifi-sound",
+      "dj-deck",
+      "vinyl-collection",
+      "instruments",
+      "books",
+      "refrigerator",
+      "adjustable-ac",
+      "seating-area",
+      "separate-living",
+      "work-dining",
+      "ftc-windows",
+      "parquet",
+      "dimmable-lighting",
+      "private-sauna",
+      "garden-view",
+      "soundproof-windows"
+    ]
+  }
+]

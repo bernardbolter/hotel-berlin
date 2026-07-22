@@ -42,6 +42,8 @@
     "localTips": "Lokale Tipps",
     "gallery": "Galerie",
     "skateboardMuseum": "Skateboard-Museum",
+    "wallride": "Wallride",
+    "comingSoon": "Demnächst",
     "openMenu": "Navigationsmenü öffnen",
     "closeMenu": "Navigationsmenü schließen",
     "language": "Sprache"
@@ -62,20 +64,31 @@
     "bodyLine3": "und das Summen Berlins ist nie weit entfernt.",
     "cta": "Jetzt buchen",
     "ctaSrOnly": " im Hotel Berlin, Berlin (öffnet Buchungsseite)",
-    "address": "17 Lützowplatz, Tiergarten",
+    "address": "Lützowplatz 17, Tiergarten",
     "directions": "Wegbeschreibung",
     "galleryAria": "Hotelfotos",
     "mapsLink": "Wegbeschreibung zum Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten (öffnet Google Maps)",
-    "satelliteAlt": "Satellitenansicht des Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten"
+    "satelliteAlt": "Karte mit dem Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten"
   },
   "rooms": {
-    "label": "Schlafen & Entspannen",
-    "title": "Raum zum Ausatmen",
-    "body": "Ruhig, großzügig und wirklich komfortabel. Ob eine Nacht oder eine Woche — dein Platz zum Ankommen. Durchdachte Details und ein entspanntes, wohnliches Gefühl machen jedes Zimmer zu einem persönlichen Rückzugsort.",
-    "cta": "Alle Zimmer entdecken",
+    "label": "Sleep & Relax",
+    "title": "Sleep & Relax",
+    "byline": "Sleep & Relax",
+    "body": "Ob du zum ersten Mal in Berlin bist oder die Stadt schon kennst, allein unterwegs oder mit der Familie — unsere großzügigen, ruhigen Zimmer und Suiten sind dein Ort zum Ankommen. Durchdachte Details und ein entspanntes, heimisches Gefühl machen jedes Zimmer zu einem persönlichen Rückzugsort. Hier beginnt deine Berlin-Geschichte.",
+    "specSize": "Größe",
+    "specSleeps": "Schlafplätze",
+    "specBed": "Bett",
+    "sleepsCount": "{count} Gäste",
+    "from": "ab",
+    "priceScreenReader": "Preis ab",
+    "cta": "Zimmer entdecken",
+    "ctaSrSuffix": "im Hotel Berlin, Berlin",
     "ctaAvailability": "Verfügbarkeit prüfen",
-    "galleryAria": "Zimmerfotos Hotel Berlin, Berlin",
+    "galleryAria": "Zimmerfotos",
     "dotNavAria": "Zimmerkategorien",
+    "prevRoom": "Vorheriges Zimmer",
+    "nextRoom": "Nächstes Zimmer",
+    "nowShowing": "Jetzt angezeigt: {name}, ab {price}",
     "items": {
       "superior": {
         "name": "Superior",
@@ -217,6 +230,13 @@
     "subtitle": "Tiergarten, Kanal, Ku'damm — alles zu Fuß",
     "cta": "Nachbarschaft entdecken",
     "walkNote": "Alles innerhalb von 15 Min. zu Fuß"
+  },
+  "neighbourhood": {
+    "label": "Nachbarschaft",
+    "title": "Rund ums Hotel",
+    "subtitle": "Parks, Galerien, Restaurants und Berliner Leben — alles fußläufig vom Lützowplatz.",
+    "mapAria": "Interaktive Karte mit Orten in der Nähe des Hotel Berlin, Berlin",
+    "mapUnavailable": "Karte nicht verfügbar — Mapbox-Zugangstoken in der Umgebungskonfiguration hinterlegen."
   },
   "faq": {
     "title": "Gute Fragen.",

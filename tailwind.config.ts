@@ -10,6 +10,7 @@ const config: Config = {
         'hbb-amber': '#F79B2E',
         'hbb-nav-amber': '#B87A2E',
         'hbb-green': '#4A7A68',
+        'hbb-forest': '#56674F',
         'hbb-coral': '#F95D62',
         'hbb-purple': '#6A5870',
         'hbb-gold': '#A08C38',
@@ -43,12 +44,12 @@ const config: Config = {
       },
 
       fontFamily: {
-        ui: ['var(--font-archivo-narrow)', 'sans-serif'],
-        serif: ['var(--font-lora)', 'Georgia', 'serif'],
+        ui: ['var(--font-archivo)', 'sans-serif'],
+        serif: ['var(--font-laica)', 'Georgia', 'serif'],
       },
 
       fontSize: {
-        // UI scale — Archivo Narrow
+        // UI scale — Archivo
         'ui-xs': ['11px', { lineHeight: '1.4', letterSpacing: '0.02em' }],
         'ui-sm': ['12px', { lineHeight: '1.5', letterSpacing: '0.02em' }],
         'ui-base': ['13px', { lineHeight: '1.5' }],
@@ -57,7 +58,7 @@ const config: Config = {
         'ui-xl': ['20px', { lineHeight: '1.5' }],
         // Utility label scale — uppercase, tracked
         label: ['9.5px', { lineHeight: '1.3', letterSpacing: '0.12em' }],
-        // Editorial scale — Lora
+        // Editorial scale — Laica (legacy sections; homepage V2 hero uses Archivo)
         'serif-sm': ['15px', { lineHeight: '1.75' }],
         'serif-md': ['18px', { lineHeight: '1.6' }],
         'serif-lg': ['22px', { lineHeight: '1.35' }],
@@ -83,6 +84,11 @@ const config: Config = {
         'section-x': '2.5rem',
         'section-y': '3rem',
         'section-sm': '1.25rem',
+        site: '90rem',
+      },
+
+      maxWidth: {
+        site: '90rem',
       },
 
       letterSpacing: {

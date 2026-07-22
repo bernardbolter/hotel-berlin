@@ -8,11 +8,14 @@ import { HomeHero } from '@/components/home/HomeHero'
 import { LutzeSection } from '@/components/sections/LutzeSection'
 import { MapTeaser } from '@/components/sections/MapTeaser'
 import { MeetingsSection } from '@/components/sections/MeetingsSection'
-import { RoomsSection } from '@/components/sections/RoomsSection'
+import { RoomsHero } from '@/components/home/RoomsHero'
 
 type Props = {
   params: Promise<{ locale: string }>
 }
+
+/** When true, homepage shows Header + Hero + Rooms teaser only (client preview). */
+const showFullHomepage = process.env.NEXT_PUBLIC_SHOW_FULL_HOMEPAGE === 'true'
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
@@ -37,15 +40,21 @@ export default function HomePage() {
     <>
       <SiteNavWithData context="outside" />
       <main id="main-content">
-        <HomeHero />
-        <RoomsSection />
-        <MeetingsSection />
-        <CultureSection />
-        <LutzeSection />
-        <MapTeaser />
-        <FAQSection pageContext="homepage" />
+        <div className="site-shell">
+          <HomeHero />
+        </div>
+        <RoomsHero />
+        {showFullHomepage ? (
+          <div className="site-shell">
+            <MeetingsSection />
+            <CultureSection />
+            <LutzeSection />
+            <MapTeaser />
+            <FAQSection pageContext="homepage" />
+          </div>
+        ) : null}
       </main>
-      <SiteFooter />
+      {showFullHomepage ? <SiteFooter /> : null}
     </>
   )
 }

@@ -1,0 +1,62 @@
+{
+  "assetsSubpath": "ubernachten-relaxen/zimmer-suiten",
+  "rooms": {
+    "individual": "einzelzimmer",
+    "cosy-small": "gemuetliches-kleines-zimmer",
+    "standard": "standard",
+    "superior": "superior",
+    "family": "familien-zimmer",
+    "premium-family": "premium-family-zimmer",
+    "premium": "premium",
+    "junior-suite": "junior-suite",
+    "suite-one-bedroom": "suite-one-bedroom",
+    "corner-suite": "corner-suite",
+    "studio-45": "studio45-suite"
+  },
+  "preferredTeasers": {
+    "individual": {
+      "relativePath": "gms-run-en.html/images/hbb-standard-room-detail-02.jpg",
+      "hints": ["standard-room", "individual", "einzel"]
+    },
+    "cosy-small": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/executive/images/vfedirko-9809-sm.jpg",
+      "hints": ["cosy", "gemuetlich", "vfedirko"]
+    },
+    "standard": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/executive/images/standard-room.jpg",
+      "hints": ["standard-room", "standard"]
+    },
+    "superior": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/superior/images/hbb-superior-room-05.jpg",
+      "hints": ["superior"]
+    },
+    "family": {
+      "relativePath": "gms-run-en.html/images/hbb-quadruple-07.jpg",
+      "hints": ["family", "familien", "quadruple"]
+    },
+    "premium-family": {
+      "relativePath": "gms-run-en.html/images/hbb-quadruple-08.jpg",
+      "hints": ["premium-family", "quadruple"]
+    },
+    "premium": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/executive/images/premium-room.jpg",
+      "hints": ["premium-room", "premium"]
+    },
+    "junior-suite": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/junior-suite/images/hbb-executive-suite-relax-02.jpg",
+      "hints": ["junior", "executive-suite"]
+    },
+    "suite-one-bedroom": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/executive/images/779a5982.jpg",
+      "hints": ["one-bedroom", "suite"]
+    },
+    "corner-suite": {
+      "relativePath": "ubernachten-relaxen/zimmer-suiten/corner-suite/images/corner-suite-01.jpg",
+      "hints": ["corner-suite", "corner"]
+    },
+    "studio-45": {
+      "relativePath": "gms-run-en.html/images/hbb-hybrid-studio-79.jpg",
+      "hints": ["studio", "hybrid-studio"]
+    }
+  }
+}

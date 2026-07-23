@@ -54,7 +54,7 @@ export function HomeHeroLayout({ slides, copy, map }: Props) {
 
       <div className="home-hero__row relative z-10 flex flex-col lg:flex-row lg:items-stretch">
         <div className="home-hero__copy relative flex w-full flex-col bg-hbb-forest px-8 py-12 text-white md:px-12 lg:bg-transparent lg:py-[var(--hero-pad)] lg:pl-14 lg:pr-6">
-          <div className="home-hero__copy-text max-w-[22rem] self-start md:max-w-[26rem]">
+          <div className="home-hero__copy-text mt-5 ml-5 max-w-[22rem] self-start md:max-w-[26rem]">
             <h1 className="font-serif text-[clamp(2rem,3.6vw,3.15rem)] font-normal leading-[1.18] tracking-[-0.01em] text-white">
               {copy.headingLine1}
               <br />

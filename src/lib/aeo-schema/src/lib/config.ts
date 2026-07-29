@@ -1,4 +1,4 @@
-import type { SiteConfig } from '../types.js';
+import type { SiteConfig } from '../types';
 
 // Single source of truth for base URL + canonical locale + translated path
 // segments. Update this file, not the builders, when slugs change post

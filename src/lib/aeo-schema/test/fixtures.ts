@@ -1,4 +1,4 @@
-import type { NeighbourhoodPlace, Person } from '../src/types.js';
+import type { NeighbourhoodPlace, Person } from '../src/types';
 
 export const kristiane: Person = {
   id: 'people-1',

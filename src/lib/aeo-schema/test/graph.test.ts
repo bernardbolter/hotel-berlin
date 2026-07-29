@@ -6,14 +6,14 @@ import {
   buildPersonPageGraph,
   buildPlacePageGraph,
   dedupeById,
-} from '../src/builders/graph.js';
-import { defaultConfig } from '../src/lib/config.js';
+} from '../src/builders/graph';
+import { defaultConfig } from '../src/lib/config';
 import {
   hamburgerBahnhof,
   kristiane,
   koenigGalerie,
   schlossCharlottenburg,
-} from './fixtures.js';
+} from './fixtures';
 
 test('buildPlacePageGraph has exactly one @context and includes place + person stub + review', () => {
   const graph = buildPlacePageGraph(koenigGalerie, defaultConfig);

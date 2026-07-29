@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPlaceNode, buildPlaceRef } from '../src/builders/place.js';
-import { defaultConfig } from '../src/lib/config.js';
-import { hamburgerBahnhof, koenigGalerie } from './fixtures.js';
+import { buildPlaceNode, buildPlaceRef } from '../src/builders/place';
+import { defaultConfig } from '../src/lib/config';
+import { hamburgerBahnhof, koenigGalerie } from './fixtures';
 
 test('buildPlaceRef @type reflects schemaType, not the editorial category', () => {
   const ref = buildPlaceRef(koenigGalerie, defaultConfig);

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildAuthorityProps } from '../src/lib/authority.js';
+import { buildAuthorityProps } from '../src/lib/authority';
 
 test('returns nothing for undefined authority', () => {
   assert.deepEqual(buildAuthorityProps(undefined), {});

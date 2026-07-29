@@ -1,4 +1,4 @@
-import type { SiteConfig } from '../types.js';
+import type { SiteConfig } from '../types';
 
 /**
  * Canonical URL for a place or person detail page.

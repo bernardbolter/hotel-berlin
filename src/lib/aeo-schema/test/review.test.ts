@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildReviewNode, buildReviewNodesForPlace, reviewRatingIsAbsent } from '../src/builders/review.js';
-import { defaultConfig } from '../src/lib/config.js';
-import { koenigGalerie, kristiane, schlossCharlottenburg } from './fixtures.js';
+import { buildReviewNode, buildReviewNodesForPlace, reviewRatingIsAbsent } from '../src/builders/review';
+import { defaultConfig } from '../src/lib/config';
+import { koenigGalerie, kristiane, schlossCharlottenburg } from './fixtures';
 
 test('Review @id lives under the PLACE url, not the person url', () => {
   const node = buildReviewNode(koenigGalerie, koenigGalerie.endorsements![0], defaultConfig);

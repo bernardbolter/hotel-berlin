@@ -1,4 +1,4 @@
-import type { Authority } from '../types.js';
+import type { Authority } from '../types';
 
 /**
  * Turns the Payload `authority` group into the two schema.org mechanisms

@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPersonNode, buildPersonRef } from '../src/builders/person.js';
-import { defaultConfig } from '../src/lib/config.js';
-import { kristiane, maike } from './fixtures.js';
+import { buildPersonNode, buildPersonRef } from '../src/builders/person';
+import { defaultConfig } from '../src/lib/config';
+import { kristiane, maike } from './fixtures';
 
 test('buildPersonRef is a minimal stub with a stable @id', () => {
   const ref = buildPersonRef(kristiane, defaultConfig);

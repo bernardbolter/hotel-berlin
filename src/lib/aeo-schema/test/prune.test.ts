@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { prune } from '../src/lib/prune.js';
+import { prune } from '../src/lib/prune';
 
 test('prune drops undefined, null, empty string, empty array, empty object', () => {
   const input = {

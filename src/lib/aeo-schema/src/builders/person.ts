@@ -1,7 +1,7 @@
-import type { JsonLdNode, Person, SiteConfig } from '../types.js';
-import { hotelNodeId, personNodeId } from '../lib/ids.js';
-import { buildAuthorityProps } from '../lib/authority.js';
-import { prune } from '../lib/prune.js';
+import type { JsonLdNode, Person, SiteConfig } from '../types';
+import { hotelNodeId, personNodeId } from '../lib/ids';
+import { buildAuthorityProps } from '../lib/authority';
+import { prune } from '../lib/prune';
 
 /**
  * Lightweight reference to a Person — used wherever another node (a Place,

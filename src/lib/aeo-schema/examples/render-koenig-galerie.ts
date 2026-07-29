@@ -2,9 +2,9 @@
 // Prints the exact JSON-LD that would render in <script type="application/ld+json">
 // on /nachbarschaft/koenig-galerie and /you-me-and-berlin/kristiane-kegelmann.
 
-import { buildPersonPageGraph, buildPlacePageGraph } from '../src/builders/graph.js';
-import { defaultConfig } from '../src/lib/config.js';
-import { koenigGalerie, kristiane } from '../test/fixtures.js';
+import { buildPersonPageGraph, buildPlacePageGraph } from '../src/builders/graph';
+import { defaultConfig } from '../src/lib/config';
+import { koenigGalerie, kristiane } from '../test/fixtures';
 
 console.log('--- /de/nachbarschaft/koenig-galerie ---\n');
 console.log(JSON.stringify(buildPlacePageGraph(koenigGalerie, defaultConfig), null, 2));

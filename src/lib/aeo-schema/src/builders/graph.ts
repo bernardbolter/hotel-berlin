@@ -1,8 +1,8 @@
-import type { JsonLdGraph, JsonLdNode, NeighbourhoodPlace, Person, SiteConfig } from '../types.js';
-import { buildPersonNode, buildPersonRef } from './person.js';
-import { buildPlaceNode, buildPlaceRef } from './place.js';
-import { buildReviewNodesForPlace } from './review.js';
-import { neighbourhoodListUrl, peopleListUrl } from '../lib/ids.js';
+import type { JsonLdGraph, JsonLdNode, NeighbourhoodPlace, Person, SiteConfig } from '../types';
+import { buildPersonNode, buildPersonRef } from './person';
+import { buildPlaceNode, buildPlaceRef } from './place';
+import { buildReviewNodesForPlace } from './review';
+import { neighbourhoodListUrl, peopleListUrl } from '../lib/ids';
 
 function wrap(graph: JsonLdNode[]): JsonLdGraph {
   return { '@context': 'https://schema.org', '@graph': dedupeById(graph) };

@@ -1,8 +1,8 @@
-import type { Endorsement, JsonLdNode, NeighbourhoodPlace, SiteConfig } from '../types.js';
-import { placeNodeId, reviewNodeId } from '../lib/ids.js';
-import { buildPersonRef } from './person.js';
-import { buildPlaceRef } from './place.js';
-import { prune } from '../lib/prune.js';
+import type { Endorsement, JsonLdNode, NeighbourhoodPlace, SiteConfig } from '../types';
+import { placeNodeId, reviewNodeId } from '../lib/ids';
+import { buildPersonRef } from './person';
+import { buildPlaceRef } from './place';
+import { prune } from '../lib/prune';
 
 /**
  * Builds one Review node per endorsement on a place.

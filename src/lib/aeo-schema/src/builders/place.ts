@@ -1,7 +1,7 @@
-import type { JsonLdNode, NeighbourhoodPlace, SiteConfig } from '../types.js';
-import { placeNodeId, reviewNodeId } from '../lib/ids.js';
-import { buildAuthorityProps } from '../lib/authority.js';
-import { prune } from '../lib/prune.js';
+import type { JsonLdNode, NeighbourhoodPlace, SiteConfig } from '../types';
+import { placeNodeId, reviewNodeId } from '../lib/ids';
+import { buildAuthorityProps } from '../lib/authority';
+import { prune } from '../lib/prune';
 
 export function buildPlaceRef(place: NeighbourhoodPlace, config: SiteConfig): JsonLdNode {
   return prune({

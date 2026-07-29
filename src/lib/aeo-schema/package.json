@@ -1,0 +1,15 @@
+{
+  "name": "@hotel-berlin/aeo-schema",
+  "version": "0.1.0",
+  "description": "JSON-LD graph builders for hotel-berlin.de — pure, testable functions from Payload data to schema.org output.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "tsx --test test/*.test.ts",
+    "example": "tsx examples/render-koenig-galerie.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

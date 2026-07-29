@@ -80,6 +80,7 @@ export interface Config {
     exhibitions: Exhibition;
     events: Event;
     people: Person;
+    'neighbourhood-places': NeighbourhoodPlace;
     places: Place;
     pages: Page;
     'payload-kv': PayloadKv;
@@ -87,7 +88,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    people: {
+      picks: 'neighbourhood-places';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -102,6 +107,7 @@ export interface Config {
     exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
+    'neighbourhood-places': NeighbourhoodPlacesSelect<false> | NeighbourhoodPlacesSelect<true>;
     places: PlacesSelect<false> | PlacesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -742,7 +748,14 @@ export interface Person {
    */
   generateSlug?: boolean | null;
   slug: string;
-  role?: string | null;
+  jobTitle?: string | null;
+  /**
+   * AI citation length — 2–3 sentences.
+   */
+  shortBio?: string | null;
+  /**
+   * The full "You, Me & Berlin" letter/story. Write natively per locale, du register.
+   */
   bio?: {
     root: {
       type: string;
@@ -758,15 +771,139 @@ export interface Person {
     };
     [k: string]: unknown;
   } | null;
-  shortBio?: string | null;
+  /**
+   * Pull quote / signature line.
+   */
+  quote?: string | null;
+  /**
+   * YouTube/Vimeo embed URL, optional.
+   */
+  video?: string | null;
   portrait?: (number | null) | Media;
   website?: string | null;
   instagram?: string | null;
-  tags?: (number | Tag)[] | null;
   /**
-   * Marks as You, Me & Berlin profile
+   * Physical room where their welcome letter is placed.
    */
-  isInsider?: boolean | null;
+  roomNumber?: string | null;
+  /**
+   * e.g. "Neukölln"
+   */
+  basedIn?: string | null;
+  type: 'artist' | 'curator' | 'host' | 'partner' | 'staff' | 'local';
+  tags?: (number | Tag)[] | null;
+  relatedVenue?: (number | null) | Venue;
+  authority?: {
+    identifier?:
+      | {
+          propertyID: 'Wikidata' | 'GND' | 'VIAF' | 'GoogleKG';
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    sameAs?:
+      | {
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Read-only — auto-populated from neighbourhoodPlaces.endorsements. Do not hand-maintain. (Payload join field — confirmed on 3.85)
+   */
+  picks?: {
+    docs?: (number | NeighbourhoodPlace)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  status: 'draft' | 'published';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "neighbourhood-places".
+ */
+export interface NeighbourhoodPlace {
+  id: number;
+  name: string;
+  slug: string;
+  category:
+    | 'Art'
+    | 'Bar'
+    | 'Kids'
+    | 'Museum'
+    | 'Parks and Nature'
+    | 'Party'
+    | 'Restaurant'
+    | 'Shopping'
+    | 'Sightseeing';
+  /**
+   * Drives the JSON-LD @type — apply the category→schemaType mapping at seed time, not by editor judgment.
+   */
+  schemaType: 'TouristAttraction' | 'LocalBusiness' | 'Museum' | 'Park' | 'Restaurant' | 'BarOrPub' | 'ShoppingCenter';
+  address: {
+    streetAddress?: string | null;
+    addressLocality: string;
+    postalCode?: string | null;
+  };
+  geo?: {
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+  walkingMinutes?: number | null;
+  /**
+   * Default filter on /nachbarschaft is "walkable".
+   */
+  distanceTier?: ('walkable' | 'short-transit' | 'further-out') | null;
+  indoorOutdoor?: ('indoor' | 'outdoor' | 'both') | null;
+  /**
+   * xlsx "Zielgruppe" column — e.g. Alle, Kunstinteressierte, Freunde & Paare.
+   */
+  targetAudience?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  description?: string | null;
+  /**
+   * hasMany by design — one place can be endorsed by multiple people (e.g. Schloss Charlottenburg).
+   */
+  endorsements?:
+    | {
+        person: number | Person;
+        /**
+         * Becomes reviewBody. Per-endorsement, not per-place.
+         */
+        quote: string;
+        /**
+         * xlsx "Room" column — this endorsement's letter location.
+         */
+        associatedRoom?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  website?: string | null;
+  openingHours?: string | null;
+  priceRange?: string | null;
+  image?: (number | null) | Media;
+  authority?: {
+    identifier?:
+      | {
+          propertyID: 'Wikidata' | 'GND' | 'GoogleKG' | 'GooglePlaceID';
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    sameAs?:
+      | {
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  status: 'active' | 'inactive';
   updatedAt: string;
   createdAt: string;
 }
@@ -993,6 +1130,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'people';
         value: number | Person;
+      } | null)
+    | ({
+        relationTo: 'neighbourhood-places';
+        value: number | NeighbourhoodPlace;
       } | null)
     | ({
         relationTo: 'places';
@@ -1384,14 +1525,103 @@ export interface PeopleSelect<T extends boolean = true> {
   name?: T;
   generateSlug?: T;
   slug?: T;
-  role?: T;
-  bio?: T;
+  jobTitle?: T;
   shortBio?: T;
+  bio?: T;
+  quote?: T;
+  video?: T;
   portrait?: T;
   website?: T;
   instagram?: T;
+  roomNumber?: T;
+  basedIn?: T;
+  type?: T;
   tags?: T;
-  isInsider?: T;
+  relatedVenue?: T;
+  authority?:
+    | T
+    | {
+        identifier?:
+          | T
+          | {
+              propertyID?: T;
+              value?: T;
+              id?: T;
+            };
+        sameAs?:
+          | T
+          | {
+              url?: T;
+              id?: T;
+            };
+      };
+  picks?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "neighbourhood-places_select".
+ */
+export interface NeighbourhoodPlacesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  category?: T;
+  schemaType?: T;
+  address?:
+    | T
+    | {
+        streetAddress?: T;
+        addressLocality?: T;
+        postalCode?: T;
+      };
+  geo?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  walkingMinutes?: T;
+  distanceTier?: T;
+  indoorOutdoor?: T;
+  targetAudience?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  description?: T;
+  endorsements?:
+    | T
+    | {
+        person?: T;
+        quote?: T;
+        associatedRoom?: T;
+        id?: T;
+      };
+  website?: T;
+  openingHours?: T;
+  priceRange?: T;
+  image?: T;
+  authority?:
+    | T
+    | {
+        identifier?:
+          | T
+          | {
+              propertyID?: T;
+              value?: T;
+              id?: T;
+            };
+        sameAs?:
+          | T
+          | {
+              url?: T;
+              id?: T;
+            };
+      };
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

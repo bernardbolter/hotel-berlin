@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "kristiane-kegelmann",
+    "name": "Kristiane Kegelmann",
+    "jobTitle": "Artist / Sculptor",
+    "shortBio": "Berlin-based artist and sculptor.",
+    "quote": "I hope you have a great time!",
+    "website": "https://kristianekegelmann.com/",
+    "roomNumber": "1514",
+    "basedIn": "Prenzlauer Berg / Neukölln",
+    "type": "host",
+    "status": "draft"
+  },
+  {
+    "slug": "iris-berndt",
+    "name": "Dr. Iris Berndt",
+    "jobTitle": "Director, Käthe Kollwitz Museum",
+    "shortBio": "Art historian and director of the Käthe Kollwitz Museum.",
+    "website": "http://www.irisberndt.de/",
+    "roomNumber": "1171",
+    "type": "host",
+    "status": "draft"
+  },
+  {
+    "slug": "maike",
+    "name": "Maike",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "alessandra-botts",
+    "name": "Alessandra Botts",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "gita-kudpoor",
+    "name": "Gita Kudpoor",
+    "jobTitle": "Artist",
+    "website": "http://www.gitakurdpoor.com",
+    "roomNumber": "1654",
+    "type": "artist",
+    "status": "draft"
+  },
+  {
+    "slug": "mascha-kuchejda",
+    "name": "Mascha Kuchejda",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "guiseppe",
+    "name": "Guiseppe",
+    "type": "local",
+    "status": "draft"
+  }
+]

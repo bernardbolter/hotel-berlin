@@ -2,7 +2,11 @@ import { ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 
+import type { ComponentProps } from 'react'
+
 import { Link } from '@/i18n/routing'
+
+type AppHref = ComponentProps<typeof Link>['href']
 
 const badgeColorClasses = {
   teal: 'bg-hbb-teal/10 text-hbb-teal',
@@ -83,7 +87,7 @@ export async function ContentCard({
           </a>
         ) : (
           <Link
-            href={ctaHref}
+            href={ctaHref as AppHref}
             className="mt-auto flex items-center gap-1 font-ui text-ui-sm font-medium text-hbb-teal"
           >
             {ctaLabel}

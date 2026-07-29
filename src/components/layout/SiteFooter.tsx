@@ -9,9 +9,13 @@ import {
 } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
+import type { ComponentProps } from 'react'
+
 import { FooterNavColumn } from '@/components/layout/FooterNavColumn'
 
 import { Link } from '@/i18n/routing'
+
+type AppHref = ComponentProps<typeof Link>['href']
 
 export async function SiteFooter() {
   const t = await getTranslations('footer')
@@ -168,7 +172,7 @@ export async function SiteFooter() {
               {insideLinks.map((link) => (
                 <li key={link.label} className="border-t border-white/8 last:border-b">
                   <Link
-                    href={link.href}
+                    href={link.href as AppHref}
                     className="flex items-center justify-between py-1.5 font-ui text-ui-xs text-hbb-footer-muted hover:text-hbb-footer-teal"
                   >
                     {link.label}

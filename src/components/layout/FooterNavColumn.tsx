@@ -1,11 +1,13 @@
 'use client'
 
 import { BedDouble, ChevronDown, HelpCircle, Utensils, type LucideIcon } from 'lucide-react'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type ComponentProps } from 'react'
 
 import { Link } from '@/i18n/routing'
 
 export type FooterNavIconName = 'bed-double' | 'utensils' | 'help-circle'
+
+type AppHref = ComponentProps<typeof Link>['href']
 
 const footerNavIcons: Record<FooterNavIconName, LucideIcon> = {
   'bed-double': BedDouble,
@@ -31,7 +33,12 @@ function FooterLink({ href, label, muted }: FooterNavLink) {
     muted ? 'text-hbb-footer-muted' : 'text-hbb-footer-link'
   }`
 
-  if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+  if (
+    href.startsWith('http') ||
+    href.startsWith('mailto:') ||
+    href.startsWith('tel:') ||
+    href.startsWith('/book')
+  ) {
     return (
       <a href={href} className={className}>
         {label}
@@ -40,7 +47,7 @@ function FooterLink({ href, label, muted }: FooterNavLink) {
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href as AppHref} className={className}>
       {label}
     </Link>
   )

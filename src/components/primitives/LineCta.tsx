@@ -57,8 +57,14 @@ export function LineCta({
       )
     }
 
+    const localizedHref = href as '/'
+
     return (
-      <Link href={href} className={classes} {...(rest as ComponentPropsWithoutRef<'a'>)}>
+      <Link
+        className={classes}
+        {...(rest as ComponentPropsWithoutRef<'a'>)}
+        href={localizedHref}
+      >
         {label}
       </Link>
     )

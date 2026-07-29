@@ -14,6 +14,7 @@ import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
 import { Media } from './collections/Media'
 import { MeetingRooms } from './collections/MeetingRooms'
+import { NeighbourhoodPlaces } from './collections/NeighbourhoodPlaces'
 import { People } from './collections/People'
 import { Places } from './collections/Places'
 import { Rooms } from './collections/Rooms'
@@ -48,6 +49,7 @@ export default buildConfig({
     Exhibitions,
     Events,
     People,
+    NeighbourhoodPlaces,
     Places,
     Pages,
   ],

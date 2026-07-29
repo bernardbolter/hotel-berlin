@@ -133,12 +133,14 @@ export function CtaButton({
       )
     }
 
+    const localizedHref = href as '/'
+
     return (
       <Link
-        href={href}
         data-variant={variant}
         className={classes}
         {...(rest as ComponentPropsWithoutRef<'a'>)}
+        href={localizedHref}
       >
         {label}
       </Link>

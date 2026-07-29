@@ -1,0 +1,139 @@
+[
+  {
+    "slug": "koenig-galerie",
+    "name": "König Galerie",
+    "category": "Art",
+    "schemaType": "TouristAttraction",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Kunstinteressierte"],
+    "description": "Galerie für zeitgenössische Kunst.",
+    "endorsements": [
+      {
+        "person": "kristiane-kegelmann",
+        "quote": "Its spaces are unbelievable.",
+        "associatedRoom": "1185"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "slug": "kaethe-kollwitz-museum",
+    "name": "Käthe-Kollwitz-Museum",
+    "category": "Museum",
+    "schemaType": "Museum",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Alle"],
+    "description": "Museum mit starkem künstlerischem Profil.",
+    "endorsements": [
+      {
+        "person": "iris-berndt",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1171"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "slug": "schloss-charlottenburg",
+    "name": "Schloss Charlottenburg",
+    "category": "Sightseeing",
+    "schemaType": "TouristAttraction",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "both",
+    "targetAudience": ["Alle"],
+    "description": "Historisches Schloss mit Gartenanlage.",
+    "endorsements": [
+      {
+        "person": "maike",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1273"
+      },
+      {
+        "person": "alessandra-botts",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1337"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "slug": "hamburger-bahnhof",
+    "name": "Hamburger Bahnhof",
+    "category": "Art",
+    "schemaType": "Museum",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Alle"],
+    "description": "Museum für Gegenwartskunst.",
+    "endorsements": [],
+    "status": "active"
+  },
+  {
+    "slug": "neue-nationalgalerie",
+    "name": "Neue Nationalgalerie",
+    "category": "Art",
+    "schemaType": "Museum",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Alle"],
+    "description": "Architektur und Kunst in einem.",
+    "endorsements": [],
+    "status": "active"
+  },
+  {
+    "slug": "893-ryotei-bar",
+    "name": "893 Ryotei Bar",
+    "category": "Bar",
+    "schemaType": "BarOrPub",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Paare", "Business"],
+    "description": "Schicke Bar mit besonderem Dinner- und Cocktailgefühl.",
+    "endorsements": [
+      {
+        "person": "mascha-kuchejda",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1296"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "slug": "britzer-garten",
+    "name": "Britzer Garten",
+    "category": "Parks and Nature",
+    "schemaType": "Park",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "outdoor",
+    "targetAudience": ["Alle", "Familien"],
+    "description": "Großer Garten für Spaziergänge und Familienzeit.",
+    "endorsements": [
+      {
+        "person": "guiseppe",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1292"
+      }
+    ],
+    "status": "active"
+  },
+  {
+    "slug": "anjoy",
+    "name": "Anjoy",
+    "category": "Restaurant",
+    "schemaType": "Restaurant",
+    "address": { "addressLocality": "Berlin" },
+    "indoorOutdoor": "indoor",
+    "targetAudience": ["Freunde", "Paare"],
+    "description": "Vietnamesische Küche in entspannter Umgebung.",
+    "endorsements": [
+      {
+        "person": "gita-kudpoor",
+        "quote": "[TBC — no personal quote sourced yet]",
+        "associatedRoom": "1186"
+      }
+    ],
+    "status": "active"
+  }
+]

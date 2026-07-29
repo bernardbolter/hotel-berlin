@@ -1,12 +1,15 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import type { ComponentProps } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
 
 import { CtaButton } from '@/components/primitives/CtaButton'
 
 import type { SecondaryNavLink } from '@/lib/nav/types'
+
+type AppHref = ComponentProps<typeof Link>['href']
 
 type Props = {
   context: 'outside' | 'inside'
@@ -132,7 +135,7 @@ export function NavSecondary({
 
     return (
       <Link
-        href={link.href}
+        href={link.href as AppHref}
         className={secondaryNavLinkClass(link.href)}
         aria-current={isCurrent(link.href) ? 'page' : undefined}
         onClick={onNavigate}

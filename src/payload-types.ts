@@ -123,11 +123,13 @@ export interface Config {
     hotel: Hotel;
     homepage: Homepage;
     navigation: Navigation;
+    footer: Footer;
   };
   globalsSelect: {
     hotel: HotelSelect<false> | HotelSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: 'de' | 'en';
   widgets: {
@@ -210,7 +212,7 @@ export interface Tag {
   name: string;
   slug: string;
   /**
-   * Exact PascalCase component name from lucide-react. e.g. "Wifi", "BedDouble", "ShowerHead". Leave blank if no icon needed.
+   * Pick a Lucide icon. Leave blank for no icon.
    */
   lucideIcon?: string | null;
   type: 'category' | 'medium' | 'theme' | 'amenity' | 'neighbourhood';
@@ -443,10 +445,18 @@ export interface Venue {
    * e.g. "B2 Basement", "Ground Floor", "Lützowplatz 17"
    */
   location?: string | null;
+  /**
+   * Short in-building location for spotlight/hero secondary meta, e.g. "B2 Basement"
+   */
+  spotlightLocation?: string | null;
   telephone?: string | null;
   email?: string | null;
   website?: string | null;
   instagramUrl?: string | null;
+  /**
+   * Optional SVG/logo mark for SpotlightCard identity row
+   */
+  venueMonogram?: (number | null) | Media;
   openingHours?:
     | {
         /**
@@ -462,9 +472,13 @@ export interface Venue {
          */
         closes?: string | null;
         /**
-         * e.g. "Kitchen", "Bar"
+         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen". Multiple rows may share a segment.
          */
-        label?: string | null;
+        segment?: string | null;
+        /**
+         * Optional status note, e.g. "Kitchen closes 22:30"
+         */
+        note?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -687,10 +701,14 @@ export interface Exhibition {
   startDate?: string | null;
   endDate?: string | null;
   location?: string | null;
+  /**
+   * Hosting venue — required for SpotlightCard venue resolver
+   */
+  venue?: (number | null) | Venue;
   heroImage?: (number | null) | Media;
   artists?: (number | Artist)[] | null;
   artworks?: (number | Artwork)[] | null;
-  status?: ('upcoming' | 'current' | 'past') | null;
+  status?: ('upcoming' | 'current' | 'permanent' | 'past') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -732,6 +750,10 @@ export interface Event {
   tags?: (number | Tag)[] | null;
   featured?: boolean | null;
   isRecurring?: boolean | null;
+  /**
+   * iCal RRULE subset, e.g. FREQ=DAILY, FREQ=WEEKLY;BYDAY=TH, FREQ=MONTHLY;BYDAY=-1TH (last Thursday). Used with startDate time for next occurrence.
+   */
+  recurrenceRule?: string | null;
   recurrenceNote?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1356,17 +1378,20 @@ export interface VenuesSelect<T extends boolean = true> {
   description?: T;
   shortDescription?: T;
   location?: T;
+  spotlightLocation?: T;
   telephone?: T;
   email?: T;
   website?: T;
   instagramUrl?: T;
+  venueMonogram?: T;
   openingHours?:
     | T
     | {
         dayOfWeek?: T;
         opens?: T;
         closes?: T;
-        label?: T;
+        segment?: T;
+        note?: T;
         id?: T;
       };
   servesCuisine?: T;
@@ -1486,6 +1511,7 @@ export interface ExhibitionsSelect<T extends boolean = true> {
   startDate?: T;
   endDate?: T;
   location?: T;
+  venue?: T;
   heroImage?: T;
   artists?: T;
   artworks?: T;
@@ -1513,6 +1539,7 @@ export interface EventsSelect<T extends boolean = true> {
   tags?: T;
   featured?: T;
   isRecurring?: T;
+  recurrenceRule?: T;
   recurrenceNote?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1770,6 +1797,32 @@ export interface Hotel {
   };
   checkinTime?: string | null;
   checkoutTime?: string | null;
+  guestStay?: {
+    /**
+     * e.g. "noon" / "Mittag"
+     */
+    checkoutNote?: string | null;
+    /**
+     * e.g. "Lütze ground floor"
+     */
+    breakfastLocation?: string | null;
+    /**
+     * Guest WiFi SSID — shown in monospace pill
+     */
+    wifiNetwork?: string | null;
+    /**
+     * Guest WiFi password — shown in monospace pill
+     */
+    wifiPassword?: string | null;
+    /**
+     * e.g. "Underground · 200+ spaces · €4/hr · max €25/day"
+     */
+    parkingSummary?: string | null;
+    /**
+     * e.g. "Available after check-out · ask at reception"
+     */
+    luggageNote?: string | null;
+  };
   starRating?: number | null;
   priceRange?: string | null;
   totalRooms?: number | null;
@@ -1885,6 +1938,176 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * Public site footer: book-direct strip, contact, link columns, awards, partners, copyright.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  /**
+   * Separate bar above the footer. Toggle visibility independently of the footer body.
+   */
+  bookDirectStrip?: {
+    /**
+     * Uncheck to hide the book-direct CTA strip site-wide.
+     */
+    visible?: boolean | null;
+    message?: string | null;
+    ctaLabel?: string | null;
+    ctaUrl?: string | null;
+  };
+  contact?: {
+    sinceYear?: string | null;
+    addressLines?:
+      | {
+          line: string;
+          id?: string | null;
+        }[]
+      | null;
+    phone?: string | null;
+    email?: string | null;
+    /**
+     * e.g. "Bus 100, 106, 187", "U Nollendorfplatz 7 min", "S+U Zoo 10 min" — rendered joined by " · ".
+     */
+    transitLines?:
+      | {
+          line: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  columns?:
+    | {
+        /**
+         * Pick a Lucide icon. Leave blank for no icon.
+         */
+        icon?: string | null;
+        title: string;
+        links?:
+          | {
+              label: string;
+              linkType?: ('internal' | 'external') | null;
+              /**
+               * CMS page (slug becomes the href).
+               */
+              internalPage?: (number | null) | Page;
+              /**
+               * Absolute URL or site path, e.g. https://… or /rooms
+               */
+              externalUrl?: string | null;
+              /**
+               * Adds the "→" treatment used for Lütze / FKKB / KTTK — links that exit to a different venue frontend rather than a page within this site.
+               */
+              showArrow?: boolean | null;
+              /**
+               * Adds a small gap above this link — used to group related links within a column (e.g. before "Check-in/Check-out", or before "On the Walls").
+               */
+              dividerBefore?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  alreadyHereColumn: {
+    title: string;
+    /**
+     * Pick a Lucide icon. Leave blank for no icon.
+     */
+    icon?: string | null;
+    description?: string | null;
+    links?:
+      | {
+          label: string;
+          linkType?: ('internal' | 'external') | null;
+          /**
+           * CMS page (slug becomes the href).
+           */
+          internalPage?: (number | null) | Page;
+          /**
+           * Absolute URL or site path, e.g. https://… or /rooms
+           */
+          externalUrl?: string | null;
+          /**
+           * Adds the "→" treatment used for Lütze / FKKB / KTTK — links that exit to a different venue frontend rather than a page within this site.
+           */
+          showArrow?: boolean | null;
+          /**
+           * Adds a small gap above this link — used to group related links within a column (e.g. before "Check-in/Check-out", or before "On the Walls").
+           */
+          dividerBefore?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Sustainability certifications and award badges. Add, remove, or reorder freely. Uncheck “Show on website” to hide a logo without deleting it.
+   */
+  awards?:
+    | {
+        /**
+         * Uncheck to hide this logo on the public site without removing it from the CMS.
+         */
+        visible?: boolean | null;
+        image: number | Media;
+        /**
+         * Accessible name for the logo (also used as fallback text if the image fails).
+         */
+        altText: string;
+        /**
+         * Optional URL opened in a new tab when the logo is clicked (e.g. certification page). Leave blank if not clickable.
+         */
+        linkUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Label above the awards row, e.g. "Awards & Recognition".
+   */
+  awardsHeading?: string | null;
+  /**
+   * “Part of …” strip under the awards. Add, remove, or reorder freely. Uncheck “Show on website” to hide a link without deleting it.
+   */
+  partnerLinks?:
+    | {
+        /**
+         * Uncheck to hide this partner link on the public site without removing it.
+         */
+        visible?: boolean | null;
+        label: string;
+        /**
+         * External URL opened in a new tab.
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Bottom bar links (Imprint, Privacy, Terms, …). Add, remove, or reorder freely. Uncheck “Show on website” to hide a link without deleting it.
+   */
+  legalLinks?:
+    | {
+        /**
+         * Uncheck to hide this link on the public site without removing it.
+         */
+        visible?: boolean | null;
+        label: string;
+        /**
+         * Site path or absolute URL, e.g. /imprint or https://…
+         */
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Year is generated at render time — do not include a year here.
+   */
+  copyrightEntity?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel_select".
  */
@@ -1923,6 +2146,16 @@ export interface HotelSelect<T extends boolean = true> {
       };
   checkinTime?: T;
   checkoutTime?: T;
+  guestStay?:
+    | T
+    | {
+        checkoutNote?: T;
+        breakfastLocation?: T;
+        wifiNetwork?: T;
+        wifiPassword?: T;
+        parkingSummary?: T;
+        luggageNote?: T;
+      };
   starRating?: T;
   priceRange?: T;
   totalRooms?: T;
@@ -1998,6 +2231,105 @@ export interface NavigationSelect<T extends boolean = true> {
         page?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  bookDirectStrip?:
+    | T
+    | {
+        visible?: T;
+        message?: T;
+        ctaLabel?: T;
+        ctaUrl?: T;
+      };
+  contact?:
+    | T
+    | {
+        sinceYear?: T;
+        addressLines?:
+          | T
+          | {
+              line?: T;
+              id?: T;
+            };
+        phone?: T;
+        email?: T;
+        transitLines?:
+          | T
+          | {
+              line?: T;
+              id?: T;
+            };
+      };
+  columns?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              linkType?: T;
+              internalPage?: T;
+              externalUrl?: T;
+              showArrow?: T;
+              dividerBefore?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  alreadyHereColumn?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        description?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              linkType?: T;
+              internalPage?: T;
+              externalUrl?: T;
+              showArrow?: T;
+              dividerBefore?: T;
+              id?: T;
+            };
+      };
+  awards?:
+    | T
+    | {
+        visible?: T;
+        image?: T;
+        altText?: T;
+        linkUrl?: T;
+        id?: T;
+      };
+  awardsHeading?: T;
+  partnerLinks?:
+    | T
+    | {
+        visible?: T;
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        visible?: T;
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  copyrightEntity?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

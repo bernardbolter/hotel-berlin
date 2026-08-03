@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "katja-morkel",
+    "name": "Katja Morkel",
+    "jobTitle": "Jewelry maker",
+    "website": "http://www.morkel.de",
+    "roomNumber": "1515",
+    "type": "artist",
+    "status": "draft"
+  },
+  {
+    "slug": "christiane-fritsch-weith",
+    "name": "Christiane Fritsch-Weith",
+    "jobTitle": "Third-generation owner, Buchladen Bayerischer Platz (est. 1919)",
+    "website": "https://buchladen-bayerischer-platz.de/",
+    "roomNumber": "1169",
+    "type": "host",
+    "status": "draft"
+  },
+  {
+    "slug": "jennifer-oeser",
+    "name": "Jennifer Oeser",
+    "jobTitle": "Track & field, Olympic medalist",
+    "roomNumber": "1314",
+    "type": "host",
+    "status": "draft"
+  },
+  {
+    "slug": "ellen-garry",
+    "name": "Ellen Garry",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "eva-hoefsloot-schmeink",
+    "name": "Eva Höfsloot Schmeink",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "ellen-katja-jaeckel",
+    "name": "Ellen Katja Jaeckel",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "mathias-wolf",
+    "name": "Mathias Wolf",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "jascha-mueller",
+    "name": "Jascha Müller",
+    "type": "local",
+    "status": "draft"
+  },
+  {
+    "slug": "benson",
+    "name": "Benson",
+    "type": "local",
+    "status": "draft"
+  }
+]

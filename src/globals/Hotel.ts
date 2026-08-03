@@ -58,6 +58,52 @@ export const Hotel: GlobalConfig = {
     },
     { name: 'checkinTime', type: 'text' },
     { name: 'checkoutTime', type: 'text' },
+    {
+      name: 'guestStay',
+      label: 'Guest stay info (/here StayInfoCard)',
+      type: 'group',
+      fields: [
+        {
+          name: 'checkoutNote',
+          type: 'text',
+          localized: true,
+          admin: { description: 'e.g. "noon" / "Mittag"' },
+        },
+        {
+          name: 'breakfastLocation',
+          type: 'text',
+          localized: true,
+          admin: { description: 'e.g. "Lütze ground floor"' },
+        },
+        {
+          name: 'wifiNetwork',
+          type: 'text',
+          admin: { description: 'Guest WiFi SSID — shown in monospace pill' },
+        },
+        {
+          name: 'wifiPassword',
+          type: 'text',
+          admin: { description: 'Guest WiFi password — shown in monospace pill' },
+        },
+        {
+          name: 'parkingSummary',
+          type: 'text',
+          localized: true,
+          admin: {
+            description:
+              'e.g. "Underground · 200+ spaces · €4/hr · max €25/day"',
+          },
+        },
+        {
+          name: 'luggageNote',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'e.g. "Available after check-out · ask at reception"',
+          },
+        },
+      ],
+    },
     { name: 'starRating', type: 'number' },
     { name: 'priceRange', type: 'text' },
     { name: 'totalRooms', type: 'number' },

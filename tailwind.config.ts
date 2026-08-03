@@ -18,8 +18,10 @@ const config: Config = {
         'hbb-black': '#141414',
         'hbb-nav-link': '#5A5550',
 
-        // Primary + secondary nav (shared bar background)
+        // Primary + secondary nav (shared bar backgrounds)
         'hbb-nav-bg': '#F3F3F3',
+        /** Third-row secondary strip at tablet (slightly deeper than Row 2) */
+        'hbb-nav-bg-deep': '#E6E6E6',
         'hbb-nav-muted': '#888888',
         'hbb-nav-secondary': '#555555',
         'hbb-nav-ghost': '#AAAAAA',
@@ -32,14 +34,18 @@ const config: Config = {
         // Deep teal — Meet & Work, hero overlay
         'hbb-teal-deep': '#1A3C40',
 
-        // Footer
-        'hbb-footer': '#1E1530',
+        // Footer (see tokens.json → color.footer)
+        'hbb-footer': '#2D2A26',
+        'hbb-footer-bg-dark': '#2D2A26',
+        'hbb-footer-bg-medium': '#5A5550',
+        'hbb-footer-bg-light': '#BBBBBB',
+        'hbb-footer-on-light': '#2D2A26',
 
-        // Footer text hierarchy — all AA compliant on #1E1530
+        // Footer text hierarchy — AA on bgDark #2D2A26
         'hbb-footer-primary': '#F0EDE8',
         'hbb-footer-link': '#BBBBBB',
-        'hbb-footer-muted': '#8A8A8A',
-        'hbb-footer-amber': '#F79B2E',
+        'hbb-footer-muted': '#A8A29C',
+        'hbb-footer-amber': '#B87A2E',
         'hbb-footer-teal': '#7AB8B0',
       },
 

@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, TextField } from 'payload'
 
 export const Tags: CollectionConfig = {
   slug: 'tags',
@@ -9,13 +9,15 @@ export const Tags: CollectionConfig = {
     {
       name: 'lucideIcon',
       type: 'text',
-      label: 'Lucide icon name',
+      label: 'Lucide icon',
       admin: {
-        description:
-          'Exact PascalCase component name from lucide-react. e.g. "Wifi", "BedDouble", "ShowerHead". Leave blank if no icon needed.',
+        components: {
+          Field: '/components/admin/LucideIconPicker#LucideIconPicker',
+        },
+        description: 'Pick a Lucide icon. Leave blank for no icon.',
         condition: (data) => data.type === 'amenity',
       },
-    },
+    } satisfies TextField,
     {
       name: 'type',
       type: 'select',

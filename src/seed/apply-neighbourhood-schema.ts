@@ -158,6 +158,13 @@ CREATE INDEX IF NOT EXISTS neighbourhood_places_authority_same_as_parent_id_idx 
 -- Ensure endorsements.associated_room exists if table predated the schema fix
 ALTER TABLE neighbourhood_places_endorsements ADD COLUMN IF NOT EXISTS associated_room varchar;
 ALTER TABLE neighbourhood_places DROP COLUMN IF EXISTS associated_room;
+
+-- Payload document locks: column may be missing if collection was added via raw SQL
+ALTER TABLE payload_locked_documents_rels
+  ADD COLUMN IF NOT EXISTS neighbourhood_places_id integer
+  REFERENCES neighbourhood_places(id) ON DELETE cascade;
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_neighbourhood_places_id_idx
+  ON payload_locked_documents_rels USING btree (neighbourhood_places_id);
 `
 
 async function main() {

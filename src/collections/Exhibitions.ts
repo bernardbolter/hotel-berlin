@@ -12,6 +12,12 @@ export const Exhibitions: CollectionConfig = {
     { name: 'startDate', type: 'date' },
     { name: 'endDate', type: 'date' },
     { name: 'location', type: 'text' },
+    {
+      name: 'venue',
+      type: 'relationship',
+      relationTo: 'venues',
+      admin: { description: 'Hosting venue — required for SpotlightCard venue resolver' },
+    },
     { name: 'heroImage', type: 'upload', relationTo: 'media' },
     { name: 'artists', type: 'relationship', relationTo: 'artists', hasMany: true },
     { name: 'artworks', type: 'relationship', relationTo: 'artworks', hasMany: true },
@@ -21,6 +27,7 @@ export const Exhibitions: CollectionConfig = {
       options: [
         { label: 'Upcoming', value: 'upcoming' },
         { label: 'Current', value: 'current' },
+        { label: 'Permanent', value: 'permanent' },
         { label: 'Past', value: 'past' },
       ],
     },

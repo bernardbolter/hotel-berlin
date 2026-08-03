@@ -4,9 +4,15 @@
     "name": "König Galerie",
     "category": "Art",
     "schemaType": "TouristAttraction",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Alexandrinenstraße 118",
+      "addressLocality": "Berlin",
+      "postalCode": "10969"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Kunstinteressierte"],
+    "targetAudience": [
+      "Kunstinteressierte"
+    ],
     "description": "Galerie für zeitgenössische Kunst.",
     "endorsements": [
       {
@@ -15,16 +21,28 @@
         "associatedRoom": "1185"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.5007422,
+      "longitude": 13.4009105
+    },
+    "walkingMinutes": 50,
+    "distanceTier": "further-out"
   },
   {
     "slug": "kaethe-kollwitz-museum",
     "name": "Käthe-Kollwitz-Museum",
     "category": "Museum",
     "schemaType": "Museum",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Fasanenstraße 24",
+      "addressLocality": "Berlin",
+      "postalCode": "10719"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Alle"],
+    "targetAudience": [
+      "Alle"
+    ],
     "description": "Museum mit starkem künstlerischem Profil.",
     "endorsements": [
       {
@@ -33,16 +51,28 @@
         "associatedRoom": "1171"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.5016997,
+      "longitude": 13.3269358
+    },
+    "walkingMinutes": 27,
+    "distanceTier": "short-transit"
   },
   {
     "slug": "schloss-charlottenburg",
     "name": "Schloss Charlottenburg",
     "category": "Sightseeing",
     "schemaType": "TouristAttraction",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Spandauer Damm 10-22",
+      "addressLocality": "Berlin",
+      "postalCode": "14059"
+    },
     "indoorOutdoor": "both",
-    "targetAudience": ["Alle"],
+    "targetAudience": [
+      "Alle"
+    ],
     "description": "Historisches Schloss mit Gartenanlage.",
     "endorsements": [
       {
@@ -56,40 +86,77 @@
         "associatedRoom": "1337"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.5213229,
+      "longitude": 13.2992267
+    },
+    "walkingMinutes": 56,
+    "distanceTier": "further-out"
   },
   {
     "slug": "hamburger-bahnhof",
     "name": "Hamburger Bahnhof",
     "category": "Art",
     "schemaType": "Museum",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Invalidenstraße 50-51",
+      "addressLocality": "Berlin",
+      "postalCode": "10557"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Alle"],
+    "targetAudience": [
+      "Alle"
+    ],
     "description": "Museum für Gegenwartskunst.",
     "endorsements": [],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.52844,
+      "longitude": 13.3720386
+    },
+    "walkingMinutes": 45,
+    "distanceTier": "short-transit"
   },
   {
     "slug": "neue-nationalgalerie",
     "name": "Neue Nationalgalerie",
     "category": "Art",
     "schemaType": "Museum",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Potsdamer Straße 50",
+      "addressLocality": "Berlin",
+      "postalCode": "10785"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Alle"],
+    "targetAudience": [
+      "Alle"
+    ],
     "description": "Architektur und Kunst in einem.",
     "endorsements": [],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.5070408,
+      "longitude": 13.3676212
+    },
+    "walkingMinutes": 18,
+    "distanceTier": "walkable"
   },
   {
     "slug": "893-ryotei-bar",
     "name": "893 Ryotei Bar",
     "category": "Bar",
     "schemaType": "BarOrPub",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Kantstraße 135",
+      "addressLocality": "Berlin",
+      "postalCode": "10625"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Paare", "Business"],
+    "targetAudience": [
+      "Paare",
+      "Business"
+    ],
     "description": "Schicke Bar mit besonderem Dinner- und Cocktailgefühl.",
     "endorsements": [
       {
@@ -98,16 +165,29 @@
         "associatedRoom": "1296"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.5059258,
+      "longitude": 13.3167979
+    },
+    "walkingMinutes": 32,
+    "distanceTier": "short-transit"
   },
   {
     "slug": "britzer-garten",
     "name": "Britzer Garten",
     "category": "Parks and Nature",
     "schemaType": "Park",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Am Britzer Garten",
+      "addressLocality": "Berlin",
+      "postalCode": "12347"
+    },
     "indoorOutdoor": "outdoor",
-    "targetAudience": ["Alle", "Familien"],
+    "targetAudience": [
+      "Alle",
+      "Familien"
+    ],
     "description": "Großer Garten für Spaziergänge und Familienzeit.",
     "endorsements": [
       {
@@ -116,16 +196,29 @@
         "associatedRoom": "1292"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.4406602,
+      "longitude": 13.4126861
+    },
+    "walkingMinutes": 122,
+    "distanceTier": "further-out"
   },
   {
     "slug": "anjoy",
     "name": "Anjoy",
     "category": "Restaurant",
     "schemaType": "Restaurant",
-    "address": { "addressLocality": "Berlin" },
+    "address": {
+      "streetAddress": "Wörther Straße",
+      "addressLocality": "Berlin",
+      "postalCode": "10435"
+    },
     "indoorOutdoor": "indoor",
-    "targetAudience": ["Freunde", "Paare"],
+    "targetAudience": [
+      "Freunde",
+      "Paare"
+    ],
     "description": "Vietnamesische Küche in entspannter Umgebung.",
     "endorsements": [
       {
@@ -134,6 +227,12 @@
         "associatedRoom": "1186"
       }
     ],
-    "status": "active"
+    "status": "active",
+    "geo": {
+      "latitude": 52.536328,
+      "longitude": 13.4143169
+    },
+    "walkingMinutes": 83,
+    "distanceTier": "further-out"
   }
 ]

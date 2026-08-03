@@ -12,15 +12,6 @@ export function useNavScroll() {
   const [navState, setNavState] = useState<NavScrollState>('visible')
 
   useEffect(() => {
-    const header = headerRef.current
-    if (!header) return
-
-    const measure = () => {
-      const secondary = header.querySelector<HTMLElement>('.nav-secondary-clip .nav-secondary')
-      if (!secondary) return
-      header.style.setProperty('--nav-secondary-height', `${secondary.offsetHeight}px`)
-    }
-
     const handler = () => {
       const y = window.scrollY
 
@@ -35,25 +26,10 @@ export function useNavScroll() {
       lastY.current = y
     }
 
-    const raf = requestAnimationFrame(() => {
-      measure()
-      lastY.current = window.scrollY
-    })
-
-    const secondary = header.querySelector<HTMLElement>('.nav-secondary-clip .nav-secondary')
-    const resizeObserver =
-      secondary && typeof ResizeObserver !== 'undefined'
-        ? new ResizeObserver(measure)
-        : null
-    resizeObserver?.observe(secondary!)
-
-    window.addEventListener('resize', measure)
+    lastY.current = window.scrollY
     window.addEventListener('scroll', handler, { passive: true })
 
     return () => {
-      cancelAnimationFrame(raf)
-      resizeObserver?.disconnect()
-      window.removeEventListener('resize', measure)
       window.removeEventListener('scroll', handler)
     }
   }, [])

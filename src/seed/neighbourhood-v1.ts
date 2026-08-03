@@ -3,7 +3,8 @@
  * Source: doc/here/HotelBerlin_Nachbarschaft_SeedData_v1.md
  *
  * People are seeded as draft (not live). Places are active so the pipe can be
- * smoke-tested. Geo / walkingMinutes intentionally empty until geocoding pass.
+ * smoke-tested. Geo / walkingMinutes / distanceTier are filled in the seed JSON
+ * after `npm run geocode:neighbourhood -- --write` (or left empty for a later pass).
  */
 import 'dotenv/config'
 import { getPayload } from 'payload'
@@ -90,6 +91,22 @@ async function seed() {
       }
     })
 
+    const placeAddress = place.address as {
+      streetAddress?: string
+      addressLocality: string
+      postalCode?: string
+    }
+    const placeGeo = 'geo' in place ? (place as { geo?: { latitude: number; longitude: number } | null }).geo : null
+    const walkingMinutes =
+      'walkingMinutes' in place
+        ? (place as { walkingMinutes?: number | null }).walkingMinutes
+        : null
+    const distanceTier =
+      'distanceTier' in place
+        ? (place as { distanceTier?: 'walkable' | 'short-transit' | 'further-out' | null })
+            .distanceTier
+        : null
+
     const data = {
       name: place.name,
       slug: place.slug,
@@ -112,8 +129,15 @@ async function seed() {
         | 'BarOrPub'
         | 'ShoppingCenter',
       address: {
-        addressLocality: place.address.addressLocality,
+        streetAddress: placeAddress.streetAddress,
+        addressLocality: placeAddress.addressLocality,
+        postalCode: placeAddress.postalCode,
       },
+      ...(placeGeo?.latitude != null && placeGeo?.longitude != null
+        ? { geo: { latitude: placeGeo.latitude, longitude: placeGeo.longitude } }
+        : {}),
+      ...(walkingMinutes != null ? { walkingMinutes } : {}),
+      ...(distanceTier != null ? { distanceTier } : {}),
       indoorOutdoor: place.indoorOutdoor as 'indoor' | 'outdoor' | 'both',
       targetAudience: (place.targetAudience ?? []).map((label) => ({ label })),
       description: place.description,

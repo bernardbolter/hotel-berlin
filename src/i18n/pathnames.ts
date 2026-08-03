@@ -13,11 +13,14 @@ export const pathnames = {
   '/here/gallery': { en: '/here/gallery', de: '/hier/gallery' },
   '/here/dining': { en: '/here/dining', de: '/hier/dining' },
   '/here/faq': { en: '/here/faq', de: '/hier/faq' },
+  '/here/art': { en: '/here/art', de: '/hier/art' },
+  '/here/wallride': { en: '/here/wallride', de: '/hier/wallride' },
   '/neighbourhood': { en: '/neighbourhood', de: '/nachbarschaft' },
   '/neighbourhood/[slug]': {
     en: '/neighbourhood/[slug]',
     de: '/nachbarschaft/[slug]',
   },
+  '/map-styles': { en: '/map-styles', de: '/map-styles' },
   '/you-me-berlin': { en: '/you-me-and-berlin', de: '/you-me-and-berlin' },
   '/you-me-berlin/[slug]': {
     en: '/you-me-and-berlin/[slug]',
@@ -33,6 +36,7 @@ export const pathnames = {
   '/imprint': { en: '/imprint', de: '/imprint' },
   '/privacy': { en: '/privacy', de: '/privacy' },
   '/terms': { en: '/terms', de: '/terms' },
+  '/cookies': { en: '/cookies', de: '/cookies' },
   '/accessibility': { en: '/accessibility', de: '/accessibility' },
 } as const satisfies Pathnames<readonly ['de', 'en']>
 

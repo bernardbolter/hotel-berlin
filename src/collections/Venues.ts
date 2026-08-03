@@ -27,10 +27,24 @@ export const Venues: CollectionConfig = {
       type: 'text',
       admin: { description: 'e.g. "B2 Basement", "Ground Floor", "Lützowplatz 17"' },
     },
+    {
+      name: 'spotlightLocation',
+      type: 'text',
+      admin: {
+        description:
+          'Short in-building location for spotlight/hero secondary meta, e.g. "B2 Basement"',
+      },
+    },
     { name: 'telephone', type: 'text' },
     { name: 'email', type: 'email' },
     { name: 'website', type: 'text' },
     { name: 'instagramUrl', type: 'text' },
+    {
+      name: 'venueMonogram',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Optional SVG/logo mark for SpotlightCard identity row' },
+    },
     {
       name: 'openingHours',
       type: 'array',
@@ -38,7 +52,19 @@ export const Venues: CollectionConfig = {
         { name: 'dayOfWeek', type: 'text', admin: { description: 'e.g. Mo-Su or Monday,Tuesday' } },
         { name: 'opens', type: 'text', admin: { description: 'e.g. 10:00' } },
         { name: 'closes', type: 'text', admin: { description: 'e.g. 23:00 or open-end' } },
-        { name: 'label', type: 'text', admin: { description: 'e.g. "Kitchen", "Bar"' } },
+        {
+          name: 'segment',
+          type: 'text',
+          admin: {
+            description:
+              'Grouping label for open/closed status, e.g. "Bar" / "Kitchen". Multiple rows may share a segment.',
+          },
+        },
+        {
+          name: 'note',
+          type: 'text',
+          admin: { description: 'Optional status note, e.g. "Kitchen closes 22:30"' },
+        },
       ],
     },
     {

@@ -82,6 +82,10 @@ npm run build
 # Create admin user via /admin on first visit, or seed:
 npm run seed
 npm run seed:rooms
+npm run seed:neighbourhood-v1
+npm run seed:neighbourhood-v2   # +9 people / +10 places (after v1)
+# Fill lat/lng + walking minutes (Nominatim + Mapbox Directions):
+# npm run geocode:neighbourhood && npm run geocode:neighbourhood -- --write
 # optional: npm run seed:hero-images   (needs image assets on the server)
 npm run seed:room-images             # if room image sources are available
 

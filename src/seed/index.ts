@@ -38,6 +38,12 @@ async function isNavigationSeeded(): Promise<boolean> {
   return Boolean(nav.secondaryLinks && nav.secondaryLinks.length > 0)
 }
 
+async function isFooterSeeded(): Promise<boolean> {
+  const payload = await getPayload({ config })
+  const footer = await payload.findGlobal({ slug: 'footer' })
+  return Boolean(footer.columns && footer.columns.length > 0)
+}
+
 async function seed() {
   const payload = await getPayload({ config })
 
@@ -148,6 +154,21 @@ async function seed() {
           page: pageIds.get(slug),
         })),
       },
+    })
+  }
+
+  if (!(await isFooterSeeded())) {
+    console.log('Seeding footer global...')
+    const { footerSeedDe, footerSeedEn } = await import('./data/footer')
+    await payload.updateGlobal({
+      slug: 'footer',
+      data: footerSeedEn,
+      locale: 'en',
+    })
+    await payload.updateGlobal({
+      slug: 'footer',
+      data: footerSeedDe,
+      locale: 'de',
     })
   }
 

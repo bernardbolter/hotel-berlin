@@ -9,26 +9,26 @@ type InsideLinkRow = {
 
 const fallbackInsideLinks: Record<'de' | 'en', SecondaryNavLink[]> = {
   en: [
-    { id: 'fallback-events', label: "What's on", href: '/here/events' },
+    { id: 'fallback-events', label: "What's on tonight", href: '/here/events' },
     { id: 'fallback-getting-around', label: 'Getting around', href: '/here/getting-around' },
-    { id: 'fallback-local-tips', label: 'Local tips', href: '/here/explore' },
+    { id: 'fallback-local-tips', label: 'Explore the area', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Gallery', href: '/here/gallery' },
     {
       id: 'fallback-wallride',
       label: 'Wallride',
-      href: '#',
+      href: '/here/wallride',
       comingSoon: true,
     },
   ],
   de: [
-    { id: 'fallback-events', label: 'Was läuft', href: '/here/events' },
+    { id: 'fallback-events', label: 'Was läuft heute Abend', href: '/here/events' },
     { id: 'fallback-getting-around', label: 'Orientierung', href: '/here/getting-around' },
-    { id: 'fallback-local-tips', label: 'Lokale Tipps', href: '/here/explore' },
+    { id: 'fallback-local-tips', label: 'Die Nachbarschaft', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Galerie', href: '/here/gallery' },
     {
       id: 'fallback-wallride',
       label: 'Wallride',
-      href: '#',
+      href: '/here/wallride',
       comingSoon: true,
     },
   ],

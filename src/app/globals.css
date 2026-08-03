@@ -156,10 +156,10 @@ body {
   background-color: theme('colors.hbb-black');
 }
 
-/* Book Now — 2px bar on the right; dark fill sweeps from that bar over the text */
+/* Book Now — 2px bar on the right; dark fill sweeps from that bar over the text.
+   Do not set `display` here — callers use Tailwind display/hidden utilities. */
 .book-now-btn {
   position: relative;
-  display: inline-flex;
   align-items: stretch;
   overflow: hidden;
   flex-shrink: 0;
@@ -269,6 +269,29 @@ body {
 .enter-btn:hover .enter-btn__text,
 .enter-btn:focus-visible .enter-btn__text {
   color: white;
+}
+
+/* Same ENTER treatment, teal accent — /here "STAY" bridge */
+.enter-btn--teal {
+  border-color: theme('colors.hbb-teal');
+  color: theme('colors.hbb-teal');
+}
+
+.enter-btn--teal::before {
+  background: theme('colors.hbb-teal');
+}
+
+/* Inside-context CTA — teal edge bar (matches --nav-accent) */
+.book-now-btn--teal {
+  border-color: theme('colors.hbb-teal');
+}
+
+.book-now-btn--teal .book-now-btn__line {
+  background: theme('colors.hbb-teal');
+}
+
+.book-now-btn--teal::before {
+  background: theme('colors.hbb-teal');
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -471,19 +494,23 @@ body {
   }
 }
 
-/* Rooms discover CTA — Sleep & Relax terracotta; 2px line sweeps over text */
-.rooms-discover-cta {
+/* Sweep CTA — 2px edge line fills over text on hover (rooms, book-direct, etc.) */
+.sweep-cta {
   position: relative;
   display: inline-flex;
   align-items: center;
   overflow: hidden;
   padding: 0.45em 0.95em 0.45em 1.1em;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.2;
   color: #c16157;
   text-decoration: none;
   cursor: pointer;
 }
 
-.rooms-discover-cta::before {
+.sweep-cta::before {
   content: '';
   position: absolute;
   top: 0;
@@ -491,34 +518,42 @@ body {
   left: 0;
   z-index: 0;
   width: 2px;
-  background: #c16157;
+  background: currentColor;
   transition: width 320ms ease-out;
 }
 
-.rooms-discover-cta__label {
+.sweep-cta__label {
   position: relative;
   z-index: 1;
   transition: color 320ms ease-out;
 }
 
-.rooms-discover-cta:hover::before,
-.rooms-discover-cta:focus-visible::before {
+.sweep-cta:hover::before,
+.sweep-cta:focus-visible::before {
   width: 100%;
 }
 
-.rooms-discover-cta:hover .rooms-discover-cta__label,
-.rooms-discover-cta:focus-visible .rooms-discover-cta__label {
+.sweep-cta:hover .sweep-cta__label,
+.sweep-cta:focus-visible .sweep-cta__label {
   color: white;
 }
 
+.sweep-cta--terracotta {
+  color: #c16157;
+}
+
+.sweep-cta--nav-amber {
+  color: theme('colors.hbb-nav-amber');
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .rooms-discover-cta::before,
-  .rooms-discover-cta__label {
+  .sweep-cta::before,
+  .sweep-cta__label {
     transition: none;
   }
 
-  .rooms-discover-cta:hover::before,
-  .rooms-discover-cta:focus-visible::before {
+  .sweep-cta:hover::before,
+  .sweep-cta:focus-visible::before {
     width: 100%;
   }
 }
@@ -528,6 +563,42 @@ body {
   aspect-ratio: 3 / 2;
   border-radius: 9999px 0 0 9999px;
   clip-path: none;
+}
+
+/* SpotlightCard — arch-top image (intentional radius exception, like rooms) */
+.spotlight-card__media {
+  border-radius: 1.75rem 1.75rem 0 0;
+}
+
+.spotlight-card__badge {
+  max-width: 4.5rem;
+  text-align: center;
+  line-height: 1.15;
+  word-break: break-word;
+}
+
+/* /here guest hub card grid — mobile-first, 2-col from xs (480px) */
+.here-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 0 12px;
+}
+
+@media (min-width: 480px) {
+  .here-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .here-grid {
+    gap: 16px;
+    padding: 0 24px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .rooms-photo-mask .hero-photo-img {
@@ -742,29 +813,174 @@ body {
   }
 }
 
-/* Nav scroll — secondary row only for now (see doc/navigation/HotelBerlin_NavBuildBrief.md) */
+/* Nav scroll — secondary row collapse (fixed max-height; single-line bar). */
 .nav-secondary-clip {
   overflow: hidden;
-  max-height: var(--nav-secondary-height, 3rem);
+  max-height: 5.5rem;
   transition: max-height 200ms ease;
+}
+
+.nav-secondary-clip > .nav-secondary {
+  transition: transform 200ms ease;
 }
 
 [data-nav-state='hidden-secondary'] .nav-secondary-clip {
   max-height: 0;
 }
 
-[data-nav-state] .nav-secondary-clip > .nav-secondary {
-  transition: transform 200ms ease;
-}
-
 [data-nav-state='hidden-secondary'] .nav-secondary-clip > .nav-secondary {
   transform: translateY(-100%);
 }
 
+/*
+  Guest secondary in the clip may hide on scroll from 768 up.
+  (Below 768 the util strip is outside this clip.)
+*/
+
 @media (prefers-reduced-motion: reduce) {
   .nav-secondary-clip,
-  [data-nav-state] .nav-secondary-clip > .nav-secondary {
+  .nav-secondary-clip > .nav-secondary {
     transition: none !important;
+  }
+}
+
+/* ── Hamburger button ──
+   Do not set `display` here — callers use Tailwind (`inline-flex md:hidden`). */
+.nav-hamburger {
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: theme('colors.hbb-black');
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-hamburger__box {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 14px;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-hamburger__line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-top: -1px;
+  background: currentColor;
+  border-radius: 1px;
+  transform-origin: center;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+
+/* Even spacing via translate only — avoids uneven subpixel line weights */
+.nav-hamburger__line:nth-child(1) {
+  transform: translateY(-6px);
+}
+
+.nav-hamburger__line:nth-child(2) {
+  transform: translateY(0);
+}
+
+.nav-hamburger__line:nth-child(3) {
+  transform: translateY(6px);
+}
+
+/* Hover — lines expand apart slightly */
+.nav-hamburger:hover:not([data-open='true']) .nav-hamburger__line:nth-child(1) {
+  transform: translateY(-8px);
+}
+
+.nav-hamburger:hover:not([data-open='true']) .nav-hamburger__line:nth-child(3) {
+  transform: translateY(8px);
+}
+
+.nav-hamburger:focus-visible {
+  outline: 2px solid var(--nav-accent, theme('colors.hbb-nav-amber'));
+  outline-offset: 3px;
+}
+
+/* Open — spin the stack into an X */
+.nav-hamburger[data-open='true'] .nav-hamburger__box {
+  transform: rotate(90deg);
+}
+
+.nav-hamburger[data-open='true'] .nav-hamburger__line:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+}
+
+.nav-hamburger[data-open='true'] .nav-hamburger__line:nth-child(2) {
+  opacity: 0;
+  transform: translateY(0) scaleX(0);
+}
+
+.nav-hamburger[data-open='true'] .nav-hamburger__line:nth-child(3) {
+  transform: translateY(0) rotate(-45deg);
+}
+
+/* ── Nav dropdown panel ──
+   Visibility below md is controlled by a Tailwind wrapper (`md:hidden`),
+   not by setting display on this clip (would override the utility). */
+.nav-drawer-clip {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-drawer-clip[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+.nav-drawer-panel {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.nav-drawer-panel-inner {
+  max-height: min(80vh, 40rem);
+  overflow-y: auto;
+  border-top: 0.5px solid rgb(0 0 0 / 8%);
+  background: white;
+  padding: 1.25rem 1rem;
+  opacity: 0;
+  transform: translateY(-0.65rem);
+  transition:
+    opacity 280ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-drawer-clip[data-open='true'] .nav-drawer-panel-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-hamburger__box,
+  .nav-hamburger__line,
+  .nav-drawer-clip,
+  .nav-drawer-panel-inner {
+    transition: none !important;
+  }
+
+  .nav-hamburger[data-open='true'] .nav-hamburger__box {
+    transform: none;
+  }
+
+  .nav-drawer-panel-inner {
+    opacity: 1;
+    transform: none;
   }
 }
 

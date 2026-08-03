@@ -33,7 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const hotelJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LodgingBusiness',
+    '@type': 'Hotel',
     '@id': 'https://hotel-berlin.de/#hotel',
     name: 'Hotel Berlin, Berlin',
     address: {
@@ -51,6 +51,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     telephone: '+493026050',
     email: 'info@hotel-berlin.de',
     url: 'https://hotel-berlin.de',
+    foundingDate: '1958',
     sameAs: ['https://www.wikidata.org/wiki/Q1630833'],
   }
 

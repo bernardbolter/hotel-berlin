@@ -80,6 +80,14 @@ export const hotelSeed = {
     reception: 'Mo-Su 00:00-24:00',
     breakfast: 'Mo-Su 06:30-10:00',
   },
+  guestStay: {
+    checkoutNote: 'noon',
+    breakfastLocation: 'Lütze ground floor',
+    wifiNetwork: 'HBB_Guest',
+    wifiPassword: 'welcome1958',
+    parkingSummary: 'Underground · 200+ spaces · €4/hr · max €25/day',
+    luggageNote: 'Available after check-out · ask at reception',
+  },
 }
 
 export const meetingRoomsSeed = [
@@ -236,10 +244,11 @@ export const venuesSeed = [
     email: 'luetze@hotel-berlin.de',
     website: 'https://hotel-berlin.de/en/eat-drink/luetze-bar-berlin',
     openingHours: [
-      { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', label: 'Bar' },
-      { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', label: 'Kitchen lunch' },
-      { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', label: 'Kitchen dinner' },
+      { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', segment: 'Bar' },
+      { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
+      { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
     ],
+    spotlightLocation: 'Ground floor',
     servesCuisine: 'Italian, International',
     reservationUrl: 'https://hotel-berlin.de/en/eat-drink/luetze-bar-berlin',
     priceRange: '€€',
@@ -271,8 +280,14 @@ export const venuesSeed = [
     location: 'B2 Basement',
     website: 'https://hotel-berlin.de',
     openingHours: [
-      { dayOfWeek: 'Thursday', opens: '19:00', closes: 'open end', label: 'Tournament Night' },
+      {
+        dayOfWeek: 'Thursday',
+        opens: '19:00',
+        closes: 'open end',
+        segment: 'Tournament Night',
+      },
     ],
+    spotlightLocation: 'B2 Basement',
     isOpenToPublic: true,
     featured: true,
     displayOrder: 3,

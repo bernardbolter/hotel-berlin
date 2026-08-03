@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
 
-import { CtaButton } from '@/components/primitives/CtaButton'
+import { NavBridgeButton } from '@/components/layout/NavBridgeButton'
 
 import type { SecondaryNavLink } from '@/lib/nav/types'
 
@@ -14,15 +14,24 @@ type AppHref = ComponentProps<typeof Link>['href']
 type Props = {
   context: 'outside' | 'inside'
   links: SecondaryNavLink[]
+  /** Which secondary links to show in this instance */
+  visibility?: 'all' | 'tablet' | 'promoted'
   layout?: 'bar' | 'stacked'
+  showBridge?: boolean
   className?: string
   onNavigate?: () => void
+}
+
+function isOverflowLink(link: SecondaryNavLink): boolean {
+  return /gallery|wallride|galerie/i.test(link.label) || /gallery|wallride/i.test(link.href)
 }
 
 export function NavSecondary({
   context,
   links,
+  visibility = 'all',
   layout = 'bar',
+  showBridge = true,
   className = '',
   onNavigate,
 }: Props) {
@@ -30,34 +39,33 @@ export function NavSecondary({
   const tc = useTranslations('common')
   const pathname = usePathname()
 
+  const visibleLinks = (() => {
+    if (visibility === 'promoted') return links.slice(0, 1)
+    if (visibility === 'tablet') return links.filter((link) => !isOverflowLink(link))
+    return links
+  })()
+
   const isCurrent = (href: string) =>
     href !== '#' && (pathname === href || pathname.startsWith(`${href}/`))
 
   const isBar = layout === 'bar'
-  const textSize = isBar ? 'text-[14px]' : 'text-ui-sm'
+  /** Third-row (tablet) is slightly smaller; desktop bar stays 14px; drawer stacked is larger */
+  const textSize = isBar ? 'text-[12px] lg:text-[14px]' : 'text-[15px]'
+  const accentActive = context === 'inside' ? 'text-hbb-teal' : 'text-hbb-nav-amber'
+  const accentHover =
+    context === 'inside'
+      ? 'text-hbb-nav-secondary hover:text-hbb-teal'
+      : 'text-hbb-nav-amber hover:text-hbb-nav-amber'
 
   const secondaryNavLinkClass = (href: string) => {
     const current = isCurrent(href)
-    const base = [
+    return [
       'relative font-ui font-normal tracking-[0.02em] transition-colors duration-200 ease-out',
       textSize,
       'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current',
       'after:w-0 after:transition-[width] after:duration-200 after:ease-out',
       'motion-reduce:transition-none motion-reduce:after:transition-none',
-    ].join(' ')
-
-    if (context === 'inside') {
-      return [
-        base,
-        current
-          ? 'text-hbb-teal after:w-full'
-          : 'text-hbb-nav-secondary hover:text-hbb-teal hover:after:w-full',
-      ].join(' ')
-    }
-
-    return [
-      base,
-      current ? 'text-hbb-nav-amber after:w-full' : 'text-hbb-nav-amber hover:after:w-full',
+      current ? `${accentActive} after:w-full` : `${accentHover} hover:after:w-full`,
     ].join(' ')
   }
 
@@ -65,42 +73,6 @@ export function NavSecondary({
     context === 'inside'
       ? `select-none px-2 font-ui font-medium text-hbb-nav-secondary/50 ${textSize}`
       : `select-none px-2 font-ui font-medium text-hbb-nav-amber/40 ${textSize}`
-
-  const bridgeHref = context === 'inside' ? '/' : '/here'
-  const bridgeAria = context === 'inside' ? t('bridgeToMainAria') : t('bridgeToGuestAria')
-
-  const bridgeBlock =
-    context === 'inside' ? (
-      <div className="flex items-center gap-2">
-        <span className="font-ui text-ui-base text-hbb-nav-muted">{t('planningStay')}</span>
-        <CtaButton
-          href={bridgeHref}
-          color="teal"
-          variant="outline"
-          size="sm"
-          aria-label={bridgeAria}
-          className="gap-1"
-          onClick={onNavigate}
-        >
-          {t('mainSite')}
-        </CtaButton>
-      </div>
-    ) : (
-      <div className="flex shrink-0 flex-nowrap items-center gap-2.5">
-        <span className={`shrink-0 font-ui text-hbb-nav-amber ${isBar ? 'text-[15px]' : 'text-[14px]'}`}>
-          {t('inBuilding')}
-        </span>
-        {/* ENTER — intentional boxed border treatment (PDF) */}
-        <Link
-          href={bridgeHref}
-          aria-label={bridgeAria}
-          onClick={onNavigate}
-          className={`enter-btn ${isBar ? 'text-[12px]' : 'text-ui-xs'}`}
-        >
-          <span className="enter-btn__text">{t('enter')}</span>
-        </Link>
-      </div>
-    )
 
   const renderLink = (link: SecondaryNavLink) => {
     if (link.comingSoon) {
@@ -149,11 +121,11 @@ export function NavSecondary({
     return (
       <nav
         aria-label={tc('guestNavAria')}
-        className={`nav-secondary flex flex-col items-start gap-3 bg-hbb-nav-bg ${className}`}
+        className={`nav-secondary flex flex-col items-start gap-3 ${className}`}
       >
-        {bridgeBlock}
-        <ul role="list" className="flex flex-col gap-2">
-          {links.map((link) => (
+        {showBridge ? <NavBridgeButton context={context} size="stacked" onNavigate={onNavigate} /> : null}
+        <ul role="list" className="flex flex-col gap-3.5">
+          {visibleLinks.map((link) => (
             <li key={link.id}>{renderLink(link)}</li>
           ))}
         </ul>
@@ -161,17 +133,27 @@ export function NavSecondary({
     )
   }
 
+  if (visibility === 'promoted') {
+    const link = visibleLinks[0]
+    if (!link) return null
+    return (
+      <nav aria-label={tc('guestNavAria')} className={className}>
+        {renderLink(link)}
+      </nav>
+    )
+  }
+
   return (
     <nav
       aria-label={tc('guestNavAria')}
-      className={`nav-secondary w-full bg-hbb-nav-bg ${className}`}
+      className={`nav-secondary w-full ${className || 'bg-hbb-nav-bg'}`}
     >
-      <div className="site-shell flex items-center px-8 py-2 xl:px-10">
+      <div className="site-shell flex items-center px-4 py-2 md:px-8 xl:px-10">
         <div className="flex min-w-0 flex-nowrap items-center gap-x-1">
-          {bridgeBlock}
-          {links.length > 0 ? (
+          {showBridge ? <NavBridgeButton context={context} size="bar" onNavigate={onNavigate} /> : null}
+          {visibleLinks.length > 0 ? (
             <ul role="list" className="flex flex-nowrap items-center">
-              {links.map((link) => (
+              {visibleLinks.map((link) => (
                 <li key={link.id} className="flex items-center">
                   <span aria-hidden="true" className={pipeClass}>
                     |
@@ -186,3 +168,5 @@ export function NavSecondary({
     </nav>
   )
 }
+
+export { isOverflowLink }

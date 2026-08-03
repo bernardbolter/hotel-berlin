@@ -4,11 +4,25 @@ import { getTranslations } from 'next-intl/server'
 import { KenBurnsSlider } from '@/components/primitives/KenBurnsSlider'
 import { OpenStatusBadge } from '@/components/primitives/OpenStatusBadge'
 import { lutzeImages } from '@/lib/data/homepageImages'
+import { getVenueBySlug } from '@/lib/payload/venues'
+import type { OpeningHoursEntry } from '@/lib/venue-time'
 
 import { Link } from '@/i18n/routing'
 
+/** Fallback when the Lütze venue doc is not seeded yet — mirrors seed openingHours. */
+const LUTZE_HOURS_FALLBACK: OpeningHoursEntry[] = [
+  { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', segment: 'Bar' },
+  { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
+  { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
+]
+
 export async function LutzeSection() {
   const t = await getTranslations('lutze')
+  const lutze = await getVenueBySlug('lutze').catch(() => null)
+  const openingHours =
+    (lutze?.openingHours as OpeningHoursEntry[] | null | undefined)?.length
+      ? (lutze!.openingHours as OpeningHoursEntry[])
+      : LUTZE_HOURS_FALLBACK
 
   const hours = [
     { term: t('hourLabelBar'), detail: t('hoursBar') },
@@ -59,7 +73,7 @@ export async function LutzeSection() {
             ))}
           </dl>
 
-          <OpenStatusBadge />
+          <OpenStatusBadge openingHours={openingHours} />
 
           <div className="flex flex-wrap items-center gap-3">
             <a

@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { geocodeNeighbourhoodPlaceBeforeChange } from './hooks/geocodeNeighbourhoodPlace'
+
 export const NeighbourhoodPlaces: CollectionConfig = {
   slug: 'neighbourhood-places',
   admin: {
@@ -11,6 +13,7 @@ export const NeighbourhoodPlaces: CollectionConfig = {
     read: () => true,
   },
   hooks: {
+    beforeChange: [geocodeNeighbourhoodPlaceBeforeChange],
     afterChange: [
       async () => {
         const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hotel-berlin.de'

@@ -6,7 +6,8 @@
     "shortBio": "Berlin-based artist and sculptor.",
     "quote": "I hope you have a great time!",
     "website": "https://kristianekegelmann.com/",
-    "roomNumber": "1514",
+    "roomNumber": "1185",
+    "_roomNumberNote": "v2 lean: four xlsx rows (incl. Nobelhart) agree on 1185 vs roster 1514 — confirm with hotel before publishing",
     "basedIn": "Prenzlauer Berg / Neukölln",
     "type": "host",
     "status": "draft"

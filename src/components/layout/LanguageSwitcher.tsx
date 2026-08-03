@@ -1,9 +1,10 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
+import { useParams } from 'next/navigation'
 import { useId } from 'react'
 
-import { Link } from '@/i18n/routing'
+import { Link, usePathname } from '@/i18n/routing'
 
 export type LanguageSwitcherVariant = 'nav' | 'footer'
 
@@ -60,6 +61,21 @@ const sizeStyles: Record<
   },
 }
 
+function useLocaleSwitchHref() {
+  const pathname = usePathname()
+  const params = useParams()
+
+  const routeParams = Object.fromEntries(
+    Object.entries(params).filter(([key]) => key !== 'locale'),
+  )
+
+  // Internal pathname (+ dynamic params) so next-intl can localize
+  // e.g. /here → /de/hier, /neighbourhood/[slug] → /de/nachbarschaft/...
+  if (Object.keys(routeParams).length === 0) return pathname
+
+  return { pathname, params: routeParams }
+}
+
 export function LanguageSwitcher({
   className = '',
   align = 'end',
@@ -71,6 +87,7 @@ export function LanguageSwitcher({
   const tc = useTranslations('common')
   const locale = useLocale()
   const labelId = useId()
+  const href = useLocaleSwitchHref()
 
   const palette = { ...variantColors[variant], ...colors }
   const sizing = sizeStyles[size]
@@ -99,7 +116,8 @@ export function LanguageSwitcher({
           className="-mt-1 flex items-center"
         >
           <Link
-            href="/"
+            // @ts-expect-error — pathname + params always match the current route
+            href={href}
             locale="de"
             hrefLang="de"
             lang="de"
@@ -116,7 +134,8 @@ export function LanguageSwitcher({
             |
           </span>
           <Link
-            href="/"
+            // @ts-expect-error — pathname + params always match the current route
+            href={href}
             locale="en"
             hrefLang="en"
             lang="en"

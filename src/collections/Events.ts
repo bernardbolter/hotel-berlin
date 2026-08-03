@@ -31,6 +31,15 @@ export const Events: CollectionConfig = {
     { name: 'tags', type: 'relationship', relationTo: 'tags', hasMany: true },
     { name: 'featured', type: 'checkbox', defaultValue: false },
     { name: 'isRecurring', type: 'checkbox', defaultValue: false },
+    {
+      name: 'recurrenceRule',
+      type: 'text',
+      admin: {
+        description:
+          'iCal RRULE subset, e.g. FREQ=DAILY, FREQ=WEEKLY;BYDAY=TH, FREQ=MONTHLY;BYDAY=-1TH (last Thursday). Used with startDate time for next occurrence.',
+        condition: (_, siblingData) => Boolean(siblingData?.isRecurring),
+      },
+    },
     { name: 'recurrenceNote', type: 'text' },
   ],
 }

@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { AmenityIcon } from '@/components/home/AmenityIcon'
-import { Link } from '@/i18n/routing'
+import { SweepCta } from '@/components/primitives/SweepCta'
 import { useTypewriter } from '@/hooks/useTypewriter'
 import type { RoomHeroItem } from '@/lib/rooms/roomHero'
 
@@ -230,15 +230,10 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           ) : null}
         </div>
 
-        <Link
-          href="/rooms"
-          className="rooms-discover-cta mt-10 font-ui text-[clamp(1.15rem,1.5vw,1.35rem)] font-semibold"
-        >
-          <span className="rooms-discover-cta__label">
-            {copy.ctaLabel}
-            <span className="sr-only"> {t('ctaSrSuffix')}</span>
-          </span>
-        </Link>
+        <SweepCta href="/rooms" className="mt-10">
+          {copy.ctaLabel}
+          <span className="sr-only"> {t('ctaSrSuffix')}</span>
+        </SweepCta>
       </div>
     </div>
   )

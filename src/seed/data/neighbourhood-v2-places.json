@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "einar-und-bert-bookshop",
+    "name": "Einar & Bert Bookshop",
+    "category": "Art",
+    "schemaType": "LocalBusiness",
+    "address": {
+      "streetAddress": "Torstraße 68",
+      "addressLocality": "Berlin",
+      "postalCode": "10119"
+    },
+    "indoorOutdoor": "indoor",
+    "targetAudience": [
+      "Alle"
+    ],
+    "description": "Buchladen mit Kulturcharakter.",
+    "endorsements": [
+      {
+        "person": "katja-morkel",
+        "quote": "[TBC]",
+        "associatedRoom": "1190"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.5289097,
+      "longitude": 13.4076401
+    },
+    "walkingMinutes": 68,
+    "distanceTier": "further-out"
+  },
+  {
+    "slug": "bayerischer-platz",
+    "name": "Bayerischer Platz",
+    "category": "Sightseeing",
+    "schemaType": "TouristAttraction",
+    "address": {
+      "streetAddress": "Bayerischer Platz",
+      "addressLocality": "Berlin",
+      "postalCode": "10779"
+    },
+    "indoorOutdoor": "outdoor",
+    "targetAudience": [
+      "Alle"
+    ],
+    "description": "Ruhiger Platz mit schönem Kiezcharakter.",
+    "endorsements": [
+      {
+        "person": "christiane-fritsch-weith",
+        "quote": "[TBC]",
+        "associatedRoom": "1169"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.4885755,
+      "longitude": 13.3405436
+    },
+    "walkingMinutes": 28,
+    "distanceTier": "short-transit"
+  },
+  {
+    "slug": "nobelhart-und-schmutzig",
+    "name": "Nobelhart & Schmutzig",
+    "category": "Restaurant",
+    "schemaType": "Restaurant",
+    "address": {
+      "streetAddress": "Friedrichstraße 218",
+      "addressLocality": "Berlin",
+      "postalCode": "10969"
+    },
+    "indoorOutdoor": "indoor",
+    "targetAudience": [
+      "Paare",
+      "Business"
+    ],
+    "description": "Anspruchsvolles Fine Dining mit regionalem Fokus.",
+    "endorsements": [
+      {
+        "person": "kristiane-kegelmann",
+        "quote": "One of my suggestions for good informal restaurants.",
+        "associatedRoom": "1185"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.5053879,
+      "longitude": 13.3905401
+    },
+    "walkingMinutes": 40,
+    "distanceTier": "short-transit"
+  },
+  {
+    "slug": "olympiastadion",
+    "name": "Olympiastadion",
+    "category": "Sightseeing",
+    "schemaType": "TouristAttraction",
+    "address": {
+      "streetAddress": "Olympischer Platz 3",
+      "addressLocality": "Berlin",
+      "postalCode": "14053"
+    },
+    "indoorOutdoor": "both",
+    "targetAudience": [
+      "Alle"
+    ],
+    "description": "Historischer Ort mit Führungs- und Besuchswert.",
+    "endorsements": [
+      {
+        "person": "jennifer-oeser",
+        "quote": "[TBC]",
+        "associatedRoom": "1314"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.5145846,
+      "longitude": 13.2398144
+    },
+    "walkingMinutes": 120,
+    "distanceTier": "further-out"
+  },
+  {
+    "slug": "vater-bar",
+    "name": "Vater Bar",
+    "category": "Bar",
+    "schemaType": "BarOrPub",
+    "address": {
+      "streetAddress": "Mittenwalder Straße 2",
+      "addressLocality": "Berlin",
+      "postalCode": "10961"
+    },
+    "indoorOutdoor": "indoor",
+    "targetAudience": [
+      "Freunde",
+      "Paare"
+    ],
+    "description": "Moderne Bar mit urbanem Charakter.",
+    "endorsements": [
+      {
+        "person": "ellen-garry",
+        "quote": "[TBC]",
+        "associatedRoom": "1267"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.4947471,
+      "longitude": 13.3973103
+    },
+    "walkingMinutes": 47,
+    "distanceTier": "further-out"
+  },
+  {
+    "slug": "viktoriapark",
+    "name": "Viktoriapark",
+    "category": "Parks and Nature",
+    "schemaType": "Park",
+    "address": {
+      "streetAddress": "Kreuzbergstraße",
+      "addressLocality": "Berlin",
+      "postalCode": "10965"
+    },
+    "indoorOutdoor": "outdoor",
+    "targetAudience": [
+      "Alle"
+    ],
+    "description": "Stadtpark mit Aussicht und Wasserfall.",
+    "endorsements": [
+      {
+        "person": "eva-hoefsloot-schmeink",
+        "quote": "[TBC]",
+        "associatedRoom": "1294"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.4885768,
+      "longitude": 13.3742342
+    },
+    "walkingMinutes": 35,
+    "distanceTier": "short-transit"
+  },
+  {
+    "slug": "kadewe",
+    "name": "KaDeWe",
+    "category": "Shopping",
+    "schemaType": "ShoppingCenter",
+    "address": {
+      "streetAddress": "Tauentzienstraße 21-24",
+      "addressLocality": "Berlin",
+      "postalCode": "10789"
+    },
+    "indoorOutdoor": "indoor",
+    "targetAudience": [
+      "Alle"
+    ],
+    "description": "Berühmtes Kaufhaus mit Food- und Shoppingerlebnis.",
+    "endorsements": [
+      {
+        "person": "ellen-katja-jaeckel",
+        "quote": "[TBC]",
+        "associatedRoom": "1374"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.5015753,
+      "longitude": 13.3410035
+    },
+    "walkingMinutes": 13,
+    "distanceTier": "walkable"
+  },
+  {
+    "slug": "teufelsberg",
+    "name": "Teufelsberg",
+    "category": "Sightseeing",
+    "schemaType": "TouristAttraction",
+    "address": {
+      "streetAddress": "Teufelsberg",
+      "addressLocality": "Berlin",
+      "postalCode": "14055"
+    },
+    "indoorOutdoor": "outdoor",
+    "targetAudience": [
+      "Freunde",
+      "Paare"
+    ],
+    "description": "Aussichtspunkt mit Berliner Geschichte und Street Art.",
+    "endorsements": [
+      {
+        "person": "mathias-wolf",
+        "quote": "[TBC]",
+        "associatedRoom": "1189"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.4977183,
+      "longitude": 13.2429543
+    },
+    "walkingMinutes": 108,
+    "distanceTier": "further-out"
+  },
+  {
+    "slug": "tempelhofer-feld",
+    "name": "Tempelhofer Feld",
+    "category": "Kids",
+    "schemaType": "Park",
+    "address": {
+      "streetAddress": "Tempelhofer Feld",
+      "addressLocality": "Berlin",
+      "postalCode": "12101"
+    },
+    "indoorOutdoor": "outdoor",
+    "targetAudience": [
+      "Familien",
+      "Kinder"
+    ],
+    "description": "Riesige Freifläche zum Radfahren, Skaten und Drachensteigen.",
+    "endorsements": [
+      {
+        "person": "jascha-mueller",
+        "quote": "[TBC]",
+        "associatedRoom": "1167"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.4725848,
+      "longitude": 13.4284057
+    },
+    "walkingMinutes": 88,
+    "distanceTier": "further-out"
+  },
+  {
+    "slug": "berghain-panorama-bar",
+    "name": "Berghain / Panorama Bar",
+    "category": "Party",
+    "schemaType": "LocalBusiness",
+    "address": {
+      "streetAddress": "Am Wriezener Bahnhof",
+      "addressLocality": "Berlin",
+      "postalCode": "10243"
+    },
+    "indoorOutdoor": "indoor",
+    "targetAudience": [
+      "Erwachsene"
+    ],
+    "description": "Berühmter Club für lange Nächte.",
+    "endorsements": [
+      {
+        "person": "benson",
+        "quote": "[TBC]",
+        "associatedRoom": "1272"
+      }
+    ],
+    "status": "active",
+    "geo": {
+      "latitude": 52.5114484,
+      "longitude": 13.4407738
+    },
+    "walkingMinutes": 92,
+    "distanceTier": "further-out"
+  }
+]

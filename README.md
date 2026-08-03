@@ -34,16 +34,18 @@ Staging target: self-hosted on a VPS (Netcup). See [`deploy/netcup/DEPLOY.md`](d
    | --- | --- |
    | `DATABASE_URL` | PostgreSQL connection string |
    | `PAYLOAD_SECRET` | Payload encryption secret |
-   | `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Public Mapbox token (maps) |
+   | `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Public Mapbox token (maps + walking directions for geocode) |
 
    Optional:
 
    | Variable | Purpose |
    | --- | --- |
+   | `MAPBOX_ACCESS_TOKEN` | Server Mapbox token (geocode walking; falls back to public token) |
    | `NEXT_PUBLIC_MAPBOX_STYLE_ID` | Map style (default `mapbox/light-v11`) |
-   | `NEXT_PUBLIC_SHOW_FULL_HOMEPAGE` | Set `true` to show Meetings / Culture / Map / FAQ / Footer while V2 homepage work is in progress |
    | `NEXT_PUBLIC_SITE_URL` | Canonical site URL |
    | `REVALIDATE_SECRET` | On-demand ISR revalidation |
+   | `NOMINATIM_USER_AGENT` | OSM Nominatim User-Agent for place geocoding |
+   | `SKIP_GEOCODE_HOOK` | Set `1` during seed/CLI so admin auto-geocode does not run |
 
 3. Start Postgres, then:
 
@@ -64,6 +66,11 @@ Staging target: self-hosted on a VPS (Netcup). See [`deploy/netcup/DEPLOY.md`](d
 | `npm run seed:rooms` | Seed room types + amenities |
 | `npm run seed:room-images` | Upload room gallery images |
 | `npm run seed:hero-images` | Upload homepage hero slides |
+| `npm run seed:neighbourhood-v1` | Seed people + neighbourhood places batch v1 (skips live geocode hook) |
+| `npm run seed:neighbourhood-v2` | Addendum: +9 people, +10 places (requires v1 for Kristiane) |
+| `npm run geocode:neighbourhood` | Dry-run Nominatim + Mapbox walking fill for neighbourhood places |
+| `npm run geocode:neighbourhood -- --write` | Apply geocode results to the DB |
+| `npm run apply:neighbourhood-geo` | Push geo fields from seed JSON into the DB (no live API calls) |
 | `npm run generate:types` | Regenerate `src/payload-types.ts` |
 | `npm run lint` | ESLint |
 | `npm test` | Unit + e2e |

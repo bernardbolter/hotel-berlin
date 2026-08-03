@@ -30,20 +30,27 @@
     "happenings": "Happenings",
     "neighbourhood": "Nachbarschaft",
     "bookNow": "Jetzt buchen",
+    "planNextStay": "Komm wieder",
+    "theHotel": "Das Hotel",
+    "theHotelAria": "Das Hotel — Hotel Berlin, Berlin Startseite",
     "inBuilding": "Schon im Haus?",
+    "notHereYet": "Noch nicht hier?",
     "enter": "ENTER",
+    "stay": "BLEIB",
     "enterGuestHub": "— Zum Gäste-Hub",
     "planningStay": "Planst du einen Aufenthalt?",
     "mainSite": "hotel-berlin.de",
     "bridgeToGuestAria": "Zum Gäste-Hub",
     "bridgeToMainAria": "Zur Hauptseite des Hotels",
-    "whatsOn": "Was läuft",
+    "whatsOn": "Was läuft heute Abend",
     "gettingAround": "Orientierung",
-    "localTips": "Lokale Tipps",
+    "localTips": "Die Nachbarschaft",
     "gallery": "Galerie",
     "skateboardMuseum": "Skateboard-Museum",
     "wallride": "Wallride",
     "comingSoon": "Demnächst",
+    "drawerHotel": "Das Hotel",
+    "drawerStay": "Dein Aufenthalt",
     "openMenu": "Navigationsmenü öffnen",
     "closeMenu": "Navigationsmenü schließen",
     "language": "Sprache"
@@ -53,8 +60,22 @@
     "heroSubline": "Hotel Berlin, Berlin — seit 1958."
   },
   "here": {
+    "title": "Gästehub",
     "heroHeadline": "Was heute los ist.",
-    "heroSubline": "Dein Aufenthalt, deine Stadt."
+    "heroSubline": "Dein Aufenthalt, deine Stadt.",
+    "inProgress": "In Arbeit",
+    "building": "Diese Seite wird gerade gebaut.",
+    "duringYourStay": "Dein Aufenthalt",
+    "tonight": "Heute Abend",
+    "stay": {
+      "checkout": "Check-out",
+      "breakfast": "Frühstück",
+      "wifi": "WLAN",
+      "parking": "Parken",
+      "luggage": "Gepäck",
+      "faqsCta": "Parken · Gepäck · Hunde · alle FAQs →",
+      "eventLabel": "Dein Event"
+    }
   },
   "hero": {
     "headingLine1": "Deine Berliner",
@@ -222,14 +243,52 @@
       "barOnlyReopens": "Geöffnet — nur Bar · Küche ab 17:00",
       "kitchenClosing": "Küche schließt bald · Bar bleibt offen",
       "barLate": "Geöffnet — Bar bis spät"
+    },
+    "openStatus": {
+      "open": "Geöffnet",
+      "closed": "Geschlossen"
     }
+  },
+  "relativeTime": {
+    "now": "läuft gerade",
+    "soon": "beginnt in {duration}",
+    "scheduled": "beginnt um {time}"
   },
   "map": {
     "label": "Nachbarschaft",
     "title": "Du bist im richtigen Teil Berlins",
     "subtitle": "Tiergarten, Kanal, Ku'damm — alles zu Fuß",
     "cta": "Nachbarschaft entdecken",
-    "walkNote": "Alles innerhalb von 15 Min. zu Fuß"
+    "walkNote": "Alles innerhalb von 15 Min. zu Fuß",
+    "mapUnavailable": "Die Karte braucht einen Mapbox-Access-Token."
+  },
+  "events": {
+    "label": "Happenings",
+    "title": "Was im Haus läuft",
+    "rowAria": "Aktuelle Happenings im Hotel Berlin, Berlin",
+    "masonryAria": "Alle Happenings",
+    "cards": {
+      "fkkb": {
+        "title": "Freundeskreis der Künstler Berlin",
+        "meta": "Galerie · Erdgeschoss",
+        "imageAlt": "Innenraum zeitgenössische Kunstgalerie"
+      },
+      "kttk": {
+        "title": "KTTK — Königlicher Tischtennis Klub",
+        "meta": "Sport · Keller",
+        "imageAlt": "Tischtennis-Tische"
+      },
+      "sissi": {
+        "title": "Sissi — Skateboard-Museum",
+        "meta": "Museum · Jede Etage",
+        "imageAlt": "Skateboard-Sammlung"
+      },
+      "haus-luetzowplatz": {
+        "title": "Haus am Lützowplatz",
+        "meta": "Nachbarschaft · 2 Min. zu Fuß",
+        "imageAlt": "Ausstellung im Haus am Lützowplatz"
+      }
+    }
   },
   "neighbourhood": {
     "label": "Nachbarschaft",
@@ -368,51 +427,15 @@
     }
   },
   "footer": {
-    "bookingStrip": "Bester Preis bei Direktbuchung garantiert",
-    "checkAvailability": "Verfügbarkeit prüfen",
-    "transit": "Bus 100, 106, 187 · U Nollendorfplatz 7 Min. · S+U Zoo 10 Min.",
-    "stayNavAria": "Aufenthalt-Navigation",
-    "eatMeetNavAria": "Essen und Tagungen Navigation",
-    "helpNavAria": "Hilfe-Navigation",
-    "stayTitle": "Aufenthalt",
-    "eatMeetTitle": "Essen & Tagungen",
-    "helpTitle": "Hilfe",
-    "stayRooms": "Zimmer & Suiten",
-    "stayOffers": "Angebote",
-    "stayBookDirect": "Direkt buchen",
-    "stayRewards": "Radisson Rewards",
-    "eatLutze": "Lütze",
-    "eatMeetings": "Meetings & Events",
-    "eatWeddings": "Hochzeiten",
-    "eatKttk": "Tischtennis — KTTK",
-    "helpFaqs": "FAQs",
-    "helpContact": "Kontakt",
-    "helpGettingHere": "Anreise",
-    "helpCareers": "Karriere",
-    "alreadyHere": "Schon da?",
-    "alreadyHereAria": "Schon da? Zum Gäste-Hub",
-    "alreadyHereDesc": "Dein Gäste-Hub — Events, Restaurants, Nachbarschaftstipps und alles für deinen Aufenthalt.",
-    "insideWhatsOn": "Was heute läuft",
-    "insideDining": "Essen & Trinken",
-    "insideNeighbourhood": "Nachbarschaftstipps",
-    "insideFaqs": "Gäste-FAQs",
-    "recognition": "Anerkennung",
-    "awardBreeam": "BREEAM-zertifiziert",
-    "awardGreenKey": "The Green Key",
-    "awardCvent": "Cvent Top 25 Europe Independent Hotels",
-    "awardMeetings": "Sustainable Meetings Berlin Leader",
-    "awardBerlin": "Sustainable Berlin Leader",
+    "navAriaSuffix": "Navigation",
+    "alreadyHereAria": "Schon hier? Zum Gäste-Hub",
+    "previousAward": "Vorherige Auszeichnung",
+    "nextAward": "Nächste Auszeichnung",
     "partOf": "Teil von",
-    "radissonIndividuals": "Radisson Individuals",
-    "radissonRewards": "Radisson Rewards",
-    "pandox": "Pandox",
-    "legalImprint": "Impressum",
-    "legalPrivacy": "Datenschutz",
-    "legalTerms": "AGB",
-    "legalAccessibility": "Barrierefreiheit",
-    "copyright": "© 2026 Pandox Berlin GmbH",
-    "designBy": "design by: smoothism.com",
-    "socialInstagram": "Instagram",
-    "socialLinkedIn": "LinkedIn"
+    "legalLinksAria": "Rechtliche Links",
+    "sinceLabel": "Seit",
+    "phoneAria": "Hotel Berlin, Berlin anrufen unter {phone}",
+    "emailAria": "Hotel Berlin, Berlin per E-Mail erreichen unter {email}",
+    "transitAria": "Öffentliche Verkehrsmittel in der Nähe"
   }
 }

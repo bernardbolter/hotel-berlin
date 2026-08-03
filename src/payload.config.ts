@@ -21,6 +21,7 @@ import { Rooms } from './collections/Rooms'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Venues } from './collections/Venues'
+import { Footer } from './globals/Footer'
 import { Hotel } from './globals/Hotel'
 import { Homepage } from './globals/Homepage'
 import { Navigation } from './globals/Navigation'
@@ -53,7 +54,7 @@ export default buildConfig({
     Places,
     Pages,
   ],
-  globals: [Hotel, Homepage, Navigation],
+  globals: [Hotel, Homepage, Navigation, Footer],
   editor: lexicalEditor(),
   localization: {
     locales: ['de', 'en'],

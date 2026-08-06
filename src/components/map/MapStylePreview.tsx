@@ -124,7 +124,8 @@ export function MapStylePreview({
 
     // Always setStyle so Soft ↔ Faded (same URL) get a clean config, not leftover colors.
     containerRef.current!.dataset.loadedStyleId = next.styleId
-    map.setStyle(styleUrl, styleOptions)
+    // Mapbox typings mark font fields required on SetStyleOptions; runtime accepts config-only.
+    map.setStyle(styleUrl, styleOptions as Parameters<mapboxgl.Map['setStyle']>[1])
   }, [selectedId])
 
   return (

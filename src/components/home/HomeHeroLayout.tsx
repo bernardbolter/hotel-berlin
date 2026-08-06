@@ -23,9 +23,8 @@ type Props = {
 
 /**
  * Hero layout (Outside_short.pdf):
- * - Square photo with equal top/bottom margin (= --hero-pad)
- * - Forest underlaps photo; band height is locked to photo + pads
- * - Caption starts where the green ends (past the underlap, on the page ground)
+ * - <768 (mobile): full-bleed photo on top, typewriter caption below, then green copy + map
+ * - ≥768: green + copy + map left, square photo right (forest underlap)
  */
 export function HomeHeroLayout({ slides, copy, map }: Props) {
   const locale = useLocale()
@@ -49,29 +48,30 @@ export function HomeHeroLayout({ slides, copy, map }: Props) {
     <section aria-label="Hero" className="home-hero relative bg-hbb-page">
       <div
         aria-hidden="true"
-        className="home-hero__forest pointer-events-none absolute left-0 z-0 hidden bg-hbb-forest lg:block"
+        className="home-hero__forest pointer-events-none absolute left-0 z-0 hidden bg-hbb-forest md:block"
       />
 
-      <div className="home-hero__row relative z-10 flex flex-col lg:flex-row lg:items-stretch">
-        <div className="home-hero__copy relative flex w-full flex-col bg-hbb-forest px-8 py-12 text-white md:px-12 lg:bg-transparent lg:py-[var(--hero-pad)] lg:pl-14 lg:pr-6">
-          <div className="home-hero__copy-text mt-5 ml-5 w-full max-w-none self-stretch pr-4 min-[1301px]:max-w-[26rem] min-[1301px]:self-start md:pr-6">
-            <h1 className="font-serif text-[clamp(2rem,3.6vw,3.15rem)] font-normal leading-[1.18] tracking-[-0.01em] text-white">
+      {/* Mobile: flex-col-reverse → photo on top. ≥md: side-by-side */}
+      <div className="home-hero__row relative z-10 flex flex-col-reverse md:flex-row md:items-stretch">
+        <div className="home-hero__copy relative flex w-full flex-col bg-hbb-forest px-8 py-12 text-white md:bg-hbb-forest md:px-0 md:py-[var(--hero-pad)] md:pl-8 md:pr-4 lg:pl-14 lg:pr-6">
+          <div className="home-hero__copy-text mt-5 ml-0 w-full max-w-none self-stretch pr-0 min-[1301px]:max-w-[26rem] min-[1301px]:self-start md:mt-2 md:ml-2 md:pr-4 lg:ml-5 lg:pr-6">
+            <h1 className="font-serif text-[clamp(1.75rem,5vw,3.15rem)] font-normal leading-[1.18] tracking-[-0.01em] text-white">
               {copy.headingLine1}
               <br />
               {copy.headingLine2}
             </h1>
-            <p className="mt-6 max-w-none font-serif text-[clamp(0.95rem,1.15vw,1.125rem)] leading-[1.65] text-white/95 min-[1301px]:max-w-[26rem]">
+            <p className="mt-5 max-w-none font-serif text-[clamp(0.95rem,2.5vw,1.125rem)] leading-[1.65] text-white/95 min-[1301px]:max-w-[26rem]">
               {copy.body}
             </p>
           </div>
 
-          <div className="home-hero__map mt-8 flex w-full justify-center lg:mt-auto lg:w-auto lg:justify-end lg:pt-4">
+          <div className="home-hero__map mt-10 flex w-full justify-center md:mt-auto md:w-auto md:justify-end md:pt-4">
             {map}
           </div>
         </div>
 
-        <div className="home-hero__photo-col relative w-full px-8 pb-10 lg:ml-auto lg:w-auto lg:shrink-0 lg:px-0">
-          <div className="home-hero__photo relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-hbb-warm lg:mx-0">
+        <div className="home-hero__photo-col relative w-full pb-6 md:ml-auto md:w-auto md:shrink-0 md:pb-0">
+          <div className="home-hero__photo relative aspect-square w-full overflow-hidden bg-hbb-warm">
             <HeroPhotoSlider
               slides={slides}
               ariaLabel={copy.galleryAria}
@@ -82,15 +82,17 @@ export function HomeHeroLayout({ slides, copy, map }: Props) {
           </div>
 
           <p
-            className="home-hero__caption relative mx-auto mt-2.5 w-full max-w-md font-ui text-[11px] font-semibold tracking-[0.14em] text-hbb-forest lg:mx-0 lg:mt-0"
+            className="home-hero__caption relative mt-3 px-8 font-ui text-[11px] font-semibold tracking-[0.14em] text-hbb-forest md:mt-0 md:px-0 md:tracking-[0.1em]"
             aria-live="polite"
             aria-atomic="true"
           >
             {/* Reserve full width so typewriter doesn’t shift layout */}
-            <span className="invisible whitespace-pre-wrap" aria-hidden="true">
+            <span className="invisible whitespace-pre-wrap md:whitespace-nowrap" aria-hidden="true">
               {caption}
             </span>
-            <span className="absolute inset-0 whitespace-pre-wrap">{typedCaption}</span>
+            <span className="absolute top-0 right-8 left-8 whitespace-pre-wrap md:inset-0 md:right-auto md:left-auto md:whitespace-nowrap">
+              {typedCaption}
+            </span>
           </p>
         </div>
       </div>

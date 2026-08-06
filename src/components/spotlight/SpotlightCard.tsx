@@ -20,6 +20,7 @@ function isSvgSrc(src: string): boolean {
 /**
  * SpotlightCard — fluid width (min 250px), 5∶6 media, right-edge category tag,
  * title → colored rule → monogram + venue, teal meta, Laica body, left-bar CTA.
+ * Whole card is the hit target; hover anywhere runs the CTA sweep.
  */
 export function SpotlightCard({
   image,
@@ -39,20 +40,11 @@ export function SpotlightCard({
     secondaryMeta != null &&
     (Boolean(secondaryMeta.left.trim()) || Boolean(secondaryMeta.right.trim()))
 
-  const ctaLabel = (
-    <span className="spotlight-card__cta-label font-ui text-label font-bold uppercase tracking-ui-label">
-      {cta.label}
-    </span>
-  )
+  const cardClass = `spotlight-card group flex w-full min-w-[250px] flex-col bg-hbb-page no-underline text-inherit ${className}`
+  const ariaLabel = `${title} — ${cta.label}`
 
-  const ctaClass =
-    'spotlight-card__cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hbb-teal focus-visible:ring-offset-2'
-
-  return (
-    <article
-      className={`spotlight-card flex w-full min-w-[250px] flex-col bg-hbb-page ${className}`}
-      data-spotlight-card
-    >
+  const body = (
+    <>
       <div className="spotlight-card__media relative aspect-5/6 w-full overflow-hidden">
         <Image
           src={image.src}
@@ -79,7 +71,7 @@ export function SpotlightCard({
             style={{ borderColor: badgeStyle.fill }}
             aria-hidden="true"
           />
-          {(identityMark || venueLabel) ? (
+          {identityMark || venueLabel ? (
             <div className="flex items-center gap-2.5">
               {identityMark ? (
                 <span className="relative h-8 w-8 shrink-0 overflow-hidden">
@@ -110,7 +102,10 @@ export function SpotlightCard({
           ) : null}
         </div>
 
-        <p className="font-ui text-[10px] font-semibold uppercase tracking-[0.14em] text-hbb-teal">
+        <p
+          className="font-ui text-[10px] font-semibold uppercase tracking-[0.14em]"
+          style={{ color: badgeStyle.fill }}
+        >
           {primaryMeta}
         </p>
 
@@ -127,27 +122,43 @@ export function SpotlightCard({
         ) : null}
 
         <div className="mt-auto pt-2">
-          {cta.external ? (
-            <a
-              href={cta.href}
-              className={ctaClass}
-              style={{ color: ctaStyle.fill }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {ctaLabel}
-            </a>
-          ) : (
-            <Link
-              href={cta.href as AppHref}
-              className={ctaClass}
-              style={{ color: ctaStyle.fill }}
-            >
-              {ctaLabel}
-            </Link>
-          )}
+          <span
+            className="spotlight-card__cta"
+            style={{ color: ctaStyle.fill }}
+            aria-hidden="true"
+          >
+            <span className="spotlight-card__cta-label font-ui text-label font-bold uppercase tracking-ui-label">
+              {cta.label}
+            </span>
+          </span>
         </div>
       </div>
-    </article>
+    </>
+  )
+
+  if (cta.external) {
+    return (
+      <a
+        href={cta.href}
+        className={cardClass}
+        data-spotlight-card
+        aria-label={ariaLabel}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {body}
+      </a>
+    )
+  }
+
+  return (
+    <Link
+      href={cta.href as AppHref}
+      className={cardClass}
+      data-spotlight-card
+      aria-label={ariaLabel}
+    >
+      {body}
+    </Link>
   )
 }

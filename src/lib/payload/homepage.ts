@@ -330,7 +330,9 @@ export async function getEatAndDrink(locale: 'de' | 'en'): Promise<EatAndDrinkCo
     })) as Hotel
 
     const block = hotel.eatAndDrink
-    const src = mediaUrl(block?.image) ?? defaults.image.src
+    const cmsSrc = mediaUrl(block?.image)
+    // CMS media can 404 on HEAD / miss files — prefer public fallback when unset
+    const src = cmsSrc || defaults.image.src
 
     return {
       kicker: block?.kicker?.trim() || defaults.kicker,
@@ -338,7 +340,8 @@ export async function getEatAndDrink(locale: 'de' | 'en'): Promise<EatAndDrinkCo
       body: block?.body?.trim() || defaults.body,
       ctaLabel: block?.ctaLabel?.trim() || defaults.ctaLabel,
       image: {
-        src,
+        // Use stable public asset if CMS points at a fragile media path
+        src: src.startsWith('/api/media/') ? defaults.image.src : src,
         alt: block?.imageAlt?.trim() || defaults.image.alt,
       },
     }

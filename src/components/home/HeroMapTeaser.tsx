@@ -55,7 +55,7 @@ export function HeroMapTeaser({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={linkLabel}
-        className="group flex flex-col items-center gap-2.5 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-[1099px]:flex-row max-[1099px]:items-center max-[1099px]:gap-5"
+        className="group flex flex-col items-center gap-2.5 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-[1099px]:flex-row max-[1099px]:items-center max-[1099px]:gap-5 min-[1100px]:max-[1300px]:gap-1.5"
       >
         {/* Below 1100: address + CTA to the left of the circle */}
         <div
@@ -99,7 +99,6 @@ export function HeroMapTeaser({
           <span
             aria-hidden="true"
             className="hero-map-directions hidden min-[1100px]:flex"
-            style={{ top: '72%' }}
           >
             <span className="hero-map-directions__label">
               <span>{directionsLabel}</span>
@@ -109,7 +108,7 @@ export function HeroMapTeaser({
         </div>
 
         {/* ≥1100: address under the circle */}
-        <figcaption className="hidden text-center font-serif text-[15px] leading-snug text-white/95 transition-opacity group-hover:opacity-80 min-[1100px]:block">
+        <figcaption className="hero-map-teaser__address hidden text-center font-serif text-[15px] leading-snug text-white/95 transition-opacity group-hover:opacity-80 min-[1100px]:block">
           {shortAddress}
         </figcaption>
       </a>

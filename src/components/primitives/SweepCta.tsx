@@ -2,14 +2,14 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { Link } from '@/i18n/routing'
 
-export type SweepCtaColor = 'terracotta' | 'nav-amber' | 'meet-work' | 'ink'
+export type SweepCtaColor = 'terracotta' | 'nav-amber' | 'meet-work' | 'ink' | 'espresso'
 export type SweepCtaSize = 'md' | 'sm'
 export type SweepCtaEdge = 'left' | 'right'
 
 type SharedProps = {
   children: ReactNode
   className?: string
-  /** terracotta = rooms; nav-amber = footer/nav; meet-work = Meet & Work #1E4B5D; ink = off-black headers */
+  /** terracotta = rooms; nav-amber = footer/nav; meet-work = Meet & Work #1E4B5D; ink = off-black headers; espresso = Eat & Drink */
   color?: SweepCtaColor
   /** md = default section CTAs; sm = compact bars / secondary placements */
   size?: SweepCtaSize
@@ -37,6 +37,7 @@ const colorClass: Record<SweepCtaColor, string> = {
   'nav-amber': 'sweep-cta--nav-amber',
   'meet-work': 'sweep-cta--meet-work',
   ink: 'sweep-cta--ink',
+  espresso: 'sweep-cta--espresso',
 }
 
 const sizeClass: Record<SweepCtaSize, string> = {

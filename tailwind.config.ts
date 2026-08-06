@@ -14,6 +14,8 @@ const config: Config = {
         'hbb-coral': '#F95D62',
         'hbb-purple': '#6A5870',
         'hbb-gold': '#A08C38',
+        /** Eat & Drink / Lütze accent — espresso (unused elsewhere in map palette) */
+        'hbb-espresso': '#5C4033',
         'hbb-dark': '#1E1530',
         'hbb-black': '#141414',
         'hbb-nav-link': '#5A5550',

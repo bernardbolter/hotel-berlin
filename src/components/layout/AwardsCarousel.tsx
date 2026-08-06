@@ -61,10 +61,10 @@ function AwardBadge({
       alt={award.altText}
       width={size?.width ?? 160}
       height={size?.height ?? BADGE_HEIGHT_MAX}
-      className="w-auto object-contain"
+      className="object-contain"
       style={{
-        height: size?.height ?? BADGE_HEIGHT_MAX,
         width: size ? size.width : 'auto',
+        height: size ? size.height : 'auto',
         maxHeight: BADGE_HEIGHT_MAX,
       }}
       onLoad={(event) => {

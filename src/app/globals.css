@@ -362,6 +362,7 @@ body {
 
 .hero-map-directions {
   position: absolute;
+  top: 72%;
   right: 0;
   left: 0;
   z-index: 10;
@@ -403,9 +404,10 @@ body {
   transition: color 300ms ease-out;
 }
 
-/* 1100–1300: tighter hotel name + CTA inside the circle */
+/* 1100–1300: CTA + address closer and a bit lower in the circle */
 @media (min-width: 1100px) and (max-width: 1300px) {
   .hero-map-directions {
+    top: 78%;
     height: 1.85rem;
     padding-right: 0.85rem;
     padding-left: 0.85rem;
@@ -416,6 +418,10 @@ body {
   .hero-map-directions__label svg {
     width: 12px;
     height: 12px;
+  }
+
+  .hero-map-teaser__address {
+    margin-top: 0.15rem;
   }
 }
 
@@ -606,6 +612,10 @@ body {
   color: #1f1f1f;
 }
 
+.sweep-cta--espresso {
+  color: theme('colors.hbb-espresso');
+}
+
 .sweep-cta--sm {
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
 }
@@ -631,17 +641,17 @@ body {
   }
 }
 
-/* Rooms photo — D-shape + hover scale */
+/* Rooms photo — D-shape (curve left) + hover scale */
 .rooms-photo-mask {
   aspect-ratio: 3 / 2;
   border-radius: 9999px 0 0 9999px;
   clip-path: none;
 }
 
-/* Lütze / Eat & Drink — arch-top photo (wireframe; opposite side from Rooms) */
+/* Lütze / Eat & Drink — Rooms mirror: D-shape curve on the RIGHT */
 .lutze-photo-mask {
   aspect-ratio: 3 / 2;
-  border-radius: 9999px 9999px 0 0;
+  border-radius: 0 9999px 9999px 0;
   clip-path: none;
 }
 
@@ -675,7 +685,8 @@ body {
   white-space: nowrap;
 }
 
-/* SpotlightCard CTA — same sweep as SweepCta; color via currentColor (category token) */
+/* SpotlightCard CTA — same sweep as SweepCta; color via currentColor (category token).
+   Hover/focus on the whole card (group) drives the animation. */
 .spotlight-card__cta {
   position: relative;
   display: inline-flex;
@@ -683,7 +694,7 @@ body {
   overflow: hidden;
   padding: 0.4em 0.85em 0.4em 0.95em;
   text-decoration: none;
-  cursor: pointer;
+  pointer-events: none;
   border: none;
   background: transparent;
 }
@@ -706,13 +717,13 @@ body {
   transition: color 320ms ease-out;
 }
 
-.spotlight-card__cta:hover::before,
-.spotlight-card__cta:focus-visible::before {
+.spotlight-card:hover .spotlight-card__cta::before,
+.spotlight-card:focus-visible .spotlight-card__cta::before {
   width: 100%;
 }
 
-.spotlight-card__cta:hover .spotlight-card__cta-label,
-.spotlight-card__cta:focus-visible .spotlight-card__cta-label {
+.spotlight-card:hover .spotlight-card__cta-label,
+.spotlight-card:focus-visible .spotlight-card__cta-label {
   color: white;
 }
 
@@ -722,8 +733,8 @@ body {
     transition: none;
   }
 
-  .spotlight-card__cta:hover::before,
-  .spotlight-card__cta:focus-visible::before {
+  .spotlight-card:hover .spotlight-card__cta::before,
+  .spotlight-card:focus-visible .spotlight-card__cta::before {
     width: 100%;
   }
 }
@@ -813,19 +824,16 @@ body {
   }
 }
 
-/* Homepage V2 hero — square photo anchored right, forest underlap */
-@media (min-width: 1024px) {
+/* Homepage V2 hero
+   <768: mobile — full-bleed photo on top, caption below, green copy + map
+   ≥768: side-by-side — green + copy + map | square photo (forest underlap) */
+@media (min-width: 768px) {
   .home-hero {
-    /* Scales up inside the 1440 shell; larger max than before */
-    --hero-photo: min(44vw, 38rem);
-    --hero-pad: 2rem;
-    /* Right inset is ~2× the vertical pad */
+    --hero-photo: min(42vw, 32rem);
+    --hero-pad: 1.5rem;
     --hero-pad-right: calc(var(--hero-pad) * 2);
-    /* Underlap: how far green reaches into the photo from the left */
     --hero-underlap: calc(var(--hero-photo) * 0.14);
-    /* Gap between green edge and caption start */
-    --hero-caption-inset: 1rem;
-    /* Locked band: equal top + bottom margin around the square */
+    --hero-caption-inset: 0px;
     --hero-band: calc(var(--hero-photo) + (var(--hero-pad) * 2));
   }
 
@@ -844,27 +852,25 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    min-width: 0;
     height: var(--hero-band);
     min-height: var(--hero-band);
     max-height: var(--hero-band);
+    width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
     max-width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
-    /* Keep copy + map inside the band — no text-over-map clash */
     overflow: hidden;
     box-sizing: border-box;
   }
 
-  /* Text stays above the map; never paints over the circle */
   .home-hero__copy-text {
     position: relative;
     z-index: 3;
     flex: 1 1 auto;
     min-height: 0;
-    /* Leave a clear lane for the map on the right as the column narrows */
     padding-right: max(1.5rem, calc(clamp(9.5rem, 16vw, 15.5rem) * 0.35));
   }
 
-  /* Map sits in-flow at the bottom of the copy column (not under the text) */
   .home-hero__map {
     position: relative;
     z-index: 1;
@@ -879,6 +885,8 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    flex: 0 0 auto;
+    width: calc(var(--hero-photo) + var(--hero-pad-right));
     height: var(--hero-band);
     padding-top: var(--hero-pad);
     padding-bottom: var(--hero-pad);
@@ -893,14 +901,26 @@ body {
     aspect-ratio: 1 / 1;
   }
 
-  /* Caption centered vertically in the bottom pad, inset past the green */
+  /* One line under the photo — shift left toward the green */
   .home-hero__caption {
     position: absolute;
     top: calc(var(--hero-pad) + var(--hero-photo) + (var(--hero-pad) / 2));
-    left: calc(var(--hero-underlap) + var(--hero-caption-inset));
+    left: -60px;
+    right: var(--hero-pad-right);
     width: auto;
-    max-width: calc(var(--hero-photo) - var(--hero-underlap) - var(--hero-caption-inset));
+    max-width: none;
     transform: translateY(-50%);
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+/* Desktop: larger photo + pads */
+@media (min-width: 1100px) {
+  .home-hero {
+    --hero-photo: min(44vw, 38rem);
+    --hero-pad: 2rem;
   }
 }
 

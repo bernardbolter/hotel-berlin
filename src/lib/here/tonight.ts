@@ -22,13 +22,14 @@ export type TonightHeroData = {
 export type TonightVenueCardData = {
   title: string
   badge: string
-  meta: string
+  badgeVariant: 'schedule' | 'liveStatus' | 'static'
+  liveOpen?: boolean
+  lines: string[]
   href: string
-  tone: 'amber' | 'gold'
-  live?: boolean
+  categoryToken: 'amber' | 'gold' | 'neutral'
 }
 
-/** Prefer Kitchen segment for VenueCard (Tonight Lütze) — not bar. */
+/** Prefer Kitchen segment for VenueCompactCard (Tonight Lütze) — not bar. */
 export function pickKitchenOrPrimarySegment(
   openingHours: Venue['openingHours'],
   now: Date = getBerlinNow(),
@@ -130,12 +131,14 @@ export async function resolveTonightVenueCards(
     cards.push({
       title: 'KTTK',
       badge,
-      meta:
+      badgeVariant: 'schedule',
+      lines: [
         locale === 'de'
           ? `Turnierabend · €5 · ${kttk.spotlightLocation || kttk.location || 'B2'}`
           : `Tournament night · €5 · ${kttk.spotlightLocation || kttk.location || 'B2'}`,
+      ],
       href: '/here/events',
-      tone: 'amber',
+      categoryToken: 'amber',
     })
   }
 
@@ -163,10 +166,11 @@ export async function resolveTonightVenueCards(
         : locale === 'de'
           ? 'Küche geschlossen'
           : 'Kitchen closed',
-      meta: `${until} · ${locale === 'de' ? 'reservieren →' : 'reserve →'}`,
+      badgeVariant: 'liveStatus',
+      liveOpen: open,
+      lines: [`${until} · ${locale === 'de' ? 'reservieren →' : 'reserve →'}`],
       href: '/here/dining',
-      tone: 'gold',
-      live: open,
+      categoryToken: 'gold',
     })
   }
 

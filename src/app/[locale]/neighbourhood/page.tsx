@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
-import { NeighbourhoodGuideMap } from '@/components/map/NeighbourhoodGuideMap'
+import { NeighbourhoodFullMap } from '@/components/map/NeighbourhoodFullMap'
 import { FilterChipBar } from '@/components/neighbourhood/FilterChipBar'
 import { FurtherOutToggle } from '@/components/neighbourhood/FurtherOutToggle'
 import { PaginationNav } from '@/components/neighbourhood/PaginationNav'
@@ -19,6 +19,7 @@ import {
   defaultConfig,
 } from '@/lib/aeo-schema/src/index'
 import { getMapSettings } from '@/lib/map/settings'
+import { personInitials } from '@/lib/people/initials'
 import {
   getNeighbourhoodPlaces,
   PLACE_CATEGORIES,
@@ -142,20 +143,66 @@ export default async function NeighbourhoodPage({ params, searchParams }: Props)
 
   const mapPlaces = mapResult.docs
     .filter((place) => place.geo?.latitude != null && place.geo?.longitude != null)
-    .map((place) => ({
-      id: String(place.id),
-      slug: place.slug,
-      name: place.name,
-      category: place.category,
-      description: place.description,
-      walkingMinutes: place.walkingMinutes,
-      walkingLabel:
-        place.walkingMinutes != null
-          ? t('walkingMinutes', { minutes: place.walkingMinutes })
+    .map((place) => {
+      const transitRaw = place.transit
+      const transit =
+        transitRaw?.minutes != null && transitRaw.station && transitRaw.line
+          ? {
+              minutes: transitRaw.minutes,
+              station: transitRaw.station,
+              line: transitRaw.line,
+            }
+          : null
+
+      const imageSrc = mediaUrl(place.image)
+      const creditText = place.imageCredit?.creditText?.trim()
+      const imageCredit = creditText
+        ? {
+            creditText,
+            creditUrl: place.imageCredit?.creditUrl?.trim() || null,
+          }
+        : null
+      const endorsements =
+        place.endorsements
+          ?.map((entry) => personFromEndorsement(entry.person))
+          .filter((p): p is { slug: string; name: string } => p != null)
+          .map((p) => ({
+            person: {
+              name: p.name,
+              slug: p.slug,
+              initials: personInitials(p.name),
+            },
+          })) ?? []
+
+      return {
+        id: String(place.id),
+        slug: place.slug,
+        name: place.name,
+        category: place.category,
+        categoryLabel: t(`categories.${place.category}`),
+        description: place.description,
+        walkingMinutes: place.walkingMinutes,
+        walkingLabel:
+          place.walkingMinutes != null
+            ? t('walkingMinutes', { minutes: place.walkingMinutes })
+            : undefined,
+        transit,
+        transitLabel: transit
+          ? t('transitLine', {
+              minutes: transit.minutes,
+              line: transit.line,
+              station: transit.station,
+            })
           : undefined,
-      latitude: place.geo!.latitude!,
-      longitude: place.geo!.longitude!,
-    }))
+        image: imageSrc
+          ? { src: imageSrc, alt: mediaAlt(place.image) || place.name }
+          : null,
+        imageCredit,
+        endorsements,
+        latitude: place.geo!.latitude!,
+        longitude: place.geo!.longitude!,
+      }
+    })
 
   return (
     <>
@@ -172,7 +219,7 @@ export default async function NeighbourhoodPage({ params, searchParams }: Props)
 
         <div className="border-y border-gray-200">
           {mapSettings.accessToken ? (
-            <NeighbourhoodGuideMap
+            <NeighbourhoodFullMap
               accessToken={mapSettings.accessToken}
               bounds={mapSettings.bounds}
               center={mapSettings.center}

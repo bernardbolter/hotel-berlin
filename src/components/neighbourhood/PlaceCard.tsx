@@ -1,31 +1,9 @@
 import Image from 'next/image'
-import {
-  Baby,
-  Binoculars,
-  Landmark,
-  Music,
-  Palette,
-  ShoppingBag,
-  Trees,
-  UtensilsCrossed,
-  Wine,
-  type LucideIcon,
-} from 'lucide-react'
+import { Landmark } from 'lucide-react'
 
 import { Link } from '@/i18n/routing'
-import type { PlaceCategory } from '@/lib/queries/neighbourhoodPlaces'
-
-const categoryIcons: Record<PlaceCategory, LucideIcon> = {
-  Art: Palette,
-  Bar: Wine,
-  Kids: Baby,
-  Museum: Landmark,
-  'Parks and Nature': Trees,
-  Party: Music,
-  Restaurant: UtensilsCrossed,
-  Shopping: ShoppingBag,
-  Sightseeing: Binoculars,
-}
+import { CATEGORY_LUCIDE_ICON } from '@/lib/neighbourhood/categoryIcons'
+import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 
 export type PlaceCardEndorsement = {
   personSlug: string
@@ -57,7 +35,7 @@ export function PlaceCard({
   imageAlt = '',
   endorsements = [],
 }: PlaceCardProps) {
-  const Icon = categoryIcons[category] ?? Landmark
+  const Icon = CATEGORY_LUCIDE_ICON[category] ?? Landmark
 
   return (
     <article className="flex flex-col motion-safe:transition-opacity motion-reduce:transition-none">

@@ -23,12 +23,15 @@ export async function getFeaturedVenues() {
   return docs
 }
 
-export async function getVenueBySlug(slug: string) {
+export async function getVenueBySlug(slug: string, locale: 'de' | 'en' = 'en') {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'venues',
     where: { slug: { equals: slug } },
     limit: 1,
+    depth: 1,
+    locale,
+    fallbackLocale: 'en',
   })
   return docs[0] ?? null
 }

@@ -2,7 +2,14 @@ import type { CollectionConfig } from 'payload'
 
 export const FAQs: CollectionConfig = {
   slug: 'faqs',
-  admin: { useAsTitle: 'question' },
+  admin: {
+    useAsTitle: 'question',
+    defaultColumns: ['question', 'context', 'category', 'order'],
+    group: 'Content',
+  },
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'question',
@@ -21,43 +28,74 @@ export const FAQs: CollectionConfig = {
       localized: true,
       admin: {
         description:
-          'Self-contained answer. Front-load the answer. Name the hotel explicitly. Max ~120 words.',
+          'Plain text, not richText. Keep it to 1–3 sentences — this ships verbatim into FAQPage JSON-LD acceptedAnswer.text. If a question needs links or lists, summarize here and point to a policy page.',
       },
     },
     {
-      name: 'audience',
+      name: 'context',
       type: 'select',
       required: true,
       options: [
         { label: 'Prospect (main site)', value: 'prospect' },
         { label: 'Guest (/here)', value: 'guest' },
-        { label: 'Both', value: 'both' },
       ],
+      admin: {
+        description:
+          'prospect = /faq and mini blocks on outside pages. guest = /here/faq and mini blocks on /here. No "both" — duplicate the record if needed.',
+      },
     },
     {
       name: 'category',
       type: 'select',
       required: true,
       options: [
-        { label: 'Check-in / Check-out', value: 'check-in' },
-        { label: 'Cancellation', value: 'cancellation' },
-        { label: 'Payment', value: 'payment' },
-        { label: 'Parking', value: 'parking' },
-        { label: 'Pets', value: 'pets' },
-        { label: 'Transport', value: 'transport' },
+        // prospect
+        { label: 'Rooms & booking', value: 'rooms-booking' },
+        { label: 'Check-in / Check-out', value: 'checkin-checkout' },
         { label: 'Dining', value: 'dining' },
-        { label: 'Amenities', value: 'amenities' },
+        { label: 'Meetings', value: 'meetings' },
         { label: 'Accessibility', value: 'accessibility' },
-        { label: 'Local Area', value: 'local' },
-        { label: 'Events & Culture', value: 'events' },
+        { label: 'Getting here', value: 'getting-here' },
+        { label: 'Pets & parking', value: 'pets-parking' },
+        { label: 'General', value: 'general' },
+        // guest
+        { label: 'WiFi & tech', value: 'wifi-tech' },
+        { label: 'Guest services', value: 'guest-services' },
+        { label: 'Neighbourhood (guest)', value: 'neighbourhood-guest' },
       ],
+      admin: {
+        description:
+          'Use a category that matches this record’s context. Taxonomy is provisional until real questions land.',
+      },
     },
-    { name: 'tags', type: 'relationship', relationTo: 'tags', hasMany: true },
     {
-      name: 'priority',
-      type: 'number',
-      admin: { description: 'Lower = shown first. Use for homepage FAQ ordering.' },
+      name: 'relevantPages',
+      type: 'relationship',
+      relationTo: 'pages',
+      hasMany: true,
+      admin: {
+        description:
+          'Optional pin — forces this question into a page’s mini block regardless of category. Use sparingly; category matching covers most cases.',
+      },
     },
-    { name: 'publishedAt', type: 'date' },
+    {
+      name: 'order',
+      type: 'number',
+      required: true,
+      defaultValue: 0,
+      admin: {
+        description: 'Display order within a category, and tiebreaker for mini-block fallback fill.',
+      },
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      required: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Anchor id for deep links, e.g. /faq#pet-policy.',
+      },
+    },
   ],
 }

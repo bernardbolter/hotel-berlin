@@ -562,28 +562,58 @@ export interface Faq {
    */
   question: string;
   /**
-   * Self-contained answer. Front-load the answer. Name the hotel explicitly. Max ~120 words.
+   * Plain text, not richText. Keep it to 1–3 sentences — this ships verbatim into FAQPage JSON-LD acceptedAnswer.text. If a question needs links or lists, summarize here and point to a policy page.
    */
   answer: string;
-  audience: 'prospect' | 'guest' | 'both';
-  category:
-    | 'check-in'
-    | 'cancellation'
-    | 'payment'
-    | 'parking'
-    | 'pets'
-    | 'transport'
-    | 'dining'
-    | 'amenities'
-    | 'accessibility'
-    | 'local'
-    | 'events';
-  tags?: (number | Tag)[] | null;
   /**
-   * Lower = shown first. Use for homepage FAQ ordering.
+   * prospect = /faq and mini blocks on outside pages. guest = /here/faq and mini blocks on /here. No "both" — duplicate the record if needed.
    */
-  priority?: number | null;
-  publishedAt?: string | null;
+  context: 'prospect' | 'guest';
+  /**
+   * Use a category that matches this record’s context. Taxonomy is provisional until real questions land.
+   */
+  category:
+    | 'rooms-booking'
+    | 'checkin-checkout'
+    | 'dining'
+    | 'meetings'
+    | 'accessibility'
+    | 'getting-here'
+    | 'pets-parking'
+    | 'general'
+    | 'wifi-tech'
+    | 'guest-services'
+    | 'neighbourhood-guest';
+  /**
+   * Optional pin — forces this question into a page’s mini block regardless of category. Use sparingly; category matching covers most cases.
+   */
+  relevantPages?: (number | Page)[] | null;
+  /**
+   * Display order within a category, and tiebreaker for mini-block fallback fill.
+   */
+  order: number;
+  /**
+   * Anchor id for deep links, e.g. /faq#pet-policy.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Site pages. Inside (/here) pages can be added to the guest hub navigation.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * e.g. "rooms" → /rooms · "here/art" → /here/art (no leading slash)
+   */
+  slug: string;
+  context: 'outside' | 'inside' | 'both' | 'policy';
+  status?: ('skeleton' | 'in-progress' | 'live') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -875,6 +905,20 @@ export interface NeighbourhoodPlace {
   };
   walkingMinutes?: number | null;
   /**
+   * Optional — render the transit row in PlaceInfoCard only when this is populated. Do not block launch on backfilling this for all places.
+   */
+  transit?: {
+    minutes?: number | null;
+    /**
+     * e.g. "Wittenbergplatz"
+     */
+    station?: string | null;
+    /**
+     * e.g. "U1" — free text, not a select, since S-Bahn/bus lines don't fit a clean enum.
+     */
+    line?: string | null;
+  };
+  /**
    * Default filter on /nachbarschaft is "walkable".
    */
   distanceTier?: ('walkable' | 'short-transit' | 'further-out') | null;
@@ -910,6 +954,20 @@ export interface NeighbourhoodPlace {
   openingHours?: string | null;
   priceRange?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Populate whenever image is not the hotel's own photography — required for any CC-licensed source (e.g. Wikimedia Commons), optional/blank for licensed stock or original photography where no visible credit is contractually required.
+   */
+  imageCredit?: {
+    /**
+     * e.g. "Photo: Jane Doe, CC BY-SA 4.0"
+     */
+    creditText?: string | null;
+    /**
+     * Link to the source/license page.
+     */
+    creditUrl?: string | null;
+    license?: ('CC-BY' | 'CC-BY-SA' | 'licensed-stock' | 'original' | 'other') | null;
+  };
   authority?: {
     identifier?:
       | {
@@ -925,6 +983,36 @@ export interface NeighbourhoodPlace {
         }[]
       | null;
   };
+  /**
+   * Independent from hereTeaser — feature a different set of places on the homepage map. Same pattern as rooms.homepageTeaser. Limit 5 via getTeaserPlaces.
+   */
+  homepageTeaser?: {
+    /**
+     * Include this place on the homepage map teaser.
+     */
+    enabled?: boolean | null;
+    /**
+     * Display order (lower first).
+     */
+    order?: number | null;
+  };
+  /**
+   * Independent from homepageTeaser — feature a different set of places on the /here map teaser.
+   */
+  hereTeaser?: {
+    /**
+     * Include this place on the /here map teaser.
+     */
+    enabled?: boolean | null;
+    /**
+     * Display order (lower first).
+     */
+    order?: number | null;
+  };
+  /**
+   * Legacy homepage map pagination order (1–15). Prefer homepageTeaser.enabled/order from the Neighbourhood Map revision brief going forward.
+   */
+  featuredOrder?: number | null;
   status: 'active' | 'inactive';
   updatedAt: string;
   createdAt: string;
@@ -1056,24 +1144,6 @@ export interface Place {
    * Uncheck to hide from maps and lists without deleting the record.
    */
   active?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Site pages. Inside (/here) pages can be added to the guest hub navigation.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: number;
-  title: string;
-  /**
-   * e.g. "rooms" → /rooms · "here/art" → /here/art (no leading slash)
-   */
-  slug: string;
-  context: 'outside' | 'inside' | 'both' | 'policy';
-  status?: ('skeleton' | 'in-progress' | 'live') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1443,11 +1513,11 @@ export interface HeroSlidesSelect<T extends boolean = true> {
 export interface FaqsSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
-  audience?: T;
+  context?: T;
   category?: T;
-  tags?: T;
-  priority?: T;
-  publishedAt?: T;
+  relevantPages?: T;
+  order?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1610,6 +1680,13 @@ export interface NeighbourhoodPlacesSelect<T extends boolean = true> {
         longitude?: T;
       };
   walkingMinutes?: T;
+  transit?:
+    | T
+    | {
+        minutes?: T;
+        station?: T;
+        line?: T;
+      };
   distanceTier?: T;
   indoorOutdoor?: T;
   targetAudience?:
@@ -1631,6 +1708,13 @@ export interface NeighbourhoodPlacesSelect<T extends boolean = true> {
   openingHours?: T;
   priceRange?: T;
   image?: T;
+  imageCredit?:
+    | T
+    | {
+        creditText?: T;
+        creditUrl?: T;
+        license?: T;
+      };
   authority?:
     | T
     | {
@@ -1648,6 +1732,19 @@ export interface NeighbourhoodPlacesSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  homepageTeaser?:
+    | T
+    | {
+        enabled?: T;
+        order?: T;
+      };
+  hereTeaser?:
+    | T
+    | {
+        enabled?: T;
+        order?: T;
+      };
+  featuredOrder?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1858,6 +1955,10 @@ export interface Hotel {
     breakfast?: string | null;
   };
   /**
+   * Circular map image in the homepage hero. Upload a square image (~600×600). Replaces the generated Mapbox preview when set.
+   */
+  heroMapImage?: (number | null) | Media;
+  /**
    * Hero map CTA label, e.g. "Get Directions" / "Wegbeschreibung".
    */
   getDirectionsLabel?: string | null;
@@ -1865,6 +1966,73 @@ export interface Hotel {
    * Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.
    */
   heroShortAddress?: string | null;
+  /**
+   * Homepage “Meet & Work” teaser — editable DE/EN copy and rotating photos. Links to /meetings.
+   */
+  meetAndWork?: {
+    /**
+     * Section kicker, e.g. "Meet & Work" / "Tagen & Arbeiten".
+     */
+    kicker?: string | null;
+    /**
+     * Bold subhead, e.g. "Serious business, playful spaces".
+     */
+    subhead?: string | null;
+    /**
+     * Short pitch paragraph under the subhead.
+     */
+    body?: string | null;
+    /**
+     * Rotating photos (like Sleep & Relax). Each slide has an image and a typewriter caption (DE/EN).
+     */
+    slides?:
+      | {
+          image: number | Media;
+          /**
+           * Descriptive alt text — AEO ImageObject.description.
+           */
+          imageAlt?: string | null;
+          /**
+           * Typewriter line under the body, e.g. room/space name. Localize DE + EN.
+           */
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Line-CTA label, e.g. "All meeting rooms" / "Alle Meetingräume".
+     */
+    ctaLabel?: string | null;
+  };
+  /**
+   * Homepage Lütze / Eat & Drink teaser — Rooms-style layout (text + arch photo + one Sweep CTA). Links to /restaurant.
+   */
+  eatAndDrink?: {
+    /**
+     * Small label above the heading, e.g. "Eat & Drink" / "Essen & Trinken".
+     */
+    kicker?: string | null;
+    /**
+     * Serif headline, e.g. "The place to eat, play, and hang all day."
+     */
+    heading?: string | null;
+    /**
+     * Short pitch paragraph under the heading.
+     */
+    body?: string | null;
+    /**
+     * Arch-topped teaser photo (interior / terrace).
+     */
+    image?: (number | null) | Media;
+    /**
+     * Descriptive alt text — AEO ImageObject.description.
+     */
+    imageAlt?: string | null;
+    /**
+     * Sweep-CTA label, e.g. "Eat & Drink" / "Essen & Trinken".
+     */
+    ctaLabel?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2189,8 +2357,35 @@ export interface HotelSelect<T extends boolean = true> {
         reception?: T;
         breakfast?: T;
       };
+  heroMapImage?: T;
   getDirectionsLabel?: T;
   heroShortAddress?: T;
+  meetAndWork?:
+    | T
+    | {
+        kicker?: T;
+        subhead?: T;
+        body?: T;
+        slides?:
+          | T
+          | {
+              image?: T;
+              imageAlt?: T;
+              caption?: T;
+              id?: T;
+            };
+        ctaLabel?: T;
+      };
+  eatAndDrink?:
+    | T
+    | {
+        kicker?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        imageAlt?: T;
+        ctaLabel?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

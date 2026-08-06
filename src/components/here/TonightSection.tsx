@@ -1,5 +1,6 @@
 import { SectionDivider } from '@/components/here/SectionDivider'
-import { TonightHeroCard, VenueCard } from '@/components/here/VenueCard'
+import { TonightHeroCard } from '@/components/here/VenueCard'
+import { VenueCompactCard } from '@/components/cards/VenueCompactCard'
 import {
   resolveTonightHero,
   resolveTonightVenueCards,
@@ -32,15 +33,17 @@ export async function TonightSection({ locale, sectionLabel }: Props) {
         />
       ) : null}
       {venues.map((card) => (
-        <VenueCard
+        <VenueCompactCard
           key={card.title}
           className="card-half col-span-2 xs:col-span-1"
-          title={card.title}
+          density="compact"
           badge={card.badge}
-          meta={card.meta}
+          badgeVariant={card.badgeVariant}
+          liveOpen={card.liveOpen}
+          title={card.title}
+          lines={card.lines}
           href={card.href}
-          tone={card.tone}
-          live={card.live}
+          categoryToken={card.categoryToken}
         />
       ))}
     </>

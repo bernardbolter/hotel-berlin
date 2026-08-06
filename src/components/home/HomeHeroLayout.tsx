@@ -54,18 +54,18 @@ export function HomeHeroLayout({ slides, copy, map }: Props) {
 
       <div className="home-hero__row relative z-10 flex flex-col lg:flex-row lg:items-stretch">
         <div className="home-hero__copy relative flex w-full flex-col bg-hbb-forest px-8 py-12 text-white md:px-12 lg:bg-transparent lg:py-[var(--hero-pad)] lg:pl-14 lg:pr-6">
-          <div className="home-hero__copy-text mt-5 ml-5 max-w-[22rem] self-start md:max-w-[26rem]">
+          <div className="home-hero__copy-text mt-5 ml-5 w-full max-w-none self-stretch pr-4 min-[1301px]:max-w-[26rem] min-[1301px]:self-start md:pr-6">
             <h1 className="font-serif text-[clamp(2rem,3.6vw,3.15rem)] font-normal leading-[1.18] tracking-[-0.01em] text-white">
               {copy.headingLine1}
               <br />
               {copy.headingLine2}
             </h1>
-            <p className="mt-6 max-w-[22rem] font-serif text-[clamp(0.95rem,1.15vw,1.125rem)] leading-[1.65] text-white/92">
+            <p className="mt-6 max-w-none font-serif text-[clamp(0.95rem,1.15vw,1.125rem)] leading-[1.65] text-white/95 min-[1301px]:max-w-[26rem]">
               {copy.body}
             </p>
           </div>
 
-          <div className="home-hero__map mt-8 flex w-full justify-center lg:justify-end">
+          <div className="home-hero__map mt-8 flex w-full justify-center lg:mt-auto lg:w-auto lg:justify-end lg:pt-4">
             {map}
           </div>
         </div>

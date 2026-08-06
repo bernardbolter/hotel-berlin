@@ -30,9 +30,9 @@ const primaryLinkKeys = [
  * Breakpoints (Tailwind):
  * - <768: Row 1 wordmark + hamburger; Row 2 lang (left) + CTA (right);
  *   primary + secondary both in dropdown
- * - 768–1023: three rows, no hamburger —
+ * - 768–1099: three rows, no hamburger —
  *     Row 1 wordmark + lang + CTA | Row 2 primary | Row 3 secondary
- * - ≥1024: desktop two-row (primary beside wordmark; secondary below)
+ * - ≥1100: desktop two-row — primary beside wordmark; secondary below
  */
 export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
   const t = useTranslations('nav')
@@ -188,23 +188,23 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
     >
       {/* ── Row 1 ── */}
       <div className="site-shell flex items-center justify-between gap-3 bg-white px-4 py-3 md:px-8 xl:px-10">
-        <div className="flex min-w-0 items-center gap-3 lg:gap-4">
+        <div className="flex min-w-0 items-center gap-3 min-[1100px]:gap-4">
           <Link href="/" aria-label={tc('homeAria')} className={wordmarkClass}>
             <span className="truncate">{tc('hotelName')}</span>
           </Link>
 
           <span
             aria-hidden="true"
-            className="mx-0.5 hidden h-7 w-0.5 shrink-0 self-center bg-hbb-black lg:block"
+            className="mx-0.5 hidden h-7 w-0.5 shrink-0 self-center bg-hbb-black min-[1100px]:block"
           />
 
-          {/* Primary beside wordmark — desktop only */}
-          <nav aria-label={tc('primaryNavAria')} className="hidden lg:block">
+          {/* Primary beside wordmark — desktop only (≥1100) */}
+          <nav aria-label={tc('primaryNavAria')} className="hidden min-[1100px]:block">
             {renderPrimaryLinks()}
           </nav>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:gap-5">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 min-[1100px]:gap-5">
           {/* Lang + CTA in Row 1 from 768 up only (below that they live on the util strip) */}
           <div className="hidden md:contents">
             <LanguageSwitcher size="md" colors={langSwitcherColors} />
@@ -248,17 +248,16 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
       </div>
 
       {/*
-        Row 2 — primary links as their own strip (768–1023).
-        Outside the scroll-hide clip so they stay put while Row 3 can tuck away.
+        Row 2 — primary links as their own strip (768–1099 only).
+        Wrapper owns visibility so `.nav-secondary` display can't fight utilities.
       */}
-      <nav
-        aria-label={tc('primaryNavAria')}
-        className="nav-secondary hidden w-full bg-hbb-nav-bg md:block lg:hidden"
-      >
-        <div className="site-shell flex items-center overflow-x-auto px-4 py-2 md:px-8 xl:px-10">
-          {renderPrimaryLinks()}
-        </div>
-      </nav>
+      <div className="hidden md:max-[1099px]:block">
+        <nav aria-label={tc('primaryNavAria')} className="nav-secondary w-full bg-hbb-nav-bg">
+          <div className="site-shell flex items-center overflow-x-auto px-4 py-2 md:px-8 xl:px-10">
+            {renderPrimaryLinks()}
+          </div>
+        </nav>
+      </div>
 
       {/* Scroll-hide clip: guest secondary from 768 up */}
       <div className="nav-secondary-clip">
@@ -266,7 +265,7 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
           context={context}
           links={secondaryLinks}
           visibility="all"
-          className="hidden bg-hbb-nav-bg-deep md:block lg:bg-hbb-nav-bg"
+          className="hidden bg-hbb-nav-bg-deep md:block min-[1100px]:bg-hbb-nav-bg"
         />
       </div>
 

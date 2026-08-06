@@ -91,6 +91,26 @@
     "mapsLink": "Wegbeschreibung zum Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten (öffnet Google Maps)",
     "satelliteAlt": "Karte mit dem Hotel Berlin, Berlin am Lützowplatz 17, Tiergarten"
   },
+  "heroMap": {
+    "cookiesRequired": "Die Karte benötigt Cookies zum Laden",
+    "enableMap": "Karte aktivieren",
+    "declineMap": "Ohne Karte fortfahren",
+    "fallbackAlt": "Satellitenansicht des Hotel Berlin, Berlin am Lützowplatz 17",
+    "mapAria": "Interaktive Nachbarschaftskarte rund um das Hotel Berlin, Berlin",
+    "noscript": "<p><strong>Hotel Berlin, Berlin</strong> — Lützowplatz 17, 10785 Berlin. U-Bahn Nollendorfplatz / Bus 100, 106, 187 zum Lützowplatz.</p>",
+    "legendAria": "Orte auf dieser Kartenseite",
+    "categoryLegendAria": "Kategorien auf dieser Karte",
+    "placeListAria": "Hervorgehobene Orte in der Nachbarschaft",
+    "hotelLegend": "Hotel",
+    "recommendedBy": "Empfohlen von",
+    "paginationAria": "Kartenseiten",
+    "pageLabel": "Seite {page}",
+    "nextPage": "Nächste Seite",
+    "viewFullMap": "Nachbarschaft entdecken",
+    "closeCard": "Ortsdetails schließen",
+    "hotelBadgeAria": "{hotelName}, {address}",
+    "empty": "Nachbarschafts-Highlights folgen in Kürze."
+  },
   "rooms": {
     "label": "Sleep & Relax",
     "title": "Sleep & Relax",
@@ -267,25 +287,30 @@
     "title": "Was im Haus läuft",
     "rowAria": "Aktuelle Happenings im Hotel Berlin, Berlin",
     "masonryAria": "Alle Happenings",
+    "viewAll": "Alle Events",
     "cards": {
       "fkkb": {
-        "title": "Freundeskreis der Künstler Berlin",
-        "meta": "Galerie · Erdgeschoss",
+        "badge": "Dauerhaft",
+        "title": "FKKB",
+        "line": "Galerie · Erdgeschoss",
         "imageAlt": "Innenraum zeitgenössische Kunstgalerie"
       },
       "kttk": {
-        "title": "KTTK — Königlicher Tischtennis Klub",
-        "meta": "Sport · Keller",
+        "badge": "Do 19:00",
+        "title": "KTTK",
+        "line": "Turnierabend · €5 · B2",
         "imageAlt": "Tischtennis-Tische"
       },
       "sissi": {
-        "title": "Sissi — Skateboard-Museum",
-        "meta": "Museum · Jede Etage",
+        "badge": "Dauerhaft",
+        "title": "Sissi",
+        "line": "Skateboard-Museum · Jede Etage",
         "imageAlt": "Skateboard-Sammlung"
       },
       "haus-luetzowplatz": {
+        "badge": "Nachbarschaft",
         "title": "Haus am Lützowplatz",
-        "meta": "Nachbarschaft · 2 Min. zu Fuß",
+        "line": "2 Min. zu Fuß · Zeitgenössische Kunst",
         "imageAlt": "Ausstellung im Haus am Lützowplatz"
       }
     }
@@ -325,6 +350,7 @@
       "Sightseeing": "Sehenswürdigkeiten"
     },
     "walkingMinutes": "{minutes} Min. zu Fuß",
+    "transitLine": "{minutes} Min. · {line} {station}",
     "empty": "Keine Orte passen zu diesen Filtern.",
     "paginationAria": "Seitennummerierung",
     "previous": "Zurück",
@@ -353,77 +379,24 @@
   "faq": {
     "title": "Gute Fragen.",
     "allFaqs": "Alle FAQs",
-    "homepage": {
-      "checkin-time": {
-        "question": "Wann sind Check-in und Check-out?",
-        "answer": "Check-in ab 15:00 Uhr. Check-out bis 12:00 Uhr mittags. Früher Check-in ab 06:00 Uhr für 30 €, wenn das Zimmer bereit ist — oder buche die Nacht davor für garantierten frühen Zugang. Self-Service-Kioske in der Lobby."
-      },
-      "parking": {
-        "question": "Gibt es Parkplätze im Hotel?",
-        "answer": "Ja — Tiefgarage mit über 200 Stellplätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen verfügbar."
-      },
-      "pets": {
-        "question": "Sind Haustiere willkommen?",
-        "answer": "Ja. Haustiere sind willkommen — 30 € pro Nacht. Auch beim Frühstück."
-      },
-      "airport": {
-        "question": "Wie komme ich vom Flughafen BER hierher?",
-        "answer": "RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 zum Lützowplatz — direkt vor dem Hotel. Etwa 45–55 Minuten."
-      }
-    },
-    "rooms": {
-      "bed-types": {
-        "question": "Welche Bettkonfigurationen gibt es?",
-        "answer": "Alle Zimmerkategorien mit Kingsize-Bett oder Twin-Betten. Wunsch bei der Buchung angeben — je nach Verfügbarkeit."
-      },
-      "room-size": {
-        "question": "Wie groß sind die Zimmer?",
-        "answer": "Superior-Zimmer 22–26 m². Comfort-Zimmer 26–32 m². Suiten 40–65 m². Studio 45 auf Anfrage."
-      },
-      "cancellation": {
-        "question": "Wie lautet die Stornierungsbedingung?",
-        "answer": "Flexible Tarife kostenlos stornierbar bis 18:00 Uhr am Anreisetag. Nicht erstattbare Tarife werden bei Buchung voll berechnet."
-      },
-      "extra-beds": {
-        "question": "Können Zustellbetten oder Kinderbetten hinzugefügt werden?",
-        "answer": "Kinderbetten für unter 2 Jahre kostenlos. Zustellbetten in den meisten Zimmerkategorien für 30 € pro Nacht, je nach Verfügbarkeit."
-      }
-    },
-    "meetings": {
-      "capacity": {
-        "question": "Wie groß ist der größte Veranstaltungsraum?",
-        "answer": "Der Berliner Saal fasst bis zu 600 Gäste im Theater-Setup. Insgesamt über 4.000 m² Veranstaltungsfläche."
-      },
-      "av-tech": {
-        "question": "Welche AV- und Technikausstattung ist inklusive?",
-        "answer": "Alle Meetingräume mit Highspeed-WLAN, Bildschirm oder Beamer und Soundanlage. Volle AV-Pakete inkl. Livestream und Simultanübersetzung verfügbar."
-      },
-      "catering": {
-        "question": "Ist Catering in Meeting-Paketen enthalten?",
-        "answer": "Tagespauschalen inkl. Kaffeepausen und Mittagessen. Individuelles Catering von Lütze für alle Events."
-      },
-      "parking-meet": {
-        "question": "Gibt es Parkplätze für Tagesgäste?",
-        "answer": "Tiefgarage für 4 € pro Stunde. Vorbuchbare Delegierten-Tarife verfügbar — beim Events-Team anfragen."
-      }
-    },
-    "restaurant": {
-      "lutze-open": {
-        "question": "Wann hat Lütze geöffnet?",
-        "answer": "Die Bar täglich ab 10:00. Küche 11:30–15:00 und 17:00–22:30. Vinyl Nights jeden Montag ab 18:00."
-      },
-      "reservations": {
-        "question": "Muss ich einen Tisch reservieren?",
-        "answer": "Reservierung zum Abendessen empfohlen, aber nicht Pflicht. Walk-ins an der Bar immer willkommen. Für Gruppen ab 8 Personen bitte vorab buchen."
-      },
-      "dietary": {
-        "question": "Werden Ernährungswünsche berücksichtigt?",
-        "answer": "Ja — vegane, vegetarische und glutenfreie Optionen verfügbar. Bitte Allergien oder Ernährungswünsche bei der Buchung angeben."
-      },
-      "kttk-book": {
-        "question": "Muss ich einen Tischtennis-Tisch reservieren?",
-        "answer": "Keine Reservierung nötig — Tische nach Verfügbarkeit während der Öffnungszeiten. Donnerstag-Turniere für alle. 5 € Eintritt."
-      }
+    "pageTitle": "Häufig gestellte Fragen",
+    "pageDescription": "Antworten zu Zimmern, Check-in, Restaurant, Parken und Anreise zum Hotel Berlin, Berlin.",
+    "guestPageTitle": "FAQs für Gäste",
+    "guestPageDescription": "WLAN, Gepäck, Services und Nachbarschaftstipps für deinen Aufenthalt im Hotel Berlin, Berlin.",
+    "allCategories": "Alle",
+    "categoriesAria": "Nach Kategorie filtern",
+    "categories": {
+      "roomsBooking": "Zimmer & Buchung",
+      "checkinCheckout": "Check-in / Check-out",
+      "dining": "Essen & Trinken",
+      "meetings": "Meetings",
+      "accessibility": "Barrierefreiheit",
+      "gettingHere": "Anreise",
+      "petsParking": "Haustiere & Parken",
+      "general": "Allgemein",
+      "wifiTech": "WLAN & Technik",
+      "guestServices": "Gästeservice",
+      "neighbourhoodGuest": "Nachbarschaft"
     }
   },
   "footer": {

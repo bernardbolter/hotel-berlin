@@ -1,66 +1,61 @@
-'use client'
+import { getLocale, getTranslations } from 'next-intl/server'
 
-import { ArrowRight, HelpCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useState } from 'react'
-
+import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { FAQAccordion } from '@/components/primitives/FAQAccordion'
-import { faqConfig, type FAQPageContext } from '@/lib/data/faqs'
+import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
+import { getFaqs, getRelevantFaqs, type FaqCategory, type FaqContext } from '@/lib/faqs'
 
-import { Link } from '@/i18n/routing'
-
-export interface FAQSectionProps {
-  pageContext: FAQPageContext
+export type FAQSectionProps = {
+  context?: FaqContext
+  category?: FaqCategory
+  pageId?: string
+  limit?: number
   showAllLink?: boolean
+  heading?: string
 }
 
-export function FAQSection({ pageContext, showAllLink = true }: FAQSectionProps) {
-  const t = useTranslations('faq')
-  const items = faqConfig[pageContext]
-  const [openId, setOpenId] = useState<string | null>(null)
+/**
+ * Mini FAQ block — CMS-driven, JSON-LD matches the 4 items on screen.
+ * Homepage uses context=prospect, category=general.
+ */
+export async function FAQSection({
+  context = 'prospect',
+  category = 'general',
+  pageId,
+  limit = 4,
+  showAllLink = true,
+  heading,
+}: FAQSectionProps) {
+  const locale = await getLocale()
+  const t = await getTranslations('faq')
+  const allFaqs = await getFaqs({ context, locale }).catch((error) => {
+    console.error('[FAQSection] Failed to load FAQs:', error)
+    return []
+  })
+
+  const relevant = getRelevantFaqs(allFaqs, { context, pageId, category, limit })
+  if (relevant.length === 0) return null
+
+  const items = relevant.map((f) => ({
+    id: f.slug,
+    question: f.question,
+    answer: f.answer,
+  }))
+
+  const graph = buildFAQPageGraph(relevant)
+  const ctaHref = context === 'guest' ? '/here/faq' : '/faq'
 
   return (
-    <section
-      aria-labelledby="faq-heading"
-      className="bg-hbb-warm px-section-sm py-section-y md:px-section-x"
-    >
-      <div className="mb-6 flex items-baseline justify-between">
-        <div className="flex items-center gap-3">
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-hbb-purple"
-          >
-            <HelpCircle aria-hidden="true" size={16} className="text-hbb-purple" />
-          </span>
-          <h2 id="faq-heading" className="font-serif text-serif-lg font-medium text-hbb-black">
-            {t('title')}
-          </h2>
-        </div>
-        {showAllLink && (
-          <Link
-            href="/faqs"
-            className="flex items-center gap-1 border-b border-hbb-purple pb-px font-ui text-ui-sm font-medium text-hbb-purple"
-          >
-            {t('allFaqs')}
-            <ArrowRight aria-hidden="true" size={13} />
-          </Link>
-        )}
-      </div>
-
-      <ul role="list" className="flex flex-col">
-        {items.map((faq) => (
-          <li key={faq.id}>
-            <FAQAccordion
-              id={faq.id}
-              icon={faq.icon}
-              question={t(`${pageContext}.${faq.id}.question`)}
-              answer={t(`${pageContext}.${faq.id}.answer`)}
-              isOpen={openId === faq.id}
-              onToggle={() => setOpenId(openId === faq.id ? null : faq.id)}
-            />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <>
+      <JsonLdScript graph={graph} />
+      <FAQAccordion
+        items={items}
+        variant="mini"
+        context={context}
+        heading={heading ?? t('title')}
+        ctaHref={showAllLink ? ctaHref : undefined}
+        ctaLabel={t('allFaqs')}
+      />
+    </>
   )
 }

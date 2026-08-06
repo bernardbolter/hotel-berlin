@@ -41,15 +41,13 @@ export default function HomePage() {
           <HomeHero />
         </div>
         <RoomsHero />
+        <MeetingsSection />
         <div className="site-shell">
-          <MeetingsSection />
           <EventsSection />
-          <LutzeSection />
         </div>
+        <LutzeSection />
         <NeighbourhoodMapSection />
-        <div className="site-shell">
-          <FAQSection pageContext="homepage" />
-        </div>
+        <FAQSection context="prospect" category="general" />
       </main>
       <SiteFooter />
     </>

@@ -32,7 +32,8 @@ export const pathnames = {
   '/meetings': { en: '/meetings', de: '/meetings' },
   '/happenings': { en: '/happenings', de: '/happenings' },
   '/offers': { en: '/offers', de: '/offers' },
-  '/faqs': { en: '/faqs', de: '/faqs' },
+  '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed
+  '/faqs': { en: '/faqs', de: '/faqs' }, // legacy alias — prefer /faq
   '/imprint': { en: '/imprint', de: '/imprint' },
   '/privacy': { en: '/privacy', de: '/privacy' },
   '/terms': { en: '/terms', de: '/terms' },

@@ -104,6 +104,8 @@ const config: Config = {
       },
       screens: {
         xs: '480px',
+        /** Desktop two-row nav kicks in (tablet three-row below this) */
+        nav: '1100px',
       },
     },
   },

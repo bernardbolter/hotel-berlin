@@ -49,8 +49,8 @@ export function NavSecondary({
     href !== '#' && (pathname === href || pathname.startsWith(`${href}/`))
 
   const isBar = layout === 'bar'
-  /** Third-row (tablet) is slightly smaller; desktop bar stays 14px; drawer stacked is larger */
-  const textSize = isBar ? 'text-[12px] lg:text-[14px]' : 'text-[15px]'
+  /** Third-row (tablet) is slightly smaller; desktop bar (≥1100) stays 14px; drawer stacked is larger */
+  const textSize = isBar ? 'text-[12px] min-[1100px]:text-[14px]' : 'text-[15px]'
   const accentActive = context === 'inside' ? 'text-hbb-teal' : 'text-hbb-nav-amber'
   const accentHover =
     context === 'inside'

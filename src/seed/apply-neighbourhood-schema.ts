@@ -159,6 +159,15 @@ CREATE INDEX IF NOT EXISTS neighbourhood_places_authority_same_as_parent_id_idx 
 ALTER TABLE neighbourhood_places_endorsements ADD COLUMN IF NOT EXISTS associated_room varchar;
 ALTER TABLE neighbourhood_places DROP COLUMN IF EXISTS associated_room;
 
+-- imageCredit group (Neighbourhood Teaser Addendum §8)
+DO $$ BEGIN CREATE TYPE enum_neighbourhood_places_image_credit_license AS ENUM ('CC-BY','CC-BY-SA','licensed-stock','original','other'); EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS image_credit_credit_text varchar;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS image_credit_credit_url varchar;
+DO $$ BEGIN
+  ALTER TABLE neighbourhood_places ADD COLUMN image_credit_license enum_neighbourhood_places_image_credit_license;
+EXCEPTION WHEN duplicate_column THEN NULL;
+END $$;
+
 -- Payload document locks: column may be missing if collection was added via raw SQL
 ALTER TABLE payload_locked_documents_rels
   ADD COLUMN IF NOT EXISTS neighbourhood_places_id integer

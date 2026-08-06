@@ -111,10 +111,14 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
 export type HeroMapCopy = {
   directionsLabel: string
   shortAddress: string
+  /** CMS hero map image URL, or null to use the public fallback */
+  imageUrl: string | null
 }
 
+const HERO_MAP_FALLBACK = '/images/hero_map.png'
+
 export async function getHeroMapCopy(locale: 'de' | 'en'): Promise<HeroMapCopy> {
-  const defaults: Record<'de' | 'en', HeroMapCopy> = {
+  const defaults: Record<'de' | 'en', Omit<HeroMapCopy, 'imageUrl'>> = {
     en: {
       directionsLabel: 'Get Directions',
       shortAddress: 'Lützowplatz 17, Tiergarten',
@@ -130,15 +134,19 @@ export async function getHeroMapCopy(locale: 'de' | 'en'): Promise<HeroMapCopy> 
     const hotel = (await payload.findGlobal({
       slug: 'hotel',
       locale,
-      depth: 0,
+      depth: 1,
     })) as Hotel
 
     return {
       directionsLabel: hotel.getDirectionsLabel?.trim() || defaults[locale].directionsLabel,
       shortAddress: hotel.heroShortAddress?.trim() || defaults[locale].shortAddress,
+      imageUrl: mediaUrl(hotel.heroMapImage) ?? HERO_MAP_FALLBACK,
     }
   } catch {
-    return defaults[locale]
+    return {
+      ...defaults[locale],
+      imageUrl: HERO_MAP_FALLBACK,
+    }
   }
 }
 
@@ -179,5 +187,162 @@ export async function getRoomsTeaserCopy(locale: 'de' | 'en'): Promise<RoomsTeas
     }
   } catch {
     return defaults[locale]
+  }
+}
+
+export type MeetAndWorkSlide = {
+  id: string
+  src: string
+  alt: string
+  caption: string
+}
+
+export type MeetAndWorkCopy = {
+  kicker: string
+  subhead: string
+  body: string
+  ctaLabel: string
+  slides: MeetAndWorkSlide[]
+}
+
+const MEET_AND_WORK_PHOTO_FALLBACK = '/images/meet-and-work.jpg'
+
+const meetAndWorkDefaults: Record<
+  'de' | 'en',
+  Omit<MeetAndWorkCopy, 'slides'> & { slideFallback: Omit<MeetAndWorkSlide, 'id' | 'src'> }
+> = {
+  en: {
+    kicker: 'Meet & Work',
+    subhead: 'Serious business, playful spaces',
+    body: 'Business is in our DNA. With over 4,000 m² of flexible conference and meeting spaces, cutting-edge event technology, and a dedicated team, we ensure everything from conferences to workshops runs smoothly — leaving space for ideas and connections to take the lead.',
+    ctaLabel: 'All meeting rooms',
+    slideFallback: {
+      alt: 'Hotel Berlin, Berlin meeting room with natural light and conference setup',
+      caption: 'Berlin 3',
+    },
+  },
+  de: {
+    kicker: 'Tagen & Arbeiten',
+    subhead: 'Ernsthaftes Business, verspielte Räume',
+    body: 'Business liegt in unserer DNA. Mit über 4.000 m² flexibler Konferenz- und Meetingflächen, modernster Eventtechnik und einem engagierten Team sorgen wir dafür, dass alles von Konferenzen bis Workshops reibungslos läuft — mit Raum für Ideen und Begegnungen.',
+    ctaLabel: 'Alle Meetingräume',
+    slideFallback: {
+      alt: 'Tagungsraum im Hotel Berlin, Berlin mit Tageslicht und Konferenzbestuhlung',
+      caption: 'Berlin 3',
+    },
+  },
+}
+
+export async function getMeetAndWork(locale: 'de' | 'en'): Promise<MeetAndWorkCopy> {
+  const defaults = meetAndWorkDefaults[locale]
+  const fallbackSlides: MeetAndWorkSlide[] = [
+    {
+      id: 'fallback',
+      src: MEET_AND_WORK_PHOTO_FALLBACK,
+      alt: defaults.slideFallback.alt,
+      caption: defaults.slideFallback.caption,
+    },
+  ]
+
+  try {
+    const payload = await getPayloadClient()
+    const hotel = (await payload.findGlobal({
+      slug: 'hotel',
+      locale,
+      depth: 1,
+    })) as Hotel
+
+    const block = hotel.meetAndWork
+    const slides =
+      block?.slides
+        ?.map((slide, index) => {
+          const src = mediaUrl(slide.image)
+          if (!src) return null
+          return {
+            id: slide.id ?? `slide-${index}`,
+            src,
+            alt: slide.imageAlt?.trim() || defaults.slideFallback.alt,
+            caption: slide.caption?.trim() || '',
+          } satisfies MeetAndWorkSlide
+        })
+        .filter((slide): slide is MeetAndWorkSlide => slide !== null) ?? []
+
+    return {
+      kicker: block?.kicker?.trim() || defaults.kicker,
+      subhead: block?.subhead?.trim() || defaults.subhead,
+      body: block?.body?.trim() || defaults.body,
+      ctaLabel: block?.ctaLabel?.trim() || defaults.ctaLabel,
+      slides: slides.length > 0 ? slides : fallbackSlides,
+    }
+  } catch {
+    return {
+      kicker: defaults.kicker,
+      subhead: defaults.subhead,
+      body: defaults.body,
+      ctaLabel: defaults.ctaLabel,
+      slides: fallbackSlides,
+    }
+  }
+}
+
+export type EatAndDrinkCopy = {
+  kicker: string
+  heading: string
+  body: string
+  ctaLabel: string
+  image: { src: string; alt: string }
+}
+
+const EAT_AND_DRINK_PHOTO_FALLBACK = '/images/food-interior.jpg'
+
+const eatAndDrinkDefaults: Record<'de' | 'en', EatAndDrinkCopy> = {
+  en: {
+    kicker: 'Eat & Drink',
+    heading: 'The place to eat, play, and hang all day.',
+    body: 'In the heart of the hotel — open to guests and Berliners alike. Breakfast from the counter. Lunch on the terrace. Cocktails until the city stops. Happy hour isn\'t a time slot. It\'s a state of mind.',
+    ctaLabel: 'Eat & Drink',
+    image: {
+      src: EAT_AND_DRINK_PHOTO_FALLBACK,
+      alt: 'Lütze interior at Hotel Berlin, Berlin',
+    },
+  },
+  de: {
+    kicker: 'Essen & Trinken',
+    heading: 'Der Ort zum Essen, Spielen und Verweilen.',
+    body: 'Im Herzen des Hotels — offen für Gäste und Berliner. Frühstück an der Theke. Mittagessen auf der Terrasse. Cocktails bis die Stadt schläft. Happy Hour ist kein Zeitfenster. Es ist eine Einstellung.',
+    ctaLabel: 'Essen & Trinken',
+    image: {
+      src: EAT_AND_DRINK_PHOTO_FALLBACK,
+      alt: 'Lütze-Interieur im Hotel Berlin, Berlin',
+    },
+  },
+}
+
+export async function getEatAndDrink(locale: 'de' | 'en'): Promise<EatAndDrinkCopy> {
+  const defaults = eatAndDrinkDefaults[locale]
+
+  try {
+    const payload = await getPayloadClient()
+    const hotel = (await payload.findGlobal({
+      slug: 'hotel',
+      locale,
+      depth: 1,
+    })) as Hotel
+
+    const block = hotel.eatAndDrink
+    const src = mediaUrl(block?.image) ?? defaults.image.src
+
+    return {
+      kicker: block?.kicker?.trim() || defaults.kicker,
+      heading: block?.heading?.trim() || defaults.heading,
+      body: block?.body?.trim() || defaults.body,
+      ctaLabel: block?.ctaLabel?.trim() || defaults.ctaLabel,
+      image: {
+        src,
+        alt: block?.imageAlt?.trim() || defaults.image.alt,
+      },
+    }
+  } catch {
+    return defaults
   }
 }

@@ -5,6 +5,7 @@ import { StayInfoCard } from '@/components/here/StayInfoCard'
 import { TonightSection } from '@/components/here/TonightSection'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
+import { NeighbourhoodMapSection } from '@/components/map/NeighbourhoodMapSection'
 import { getGuestStayInfo } from '@/lib/payload/hotel'
 
 type Props = {
@@ -89,6 +90,8 @@ export default async function HerePage({ params, searchParams }: Props) {
             <TonightSection locale={locale} sectionLabel={t('tonight')} />
           </div>
         </div>
+
+        <NeighbourhoodMapSection context="here" />
       </main>
       <SiteFooter />
     </>

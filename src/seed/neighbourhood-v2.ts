@@ -145,6 +145,26 @@ async function seed() {
         ? (place as { distanceTier?: 'walkable' | 'short-transit' | 'further-out' | null })
             .distanceTier
         : null
+    const transitRaw =
+      'transit' in place
+        ? (
+            place as {
+              transit?: {
+                minutes?: number | null
+                station?: string | null
+                line?: string | null
+              } | null
+            }
+          ).transit
+        : null
+    const transit =
+      transitRaw?.minutes != null && transitRaw.station && transitRaw.line
+        ? {
+            minutes: transitRaw.minutes,
+            station: transitRaw.station,
+            line: transitRaw.line,
+          }
+        : null
 
     const data = {
       name: place.name,
@@ -177,6 +197,7 @@ async function seed() {
         : {}),
       ...(walkingMinutes != null ? { walkingMinutes } : {}),
       ...(distanceTier != null ? { distanceTier } : {}),
+      ...(transit ? { transit } : {}),
       indoorOutdoor: place.indoorOutdoor as 'indoor' | 'outdoor' | 'both',
       targetAudience: (place.targetAudience ?? []).map((label) => ({ label })),
       description: place.description,

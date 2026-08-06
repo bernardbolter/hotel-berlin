@@ -162,7 +162,7 @@ Wrap the following in a feature flag (env var or Payload toggle) rather than rem
 - Meetings block
 - Three-card events row (FKKB / KTTK / Lütze)
 - Neighbourhood map block
-- FAQ accordion
+- ~~FAQ accordion~~ — **live** (see `doc/faqs/HotelBerlin_FAQ_BuildBrief.md`; homepage mini block uses `context: prospect`, `category: general`)
 - Footer (if a new footer accompanies this build, otherwise keep existing)
 
 **Goal:** client-facing site shows only Header + Hero + Rooms teaser for now. Full homepage must be re-enableable later without rebuilding from scratch.

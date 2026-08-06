@@ -29,6 +29,45 @@ function venueMonogram(venue: Venue): SpotlightCardProps['identityMark'] {
   return { src, alt: venue.name }
 }
 
+/** Pull plain text from a Lexical richText doc (exhibition description, etc.). */
+function lexicalToPlain(value: unknown): string {
+  if (!value) return ''
+  if (typeof value === 'string') return value.trim()
+  if (typeof value !== 'object') return ''
+  const node = value as { text?: string; children?: unknown[]; root?: unknown }
+  if (typeof node.text === 'string') return node.text
+  if (node.root) return lexicalToPlain(node.root).trim()
+  if (Array.isArray(node.children)) {
+    return node.children.map(lexicalToPlain).join('').replace(/\s+/g, ' ').trim()
+  }
+  return ''
+}
+
+function formatExhibitionEnd(endDate: string | null | undefined, locale: string): string {
+  if (!endDate) return ''
+  const d = new Date(endDate)
+  if (Number.isNaN(d.getTime())) return ''
+  const formatted = new Intl.DateTimeFormat(locale === 'de' ? 'de-DE' : 'en-GB', {
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'Europe/Berlin',
+  }).format(d)
+  return locale === 'de' ? `Bis ${formatted}` : `Until ${formatted}`
+}
+
+function shortVenueName(name: string | null | undefined): string {
+  if (!name?.trim()) return ''
+  return name.split(/[—–(-]/)[0]?.trim() || name
+}
+
+/** Prefer the long name after an em dash: "FKKB — Freiluft…" → "Freiluft…" */
+function venueLabelFromName(name: string | null | undefined): string {
+  if (!name?.trim()) return ''
+  const parts = name.split(/[—–]/)
+  if (parts.length > 1) return parts.slice(1).join('—').trim() || name
+  return name.trim()
+}
+
 function venueImage(venue: Venue, fallbackAlt: string): SpotlightCardProps['image'] | null {
   const fromHero = mediaUrl(venue.heroImage)
   if (fromHero) {
@@ -146,14 +185,15 @@ export async function resolveEventSpotlight(
   if (!occ) return null
 
   const monogramSrc = venue ? mediaUrl(venue.venueMonogram) : null
-  const left = venue?.name ?? ''
+  const left = venue?.name ? shortVenueName(venue.name) : ''
   const right = venue?.spotlightLocation || venue?.location || ''
 
   return {
-    image: { src: imageSrc, alt: mediaAlt(event.heroImage, event.name) },
+    image: { src: imageSrc, alt: mediaAlt(event.heroImage, event.name || event.slug) },
     badge: { label: tokenStyle.label, categoryToken: token },
     identityMark: monogramSrc && venue ? { src: monogramSrc, alt: venue.name } : undefined,
-    title: event.name,
+    title: event.name || event.slug,
+    venueLabel: venue ? venueLabelFromName(venue.name) : undefined,
     primaryMeta: formatEventPrimaryMeta(occ.start, occ.end, now, locale),
     description: event.shortDescription || '',
     secondaryMeta:
@@ -161,7 +201,7 @@ export async function resolveEventSpotlight(
         ? { left, right }
         : undefined,
     cta: {
-      label: 'See event',
+      label: locale === 'de' ? 'Zum Event' : 'See event',
       href: event.ticketUrl || `/here/events/${event.slug}`,
       categoryToken: token,
       external: Boolean(event.ticketUrl),
@@ -221,16 +261,32 @@ export function buildVenueSpotlightFromParts(args: {
       : venueImage(venue, venue.name)
     if (!image) return null
 
+    const location = venue.spotlightLocation || venue.location || ''
+    const until = formatExhibitionEnd(ex.endDate, locale)
+    const body =
+      lexicalToPlain(ex.description) ||
+      ex.subtitle ||
+      venue.shortDescription ||
+      ex.title
+    const shortName = shortVenueName(venue.name)
+
     return {
       image,
       badge: { label: tokenStyle.label, categoryToken: token },
       identityMark: monogram,
-      title: venue.name,
-      primaryMeta: 'On now',
-      description: ex.subtitle || venue.shortDescription || ex.title,
-      secondaryMeta: undefined,
+      title: ex.title,
+      venueLabel: venueLabelFromName(venue.name),
+      primaryMeta: locale === 'de' ? 'Jetzt · freier Eintritt' : 'On now · Free entry',
+      description: body,
+      secondaryMeta:
+        location || until
+          ? { left: location, right: until }
+          : undefined,
       cta: {
-        label: `Explore ${venue.name}`,
+        label:
+          locale === 'de'
+            ? `${shortName || venue.slug} entdecken`
+            : `Explore ${shortName || venue.slug}`,
         href: `/here/${venue.slug}`,
         categoryToken: token,
       },
@@ -254,7 +310,8 @@ export function buildVenueSpotlightFromParts(args: {
       image,
       badge: { label: tokenStyle.label, categoryToken: token },
       identityMark: monogram,
-      title: venue.name,
+      title: args.nextEvent.event.name,
+      venueLabel: venueLabelFromName(venue.name),
       primaryMeta,
       description: venue.shortDescription || args.nextEvent.event.name,
       secondaryMeta: {
@@ -262,7 +319,7 @@ export function buildVenueSpotlightFromParts(args: {
         right: formatBerlinTime(args.nextEvent.occurrenceStart),
       },
       cta: {
-        label: `Explore ${venue.name}`,
+        label: `Explore ${shortVenueName(venue.name) || venue.slug}`,
         href: `/here/${venue.slug}`,
         categoryToken: token,
       },

@@ -57,23 +57,86 @@ describe('buildVenueSpotlightFromParts', () => {
     ).toBeNull()
   })
 
-  it('uses exhibition path with On now and no secondaryMeta', () => {
+  it('uses exhibition seed title and body, not the venue name', () => {
+    const card = buildVenueSpotlightFromParts({
+      venue: lutzeVenue,
+      exhibition: {
+        id: 1,
+        title: 'Magwie × CokyOne',
+        slug: 'magwie-x-cokyone',
+        subtitle: 'A duo show',
+        status: 'current',
+        endDate: '2026-09-30T21:59:00.000Z',
+        description: {
+          root: {
+            type: 'root',
+            children: [
+              {
+                type: 'paragraph',
+                version: 1,
+                children: [{ type: 'text', text: 'Surreal dreamscapes meet graffiti.', version: 1 }],
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+        updatedAt: '',
+        createdAt: '',
+      } as never,
+    })
+    expect(card?.title).toBe('Magwie × CokyOne')
+    expect(card?.venueLabel).toBe('Lütze')
+    expect(card?.primaryMeta).toBe('On now · Free entry')
+    expect(card?.description).toBe('Surreal dreamscapes meet graffiti.')
+    expect(card?.secondaryMeta?.left).toBe('Ground floor')
+    expect(card?.secondaryMeta?.right).toMatch(/Until/i)
+    expect(card?.cta.categoryToken).toBe('food')
+    expect(card?.cta.label).toBe('Explore Lütze')
+  })
+
+  it('prefers populated exhibition heroImage over venue fallback', () => {
     const card = buildVenueSpotlightFromParts({
       venue: lutzeVenue,
       exhibition: {
         id: 1,
         title: 'Wall Works',
         slug: 'wall-works',
-        subtitle: 'A summer hang',
         status: 'current',
+        heroImage: {
+          id: 99,
+          url: '/media/exhibition-wall-works.jpg',
+          alt: 'Wall Works install',
+        },
         updatedAt: '',
         createdAt: '',
-      },
+      } as never,
     })
-    expect(card?.primaryMeta).toBe('On now')
-    expect(card?.secondaryMeta).toBeUndefined()
-    expect(card?.description).toBe('A summer hang')
-    expect(card?.cta.categoryToken).toBe('food')
+    expect(card?.image).toEqual({
+      src: '/media/exhibition-wall-works.jpg',
+      alt: 'Wall Works install',
+    })
+  })
+
+  it('falls back to venue image when exhibition heroImage is a bare upload id', () => {
+    const card = buildVenueSpotlightFromParts({
+      venue: lutzeVenue,
+      exhibition: {
+        id: 1,
+        title: 'Wall Works',
+        slug: 'wall-works',
+        status: 'current',
+        heroImage: 99,
+        updatedAt: '',
+        createdAt: '',
+      } as never,
+    })
+    expect(card?.image).toEqual({
+      src: '/media/lutze.jpg',
+      alt: 'Lütze',
+    })
   })
 
   it('uses bar-only open status for multi-segment venues on the event path', () => {

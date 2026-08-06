@@ -308,99 +308,105 @@ export const venuesSeed = [
 ]
 
 export const faqsSeed = [
+  // —— Prospect (homepage mini pulls category: general) ——
   {
+    slug: 'check-in-time',
     question: 'What time can I check in at Hotel Berlin, Berlin?',
     answer:
-      'Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in is available for €30 if a room is ready. If you arrive between 06:00 and 12:00, the previous night must be booked. Online check-in and self-service kiosks are available on site.',
-    audience: 'both' as const,
-    category: 'check-in' as const,
-    priority: 1,
+      'Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.',
+    context: 'prospect' as const,
+    category: 'general' as const,
+    order: 1,
   },
   {
-    question: 'What time is check-out at Hotel Berlin, Berlin?',
-    answer:
-      'Check-out at Hotel Berlin, Berlin is by 12:00 noon. Late check-out may be available on request — ask at reception on the morning of departure.',
-    audience: 'guest' as const,
-    category: 'check-in' as const,
-    priority: 2,
-  },
-  {
-    question: 'What is the cancellation policy for a flexible rate at Hotel Berlin?',
-    answer:
-      'Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show results in a charge of 90% of the first night.',
-    audience: 'prospect' as const,
-    category: 'cancellation' as const,
-    priority: 3,
-  },
-  {
-    question: 'What is the cancellation policy for an early booker rate?',
-    answer:
-      'For the Early Booker 10% discount rate, free cancellation applies up to 3 days before arrival — after that, 90% of the total stay is charged. For the Early Booker 15% rate, free cancellation applies up to 7 days before arrival.',
-    audience: 'prospect' as const,
-    category: 'cancellation' as const,
-    priority: 4,
-  },
-  {
+    slug: 'parking',
     question: 'Is there parking at Hotel Berlin, Berlin?',
     answer:
-      'Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. The rate is €4 per hour, with a maximum of €25 per day. EV charging is available nearby.',
-    audience: 'both' as const,
-    category: 'parking' as const,
-    priority: 5,
+      'Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.',
+    context: 'prospect' as const,
+    category: 'general' as const,
+    order: 2,
   },
   {
+    slug: 'pet-policy',
     question: 'Are pets allowed at Hotel Berlin, Berlin?',
     answer:
-      'Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are welcome at breakfast.',
-    audience: 'both' as const,
-    category: 'pets' as const,
-    priority: 6,
+      'Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.',
+    context: 'prospect' as const,
+    category: 'general' as const,
+    order: 3,
   },
   {
-    question: 'How do I get to Hotel Berlin, Berlin from the airport?',
+    slug: 'airport-transfer',
+    question: 'How do I get to Hotel Berlin, Berlin from BER airport?',
     answer:
-      'From Berlin Brandenburg Airport (BER), take the RE7 or RB14 train to Zoologischer Garten, then bus 100 to Lützowplatz. The hotel is at Lützowplatz 17, 10785 Berlin.',
-    audience: 'prospect' as const,
-    category: 'transport' as const,
-    priority: 7,
+      'Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total.',
+    context: 'prospect' as const,
+    category: 'general' as const,
+    order: 4,
   },
   {
+    slug: 'cancellation-flexible',
+    question: 'What is the cancellation policy for a flexible rate?',
+    answer:
+      'Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night.',
+    context: 'prospect' as const,
+    category: 'rooms-booking' as const,
+    order: 10,
+  },
+  {
+    slug: 'breakfast-times',
     question: 'What are the breakfast times at Hotel Berlin?',
     answer:
       'Breakfast is served daily from 06:30 to 10:00. It is a full buffet with vegan options available.',
-    audience: 'both' as const,
+    context: 'prospect' as const,
     category: 'dining' as const,
-    priority: 8,
+    order: 20,
   },
+  // —— Guest ——
   {
-    question: 'Is there WiFi at Hotel Berlin, Berlin?',
+    slug: 'guest-wifi',
+    question: 'How do I connect to the hotel WiFi?',
     answer:
-      'Yes. Free WiFi is available in all rooms and throughout the hotel at Hotel Berlin, Berlin.',
-    audience: 'both' as const,
-    category: 'amenities' as const,
-    priority: 9,
+      'Connect to the Hotel Berlin network and open any browser page — the login portal appears automatically. Reception can help if you need a new access code.',
+    context: 'guest' as const,
+    category: 'wifi-tech' as const,
+    order: 1,
   },
   {
-    question: 'Does Hotel Berlin, Berlin have a sauna or fitness centre?',
-    answer: 'Yes. Hotel Berlin, Berlin has a sauna and fitness centre available to guests.',
-    audience: 'both' as const,
-    category: 'amenities' as const,
-    priority: 10,
+    slug: 'guest-luggage',
+    question: 'Where can I store luggage before check-in or after check-out?',
+    answer: 'Luggage storage is available at reception at Hotel Berlin, Berlin — ask at the front desk.',
+    context: 'guest' as const,
+    category: 'guest-services' as const,
+    order: 2,
   },
   {
-    question: 'Where can I store luggage at Hotel Berlin, Berlin?',
-    answer: 'Luggage storage is available at Hotel Berlin, Berlin. Ask at reception.',
-    audience: 'guest' as const,
-    category: 'amenities' as const,
-    priority: 11,
-  },
-  {
-    question: 'What payment methods are accepted at Hotel Berlin?',
+    slug: 'guest-checkout',
+    question: 'What time is check-out?',
     answer:
-      'A credit card is required at booking. Full prepayment is charged after the free cancellation window closes. Company billing can be arranged at check-in.',
-    audience: 'prospect' as const,
-    category: 'payment' as const,
-    priority: 12,
+      'Check-out at Hotel Berlin, Berlin is by 12:00 noon. Late check-out may be available on request — ask at reception on the morning of departure.',
+    context: 'guest' as const,
+    category: 'guest-services' as const,
+    order: 3,
+  },
+  {
+    slug: 'guest-neighbourhood-walk',
+    question: 'What is worth seeing within a short walk of the hotel?',
+    answer:
+      'Tiergarten, the Landwehrkanal, and Ku’damm are all within walking distance of Lützowplatz. Ask reception for a printed map, or open the neighbourhood guide in the guest hub.',
+    context: 'guest' as const,
+    category: 'neighbourhood-guest' as const,
+    order: 4,
+  },
+  {
+    slug: 'guest-general-reception',
+    question: 'Who do I ask if I need anything during my stay?',
+    answer:
+      'Reception is available 24 hours at Hotel Berlin, Berlin. For restaurant, spa, or event questions, they will point you to the right team.',
+    context: 'guest' as const,
+    category: 'general' as const,
+    order: 5,
   },
 ]
 

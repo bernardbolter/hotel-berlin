@@ -11,8 +11,9 @@ export async function getCurrentOrNextEventToday(
   const { docs } = await payload.find({
     collection: 'events',
     limit: 100,
-    depth: 1,
+    depth: 2,
     sort: 'startDate',
+    locale: 'en',
   })
 
   return selectCurrentOrNextEventToday(docs as VenueTimeEvent[], now)

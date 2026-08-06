@@ -6,7 +6,7 @@ export const NeighbourhoodPlaces: CollectionConfig = {
   slug: 'neighbourhood-places',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'distanceTier', 'status', 'updatedAt'],
+    defaultColumns: ['name', 'category', 'featuredOrder', 'distanceTier', 'status', 'updatedAt'],
     group: 'Neighbourhood',
   },
   access: {
@@ -23,6 +23,9 @@ export const NeighbourhoodPlaces: CollectionConfig = {
 
         await fetch(`${baseUrl}/api/revalidate?path=/neighbourhood&secret=${secret}`)
         await fetch(`${baseUrl}/api/revalidate?path=/you-me-berlin&secret=${secret}`)
+        await fetch(`${baseUrl}/api/revalidate?path=/&secret=${secret}`)
+        await fetch(`${baseUrl}/api/revalidate?path=/en&secret=${secret}`)
+        await fetch(`${baseUrl}/api/revalidate?path=/de&secret=${secret}`)
       },
     ],
   },
@@ -93,6 +96,30 @@ export const NeighbourhoodPlaces: CollectionConfig = {
     },
     { name: 'walkingMinutes', type: 'number' },
     {
+      name: 'transit',
+      type: 'group',
+      admin: {
+        description:
+          'Optional — render the transit row in PlaceInfoCard only when this is populated. Do not block launch on backfilling this for all places.',
+      },
+      fields: [
+        { name: 'minutes', type: 'number' },
+        {
+          name: 'station',
+          type: 'text',
+          admin: { description: 'e.g. "Wittenbergplatz"' },
+        },
+        {
+          name: 'line',
+          type: 'text',
+          admin: {
+            description:
+              'e.g. "U1" — free text, not a select, since S-Bahn/bus lines don\'t fit a clean enum.',
+          },
+        },
+      ],
+    },
+    {
       name: 'distanceTier',
       type: 'select',
       options: [
@@ -156,6 +183,37 @@ export const NeighbourhoodPlaces: CollectionConfig = {
     { name: 'priceRange', type: 'text' },
     { name: 'image', type: 'upload', relationTo: 'media' },
     {
+      name: 'imageCredit',
+      type: 'group',
+      admin: {
+        description:
+          "Populate whenever image is not the hotel's own photography — required for any CC-licensed source (e.g. Wikimedia Commons), optional/blank for licensed stock or original photography where no visible credit is contractually required.",
+      },
+      fields: [
+        {
+          name: 'creditText',
+          type: 'text',
+          admin: { description: 'e.g. "Photo: Jane Doe, CC BY-SA 4.0"' },
+        },
+        {
+          name: 'creditUrl',
+          type: 'text',
+          admin: { description: 'Link to the source/license page.' },
+        },
+        {
+          name: 'license',
+          type: 'select',
+          options: [
+            { label: 'CC-BY', value: 'CC-BY' },
+            { label: 'CC-BY-SA', value: 'CC-BY-SA' },
+            { label: 'Licensed stock', value: 'licensed-stock' },
+            { label: 'Original', value: 'original' },
+            { label: 'Other', value: 'other' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'authority',
       type: 'group',
       fields: [
@@ -178,6 +236,59 @@ export const NeighbourhoodPlaces: CollectionConfig = {
           fields: [{ name: 'url', type: 'text', required: true }],
         },
       ],
+    },
+    {
+      name: 'homepageTeaser',
+      type: 'group',
+      label: 'Homepage teaser',
+      admin: {
+        description:
+          'Independent from hereTeaser — feature a different set of places on the homepage map. Same pattern as rooms.homepageTeaser. Limit 5 via getTeaserPlaces.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: { description: 'Include this place on the homepage map teaser.' },
+        },
+        {
+          name: 'order',
+          type: 'number',
+          admin: { description: 'Display order (lower first).' },
+        },
+      ],
+    },
+    {
+      name: 'hereTeaser',
+      type: 'group',
+      label: '/here teaser',
+      admin: {
+        description:
+          'Independent from homepageTeaser — feature a different set of places on the /here map teaser.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: { description: 'Include this place on the /here map teaser.' },
+        },
+        {
+          name: 'order',
+          type: 'number',
+          admin: { description: 'Display order (lower first).' },
+        },
+      ],
+    },
+    {
+      name: 'featuredOrder',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Legacy homepage map pagination order (1–15). Prefer homepageTeaser.enabled/order from the Neighbourhood Map revision brief going forward.',
+      },
     },
     {
       name: 'status',

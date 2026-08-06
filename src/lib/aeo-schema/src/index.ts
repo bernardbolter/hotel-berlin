@@ -7,3 +7,4 @@ export * from './builders/person';
 export * from './builders/place';
 export * from './builders/review';
 export * from './builders/graph';
+export * from './builders/faq';

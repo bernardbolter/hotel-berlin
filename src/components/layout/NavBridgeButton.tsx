@@ -30,8 +30,8 @@ export function NavBridgeButton({
   const prompt = isInside ? t('notHereYet') : t('inBuilding')
   const label = isInside ? t('stay') : t('enter')
   const aria = isInside ? t('bridgeToMainAria') : t('bridgeToGuestAria')
-  const promptSize = size === 'bar' ? 'text-[13px] lg:text-[15px]' : 'text-[15px]'
-  const btnSize = size === 'bar' ? 'text-[11px] lg:text-[12px]' : 'text-[12px]'
+  const promptSize = size === 'bar' ? 'text-[13px] min-[1100px]:text-[15px]' : 'text-[15px]'
+  const btnSize = size === 'bar' ? 'text-[11px] min-[1100px]:text-[12px]' : 'text-[12px]'
 
   return (
     <div className={`flex shrink-0 flex-nowrap items-center gap-2.5 ${className}`}>

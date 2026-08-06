@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hotel Berlin, Berlin — Lütze Teaser Wireframe</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400..700&display=swap');
+* { box-sizing: border-box; }
+body { margin:0; background:#E8E8E8; font-family:'Archivo',sans-serif; color:#222; padding:32px 20px 100px; }
+.wrap { max-width: 900px; margin:0 auto; }
+.doc-eyebrow { font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#888; margin-bottom:6px; }
+.doc-title { font-size:1.3rem; font-weight:700; margin:0 0 8px; }
+.doc-sub { font-size:0.84rem; color:#666; line-height:1.55; max-width:640px; margin:0 0 32px; }
+
+.page { background:#fff; border:1px solid #ccc; }
+.annot { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#999; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.annot::before { content:''; width:14px; height:1px; background:#bbb; }
+.annot-note { font-size:0.66rem; font-weight:400; text-transform:none; letter-spacing:0; color:#aaa; }
+
+.bar { background:#D6D6D6; border-radius:2px; height:12px; }
+.bar.w60{width:60%;} .bar.w80{width:80%;} .bar.w40{width:40%;} .bar.w90{width:90%;} .bar.w70{width:70%;}
+.bar.tall { height:26px; }
+.bar + .bar { margin-top:8px; }
+
+.img-block { background:repeating-linear-gradient(45deg,#DDD,#DDD 6px,#E9E9E9 6px,#E9E9E9 12px); border:1px solid #ccc; }
+.img-arch { border-radius: 999px 999px 0 0; }
+
+.section { padding: 56px 48px; }
+
+/* current-state reference, shrunk */
+.current-ref { padding: 24px 48px; border-bottom:1px dashed #ccc; }
+.current-box { background:#EDE0CE; border:1px solid #ccc; padding:20px; display:flex; gap:20px; }
+.current-box .img-block { width:140px; height:100px; flex-shrink:0; }
+.current-box .btns { display:flex; gap:10px; margin-top:10px; }
+.current-box .btn { background:#D9A24A; border-radius:3px; padding:6px 14px; font-size:0.6rem; color:#fff; }
+
+.teaser { display:grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items:center; }
+.teaser.reverse { direction: rtl; }
+.teaser.reverse > * { direction: ltr; }
+.teaser-img { height: 300px; }
+.teaser-text .bar.headline { height:24px; margin-bottom:16px; }
+.teaser-text .kicker { width: 35%; height:10px; margin-bottom:10px; }
+.cta-ph { display:flex; align-items:center; gap:8px; margin-top:20px; }
+.cta-ph .bar { width:150px; height:12px; }
+.cta-ph::after { content:'→'; color:#999; }
+
+.note-box { margin-top: 32px; background:#fff; border:1px solid #ccc; border-radius:4px; padding:18px 22px; font-size:0.82rem; line-height:1.7; color:#333; }
+.note-box h3 { font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin:0 0 10px; }
+.note-box ul { margin:0; padding-left:18px; }
+.note-box li { margin-bottom:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="doc-eyebrow">Hotel Berlin, Berlin · Lütze homepage teaser — wireframe</div>
+  <div class="doc-title">Bring it in line with the Rooms section, not a new pattern</div>
+  <div class="doc-sub">Scoped down from a full page redesign — this is just the homepage block that links out to the existing Eat &amp; Drink page. The current peach box with two buttons doesn't match how Rooms handles the same "teaser → full page" job one section above it. Reuse that pattern instead of inventing a third one.</div>
+
+  <div class="page">
+    <div class="current-ref">
+      <div class="annot">Current state <span class="annot-note">— filled color box, photo + hours strip + two buttons</span></div>
+      <div class="current-box">
+        <div class="img-block"></div>
+        <div style="flex:1;">
+          <div class="bar w60" style="margin-bottom:8px;"></div>
+          <div class="bar w90"></div>
+          <div class="btns"><div class="btn">Visit Lütze</div><div class="btn" style="background:#fff;border:1px solid #D9A24A;color:#D9A24A;">Reserve a table</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="annot">Proposed <span class="annot-note">— same shape as the Rooms/"Sleep &amp; Relax" section: arch photo one side, plain text + single line-CTA the other, no filled panel, no button pair</span></div>
+      <div class="teaser reverse">
+        <div class="teaser-img img-block img-arch"></div>
+        <div class="teaser-text">
+          <div class="bar kicker"></div>
+          <div class="bar headline w80"></div>
+          <div class="bar w90"></div>
+          <div class="bar w90"></div>
+          <div class="bar w70"></div>
+          <div class="cta-ph"><div class="bar"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <h3>What this changes, and why</h3>
+    <ul>
+      <li><strong>Drops the filled peach panel</strong> — matches how Rooms handles the identical job (teaser copy + one CTA to a full page) rather than the site having two different visual languages for the same kind of section.</li>
+      <li><strong>One CTA, not two</strong> — "Visit Lütze" and "Reserve a table" going to different destinations (the full page vs. an OpenTable booking) is real functionality worth keeping, but as two competing buttons of equal visual weight in a small teaser block, it dilutes both. Your copy only asked for one link ("Go to Food and Drinks") — if reservation is still wanted from the homepage, it can live as a secondary text link near the CTA rather than a second button, or just live on the full Eat &amp; Drink page instead where it belongs alongside actual hours and menu info.</li>
+      <li><strong>Image goes arch-topped</strong>, matching Rooms — and I'd alternate the side it sits on from Rooms (which has image-left/text-right) to keep some rhythm across the homepage rather than every teaser looking identical in structure.</li>
+      <li><strong>Hours/status badge dropped from this block</strong> — "Bar 10:00–open end" etc. is real, useful info, but belongs on the destination page (or the `/here` guest hub, where a checked-in guest actually needs it in the moment) rather than in a homepage teaser whose only job is to get a prospect to click through.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

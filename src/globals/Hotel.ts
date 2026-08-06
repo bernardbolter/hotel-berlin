@@ -141,6 +141,15 @@ export const Hotel: GlobalConfig = {
       ],
     },
     {
+      name: 'heroMapImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Circular map image in the homepage hero. Upload a square image (~600×600). Replaces the generated Mapbox preview when set.',
+      },
+    },
+    {
       name: 'getDirectionsLabel',
       type: 'text',
       localized: true,
@@ -156,6 +165,134 @@ export const Hotel: GlobalConfig = {
         description:
           'Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.',
       },
+    },
+    {
+      name: 'meetAndWork',
+      label: 'Meet & Work',
+      type: 'group',
+      admin: {
+        description:
+          'Homepage “Meet & Work” teaser — editable DE/EN copy and rotating photos. Links to /meetings.',
+      },
+      fields: [
+        {
+          name: 'kicker',
+          type: 'text',
+          localized: true,
+          admin: { description: 'Section kicker, e.g. "Meet & Work" / "Tagen & Arbeiten".' },
+        },
+        {
+          name: 'subhead',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Bold subhead, e.g. "Serious business, playful spaces".',
+          },
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+          admin: { description: 'Short pitch paragraph under the subhead.' },
+        },
+        {
+          name: 'slides',
+          type: 'array',
+          labels: { singular: 'Slide', plural: 'Slides' },
+          minRows: 1,
+          maxRows: 8,
+          admin: {
+            description:
+              'Rotating photos (like Sleep & Relax). Each slide has an image and a typewriter caption (DE/EN).',
+          },
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
+            },
+            {
+              name: 'imageAlt',
+              type: 'text',
+              localized: true,
+              admin: {
+                description: 'Descriptive alt text — AEO ImageObject.description.',
+              },
+            },
+            {
+              name: 'caption',
+              type: 'text',
+              localized: true,
+              admin: {
+                description:
+                  'Typewriter line under the body, e.g. room/space name. Localize DE + EN.',
+              },
+            },
+          ],
+        },
+        {
+          name: 'ctaLabel',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Line-CTA label, e.g. "All meeting rooms" / "Alle Meetingräume".',
+          },
+        },
+      ],
+    },
+    {
+      name: 'eatAndDrink',
+      label: 'Eat & Drink',
+      type: 'group',
+      admin: {
+        description:
+          'Homepage Lütze / Eat & Drink teaser — Rooms-style layout (text + arch photo + one Sweep CTA). Links to /restaurant.',
+      },
+      fields: [
+        {
+          name: 'kicker',
+          type: 'text',
+          localized: true,
+          admin: { description: 'Small label above the heading, e.g. "Eat & Drink" / "Essen & Trinken".' },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Serif headline, e.g. "The place to eat, play, and hang all day."',
+          },
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+          admin: { description: 'Short pitch paragraph under the heading.' },
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          admin: { description: 'Arch-topped teaser photo (interior / terrace).' },
+        },
+        {
+          name: 'imageAlt',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Descriptive alt text — AEO ImageObject.description.',
+          },
+        },
+        {
+          name: 'ctaLabel',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Sweep-CTA label, e.g. "Eat & Drink" / "Essen & Trinken".',
+          },
+        },
+      ],
     },
   ],
 }

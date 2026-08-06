@@ -1,18 +1,20 @@
 'use client'
 
 import mapboxgl from 'mapbox-gl'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { mountMapPin, type MountedPinHandle } from '@/components/map/mountMapPin'
 import type { MapBounds } from '@/lib/map/config'
 import { buildMapboxStyleUrl } from '@/lib/map/mapbox'
-import { NEIGHBOURHOOD_PIN_COLOR } from '@/lib/neighbourhood/categories'
-import type { PlaceCategory } from '@/lib/queries/neighbourhoodPlaces'
+import { STANDARD_SOFT_FADED_CONFIG } from '@/lib/map/styles'
+import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 
 export type GuideMapPlace = {
   id: string
   slug: string
   name: string
   category: PlaceCategory
+  categoryLabel?: string
   description?: string | null
   walkingMinutes?: number | null
   walkingLabel?: string
@@ -26,44 +28,32 @@ type Props = {
   center: { lat: number; lng: number }
   places: GuideMapPlace[]
   hotelName: string
+  hotelAriaLabel?: string
   ariaLabel: string
   noscriptHtml: string
   className?: string
+  selectedId?: string | null
+  onSelect?: (placeId: string) => void
+  hideNavigation?: boolean
+  fitPadding?: number
+  /** @deprecated Pins always use muted category tokens. Kept for call-site compat. */
+  pinColorMode?: 'single' | 'category'
+  /** @deprecated Hotel pin is always the ink house marker. */
+  hotelMarkerVariant?: 'disc' | 'hbb'
+  styleId?: string
+  cooperativeGestures?: boolean
 }
 
-/** Simple category glyph drawn inside the pin (SVG path snippets). */
-const CATEGORY_GLYPH: Record<PlaceCategory, string> = {
-  Art: 'M8 3v10M5 6h6M5 13c0 1.5 1.5 3 3 3s3-1.5 3-3',
-  Bar: 'M5 3h6l-1 5H6L5 3zm1 5v5h4V8M6 15h4',
-  Kids: 'M8 4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM5 14c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5',
-  Museum: 'M3 14h10M4 14V7l4-3 4 3v7M8 7v7',
-  'Parks and Nature': 'M8 14V8M5 10c0-2 1.5-4 3-5 1.5 1 3 3 3 5M4 14h8',
-  Party: 'M6 13V7l5-2v8M6 10h5',
-  Restaurant: 'M5 3v10M5 7h3M11 3v10M10 3h2',
-  Shopping: 'M4 6h8l-1 8H5L4 6zm2 0V5a2 2 0 014 0v1',
-  Sightseeing: 'M8 4v2M5 8h6M8 6a3 3 0 013 3c0 2-3 5-3 5s-3-3-3-5a3 3 0 013-3z',
+type PinRuntime = {
+  place: GuideMapPlace
+  handle: MountedPinHandle
+  marker: mapboxgl.Marker
+  popup?: mapboxgl.Popup
 }
 
-function createCategoryPin(category: PlaceCategory): HTMLButtonElement {
-  const el = document.createElement('button')
-  el.type = 'button'
-  el.className = 'pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full shadow-md ring-2 ring-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4A7A68]'
-  el.style.backgroundColor = NEIGHBOURHOOD_PIN_COLOR
-  el.tabIndex = 0
-  el.setAttribute('aria-label', category)
-
-  const glyph = CATEGORY_GLYPH[category] ?? CATEGORY_GLYPH.Sightseeing
-  el.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="${glyph}" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-
-  return el
-}
-
-function createHotelPin(): HTMLDivElement {
-  const el = document.createElement('div')
-  el.className = 'pointer-events-auto'
-  el.innerHTML =
-    '<div class="flex h-6 w-6 items-center justify-center rounded-full bg-[#1E1530] shadow-md ring-2 ring-white"><span class="h-2 w-2 rounded-full bg-[#F79B2E]"></span></div>'
-  return el
+function canHover(): boolean {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
 }
 
 export function NeighbourhoodGuideMap({
@@ -72,11 +62,34 @@ export function NeighbourhoodGuideMap({
   center,
   places,
   hotelName,
+  hotelAriaLabel,
   ariaLabel,
   noscriptHtml,
   className = '',
+  selectedId = null,
+  onSelect,
+  hideNavigation = false,
+  fitPadding = 48,
+  styleId,
+  cooperativeGestures = true,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<mapboxgl.Map | null>(null)
+  const pinsRef = useRef<PinRuntime[]>([])
+  const hotelHandleRef = useRef<MountedPinHandle | null>(null)
+  const hotelMarkerRef = useRef<mapboxgl.Marker | null>(null)
+  const onSelectRef = useRef(onSelect)
+  onSelectRef.current = onSelect
+  const selectedIdRef = useRef(selectedId)
+  selectedIdRef.current = selectedId
+  const revealedIdRef = useRef<string | null>(null)
+  const [mapEpoch, setMapEpoch] = useState(0)
+  const [revealedId, setRevealedId] = useState<string | null>(null)
+  revealedIdRef.current = revealedId
+
+  const selectionMode = typeof onSelect === 'function'
+  const resolvedStyleId = styleId ?? undefined
+  const useSoftFaded = resolvedStyleId === 'mapbox/standard'
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -85,71 +98,71 @@ export function NeighbourhoodGuideMap({
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: buildMapboxStyleUrl(),
+      style: buildMapboxStyleUrl(resolvedStyleId),
       center: [center.lng, center.lat],
       zoom: 13.5,
       attributionControl: true,
-      cooperativeGestures: true,
+      cooperativeGestures,
+      ...(useSoftFaded ? { config: { basemap: STANDARD_SOFT_FADED_CONFIG } } : {}),
     })
 
-    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right')
+    if (!hideNavigation) {
+      // Keep top-right free for PlaceInfoCard
+      map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left')
+    }
 
     map.fitBounds(
       [
         [bounds.west, bounds.south],
         [bounds.east, bounds.north],
       ],
-      { padding: 48, duration: 0 },
+      { padding: fitPadding, duration: 0 },
     )
 
-    const hotelMarker = new mapboxgl.Marker({ element: createHotelPin(), anchor: 'center' })
-      .setLngLat([center.lng, center.lat])
-      .setPopup(
-        new mapboxgl.Popup({ offset: 16, closeButton: false, className: 'hbb-map-popup' }).setHTML(
-          `<div class="font-ui text-ui-sm"><strong class="text-hbb-black">${hotelName}</strong></div>`,
-        ),
-      )
-      .addTo(map)
-
-    const markers: mapboxgl.Marker[] = [hotelMarker]
-
-    for (const place of places) {
-      const markerEl = createCategoryPin(place.category)
-
-      const popup = new mapboxgl.Popup({
-        offset: 16,
-        closeButton: false,
-        className: 'hbb-map-popup',
-      }).setHTML(
-        `<div class="font-ui text-ui-sm"><strong class="text-hbb-black">${place.name}</strong>${
-          place.description
-            ? `<p class="mt-1 text-gray-600">${place.description}</p>`
-            : ''
-        }${
-          place.walkingLabel
-            ? `<p class="mt-1 text-ui-xs text-gray-400">${place.walkingLabel}</p>`
-            : ''
-        }</div>`,
-      )
-
-      const marker = new mapboxgl.Marker({ element: markerEl, anchor: 'center' })
-        .setLngLat([place.longitude, place.latitude])
-        .setPopup(popup)
-        .addTo(map)
-
-      markerEl.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
-          marker.togglePopup()
+    if (useSoftFaded) {
+      const applyBasemap = () => {
+        for (const [key, value] of Object.entries(STANDARD_SOFT_FADED_CONFIG)) {
+          try {
+            map.setConfigProperty('basemap', key, value)
+          } catch {
+            // Classic / unsupported keys — ignore
+          }
         }
-      })
-
-      markers.push(marker)
+      }
+      map.on('style.load', applyBasemap)
+      if (map.isStyleLoaded()) applyBasemap()
     }
 
+    const hotelHandle = mountMapPin({
+      variant: 'hotel',
+      label: hotelName,
+      ariaLabel: hotelAriaLabel ?? hotelName,
+    })
+    hotelHandleRef.current = hotelHandle
+
+    const hotelMarker = new mapboxgl.Marker({
+      element: hotelHandle.element,
+      anchor: 'bottom',
+    })
+      .setLngLat([center.lng, center.lat])
+      .addTo(map)
+
+    mapRef.current = map
+    hotelMarkerRef.current = hotelMarker
+    setMapEpoch((n) => n + 1)
+
     return () => {
-      for (const marker of markers) marker.remove()
+      for (const pin of pinsRef.current) {
+        pin.handle.unmount()
+        pin.marker.remove()
+      }
+      pinsRef.current = []
+      hotelHandle.unmount()
+      hotelHandleRef.current = null
+      hotelMarker.remove()
+      hotelMarkerRef.current = null
       map.remove()
+      mapRef.current = null
     }
   }, [
     accessToken,
@@ -160,8 +173,142 @@ export function NeighbourhoodGuideMap({
     center.lat,
     center.lng,
     hotelName,
-    places,
+    hotelAriaLabel,
+    hideNavigation,
+    fitPadding,
+    resolvedStyleId,
+    useSoftFaded,
+    cooperativeGestures,
   ])
+
+  // Build markers when place set changes
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || mapEpoch === 0) return
+
+    for (const pin of pinsRef.current) {
+      pin.handle.unmount()
+      pin.marker.remove()
+    }
+    pinsRef.current = []
+
+    for (const place of places) {
+      const categoryLabel = place.categoryLabel ?? place.category
+      const ariaLabel = `${place.name}, ${categoryLabel}`
+
+      const activate = () => {
+        if (selectionMode) {
+          onSelectRef.current?.(place.id)
+          return
+        }
+        const runtime = pinsRef.current.find((p) => p.place.id === place.id)
+        runtime?.popup?.addTo(map)
+      }
+
+      const onPinSelect = () => {
+        if (!canHover()) {
+          if (revealedIdRef.current !== place.id) {
+            setRevealedId(place.id)
+            return
+          }
+        }
+        setRevealedId(place.id)
+        activate()
+      }
+
+      const handle = mountMapPin({
+        variant: 'category',
+        category: place.category,
+        label: place.name,
+        ariaLabel,
+        isActive: selectedIdRef.current === place.id,
+        labelVisible:
+          revealedIdRef.current === place.id || selectedIdRef.current === place.id,
+        onSelect: onPinSelect,
+      })
+
+      const host = handle.element
+      host.addEventListener('pointerenter', () => {
+        if (canHover()) setRevealedId(place.id)
+      })
+      host.addEventListener('pointerleave', () => {
+        if (canHover() && selectedIdRef.current !== place.id) {
+          setRevealedId((current) => (current === place.id ? null : current))
+        }
+      })
+      host.addEventListener('focusin', () => setRevealedId(place.id))
+
+      const marker = new mapboxgl.Marker({ element: host, anchor: 'bottom' })
+        .setLngLat([place.longitude, place.latitude])
+        .addTo(map)
+
+      let popup: mapboxgl.Popup | undefined
+      if (!selectionMode) {
+        popup = new mapboxgl.Popup({
+          offset: 28,
+          closeButton: false,
+          className: 'hbb-map-popup',
+        }).setHTML(
+          `<div class="font-ui text-ui-sm"><strong class="text-hbb-black">${place.name}</strong>${
+            place.description
+              ? `<p class="mt-1 text-gray-600">${place.description}</p>`
+              : ''
+          }${
+            place.walkingLabel
+              ? `<p class="mt-1 text-ui-xs text-gray-400">${place.walkingLabel}</p>`
+              : ''
+          }</div>`,
+        )
+        marker.setPopup(popup)
+      }
+
+      pinsRef.current.push({ place, handle, marker, popup })
+    }
+  }, [places, selectionMode, mapEpoch])
+
+  // Update pin visuals without remounting
+  useEffect(() => {
+    for (const pin of pinsRef.current) {
+      const isActive = selectionMode && selectedId === pin.place.id
+      const labelVisible = revealedId === pin.place.id || Boolean(isActive)
+      const categoryLabel = pin.place.categoryLabel ?? pin.place.category
+      pin.handle.update({
+        variant: 'category',
+        category: pin.place.category,
+        label: pin.place.name,
+        ariaLabel: `${pin.place.name}, ${categoryLabel}`,
+        isActive: Boolean(isActive),
+        labelVisible,
+        onSelect: () => {
+          if (!canHover()) {
+            if (revealedIdRef.current !== pin.place.id) {
+              setRevealedId(pin.place.id)
+              return
+            }
+          }
+          setRevealedId(pin.place.id)
+          if (selectionMode) {
+            onSelectRef.current?.(pin.place.id)
+          } else {
+            pin.popup?.addTo(mapRef.current!)
+          }
+        },
+      })
+    }
+  }, [selectedId, revealedId, selectionMode])
+
+  // Ease to selected pin
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !selectionMode || !selectedId) return
+    const selected = places.find((p) => p.id === selectedId)
+    if (!selected) return
+    map.easeTo({
+      center: [selected.longitude, selected.latitude],
+      duration: 450,
+      padding: fitPadding,
+    })
+  }, [selectedId, selectionMode, places, fitPadding])
 
   return (
     <>

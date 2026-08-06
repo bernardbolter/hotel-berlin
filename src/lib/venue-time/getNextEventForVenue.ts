@@ -13,7 +13,9 @@ export async function getNextEventForVenue(
     collection: 'events',
     where: { venue: { equals: venueId } },
     limit: 100,
-    depth: 1,
+    // depth 2 so nested venue.venueMonogram populates for SpotlightCard
+    depth: 2,
+    locale: 'en',
   })
 
   return selectNextEventForVenue(docs as VenueTimeEvent[], venueId, now)

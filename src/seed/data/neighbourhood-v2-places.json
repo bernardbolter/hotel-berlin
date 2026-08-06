@@ -209,7 +209,12 @@
       "longitude": 13.3410035
     },
     "walkingMinutes": 13,
-    "distanceTier": "walkable"
+    "distanceTier": "walkable",
+    "transit": {
+      "minutes": 6,
+      "station": "Wittenbergplatz",
+      "line": "U1"
+    }
   },
   {
     "slug": "teufelsberg",

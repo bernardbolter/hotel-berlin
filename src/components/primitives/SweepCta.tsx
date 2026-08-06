@@ -2,13 +2,19 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { Link } from '@/i18n/routing'
 
-export type SweepCtaColor = 'terracotta' | 'nav-amber'
+export type SweepCtaColor = 'terracotta' | 'nav-amber' | 'meet-work' | 'ink'
+export type SweepCtaSize = 'md' | 'sm'
+export type SweepCtaEdge = 'left' | 'right'
 
 type SharedProps = {
   children: ReactNode
   className?: string
-  /** terracotta = rooms Sleep & Relax; nav-amber = #B87A2E (footer / nav accent) */
+  /** terracotta = rooms; nav-amber = footer/nav; meet-work = Meet & Work #1E4B5D; ink = off-black headers */
   color?: SweepCtaColor
+  /** md = default section CTAs; sm = compact bars / secondary placements */
+  size?: SweepCtaSize
+  /** Which side the 2px bar sits on (and sweeps from). Default left. */
+  edge?: SweepCtaEdge
   /** Use a plain <a> without locale prefix (e.g. /book) */
   unlocalized?: boolean
 }
@@ -29,6 +35,18 @@ export type SweepCtaProps = SweepCtaAsLink | SweepCtaAsButton
 const colorClass: Record<SweepCtaColor, string> = {
   terracotta: 'sweep-cta--terracotta',
   'nav-amber': 'sweep-cta--nav-amber',
+  'meet-work': 'sweep-cta--meet-work',
+  ink: 'sweep-cta--ink',
+}
+
+const sizeClass: Record<SweepCtaSize, string> = {
+  md: '',
+  sm: 'sweep-cta--sm',
+}
+
+const edgeClass: Record<SweepCtaEdge, string> = {
+  left: '',
+  right: 'sweep-cta--edge-right',
 }
 
 /**
@@ -39,12 +57,22 @@ export function SweepCta({
   children,
   className = '',
   color = 'terracotta',
+  size = 'md',
+  edge = 'left',
   href,
   external = false,
   unlocalized = false,
   ...rest
 }: SweepCtaProps) {
-  const classes = ['sweep-cta', colorClass[color], className].filter(Boolean).join(' ')
+  const classes = [
+    'sweep-cta',
+    colorClass[color],
+    sizeClass[size],
+    edgeClass[edge],
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
   const label = <span className="sweep-cta__label">{children}</span>
 
   if (href) {

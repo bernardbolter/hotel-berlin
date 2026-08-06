@@ -25,7 +25,7 @@ Bridge treatment is symmetric — same boxed component, swapped color/label (`Na
 
 ---
 
-## Section 2 — Full nav structure (desktop, ≥1024px)
+## Section 2 — Full nav structure (desktop, ≥1100px)
 
 ```
 Row 1: [Wordmark]  Rooms | Meetings | Eat & Drink | Happenings | Neighbourhood     [DE|EN]  [CTA]
@@ -40,7 +40,7 @@ Row 1 / Row 2 link content is identical on both pages. Only accent, CTA label, a
 
 ## Section 3 — Responsive breakpoints
 
-Breakpoints used: **480** (`xs`), **768** (`md`), **1024** (`lg`). Hamburger only below **768px**.
+Breakpoints used: **480** (`xs`), **768** (`md`), **1100** (`nav`). Hamburger only below **768px**.
 
 ### Below 480px — both contexts
 - **Visible:** wordmark (smaller), language toggle, hamburger
@@ -58,7 +58,7 @@ Row 2: Rooms | Meetings | … | Neighbourhood     [DE|EN]  [Book Now]
 - Promoted secondary link in chrome: **"What's on tonight"**
 - Rest in the dropdown (both groups)
 
-### 768–1023px — both contexts, **no hamburger**
+### 768–1099px — both contexts, **no hamburger**
 Three rows:
 ```
 Row 1: [Wordmark]                              [DE|EN]  [CTA]
@@ -68,9 +68,9 @@ Row 3: [Bridge]  What's on …         ← bg `hbb-nav-bg-deep` (#E6E6E6), sligh
 - Primary has dropped out of Row 1 into its own strip
 - Secondary is a full third row (not in a drawer)
 - On scroll, Row 3 (guest secondary) may hide; Row 2 primary strip stays
-- At ≥1024, secondary returns to standard `hbb-nav-bg` as the sole lower bar
+- At ≥1100, secondary returns to standard `hbb-nav-bg` as the sole lower bar
 
-### ≥1024px — both contexts
+### ≥1100px — both contexts
 - Full two-row desktop layout (primary beside wordmark; secondary below)
 - No hamburger, no dropdown
 
@@ -139,9 +139,9 @@ Keep Row 1 and Row 2 as two labeled groups; **own-page group first**.
 - [x] Bridge button ENTER (amber) / STAY (teal) — same component, swapped props
 - [x] Below 480px: wordmark, language, hamburger; full groups in dropdown
 - [x] Home 480–767: desktop-sized wordmark + hamburger; primary + lang + Book Now on strip; secondary in dropdown; strip persists on scroll
-- [x] 768–1023: three rows, no hamburger — wordmark/lang/CTA | primary | secondary
+- [x] 768–1099: three rows, no hamburger — wordmark/lang/CTA | primary | secondary
 - [x] `/here` 480–767: promoted "What's on tonight"
-- [x] ≥1024px: full two-row, no hamburger
+- [x] ≥1100px: full two-row, no hamburger
 - [x] Hamburger only below 768px: pointer, expand-on-hover, spin-to-X
 - [x] Dropdown animates open/close; no body scroll lock / no scrollbar layout shift
 - [x] Drawer groups labeled, own-page group first

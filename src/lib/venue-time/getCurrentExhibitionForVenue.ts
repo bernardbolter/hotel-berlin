@@ -1,5 +1,7 @@
 import { getPayloadClient } from '@/lib/payload/client'
 
+import type { Exhibition } from '@/payload-types'
+
 import { getBerlinNow } from './berlin'
 import { selectCurrentExhibitionForVenue } from './selectCurrentExhibition'
 import type { VenueTimeExhibition } from './types'
@@ -7,7 +9,7 @@ import type { VenueTimeExhibition } from './types'
 export async function getCurrentExhibitionForVenue(
   venueId: string | number,
   now: Date = getBerlinNow(),
-): Promise<VenueTimeExhibition | null> {
+): Promise<Exhibition | null> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'exhibitions',
@@ -20,8 +22,15 @@ export async function getCurrentExhibitionForVenue(
       ],
     },
     limit: 20,
-    depth: 0,
+    // depth 1 so heroImage populates for mediaUrl()
+    depth: 1,
+    locale: 'en',
+    fallbackLocale: 'en',
   })
 
-  return selectCurrentExhibitionForVenue(docs as VenueTimeExhibition[], venueId, now)
+  return selectCurrentExhibitionForVenue(
+    docs as VenueTimeExhibition[],
+    venueId,
+    now,
+  ) as Exhibition | null
 }

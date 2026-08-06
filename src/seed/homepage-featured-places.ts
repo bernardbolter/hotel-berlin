@@ -9,33 +9,33 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 
-/** Homepage teaser — first 5 (order 1–5). */
+/**
+ * Homepage teaser — first 5 (order 1–5).
+ * Prefer walkable / near-hotel picks that exist in the current neighbourhood seed.
+ */
 const HOMEPAGE_TEASER_SLUGS = [
-  'kadewe',
   'neue-nationalgalerie',
   'kaethe-kollwitz-museum',
-  'bayerischer-platz',
-  'viktoriapark',
+  'hamburger-bahnhof',
+  'koenig-galerie',
+  '893-ryotei-bar',
 ] as const
 
 /** /here teaser — independently curated set. */
 const HERE_TEASER_SLUGS = [
   '893-ryotei-bar',
-  'nobelhart-und-schmutzig',
-  'vater-bar',
   'hamburger-bahnhof',
   'koenig-galerie',
+  'schloss-charlottenburg',
+  'anjoy',
 ] as const
 
 /** Legacy featuredOrder 1–15 (pagination fallback / migration). */
 const FEATURED_SLUGS = [
   ...HOMEPAGE_TEASER_SLUGS,
-  ...HERE_TEASER_SLUGS,
   'schloss-charlottenburg',
-  'einar-und-bert-bookshop',
   'anjoy',
-  'tempelhofer-feld',
-  'berghain-panorama-bar',
+  'britzer-garten',
 ] as const
 
 async function clearTeaserFlags(

@@ -131,7 +131,27 @@ export async function getMapTeaserPlaces(locale: string, context: TeaserContext)
     limit: TEASER_PLACE_LIMIT,
   })
 
-  return legacy.docs as unknown as NeighbourhoodPlaceDoc[]
+  if (legacy.docs.length > 0) {
+    return legacy.docs as unknown as NeighbourhoodPlaceDoc[]
+  }
+
+  // Last resort — any active geo-tagged places so the homepage map still has pins
+  const anyGeo = await payload.find({
+    collection: 'neighbourhood-places',
+    locale: locale as 'de' | 'en',
+    where: {
+      and: [
+        { status: { equals: 'active' } },
+        { 'geo.latitude': { exists: true } },
+        { 'geo.longitude': { exists: true } },
+      ],
+    },
+    depth: 2,
+    sort: 'walkingMinutes',
+    limit: TEASER_PLACE_LIMIT,
+  })
+
+  return anyGeo.docs as unknown as NeighbourhoodPlaceDoc[]
 }
 
 /** @deprecated Prefer getMapTeaserPlaces(locale, 'homepage') */

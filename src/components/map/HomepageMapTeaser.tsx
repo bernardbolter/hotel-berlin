@@ -121,14 +121,6 @@ export function HomepageMapTeaser({
     )
   }
 
-  if (places.length === 0) {
-    return (
-      <div className="homepage-map-teaser flex h-[min(70vh,640px)] min-h-100 w-full items-center justify-center bg-gray-100 px-4 text-center">
-        <p className="font-ui text-ui-sm text-gray-500">{t('empty')}</p>
-      </div>
-    )
-  }
-
   const cardImage = selected
     ? selected.image?.src
       ? selected.image
@@ -171,20 +163,24 @@ export function HomepageMapTeaser({
           fitPadding={64}
           pinColorMode="category"
           selectedId={effectiveSelectedId}
-          onSelect={setSelectedId}
+          onSelect={places.length > 0 ? setSelectedId : undefined}
           ariaLabel={t('mapAria')}
           noscriptHtml={t.raw('noscript') as string}
           className="h-full! min-h-100!"
         />
 
         {/* Floating card — desktop only; mobile renders below */}
-        <div className="pointer-events-none absolute right-4 top-4 z-10 hidden md:block">
-          <div className="pointer-events-auto">{card}</div>
-        </div>
+        {card ? (
+          <div className="pointer-events-none absolute right-4 top-4 z-10 hidden md:block">
+            <div className="pointer-events-auto">{card}</div>
+          </div>
+        ) : null}
       </div>
 
       {/* Mobile: card in document flow under the map */}
-      <div className="border-t border-black/5 bg-hbb-page p-3 md:hidden">{card}</div>
+      {card ? (
+        <div className="border-t border-black/5 bg-hbb-page p-3 md:hidden">{card}</div>
+      ) : null}
     </div>
   )
 }

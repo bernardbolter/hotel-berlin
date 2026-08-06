@@ -13,11 +13,6 @@ import {
   type PlaceInfoCardImageCredit,
   type PlaceInfoCardTransit,
 } from '@/components/map/PlaceInfoCard'
-import {
-  readMapConsent,
-  writeMapConsent,
-  type MapConsentStatus,
-} from '@/lib/consent/mapConsent'
 import type { MapBounds } from '@/lib/map/config'
 import { pinColorForCategory } from '@/lib/neighbourhood/categories'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
@@ -59,10 +54,14 @@ type Props = {
   hotelAriaLabel: string
   shortAddress: string
   fallbackImageSrc?: string
-  /** Accent for consent CTA — forest (outside) or teal (inside /here). */
+  /** Accent kept for API compatibility (consent CTA removed for now). */
   accent?: 'forest' | 'teal'
 }
 
+/**
+ * Homepage /here map teaser — live Mapbox with curated pins.
+ * Cookie consent gate temporarily skipped: map loads whenever a token is present.
+ */
 export function HomepageMapTeaser({
   accessToken,
   bounds,
@@ -72,17 +71,9 @@ export function HomepageMapTeaser({
   hotelAriaLabel,
   shortAddress,
   fallbackImageSrc = FALLBACK_IMAGE,
-  accent = 'forest',
 }: Props) {
   const t = useTranslations('heroMap')
-  const [consent, setConsent] = useState<MapConsentStatus>('pending')
-  const [hydrated, setHydrated] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(places[0]?.id ?? null)
-
-  useEffect(() => {
-    setConsent(readMapConsent())
-    setHydrated(true)
-  }, [])
 
   useEffect(() => {
     if (places.length === 0) {
@@ -114,26 +105,7 @@ export function HomepageMapTeaser({
     [places],
   )
 
-  function grantConsent() {
-    writeMapConsent('granted')
-    setConsent('granted')
-  }
-
-  function declineConsent() {
-    writeMapConsent('declined')
-    setConsent('declined')
-  }
-
-  if (!hydrated) {
-    return (
-      <div
-        className="homepage-map-teaser h-[min(70vh,640px)] min-h-100 w-full animate-pulse bg-gray-100"
-        aria-hidden="true"
-      />
-    )
-  }
-
-  if (consent === 'declined' || (!accessToken && consent === 'granted')) {
+  if (!accessToken) {
     return (
       <div className="homepage-map-teaser relative h-[min(70vh,640px)] min-h-100 w-full overflow-hidden bg-hbb-page">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -145,29 +117,6 @@ export function HomepageMapTeaser({
         <p className="absolute bottom-0 left-0 right-0 bg-black/55 px-4 py-3 font-serif text-[15px] leading-snug text-white">
           {shortAddress}
         </p>
-      </div>
-    )
-  }
-
-  if (consent === 'pending' || !accessToken) {
-    return (
-      <div className="homepage-map-teaser flex h-[min(70vh,640px)] min-h-100 w-full flex-col items-center justify-center gap-3 bg-gray-100 px-4 text-center">
-        <p className="max-w-sm font-ui text-ui-md text-gray-600">{t('cookiesRequired')}</p>
-        <button
-          type="button"
-          onClick={grantConsent}
-          className="rounded-sm px-5 py-2.5 font-ui text-ui-sm font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-forest"
-          style={{ backgroundColor: accent === 'teal' ? '#2C6B7A' : '#56674F' }}
-        >
-          {t('enableMap')}
-        </button>
-        <button
-          type="button"
-          onClick={declineConsent}
-          className="font-ui text-ui-xs text-gray-500 underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-forest"
-        >
-          {t('declineMap')}
-        </button>
       </div>
     )
   }

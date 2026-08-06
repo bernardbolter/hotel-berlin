@@ -31,15 +31,20 @@ export async function getHomepageSpotlightCards(
   const payload = await getPayloadClient()
   const cards: SpotlightCardProps[] = []
 
-  const fkkb = await getVenueBySlug('fkkb', locale === 'de' ? 'de' : 'en').catch(() => null)
-  if (fkkb) {
-    const venueCard = await resolveVenueSpotlight(fkkb, { locale, now })
-    if (venueCard) {
-      cards.push({
-        ...venueCard,
-        cta: { ...venueCard.cta, href: '/here/art' },
-      })
+  // FKKB exhibition lookup must not block featured event cards (schema/enum drift, empty data).
+  try {
+    const fkkb = await getVenueBySlug('fkkb', locale === 'de' ? 'de' : 'en')
+    if (fkkb) {
+      const venueCard = await resolveVenueSpotlight(fkkb, { locale, now })
+      if (venueCard) {
+        cards.push({
+          ...venueCard,
+          cta: { ...venueCard.cta, href: '/here/art' },
+        })
+      }
     }
+  } catch (error) {
+    console.error('[getHomepageSpotlightCards] FKKB card skipped:', error)
   }
 
   if (cards.length >= HOMEPAGE_CARD_LIMIT) return cards.slice(0, HOMEPAGE_CARD_LIMIT)

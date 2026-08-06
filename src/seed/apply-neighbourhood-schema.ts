@@ -168,6 +168,16 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_column THEN NULL;
 END $$;
 
+-- Transit group + teaser flags (Neighbourhood Map revision)
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS transit_minutes numeric;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS transit_station varchar;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS transit_line varchar;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS homepage_teaser_enabled boolean DEFAULT false;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS homepage_teaser_order numeric;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS here_teaser_enabled boolean DEFAULT false;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS here_teaser_order numeric;
+ALTER TABLE neighbourhood_places ADD COLUMN IF NOT EXISTS featured_order numeric;
+
 -- Payload document locks: column may be missing if collection was added via raw SQL
 ALTER TABLE payload_locked_documents_rels
   ADD COLUMN IF NOT EXISTS neighbourhood_places_id integer

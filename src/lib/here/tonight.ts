@@ -52,7 +52,7 @@ export function activeSegmentClosesAt(
   const name = segmentName.toLowerCase()
 
   for (const entry of openingHours) {
-    const key = (entry.segment ?? entry.label ?? '').trim().toLowerCase()
+    const key = (entry.segment ?? '').trim().toLowerCase()
     if (key !== name) continue
     if (!dayOfWeekMatches(entry.dayOfWeek, weekday)) continue
     const opens = entry.opens ? parseTimeToMinutes(entry.opens) : null

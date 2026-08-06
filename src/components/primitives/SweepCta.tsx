@@ -91,9 +91,11 @@ export function SweepCta({
     }
 
     return (
+      // next-intl typed routes reject plain `string`; callers pass valid pathnames.
       <Link
         className={classes}
-        href={href as '/'}
+        // @ts-expect-error SweepCta accepts string hrefs; typed Link paths are enforced at call sites.
+        href={href}
         {...(rest as ComponentPropsWithoutRef<'a'>)}
       >
         {label}

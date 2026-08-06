@@ -99,12 +99,13 @@ async function upsertBySlug(
     throw new Error(`Cannot create ${collection}/${slug} in ${locale} — create EN first`)
   }
 
+  // Union collection slug makes Payload's create overload require `draft: true`.
   const created = await payload.create({
     collection,
     data: { ...data, slug },
     locale,
     overrideAccess: true,
-  })
+  } as Parameters<Payload['create']>[0])
   console.log(`Created ${collection}/${slug} (id ${created.id})`)
   return { id: created.id as number, created: true }
 }

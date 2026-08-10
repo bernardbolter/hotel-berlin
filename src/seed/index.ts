@@ -151,7 +151,7 @@ async function seed() {
           ...(description ? { description: plainRichText(description.en) } : {}),
         },
         locale: 'en',
-      })
+      } as Parameters<(typeof payload)['create']>[0])
       meetingRoomIds.set(room.slug, doc.id as number)
 
       await payload.update({

@@ -96,12 +96,53 @@ export interface NeighbourhoodPlace {
   status: 'active' | 'inactive';
 }
 
+export interface HotelRoomImage {
+  url: string;
+  altText: string;
+}
+
+export interface HotelRoomAmenity {
+  name: string;
+}
+
+export interface HotelRoom {
+  id: string;
+  slug: string;
+  name: string;
+  /** Long-form description for schema — NOT shortDescription. */
+  description?: string;
+  fromPrice?: number;
+  currency?: string;
+  bookingUrl?: string;
+  floorSizeM2?: number;
+  occupancyMax?: number;
+  bedType?: string;
+  numberOfBeds?: number;
+  images?: HotelRoomImage[];
+  amenities?: HotelRoomAmenity[];
+}
+
+/** Schema.org MeetingRoom — no Offer (quote-based via inquiry form). */
+export interface MeetingRoom {
+  id: string;
+  slug: string;
+  name: string;
+  /** Long-form description for schema — NOT shortDescription. */
+  description?: string;
+  floorSizeM2?: number;
+  occupancyMax?: number;
+  images?: HotelRoomImage[];
+  amenities?: HotelRoomAmenity[];
+}
+
 export interface SiteConfig {
   baseUrl: string; // e.g. "https://hotel-berlin.de"
   canonicalLocale: Locale; // 'de' — the site is German-first, bare domain redirects to /de
   paths: {
     neighbourhood: Record<Locale, string>; // { de: '/de/nachbarschaft', en: '/en/neighbourhood' }
     peopleHub: Record<Locale, string>; // { de: '/de/you-me-and-berlin', en: '/en/you-me-and-berlin' }
+    rooms: Record<Locale, string>; // { de: '/de/zimmer', en: '/en/rooms' }
+    meetings: Record<Locale, string>; // { de: '/de/tagungen', en: '/en/meetings' }
   };
 }
 

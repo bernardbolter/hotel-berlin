@@ -5,6 +5,7 @@ import config from '../payload.config'
 
 import amenityTagsSeed from './data/amenity-tags.json'
 import roomsSeed from './data/rooms.json'
+import { plainRichText } from './richText'
 import type { AmenityTagSeed, RoomSeedRecord } from './types'
 
 const amenityTags = amenityTagsSeed as AmenityTagSeed[]
@@ -22,23 +23,45 @@ async function seedAmenityTags(
       limit: 1,
     })
 
-    const data = {
+    const dataEn = {
       name: tag.name,
       slug: tag.slug,
       type: 'amenity' as const,
       lucideIcon: tag.lucideIcon,
+      description: tag.description.en,
+    }
+
+    const dataDe = {
+      name: tag.name,
+      description: tag.description.de,
     }
 
     if (existing.docs[0]) {
       await payload.update({
         collection: 'tags',
         id: existing.docs[0].id,
-        data,
+        data: dataEn,
         locale: 'en',
+      })
+      await payload.update({
+        collection: 'tags',
+        id: existing.docs[0].id,
+        data: dataDe,
+        locale: 'de',
       })
       console.log(`  Updated tag: ${tag.slug}`)
     } else {
-      await payload.create({ collection: 'tags', data, locale: 'en' })
+      const created = await payload.create({
+        collection: 'tags',
+        data: dataEn,
+        locale: 'en',
+      })
+      await payload.update({
+        collection: 'tags',
+        id: created.id,
+        data: dataDe,
+        locale: 'de',
+      })
       console.log(`  Created tag: ${tag.slug}`)
     }
   }
@@ -65,7 +88,7 @@ async function seedRooms() {
       limit: 1,
     })
 
-    const { name, shortDescription, amenities, ...rest } = room
+    const { name, shortDescription, description, amenities, ...rest } = room
     const missing = amenities.filter((slug) => !tagIdBySlug.has(slug))
     if (missing.length > 0) {
       console.warn(`  Warning (${room.slug}): missing amenity tags: ${missing.join(', ')}`)
@@ -80,7 +103,14 @@ async function seedRooms() {
       currency: 'EUR',
       name: name.en,
       shortDescription: shortDescription.en,
+      ...(description ? { description: plainRichText(description.en) } : {}),
       amenities: amenityIds,
+    }
+
+    const deData = {
+      name: name.de,
+      shortDescription: shortDescription.de,
+      ...(description ? { description: plainRichText(description.de) } : {}),
     }
 
     if (existing.docs[0]) {
@@ -89,7 +119,7 @@ async function seedRooms() {
       await payload.update({
         collection: 'rooms',
         id,
-        data: { name: name.de, shortDescription: shortDescription.de },
+        data: deData,
         locale: 'de',
       })
       console.log(`  Updated: ${room.slug} (${amenityIds.length} amenities)`)
@@ -100,7 +130,7 @@ async function seedRooms() {
     await payload.update({
       collection: 'rooms',
       id: doc.id,
-      data: { name: name.de, shortDescription: shortDescription.de },
+      data: deData,
       locale: 'de',
     })
     console.log(`  Created: ${room.slug} (${amenityIds.length} amenities)`)

@@ -15,5 +15,13 @@ export const defaultConfig: SiteConfig = {
       de: '/de/you-me-and-berlin',
       en: '/en/you-me-and-berlin',
     },
+    rooms: {
+      de: '/de/zimmer',
+      en: '/en/rooms',
+    },
+    meetings: {
+      de: '/de/tagungen',
+      en: '/en/meetings',
+    },
   },
 };

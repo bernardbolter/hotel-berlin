@@ -1,8 +1,32 @@
-import type { JsonLdGraph, JsonLdNode, NeighbourhoodPlace, Person, SiteConfig } from '../types';
+import type {
+  HotelRoom,
+  JsonLdGraph,
+  JsonLdNode,
+  MeetingRoom,
+  NeighbourhoodPlace,
+  Person,
+  SiteConfig,
+} from '../types';
+import {
+  buildHotelRoomNode,
+  buildHotelRoomRef,
+  buildOfferNode,
+  buildRoomBreadcrumbList,
+} from './hotelRoom';
+import {
+  buildMeetingRoomBreadcrumbList,
+  buildMeetingRoomNode,
+  buildMeetingRoomRef,
+} from './meetingRoom';
 import { buildPersonNode, buildPersonRef } from './person';
 import { buildPlaceNode, buildPlaceRef } from './place';
 import { buildReviewNodesForPlace } from './review';
-import { neighbourhoodListUrl, peopleListUrl } from '../lib/ids';
+import {
+  meetingsListUrl,
+  neighbourhoodListUrl,
+  peopleListUrl,
+  roomsListUrl,
+} from '../lib/ids';
 
 function wrap(graph: JsonLdNode[]): JsonLdGraph {
   return { '@context': 'https://schema.org', '@graph': dedupeById(graph) };
@@ -109,6 +133,80 @@ export function buildPeopleListGraph(people: Person[], config: SiteConfig): Json
   const listNode: JsonLdNode = {
     '@type': 'ItemList',
     '@id': `${peopleListUrl(config)}#list`,
+    itemListElement,
+  };
+
+  return wrap([listNode]);
+}
+
+/**
+ * Full JSON-LD graph for a room detail page (`/zimmer/[slug]`).
+ * Declares the HotelRoom entity once, plus its Offer and BreadcrumbList.
+ */
+export function buildHotelRoomPageGraph(
+  room: HotelRoom,
+  config: SiteConfig,
+  breadcrumbLabels: { home: string; rooms: string } = { home: 'Home', rooms: 'Rooms' },
+): JsonLdGraph {
+  const roomNode = buildHotelRoomNode(room, config);
+  const offer = buildOfferNode(room, config);
+  const breadcrumb = buildRoomBreadcrumbList(room, config, breadcrumbLabels);
+  return wrap(offer ? [roomNode, offer, breadcrumb] : [roomNode, breadcrumb]);
+}
+
+/**
+ * Listing-page graph — ItemList of lightweight refs to detail-page @ids.
+ * Never re-declares full HotelRoom nodes on the index.
+ */
+export function buildRoomsListGraph(rooms: HotelRoom[], config: SiteConfig): JsonLdGraph {
+  const itemListElement = rooms.map((room, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: buildHotelRoomRef(room, config),
+  }));
+
+  const listNode: JsonLdNode = {
+    '@type': 'ItemList',
+    '@id': `${roomsListUrl(config)}#list`,
+    itemListElement,
+  };
+
+  return wrap([listNode]);
+}
+
+/**
+ * Full JSON-LD graph for a meeting-room detail page (`/tagungen/[slug]`).
+ * Declares the MeetingRoom entity once plus BreadcrumbList — no Offer.
+ */
+export function buildMeetingRoomPageGraph(
+  room: MeetingRoom,
+  config: SiteConfig,
+  breadcrumbLabels: { home: string; meetings: string } = {
+    home: 'Home',
+    meetings: 'Meet & Work',
+  },
+): JsonLdGraph {
+  const roomNode = buildMeetingRoomNode(room, config);
+  const breadcrumb = buildMeetingRoomBreadcrumbList(room, config, breadcrumbLabels);
+  return wrap([roomNode, breadcrumb]);
+}
+
+/**
+ * Listing-page graph — ItemList of lightweight refs to detail-page @ids.
+ */
+export function buildMeetingsListGraph(
+  rooms: MeetingRoom[],
+  config: SiteConfig,
+): JsonLdGraph {
+  const itemListElement = rooms.map((room, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: buildMeetingRoomRef(room, config),
+  }));
+
+  const listNode: JsonLdNode = {
+    '@type': 'ItemList',
+    '@id': `${meetingsListUrl(config)}#list`,
     itemListElement,
   };
 

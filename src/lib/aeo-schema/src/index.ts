@@ -6,5 +6,7 @@ export * from './lib/authority';
 export * from './builders/person';
 export * from './builders/place';
 export * from './builders/review';
+export * from './builders/hotelRoom';
+export * from './builders/meetingRoom';
 export * from './builders/graph';
 export * from './builders/faq';

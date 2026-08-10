@@ -87,17 +87,36 @@ function imageSortKey(filePath: string): string {
   return `${rank}-${base}`
 }
 
+function parseSlugFilter(): string | null {
+  const slugArg = process.argv.find((arg) => arg.startsWith('--slug='))
+  if (slugArg) return slugArg.slice('--slug='.length)
+
+  const slugIndex = process.argv.indexOf('--slug')
+  if (slugIndex !== -1 && process.argv[slugIndex + 1]) {
+    return process.argv[slugIndex + 1]
+  }
+
+  return null
+}
+
 async function seedRoomImages() {
   const force = process.argv.includes('--force') || process.env.SEED_ROOM_IMAGES_FORCE === '1'
+  const slugFilter = parseSlugFilter()
   const assetsRoot = resolveAssetsRoot()
   const scraped = isScrapedLayout(assetsRoot)
 
   console.log(`Using room assets from: ${assetsRoot}`)
   console.log(`Layout: ${scraped ? 'scraped site folders' : 'slug folders'}`)
+  if (slugFilter) console.log(`Filter: ${slugFilter}`)
 
   const payload = await getPayload({ config })
+  const roomsToSeed = slugFilter ? rooms.filter((room) => room.slug === slugFilter) : rooms
 
-  for (const room of rooms) {
+  if (slugFilter && roomsToSeed.length === 0) {
+    throw new Error(`Unknown room slug: ${slugFilter}`)
+  }
+
+  for (const room of roomsToSeed) {
     const imageDir = resolveRoomImageDir(assetsRoot, room.slug)
     if (!imageDir) {
       console.warn(`  Skip ${room.slug}: no image folder found`)

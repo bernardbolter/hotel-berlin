@@ -48,12 +48,68 @@ export function guestStayFromHotel(hotel: Hotel | null | undefined): GuestStayIn
   }
 }
 
-export async function getHotel(): Promise<Hotel | null> {
+export async function getHotel(locale?: 'de' | 'en'): Promise<Hotel | null> {
   const payload = await getPayloadClient()
   try {
-    return (await payload.findGlobal({ slug: 'hotel', depth: 0 })) as Hotel
+    return (await payload.findGlobal({
+      slug: 'hotel',
+      depth: 0,
+      ...(locale ? { locale } : {}),
+    })) as Hotel
   } catch {
     return null
+  }
+}
+
+export type RoomsPageIntro = {
+  title: string | null
+  body: string | null
+  compareTableEnabled: boolean
+}
+
+export type RoomsSuitesCalloutContent = {
+  enabled: boolean
+  insertAfterSlug: string
+  quote: string | null
+  title: string | null
+  body: string | null
+}
+
+export type RoomsPageContent = RoomsPageIntro & {
+  suitesCallout: RoomsSuitesCalloutContent | null
+}
+
+export async function getRoomsPageIntro(locale: 'de' | 'en'): Promise<RoomsPageIntro> {
+  const content = await getRoomsPageContent(locale)
+  return {
+    title: content.title,
+    body: content.body,
+    compareTableEnabled: content.compareTableEnabled,
+  }
+}
+
+export async function getRoomsPageContent(locale: 'de' | 'en'): Promise<RoomsPageContent> {
+  const hotel = await getHotel(locale).catch(() => null)
+  const callout = hotel?.roomsSuitesCallout
+  const quote = callout?.quote?.trim() || null
+  const title = callout?.title?.trim() || null
+  const body = callout?.body?.trim() || null
+  const hasCalloutContent = Boolean(quote || title || body)
+
+  return {
+    title: hotel?.roomsPageIntro?.title?.trim() || null,
+    body: hotel?.roomsPageIntro?.body?.trim() || null,
+    compareTableEnabled: hotel?.compareTable?.enabled !== false,
+    suitesCallout:
+      callout?.enabled !== false && hasCalloutContent
+        ? {
+            enabled: true,
+            insertAfterSlug: callout?.insertAfterSlug?.trim() || 'premium',
+            quote,
+            title,
+            body,
+          }
+        : null,
   }
 }
 

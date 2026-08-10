@@ -72,6 +72,8 @@ export interface Config {
     tags: Tag;
     rooms: Room;
     'meeting-rooms': MeetingRoom;
+    'meeting-documents': MeetingDocument;
+    'meeting-inquiries': MeetingInquiry;
     venues: Venue;
     'hero-slides': HeroSlide;
     faqs: Faq;
@@ -99,6 +101,8 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     rooms: RoomsSelect<false> | RoomsSelect<true>;
     'meeting-rooms': MeetingRoomsSelect<false> | MeetingRoomsSelect<true>;
+    'meeting-documents': MeetingDocumentsSelect<false> | MeetingDocumentsSelect<true>;
+    'meeting-inquiries': MeetingInquiriesSelect<false> | MeetingInquiriesSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
     'hero-slides': HeroSlidesSelect<false> | HeroSlidesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
@@ -124,12 +128,14 @@ export interface Config {
     homepage: Homepage;
     navigation: Navigation;
     footer: Footer;
+    meetings: Meeting;
   };
   globalsSelect: {
     hotel: HotelSelect<false> | HotelSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    meetings: MeetingsSelect<false> | MeetingsSelect<true>;
   };
   locale: 'de' | 'en';
   widgets: {
@@ -211,6 +217,10 @@ export interface Tag {
   id: number;
   name: string;
   slug: string;
+  /**
+   * One-line amenity description reused on room detail grids. Amenity tags only.
+   */
+  description?: string | null;
   /**
    * Pick a Lucide icon. Leave blank for no icon.
    */
@@ -311,6 +321,10 @@ export interface Room {
       }[]
     | null;
   /**
+   * Optional og:image / twitter:image override. Falls back to the first gallery image if empty.
+   */
+  socialImage?: (number | null) | Media;
+  /**
    * Radisson booking deep-link for this room type
    */
   bookingUrl?: string | null;
@@ -360,7 +374,52 @@ export interface Room {
 export interface MeetingRoom {
   id: number;
   name: string;
+  /**
+   * Same slug for /meetings/[slug] and /tagungen/[slug].
+   */
   slug: string;
+  area: 'saal' | 'bereich-a' | 'bereich-b' | 'bereich-c' | 'sonderflaeche';
+  displayOrder: number;
+  /**
+   * Floor area in m² (brief sizeM2).
+   */
+  floorSizeM2: number;
+  ceilingHeightM?: number | null;
+  hasDaylight?: boolean | null;
+  isDivisible?: boolean | null;
+  hasScreen?: boolean | null;
+  hasProjector?: boolean | null;
+  /**
+   * Self-referencing — e.g. Berlin 1 combinable with Berlin 2 + Berlin 3.
+   */
+  combinableWith?: (number | MeetingRoom)[] | null;
+  /**
+   * Leave any field blank if that layout isn't offered — renders as "–", not 0.
+   */
+  capacity?: {
+    theater?: number | null;
+    classroom?: number | null;
+    banquet?: number | null;
+    uShape?: number | null;
+    cabaret?: number | null;
+    reception?: number | null;
+    block?: number | null;
+  };
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional. Falls back to the first gallery image if empty.
+   */
+  teaserImage?: (number | null) | Media;
+  /**
+   * Card / teaser copy. Keep ~160 chars.
+   */
+  shortDescription: string;
   description?: {
     root: {
       type: string;
@@ -376,42 +435,94 @@ export interface MeetingRoom {
     };
     [k: string]: unknown;
   } | null;
-  shortDescription?: string | null;
-  floorSizeM2: number;
-  area?: ('ballroom' | 'area-a' | 'area-b' | 'area-c') | null;
-  capacity?: {
-    classroom?: number | null;
-    theatre?: number | null;
-    banquet?: number | null;
-    uShape?: number | null;
-    cabaret?: number | null;
-    reception?: number | null;
-    block?: number | null;
-  };
-  features?: {
-    screen?: boolean | null;
-    projector?: boolean | null;
-    divisible?: boolean | null;
-    naturalLight?: boolean | null;
-    hybridReady?: boolean | null;
-  };
   /**
-   * Other rooms this can be combined with
-   */
-  combinableWith?: (number | MeetingRoom)[] | null;
-  images?:
-    | {
-        image: number | Media;
-        alt: string;
-        id?: string | null;
-      }[]
-    | null;
-  enquiryUrl?: string | null;
-  displayOrder?: number | null;
-  /**
-   * Show on meetings page teaser
+   * Show on homepage Meet & Work teaser if used.
    */
   featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * PDF library on /meetings. Switch locale (DE/EN) in the admin bar to set title + file per language. Add and delete documents freely — the site lists whatever is published here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-documents".
+ */
+export interface MeetingDocument {
+  id: number;
+  /**
+   * Localized — set DE and EN titles by switching the locale toggle.
+   */
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  key: string;
+  /**
+   * PDF preferred. Localized — upload the German file with locale=DE, English with locale=EN.
+   */
+  file: number | Media;
+  category: 'general' | 'floor-plan' | 'hybrid' | 'sustainability';
+  /**
+   * Floor plans only — links this PDF on matching room detail pages.
+   */
+  area?: ('saal' | 'bereich-a' | 'bereich-b' | 'bereich-c') | null;
+  /**
+   * Optional. Marks this file as the CTA target for a page teaser. At most one document should use each role.
+   */
+  pageRole?: ('none' | 'hybrid-teaser' | 'banquet-teaser') | null;
+  /**
+   * Lower numbers appear first in the document library.
+   */
+  sortOrder: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-inquiries".
+ */
+export interface MeetingInquiry {
+  id: number;
+  company?: string | null;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  startDate: string;
+  endDate: string;
+  /**
+   * Free text mirroring meetings.eventTypes — historical submissions stay stable if options change.
+   */
+  eventType: string;
+  guestCount?: number | null;
+  /**
+   * Overnight / contingent room count.
+   */
+  roomCount?: number | null;
+  /**
+   * Guests staying overnight (room block).
+   */
+  overnightGuestCount?: number | null;
+  /**
+   * Free-text duration of stay, e.g. 2 nights.
+   */
+  stayDuration?: string | null;
+  /**
+   * Pre-filled when the form is reached via a room detail page CTA.
+   */
+  roomOfInterest?: (number | null) | MeetingRoom;
+  isRoomBlock?: boolean | null;
+  notes?: string | null;
+  /**
+   * Privacy policy checkbox.
+   */
+  privacyAccepted: boolean;
+  /**
+   * Data-processing consent checkbox.
+   */
+  consentGiven: boolean;
+  locale: 'en' | 'de';
   updatedAt: string;
   createdAt: string;
 }
@@ -1192,6 +1303,14 @@ export interface PayloadLockedDocument {
         value: number | MeetingRoom;
       } | null)
     | ({
+        relationTo: 'meeting-documents';
+        value: number | MeetingDocument;
+      } | null)
+    | ({
+        relationTo: 'meeting-inquiries';
+        value: number | MeetingInquiry;
+      } | null)
+    | ({
         relationTo: 'venues';
         value: number | Venue;
       } | null)
@@ -1324,6 +1443,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  description?: T;
   lucideIcon?: T;
   type?: T;
   updatedAt?: T;
@@ -1371,6 +1491,7 @@ export interface RoomsSelect<T extends boolean = true> {
         caption?: T;
         id?: T;
       };
+  socialImage?: T;
   bookingUrl?: T;
   featured?: T;
   displayOrder?: T;
@@ -1398,31 +1519,26 @@ export interface RoomsSelect<T extends boolean = true> {
 export interface MeetingRoomsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
-  description?: T;
-  shortDescription?: T;
-  floorSizeM2?: T;
   area?: T;
+  displayOrder?: T;
+  floorSizeM2?: T;
+  ceilingHeightM?: T;
+  hasDaylight?: T;
+  isDivisible?: T;
+  hasScreen?: T;
+  hasProjector?: T;
+  combinableWith?: T;
   capacity?:
     | T
     | {
+        theater?: T;
         classroom?: T;
-        theatre?: T;
         banquet?: T;
         uShape?: T;
         cabaret?: T;
         reception?: T;
         block?: T;
       };
-  features?:
-    | T
-    | {
-        screen?: T;
-        projector?: T;
-        divisible?: T;
-        naturalLight?: T;
-        hybridReady?: T;
-      };
-  combinableWith?: T;
   images?:
     | T
     | {
@@ -1430,9 +1546,51 @@ export interface MeetingRoomsSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
-  enquiryUrl?: T;
-  displayOrder?: T;
+  teaserImage?: T;
+  shortDescription?: T;
+  description?: T;
   featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-documents_select".
+ */
+export interface MeetingDocumentsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  key?: T;
+  file?: T;
+  category?: T;
+  area?: T;
+  pageRole?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meeting-inquiries_select".
+ */
+export interface MeetingInquiriesSelect<T extends boolean = true> {
+  company?: T;
+  contactPerson?: T;
+  email?: T;
+  phone?: T;
+  startDate?: T;
+  endDate?: T;
+  eventType?: T;
+  guestCount?: T;
+  roomCount?: T;
+  overnightGuestCount?: T;
+  stayDuration?: T;
+  roomOfInterest?: T;
+  isRoomBlock?: T;
+  notes?: T;
+  privacyAccepted?: T;
+  consentGiven?: T;
+  locale?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2005,6 +2163,53 @@ export interface Hotel {
     ctaLabel?: string | null;
   };
   /**
+   * Editable header for /rooms · /zimmer index page.
+   */
+  roomsPageIntro?: {
+    /**
+     * Defaults to "Rooms & Suites" / "Zimmer & Suiten" if empty.
+     */
+    title?: string | null;
+    /**
+     * Intro paragraph under the H1 (Laica A).
+     */
+    body?: string | null;
+  };
+  /**
+   * Hide-dont-delete toggle for the /rooms comparison matrix.
+   */
+  compareTable?: {
+    /**
+     * Show the “Compare all rooms” section on the rooms index.
+     */
+    enabled?: boolean | null;
+  };
+  /**
+   * Quote block on /rooms · /zimmer — shown after the room slug set in “Insert after”.
+   */
+  roomsSuitesCallout?: {
+    /**
+     * Show the suites callout on the rooms index.
+     */
+    enabled?: boolean | null;
+    /**
+     * Room slug after which the callout appears (default: premium).
+     */
+    insertAfterSlug?: string | null;
+    /**
+     * Pull quote — serif, shown above the title.
+     */
+    quote?: string | null;
+    /**
+     * Heading, e.g. "The Suites" / "Die Suiten".
+     */
+    title?: string | null;
+    /**
+     * Short paragraph under the title.
+     */
+    body?: string | null;
+  };
+  /**
    * Homepage Lütze / Eat & Drink teaser — Rooms-style layout (text + arch photo + one Sweep CTA). Links to /restaurant.
    */
   eatAndDrink?: {
@@ -2276,6 +2481,98 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Editorial content for /meetings (DE: /tagungen). Hero, event formats, hybrid & food teasers, facilities.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meetings".
+ */
+export interface Meeting {
+  id: number;
+  /**
+   * Small line above the headline, e.g. “Award-winning business hotel in Berlin”.
+   */
+  heroKicker?: string | null;
+  heroHeadline?: string | null;
+  heroIntro?: string | null;
+  /**
+   * Label above phone/email, e.g. “Kontaktieren Sie uns:”.
+   */
+  heroContactLabel?: string | null;
+  /**
+   * Full-bleed hero rotation. Order = playback order.
+   */
+  heroSlides?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  contactPhone?: string | null;
+  contactEmail?: string | null;
+  /**
+   * Section title above the format cards. Leave blank to hide the heading.
+   */
+  eventTypesHeading?: string | null;
+  /**
+   * Add, reorder, or delete cards. Use a stable key matching the seed filename (meetings, conferences, fairs, exhibitions).
+   */
+  eventTypes?:
+    | {
+        /**
+         * Stable id for seeding photos, e.g. meetings → event-formats/meetings.jpg
+         */
+        key?: string | null;
+        label: string;
+        description: string;
+        /**
+         * Card photo. Prefer seeding from event-formats/{key}.jpg
+         */
+        image?: (number | null) | Media;
+        /**
+         * Optional Lucide icon if no photo yet, e.g. Users, Presentation, Store, Frame.
+         */
+        lucideIcon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  hybridTeaser?: {
+    kicker?: string | null;
+    headline?: string | null;
+    body?: string | null;
+    ctaLabel?: string | null;
+    /**
+     * Wide photo for the split teaser. Suggested seed path: src/seed/assets/meet-and-work/teasers/hybrid.jpg
+     */
+    image?: (number | null) | Media;
+  };
+  foodDrinkTeaser?: {
+    kicker?: string | null;
+    headline?: string | null;
+    body?: string | null;
+    ctaLabel?: string | null;
+    /**
+     * Wide photo for the split teaser. Suggested seed path: src/seed/assets/meet-and-work/teasers/food-drink.jpg
+     */
+    image?: (number | null) | Media;
+  };
+  facilities?:
+    | {
+        label: string;
+        description: string;
+        /**
+         * Lucide icon name, e.g. Wifi, ParkingCircle.
+         */
+        lucideIcon: string;
+        id?: string | null;
+      }[]
+    | null;
+  closingHeadline?: string | null;
+  closingCtaLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel_select".
  */
@@ -2375,6 +2672,26 @@ export interface HotelSelect<T extends boolean = true> {
               id?: T;
             };
         ctaLabel?: T;
+      };
+  roomsPageIntro?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+      };
+  compareTable?:
+    | T
+    | {
+        enabled?: T;
+      };
+  roomsSuitesCallout?:
+    | T
+    | {
+        enabled?: T;
+        insertAfterSlug?: T;
+        quote?: T;
+        title?: T;
+        body?: T;
       };
   eatAndDrink?:
     | T
@@ -2525,6 +2842,67 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   copyrightEntity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meetings_select".
+ */
+export interface MeetingsSelect<T extends boolean = true> {
+  heroKicker?: T;
+  heroHeadline?: T;
+  heroIntro?: T;
+  heroContactLabel?: T;
+  heroSlides?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
+  contactPhone?: T;
+  contactEmail?: T;
+  eventTypesHeading?: T;
+  eventTypes?:
+    | T
+    | {
+        key?: T;
+        label?: T;
+        description?: T;
+        image?: T;
+        lucideIcon?: T;
+        id?: T;
+      };
+  hybridTeaser?:
+    | T
+    | {
+        kicker?: T;
+        headline?: T;
+        body?: T;
+        ctaLabel?: T;
+        image?: T;
+      };
+  foodDrinkTeaser?:
+    | T
+    | {
+        kicker?: T;
+        headline?: T;
+        body?: T;
+        ctaLabel?: T;
+        image?: T;
+      };
+  facilities?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        lucideIcon?: T;
+        id?: T;
+      };
+  closingHeadline?: T;
+  closingCtaLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

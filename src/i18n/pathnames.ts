@@ -26,10 +26,22 @@ export const pathnames = {
     en: '/you-me-and-berlin/[slug]',
     de: '/you-me-and-berlin/[slug]',
   },
+  '/rooms': { en: '/rooms', de: '/zimmer' },
+  '/rooms/[slug]': {
+    en: '/rooms/[slug]',
+    de: '/zimmer/[slug]',
+  },
+  '/meetings': { en: '/meetings', de: '/tagungen' },
+  '/meetings/[slug]': {
+    en: '/meetings/[slug]',
+    de: '/tagungen/[slug]',
+  },
+  '/meetings/request': {
+    en: '/meetings/request',
+    de: '/tagungen/anfrage',
+  },
   // Placeholder — NOT final, do not let these reach production before sign-off:
-  '/rooms': { en: '/rooms', de: '/rooms' },
   '/restaurant': { en: '/restaurant', de: '/restaurant' },
-  '/meetings': { en: '/meetings', de: '/meetings' },
   '/happenings': { en: '/happenings', de: '/happenings' },
   '/offers': { en: '/offers', de: '/offers' },
   '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed

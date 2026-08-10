@@ -6,6 +6,7 @@ export type RoomSeedRecord = {
   featured: boolean
   displayOrder: number
   shortDescription: LocalizedSeed
+  description?: LocalizedSeed
   fromPrice: number
   floorSizeM2?: number | null
   bedConfiguration: {
@@ -29,4 +30,5 @@ export type AmenityTagSeed = {
   slug: string
   type: 'amenity'
   lucideIcon: string
+  description: LocalizedSeed
 }

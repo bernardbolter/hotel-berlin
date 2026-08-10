@@ -46,3 +46,31 @@ export function reviewNodeId(placeSlug: string, personSlug: string, config: Site
 export function hotelNodeId(config: SiteConfig): string {
   return `${config.baseUrl}/#hotel`;
 }
+
+export function roomUrl(slug: string, config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.rooms[config.canonicalLocale]}/${slug}`;
+}
+
+export function roomsListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.rooms[config.canonicalLocale]}`;
+}
+
+export function roomNodeId(slug: string, config: SiteConfig): string {
+  return `${roomUrl(slug, config)}#room`;
+}
+
+export function roomOfferNodeId(slug: string, config: SiteConfig): string {
+  return `${roomUrl(slug, config)}#offer`;
+}
+
+export function meetingRoomUrl(slug: string, config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.meetings[config.canonicalLocale]}/${slug}`;
+}
+
+export function meetingsListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.meetings[config.canonicalLocale]}`;
+}
+
+export function meetingRoomNodeId(slug: string, config: SiteConfig): string {
+  return `${meetingRoomUrl(slug, config)}#room`;
+}

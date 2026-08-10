@@ -12,6 +12,8 @@ const config: Config = {
         'hbb-green': '#4A7A68',
         'hbb-forest': '#56674F',
         'hbb-coral': '#F95D62',
+        /** Rooms pages only — prices, nav rail, amenity icons. Not site-wide coral. */
+        'hbb-rooms-highlight': '#C16157',
         'hbb-purple': '#6A5870',
         'hbb-gold': '#A08C38',
         /** Eat & Drink / Lütze accent — espresso (unused elsewhere in map palette) */

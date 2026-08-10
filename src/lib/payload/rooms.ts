@@ -29,33 +29,59 @@ export async function getRoomsForHero(locale: 'de' | 'en'): Promise<Room[]> {
   return docs
 }
 
-export async function getRooms() {
+/** All rooms for the /rooms index, ordered by editorial displayOrder. */
+export async function getAllRooms(locale: 'de' | 'en'): Promise<Room[]> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
+    locale,
+    depth: 2,
     sort: 'displayOrder',
-    limit: 20,
+    limit: 50,
   })
   return docs
 }
 
-export async function getFeaturedRooms() {
+/** @deprecated Prefer getAllRooms(locale) — kept for existing callers. */
+export async function getRooms() {
+  return getAllRooms('en')
+}
+
+export async function getFeaturedRooms(locale: 'de' | 'en' = 'en') {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
     where: { featured: { equals: true } },
     sort: 'displayOrder',
+    locale,
+    depth: 2,
     limit: 4,
   })
   return docs
 }
 
-export async function getRoomBySlug(slug: string) {
+export async function getRoomBySlug(
+  slug: string,
+  locale: 'de' | 'en' = 'en',
+): Promise<Room | null> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
     where: { slug: { equals: slug } },
+    locale,
+    depth: 2,
     limit: 1,
   })
   return docs[0] ?? null
+}
+
+export async function getRoomSlugs(): Promise<string[]> {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'rooms',
+    depth: 0,
+    limit: 50,
+    select: { slug: true },
+  })
+  return docs.map((doc) => doc.slug).filter(Boolean)
 }

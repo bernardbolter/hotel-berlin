@@ -3,294 +3,490 @@
     "name": "Free WiFi",
     "slug": "free-wifi",
     "type": "amenity",
-    "lucideIcon": "Wifi"
+    "lucideIcon": "Wifi",
+    "description": {
+      "en": "Wireless internet throughout your stay.",
+      "de": "WLAN im ganzen Zimmer — während deines Aufenthalts."
+    }
   },
   {
     "name": "King bed",
     "slug": "king-bed",
     "type": "amenity",
-    "lucideIcon": "BedDouble"
+    "lucideIcon": "BedDouble",
+    "description": {
+      "en": "A king-size bed for a proper night’s sleep.",
+      "de": "Ein Kingsize-Bett für eine gute Nacht."
+    }
   },
   {
     "name": "King bed freestanding",
     "slug": "king-bed-freestanding",
     "type": "amenity",
-    "lucideIcon": "BedDouble"
+    "lucideIcon": "BedDouble",
+    "description": {
+      "en": "A freestanding king bed as the room’s centrepiece.",
+      "de": "Freistehendes Kingsize-Bett — das Herzstück des Zimmers."
+    }
   },
   {
     "name": "Queen bed",
     "slug": "queen-bed",
     "type": "amenity",
-    "lucideIcon": "BedDouble"
+    "lucideIcon": "BedDouble",
+    "description": {
+      "en": "A queen-size bed, ready when you are.",
+      "de": "Ein Queensize-Bett — bereit wenn du bist."
+    }
   },
   {
     "name": "Twin beds",
     "slug": "twin-beds",
     "type": "amenity",
-    "lucideIcon": "Bed"
+    "lucideIcon": "Bed",
+    "description": {
+      "en": "Two single beds, set up as twins.",
+      "de": "Zwei Einzelbetten als Twin-Arrangement."
+    }
   },
   {
     "name": "Double bed",
     "slug": "double-bed",
     "type": "amenity",
-    "lucideIcon": "Bed"
+    "lucideIcon": "Bed",
+    "description": {
+      "en": "A comfortable double bed.",
+      "de": "Ein bequemes Doppelbett."
+    }
   },
   {
     "name": "Bunk beds",
     "slug": "bunk-beds",
     "type": "amenity",
-    "lucideIcon": "BedSingle"
+    "lucideIcon": "BedSingle",
+    "description": {
+      "en": "Bunk beds for younger guests.",
+      "de": "Etagenbetten für jüngere Gäste."
+    }
   },
   {
     "name": "Shower",
     "slug": "shower",
     "type": "amenity",
-    "lucideIcon": "ShowerHead"
+    "lucideIcon": "ShowerHead",
+    "description": {
+      "en": "A bathroom with shower and hair dryer.",
+      "de": "Bad mit Dusche und Haartrockner."
+    }
   },
   {
     "name": "Rain shower",
     "slug": "rain-shower",
     "type": "amenity",
-    "lucideIcon": "ShowerHead"
+    "lucideIcon": "ShowerHead",
+    "description": {
+      "en": "A walk-in rain shower.",
+      "de": "Begehbare Regendusche."
+    }
   },
   {
     "name": "Bath & shower",
     "slug": "bath-shower",
     "type": "amenity",
-    "lucideIcon": "Bath"
+    "lucideIcon": "Bath",
+    "description": {
+      "en": "Bath and shower in one bathroom.",
+      "de": "Badewanne und Dusche im Bad."
+    }
   },
   {
     "name": "Spa bathroom",
     "slug": "spa-bathroom",
     "type": "amenity",
-    "lucideIcon": "Bath"
+    "lucideIcon": "Bath",
+    "description": {
+      "en": "A spa bathroom with tub and rain shower.",
+      "de": "Spa-Bad mit Wanne und Regendusche."
+    }
   },
   {
     "name": "Separate guest WC",
     "slug": "separate-wc",
     "type": "amenity",
-    "lucideIcon": "Toilet"
+    "lucideIcon": "Toilet",
+    "description": {
+      "en": "A separate guest WC.",
+      "de": "Separates Gäste-WC."
+    }
   },
   {
     "name": "Hair dryer",
     "slug": "hair-dryer",
     "type": "amenity",
-    "lucideIcon": "Wind"
+    "lucideIcon": "Wind",
+    "description": {
+      "en": "Hair dryer ready in the bathroom.",
+      "de": "Haartrockner im Bad."
+    }
   },
   {
     "name": "Air conditioning",
     "slug": "air-conditioning",
     "type": "amenity",
-    "lucideIcon": "AirVent"
+    "lucideIcon": "AirVent",
+    "description": {
+      "en": "Air conditioning for a cool night in.",
+      "de": "Klimaanlage für kühle Nächte."
+    }
   },
   {
     "name": "Adjustable AC",
     "slug": "adjustable-ac",
     "type": "amenity",
-    "lucideIcon": "Thermometer"
+    "lucideIcon": "Thermometer",
+    "description": {
+      "en": "Adjustable air conditioning you control.",
+      "de": "Klimaanlage, die du selbst steuern kannst."
+    }
   },
   {
     "name": "Sound-proof windows",
     "slug": "soundproof-windows",
     "type": "amenity",
-    "lucideIcon": "VolumeOff"
+    "lucideIcon": "VolumeOff",
+    "description": {
+      "en": "Sound-proof windows for quieter nights.",
+      "de": "Schalldichte Fenster für ruhigere Nächte."
+    }
   },
   {
     "name": "42\" TV",
     "slug": "tv-42",
     "type": "amenity",
-    "lucideIcon": "Tv"
+    "lucideIcon": "Tv",
+    "description": {
+      "en": "A 42-inch flat-screen TV.",
+      "de": "42-Zoll-Flachbild-TV."
+    }
   },
   {
     "name": "49\" TV",
     "slug": "tv-49",
     "type": "amenity",
-    "lucideIcon": "Tv"
+    "lucideIcon": "Tv",
+    "description": {
+      "en": "A 49-inch flat-screen TV.",
+      "de": "49-Zoll-Flachbild-TV."
+    }
   },
   {
     "name": "55\" TV",
     "slug": "tv-55",
     "type": "amenity",
-    "lucideIcon": "Tv"
+    "lucideIcon": "Tv",
+    "description": {
+      "en": "A 55-inch flat-screen TV.",
+      "de": "55-Zoll-Flachbild-TV."
+    }
   },
   {
     "name": "2× TVs",
     "slug": "tv-dual",
     "type": "amenity",
-    "lucideIcon": "Tv2"
+    "lucideIcon": "Tv2",
+    "description": {
+      "en": "Two TVs — bedroom and living area.",
+      "de": "Zwei TVs — Schlaf- und Wohnbereich."
+    }
   },
   {
     "name": "Teufel sound system",
     "slug": "teufel-sound",
     "type": "amenity",
-    "lucideIcon": "Speaker"
+    "lucideIcon": "Speaker",
+    "description": {
+      "en": "Teufel speakers for proper sound.",
+      "de": "Teufel-Lautsprecher für echten Sound."
+    }
   },
   {
     "name": "DJ deck",
     "slug": "dj-deck",
     "type": "amenity",
-    "lucideIcon": "Disc3"
+    "lucideIcon": "Disc3",
+    "description": {
+      "en": "A DJ deck ready to play.",
+      "de": "DJ-Deck — bereit zum Auflegen."
+    }
   },
   {
     "name": "High-end sound system",
     "slug": "hifi-sound",
     "type": "amenity",
-    "lucideIcon": "AudioLines"
+    "lucideIcon": "AudioLines",
+    "description": {
+      "en": "A high-end sound system that fills the room.",
+      "de": "High-End-Soundsystem, das den Raum füllt."
+    }
   },
   {
     "name": "Instruments",
     "slug": "instruments",
     "type": "amenity",
-    "lucideIcon": "Music"
+    "lucideIcon": "Music",
+    "description": {
+      "en": "Instruments you are welcome to play.",
+      "de": "Instrumente, die gespielt werden dürfen."
+    }
   },
   {
     "name": "200 records",
     "slug": "vinyl-collection",
     "type": "amenity",
-    "lucideIcon": "Disc3"
+    "lucideIcon": "Disc3",
+    "description": {
+      "en": "Around 200 records curated for the room.",
+      "de": "Rund 200 Schallplatten — für dieses Zimmer kuratiert."
+    }
   },
   {
     "name": "Nespresso machine",
     "slug": "nespresso",
     "type": "amenity",
-    "lucideIcon": "Coffee"
+    "lucideIcon": "Coffee",
+    "description": {
+      "en": "Nespresso machine with capsules.",
+      "de": "Nespresso-Maschine mit Kapseln."
+    }
   },
   {
     "name": "Tea facilities",
     "slug": "tea",
     "type": "amenity",
-    "lucideIcon": "Coffee"
+    "lucideIcon": "Coffee",
+    "description": {
+      "en": "Tea facilities for a quiet cup.",
+      "de": "Tee-Zubereitung für eine ruhige Tasse."
+    }
   },
   {
     "name": "Room safe",
     "slug": "room-safe",
     "type": "amenity",
-    "lucideIcon": "LockKeyhole"
+    "lucideIcon": "LockKeyhole",
+    "description": {
+      "en": "A spacious room safe.",
+      "de": "Geräumiger Zimmersafe."
+    }
   },
   {
     "name": "Refrigerator",
     "slug": "refrigerator",
     "type": "amenity",
-    "lucideIcon": "Refrigerator"
+    "lucideIcon": "Refrigerator",
+    "description": {
+      "en": "A small refrigerator for drinks and snacks.",
+      "de": "Kleiner Kühlschrank für Getränke und Snacks."
+    }
   },
   {
     "name": "Minibar",
     "slug": "minibar",
     "type": "amenity",
-    "lucideIcon": "Wine"
+    "lucideIcon": "Wine",
+    "description": {
+      "en": "A minibar stocked for the stay.",
+      "de": "Minibar für deinen Aufenthalt."
+    }
   },
   {
     "name": "Desk",
     "slug": "desk",
     "type": "amenity",
-    "lucideIcon": "Laptop"
+    "lucideIcon": "Laptop",
+    "description": {
+      "en": "A small desk for laptop or notes.",
+      "de": "Kleiner Schreibtisch für Laptop oder Notizen."
+    }
   },
   {
     "name": "Work & dining area",
     "slug": "work-dining",
     "type": "amenity",
-    "lucideIcon": "UtensilsCrossed"
+    "lucideIcon": "UtensilsCrossed",
+    "description": {
+      "en": "A work and dining area in the room.",
+      "de": "Arbeits- und Essbereich im Zimmer."
+    }
   },
   {
     "name": "Seating area",
     "slug": "seating-area",
     "type": "amenity",
-    "lucideIcon": "Sofa"
+    "lucideIcon": "Sofa",
+    "description": {
+      "en": "A seating area to settle into.",
+      "de": "Sitzbereich zum Ankommen."
+    }
   },
   {
     "name": "Foldout sofa",
     "slug": "foldout-sofa",
     "type": "amenity",
-    "lucideIcon": "Sofa"
+    "lucideIcon": "Sofa",
+    "description": {
+      "en": "A foldout sofa for extra seating or sleep.",
+      "de": "Ausziehsofa für Sitzen oder Schlafen."
+    }
   },
   {
     "name": "Separate living area",
     "slug": "separate-living",
     "type": "amenity",
-    "lucideIcon": "LayoutPanelLeft"
+    "lucideIcon": "LayoutPanelLeft",
+    "description": {
+      "en": "A separate living area from the bedroom.",
+      "de": "Separater Wohnbereich neben dem Schlafzimmer."
+    }
   },
   {
     "name": "Floor-to-ceiling windows",
     "slug": "ftc-windows",
     "type": "amenity",
-    "lucideIcon": "Maximize"
+    "lucideIcon": "Maximize",
+    "description": {
+      "en": "Floor-to-ceiling windows.",
+      "de": "Bodentiefe Fenster."
+    }
   },
   {
     "name": "Parquet flooring",
     "slug": "parquet",
     "type": "amenity",
-    "lucideIcon": "Grid2x2"
+    "lucideIcon": "Grid2x2",
+    "description": {
+      "en": "Parquet flooring throughout.",
+      "de": "Parkettboden im ganzen Zimmer."
+    }
   },
   {
     "name": "Dimmable lighting",
     "slug": "dimmable-lighting",
     "type": "amenity",
-    "lucideIcon": "Lightbulb"
+    "lucideIcon": "Lightbulb",
+    "description": {
+      "en": "Dimmable lighting to set the mood.",
+      "de": "Dimmbares Licht für die richtige Stimmung."
+    }
   },
   {
     "name": "Balcony",
     "slug": "balcony",
     "type": "amenity",
-    "lucideIcon": "Flower2"
+    "lucideIcon": "Flower2",
+    "description": {
+      "en": "A private balcony.",
+      "de": "Privater Balkon."
+    }
   },
   {
     "name": "Private sauna",
     "slug": "private-sauna",
     "type": "amenity",
-    "lucideIcon": "Flame"
+    "lucideIcon": "Flame",
+    "description": {
+      "en": "A private sauna in the room.",
+      "de": "Private Sauna im Zimmer."
+    }
   },
   {
     "name": "Non-smoking",
     "slug": "non-smoking",
     "type": "amenity",
-    "lucideIcon": "CigaretteOff"
+    "lucideIcon": "CigaretteOff",
+    "description": {
+      "en": "A non-smoking room.",
+      "de": "Nichtraucherzimmer."
+    }
   },
   {
     "name": "Adjoining rooms",
     "slug": "adjoining-rooms",
     "type": "amenity",
-    "lucideIcon": "DoorOpen"
+    "lucideIcon": "DoorOpen",
+    "description": {
+      "en": "Adjoining rooms available on request.",
+      "de": "Verbindungstüren auf Anfrage."
+    }
   },
   {
     "name": "Wheelchair accessible",
     "slug": "accessible",
     "type": "amenity",
-    "lucideIcon": "Accessibility"
+    "lucideIcon": "Accessibility",
+    "description": {
+      "en": "Wheelchair-accessible layout.",
+      "de": "Barrierefreie Ausstattung."
+    }
   },
   {
     "name": "Pet friendly",
     "slug": "pet-friendly",
     "type": "amenity",
-    "lucideIcon": "PawPrint"
+    "lucideIcon": "PawPrint",
+    "description": {
+      "en": "Pets welcome — ask at booking.",
+      "de": "Haustiere willkommen — bitte bei der Buchung anfragen."
+    }
   },
   {
     "name": "Berlin door headboards",
     "slug": "berlin-doors",
     "type": "amenity",
-    "lucideIcon": "DoorClosed"
+    "lucideIcon": "DoorClosed",
+    "description": {
+      "en": "Berlin door headboards — a local detail.",
+      "de": "Berliner Tür-Kopfteilen — ein lokales Detail."
+    }
   },
   {
     "name": "You, Me & Berlin map",
     "slug": "ymb-map",
     "type": "amenity",
-    "lucideIcon": "MapPin"
+    "lucideIcon": "MapPin",
+    "description": {
+      "en": "A You, Me & Berlin map in the room.",
+      "de": "You, Me & Berlin-Karte im Zimmer."
+    }
   },
   {
     "name": "Books",
     "slug": "books",
     "type": "amenity",
-    "lucideIcon": "BookOpen"
+    "lucideIcon": "BookOpen",
+    "description": {
+      "en": "Books meant to be read.",
+      "de": "Bücher, die gelesen werden sollen."
+    }
   },
   {
     "name": "Garden view",
     "slug": "garden-view",
     "type": "amenity",
-    "lucideIcon": "Trees"
+    "lucideIcon": "Trees",
+    "description": {
+      "en": "A view over the garden.",
+      "de": "Blick in den Garten."
+    }
   },
   {
     "name": "Lützowplatz view",
     "slug": "luetzowplatz-view",
     "type": "amenity",
-    "lucideIcon": "Building2"
+    "lucideIcon": "Building2",
+    "description": {
+      "en": "A view toward Lützowplatz.",
+      "de": "Blick zum Lützowplatz."
+    }
   }
 ]

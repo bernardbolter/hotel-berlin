@@ -242,6 +242,91 @@ export const Hotel: GlobalConfig = {
       ],
     },
     {
+      name: 'roomsPageIntro',
+      label: 'Rooms page intro',
+      type: 'group',
+      admin: {
+        description: 'Editable header for /rooms · /zimmer index page.',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          localized: true,
+          admin: {
+            description: 'Defaults to "Rooms & Suites" / "Zimmer & Suiten" if empty.',
+          },
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+          admin: { description: 'Intro paragraph under the H1 (Laica A).' },
+        },
+      ],
+    },
+    {
+      name: 'compareTable',
+      label: 'Rooms compare table',
+      type: 'group',
+      admin: {
+        description: 'Hide-dont-delete toggle for the /rooms comparison matrix.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description: 'Show the “Compare all rooms” section on the rooms index.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'roomsSuitesCallout',
+      label: 'Rooms page — suites callout',
+      type: 'group',
+      admin: {
+        description:
+          'Quote block on /rooms · /zimmer — shown after the room slug set in “Insert after”.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: { description: 'Show the suites callout on the rooms index.' },
+        },
+        {
+          name: 'insertAfterSlug',
+          type: 'text',
+          defaultValue: 'premium',
+          admin: {
+            description: 'Room slug after which the callout appears (default: premium).',
+          },
+        },
+        {
+          name: 'quote',
+          type: 'textarea',
+          localized: true,
+          admin: { description: 'Pull quote — serif, shown above the title.' },
+        },
+        {
+          name: 'title',
+          type: 'text',
+          localized: true,
+          admin: { description: 'Heading, e.g. "The Suites" / "Die Suiten".' },
+        },
+        {
+          name: 'body',
+          type: 'textarea',
+          localized: true,
+          admin: { description: 'Short paragraph under the title.' },
+        },
+      ],
+    },
+    {
       name: 'eatAndDrink',
       label: 'Eat & Drink',
       type: 'group',

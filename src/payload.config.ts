@@ -13,6 +13,8 @@ import { FAQs } from './collections/FAQs'
 import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
 import { Media } from './collections/Media'
+import { MeetingDocuments } from './collections/MeetingDocuments'
+import { MeetingInquiries } from './collections/MeetingInquiries'
 import { MeetingRooms } from './collections/MeetingRooms'
 import { NeighbourhoodPlaces } from './collections/NeighbourhoodPlaces'
 import { People } from './collections/People'
@@ -24,6 +26,7 @@ import { Venues } from './collections/Venues'
 import { Footer } from './globals/Footer'
 import { Hotel } from './globals/Hotel'
 import { Homepage } from './globals/Homepage'
+import { Meetings } from './globals/Meetings'
 import { Navigation } from './globals/Navigation'
 
 const filename = fileURLToPath(import.meta.url)
@@ -42,6 +45,8 @@ export default buildConfig({
     Tags,
     Rooms,
     MeetingRooms,
+    MeetingDocuments,
+    MeetingInquiries,
     Venues,
     HeroSlides,
     FAQs,
@@ -54,7 +59,7 @@ export default buildConfig({
     Places,
     Pages,
   ],
-  globals: [Hotel, Homepage, Navigation, Footer],
+  globals: [Hotel, Homepage, Navigation, Footer, Meetings],
   editor: lexicalEditor(),
   localization: {
     locales: ['de', 'en'],

@@ -4,12 +4,16 @@ import createNextIntlPlugin from 'next-intl/plugin'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { buildMeetingRedirects } from './src/lib/meetings/redirects'
+import { buildRoomRedirects } from './src/lib/rooms/redirects'
+
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const nextConfig: NextConfig = {
+  redirects: async () => [...buildRoomRedirects(), ...buildMeetingRedirects()],
   images: {
     localPatterns: [
       {

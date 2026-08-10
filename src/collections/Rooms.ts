@@ -123,6 +123,15 @@ export const Rooms: CollectionConfig = {
       ],
     },
     {
+      name: 'socialImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Optional og:image / twitter:image override. Falls back to the first gallery image if empty.',
+      },
+    },
+    {
       name: 'bookingUrl',
       type: 'text',
       admin: { description: 'Radisson booking deep-link for this room type' },

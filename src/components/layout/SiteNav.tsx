@@ -12,7 +12,7 @@ import { NavSecondary } from '@/components/layout/NavSecondary'
 import type { SecondaryNavLink } from '@/lib/nav/types'
 
 export interface SiteNavProps {
-  context?: 'outside' | 'inside'
+  context?: 'outside' | 'inside' | 'meetings'
   secondaryLinks: SecondaryNavLink[]
 }
 
@@ -44,6 +44,8 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
   const drawerRef = useRef<HTMLDivElement>(null)
 
   const isInside = context === 'inside'
+  const useTealAccent = context === 'inside' || context === 'meetings'
+  const navSecondaryContext = isInside ? 'inside' : 'outside'
   const ownIsSecondary = isInside
   const ctaLabel = isInside ? t('planNextStay') : t('bookNow')
 
@@ -91,12 +93,12 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
       isCurrent(href) ? 'text-hbb-black' : 'text-[#6B6762]'
     }`
 
-  const ctaClass = `inline-flex book-now-btn ${isInside ? 'book-now-btn--teal' : ''}`
+  const ctaClass = `inline-flex book-now-btn ${useTealAccent ? 'book-now-btn--teal' : ''}`
 
   const langSwitcherColors = {
     label: 'text-[#9A9590]',
     link: 'text-[#6B6762]',
-    active: isInside ? 'text-hbb-teal' : 'text-hbb-black',
+    active: useTealAccent ? 'text-hbb-teal' : 'text-hbb-black',
     hover: 'hover:text-hbb-black',
     separator: 'text-[#6B6762]/40',
   } as const
@@ -144,7 +146,7 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
 
   const drawerSecondary = (
     <NavSecondary
-      context={context}
+      context={navSecondaryContext}
       links={secondaryLinks}
       layout="stacked"
       className="bg-transparent px-0 py-0"
@@ -182,7 +184,7 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
       className="site-nav-header sticky top-0 z-50 bg-white"
       style={
         {
-          '--nav-accent': isInside ? '#2C6B7A' : '#B87A2E',
+          '--nav-accent': useTealAccent ? '#2C6B7A' : '#B87A2E',
         } as CSSProperties
       }
     >
@@ -262,7 +264,7 @@ export function SiteNav({ context = 'outside', secondaryLinks }: SiteNavProps) {
       {/* Scroll-hide clip: guest secondary from 768 up */}
       <div className="nav-secondary-clip">
         <NavSecondary
-          context={context}
+          context={navSecondaryContext}
           links={secondaryLinks}
           visibility="all"
           className="hidden bg-hbb-nav-bg-deep md:block min-[1100px]:bg-hbb-nav-bg"

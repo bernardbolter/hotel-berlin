@@ -132,7 +132,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           </div>
           <span
             aria-hidden="true"
-            className="w-[2px] shrink-0 self-stretch bg-[#C16157]"
+            className="w-[2px] shrink-0 self-stretch bg-hbb-rooms-highlight"
           />
         </div>
         <figcaption className="sr-only">{t('galleryAria')}</figcaption>
@@ -142,7 +142,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
       <div className="flex w-full min-w-0 flex-col items-start">
         <h2
           id="rooms-heading"
-          className="text-left font-serif text-[clamp(2.15rem,3.4vw,3.1rem)] font-normal leading-[1.12] text-[#C16157]"
+          className="text-left font-serif text-[clamp(2.15rem,3.4vw,3.1rem)] font-normal leading-[1.12] text-hbb-rooms-highlight"
         >
           {copy.heading}
         </h2>
@@ -177,26 +177,26 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           {/* Size / bed / guests — same idea as the old rooms section */}
           <ul
             role="list"
-            className={`mt-5 grid grid-cols-3 border border-[#C16157]/30 transition-opacity duration-300 ${
+            className={`mt-5 grid grid-cols-3 border border-hbb-rooms-highlight/30 transition-opacity duration-300 ${
               priceVisible ? 'opacity-100' : 'opacity-0'
             } motion-reduce:opacity-100`}
           >
-            <li className="flex flex-col items-center gap-1.5 border-r border-[#C16157]/30 px-2 py-3">
-              <Ruler aria-hidden="true" size={15} className="text-[#C16157]" />
+            <li className="flex flex-col items-center gap-1.5 border-r border-hbb-rooms-highlight/30 px-2 py-3">
+              <Ruler aria-hidden="true" size={15} className="text-hbb-rooms-highlight" />
               <span className="text-center font-ui text-[0.8rem] leading-snug text-[#5a5a5a]">
                 <span className="sr-only">{t('specSize')}: </span>
                 {active.sizeLabel}
               </span>
             </li>
-            <li className="flex flex-col items-center gap-1.5 border-r border-[#C16157]/30 px-2 py-3">
-              <BedDouble aria-hidden="true" size={15} className="text-[#C16157]" />
+            <li className="flex flex-col items-center gap-1.5 border-r border-hbb-rooms-highlight/30 px-2 py-3">
+              <BedDouble aria-hidden="true" size={15} className="text-hbb-rooms-highlight" />
               <span className="text-center font-ui text-[0.8rem] leading-snug text-[#5a5a5a]">
                 <span className="sr-only">{t('specBed')}: </span>
                 {active.bedLabel}
               </span>
             </li>
             <li className="flex flex-col items-center gap-1.5 px-2 py-3">
-              <Users aria-hidden="true" size={15} className="text-[#C16157]" />
+              <Users aria-hidden="true" size={15} className="text-hbb-rooms-highlight" />
               <span className="text-center font-ui text-[0.8rem] leading-snug text-[#5a5a5a]">
                 <span className="sr-only">{t('specSleeps')}: </span>
                 {active.sleepsLabel === '–'
@@ -221,7 +221,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
                   <AmenityIcon
                     iconName={amenity.iconName}
                     size={14}
-                    className="shrink-0 text-[#C16157]"
+                    className="shrink-0 text-hbb-rooms-highlight"
                   />
                   {amenity.name}
                 </li>

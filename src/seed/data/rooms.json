@@ -40,10 +40,14 @@
       "tv-42",
       "teufel-sound",
       "refrigerator",
-      "berlin-doors",
+      "desk",
       "ymb-map",
       "air-conditioning"
-    ]
+    ],
+    "description": {
+      "en": "After a day out in Berlin, this is a quiet place to land. A bed, free Wi-Fi, a fridge for something cold, and a flat-screen TV — everything you need for a good night, nothing you don't.\n\nFrom 16 m², with a bathroom shower, a small desk, and air conditioning. Compact, practical, and ready when you are.",
+      "de": "Nach einem Tag in der Stadt ist das hier dein ruhiger Ort zum Ankommen. Bett, gratis WLAN, Kühlschrank und Flachbild-TV — alles, was du für eine gute Nacht brauchst. Nicht mehr, nicht weniger.\n\nAb 16 m², mit Dusche, kleinem Schreibtisch und Klimaanlage. Kompakt, praktisch, bereit wenn du bist."
+    }
   },
   {
     "name": {

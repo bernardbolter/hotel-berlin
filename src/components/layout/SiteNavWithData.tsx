@@ -5,7 +5,7 @@ import { getSecondaryNavLinks } from '@/lib/payload/navigation'
 import { SiteNav } from './SiteNav'
 
 type Props = {
-  context?: 'outside' | 'inside'
+  context?: 'outside' | 'inside' | 'meetings'
 }
 
 export async function SiteNavWithData({ context = 'outside' }: Props) {

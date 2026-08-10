@@ -15,6 +15,11 @@ type SharedProps = {
   size?: SweepCtaSize
   /** Which side the 2px bar sits on (and sweeps from). Default left. */
   edge?: SweepCtaEdge
+  /**
+   * On dark panels: white label + white sweep; hover/focus label uses the
+   * color token (e.g. meet-work blue).
+   */
+  invert?: boolean
   /** Use a plain <a> without locale prefix (e.g. /book) */
   unlocalized?: boolean
 }
@@ -53,6 +58,7 @@ const edgeClass: Record<SweepCtaEdge, string> = {
 /**
  * Standard text CTA: bold clamp size, 2px edge bar that sweeps across on hover and
  * inverts label to white. Shared by rooms teaser, book-direct strip, etc.
+ * Pass `invert` on dark panels for white label → color-token label under a white sweep.
  */
 export function SweepCta({
   children,
@@ -60,6 +66,7 @@ export function SweepCta({
   color = 'terracotta',
   size = 'md',
   edge = 'left',
+  invert = false,
   href,
   external = false,
   unlocalized = false,
@@ -70,6 +77,7 @@ export function SweepCta({
     colorClass[color],
     sizeClass[size],
     edgeClass[edge],
+    invert ? 'sweep-cta--invert' : '',
     className,
   ]
     .filter(Boolean)

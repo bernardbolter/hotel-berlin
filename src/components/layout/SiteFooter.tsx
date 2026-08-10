@@ -37,7 +37,12 @@ function FooterBarAnchor({
   )
 }
 
-export async function SiteFooter() {
+type Props = {
+  /** When false, hide the book-direct bar above the footer (e.g. meetings pages with their own inquiry CTA). */
+  showBookDirectStrip?: boolean
+}
+
+export async function SiteFooter({ showBookDirectStrip = true }: Props = {}) {
   const locale = (await getLocale()) as 'de' | 'en'
   const tc = await getTranslations('common')
   const t = await getTranslations('footer')
@@ -46,7 +51,7 @@ export async function SiteFooter() {
 
   return (
     <>
-      {data.bookDirectStrip.visible ? (
+      {showBookDirectStrip && data.bookDirectStrip.visible ? (
         <BookDirectStrip
           message={data.bookDirectStrip.message}
           ctaLabel={data.bookDirectStrip.ctaLabel}

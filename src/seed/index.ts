@@ -16,7 +16,8 @@ import {
 } from './data'
 import roomsSeed from './data/rooms.json'
 import { upsertPage } from './pages'
-import type { RoomSeedRecord } from './types'
+import { plainRichText } from './richText'
+import type { AmenityTagSeed, RoomSeedRecord } from './types'
 
 const rooms = roomsSeed as RoomSeedRecord[]
 
@@ -50,7 +51,39 @@ async function seed() {
   if (!(await isSeeded('tags'))) {
     console.log('Seeding tags...')
     for (const tag of tagsSeed) {
-      await payload.create({ collection: 'tags', data: tag, locale: 'en' })
+      if (tag.type === 'amenity') {
+        const amenity = tag as AmenityTagSeed
+        const created = await payload.create({
+          collection: 'tags',
+          data: {
+            name: amenity.name,
+            slug: amenity.slug,
+            type: 'amenity',
+            lucideIcon: amenity.lucideIcon,
+            description: amenity.description.en,
+          },
+          locale: 'en',
+        })
+        await payload.update({
+          collection: 'tags',
+          id: created.id,
+          data: {
+            name: amenity.name,
+            description: amenity.description.de,
+          },
+          locale: 'de',
+        })
+      } else {
+        await payload.create({
+          collection: 'tags',
+          data: {
+            name: tag.name,
+            slug: tag.slug,
+            type: tag.type,
+          },
+          locale: 'en',
+        })
+      }
     }
   }
 
@@ -66,7 +99,7 @@ async function seed() {
     const tagIdBySlug = new Map(tagDocs.map((tag) => [tag.slug, tag.id as number]))
 
     for (const room of rooms) {
-      const { name, shortDescription, amenities, ...rest } = room
+      const { name, shortDescription, description, amenities, ...rest } = room
       const amenityIds = amenities
         .map((slug) => tagIdBySlug.get(slug))
         .filter((id): id is number => id != null)
@@ -78,6 +111,7 @@ async function seed() {
           currency: 'EUR',
           name: name.en,
           shortDescription: shortDescription.en,
+          ...(description ? { description: plainRichText(description.en) } : {}),
           amenities: amenityIds,
         },
         locale: 'en',
@@ -89,6 +123,7 @@ async function seed() {
         data: {
           name: name.de,
           shortDescription: shortDescription.de,
+          ...(description ? { description: plainRichText(description.de) } : {}),
         },
         locale: 'de',
       })
@@ -100,9 +135,35 @@ async function seed() {
   if (!(await isSeeded('meeting-rooms'))) {
     console.log('Seeding meeting rooms...')
     for (const room of meetingRoomsSeed) {
-      const { combinableWith, ...data } = room
-      const doc = await payload.create({ collection: 'meeting-rooms', data, locale: 'en' })
+      const { combinableWith, name, shortDescription, description, ...rest } = room as {
+        combinableWith?: string[]
+        name: { en: string; de: string }
+        shortDescription: { en: string; de: string }
+        description?: { en: string; de: string }
+        [key: string]: unknown
+      }
+      const doc = await payload.create({
+        collection: 'meeting-rooms',
+        data: {
+          ...rest,
+          name: name.en,
+          shortDescription: shortDescription.en,
+          ...(description ? { description: plainRichText(description.en) } : {}),
+        },
+        locale: 'en',
+      })
       meetingRoomIds.set(room.slug, doc.id as number)
+
+      await payload.update({
+        collection: 'meeting-rooms',
+        id: doc.id,
+        data: {
+          name: name.de,
+          shortDescription: shortDescription.de,
+          ...(description ? { description: plainRichText(description.de) } : {}),
+        },
+        locale: 'de',
+      })
     }
 
     for (const room of meetingRoomsSeed) {

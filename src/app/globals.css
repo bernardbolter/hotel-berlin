@@ -7,6 +7,8 @@
   --font-laica: 'Laica A', Georgia, serif;
   /* Line-CTA highlight swipe — coral; swap here if it doesn't read well live */
   --cta-highlight: #f95d62;
+  /* Rooms pages accent — muted terracotta; NOT coral. Large text / non-text only. */
+  --rooms-highlight: #c16157;
   /* Site content max width — 1440px */
   --site-max: 90rem;
 }
@@ -594,30 +596,101 @@ body {
 
 .sweep-cta--terracotta {
   color: #c16157;
+  --sweep-cta-ink: #c16157;
 }
 
 .sweep-cta--nav-amber {
   color: theme('colors.hbb-nav-amber');
+  --sweep-cta-ink: theme('colors.hbb-nav-amber');
 }
 
 .sweep-cta--meet-work {
   color: #1e4b5d;
+  --sweep-cta-ink: #1e4b5d;
 }
 
 .sweep-cta.sweep-cta--meet-work {
   color: #1e4b5d;
+  --sweep-cta-ink: #1e4b5d;
 }
 
 .sweep-cta--ink {
   color: #1f1f1f;
+  --sweep-cta-ink: #1f1f1f;
 }
 
 .sweep-cta--espresso {
   color: theme('colors.hbb-espresso');
+  --sweep-cta-ink: theme('colors.hbb-espresso');
+}
+
+/* Dark panels: white label + white sweep; hover label returns to color token */
+.sweep-cta.sweep-cta--invert {
+  color: #fff;
+}
+
+.sweep-cta.sweep-cta--invert::before {
+  background: #fff;
+}
+
+.sweep-cta.sweep-cta--invert:hover .sweep-cta__label,
+.sweep-cta.sweep-cta--invert:focus-visible .sweep-cta__label {
+  color: var(--sweep-cta-ink);
 }
 
 .sweep-cta--sm {
   font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+}
+
+/* Rooms index — inline nav links under breadcrumbs */
+.rooms-nav-link {
+  position: relative;
+  display: inline-block;
+  border: none;
+  background: transparent;
+  padding: 0 0 2px;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: theme('colors.hbb-rooms-highlight');
+  cursor: pointer;
+  transition: font-weight 180ms ease-out;
+}
+
+.rooms-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms ease-out;
+}
+
+.rooms-nav-link:hover,
+.rooms-nav-link:focus-visible {
+  font-weight: 700;
+}
+
+.rooms-nav-link:hover::after,
+.rooms-nav-link:focus-visible::after,
+.rooms-nav-link--active::after {
+  transform: scaleX(1);
+}
+
+.rooms-nav-link--active {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rooms-nav-link,
+  .rooms-nav-link::after {
+    transition: none;
+  }
 }
 
 .sweep-cta--edge-right {

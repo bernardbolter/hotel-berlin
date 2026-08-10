@@ -7,6 +7,16 @@ export const Tags: CollectionConfig = {
     { name: 'name', type: 'text', required: true, localized: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     {
+      name: 'description',
+      type: 'text',
+      localized: true,
+      admin: {
+        description:
+          'One-line amenity description reused on room detail grids. Amenity tags only.',
+        condition: (data) => data.type === 'amenity',
+      },
+    },
+    {
       name: 'lucideIcon',
       type: 'text',
       label: 'Lucide icon',

@@ -3,8 +3,21 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { getHomepageSpotlightCards } from '@/lib/data/homepageSpotlight'
 import { spotlightTeasers } from '@/lib/data/spotlightTeasers'
+import type { SpotlightCardProps } from '@/lib/spotlight/types'
 
 import { EventsRow } from './EventsRow'
+
+function fillHomepageRow(
+  live: SpotlightCardProps[],
+  fallback: SpotlightCardProps[],
+  count = 4,
+): SpotlightCardProps[] {
+  if (live.length >= count) return live.slice(0, count)
+  if (live.length === 0) return fallback.slice(0, count)
+  const used = new Set(live.map((card) => card.title.toLowerCase()))
+  const extra = fallback.filter((card) => !used.has(card.title.toLowerCase()))
+  return [...live, ...extra].slice(0, count)
+}
 
 /** Matches RoomsTeaser section title scale (Laica). */
 const HEADING_CLASS =
@@ -22,7 +35,7 @@ export async function EventsSection() {
     console.error('[EventsSection] Failed to load spotlight cards:', error)
     return [] as Awaited<ReturnType<typeof getHomepageSpotlightCards>>
   })
-  const items = live.length > 0 ? live : spotlightTeasers
+  const items = fillHomepageRow(live, spotlightTeasers)
 
   return (
     <section

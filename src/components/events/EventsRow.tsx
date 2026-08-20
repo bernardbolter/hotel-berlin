@@ -5,13 +5,21 @@ import { useEffect, useRef, useState } from 'react'
 import { SpotlightCard } from '@/components/spotlight/SpotlightCard'
 import type { SpotlightCardProps } from '@/lib/spotlight/types'
 
-/** Design min — cards never shrink below the original SpotlightCard width. */
+/** Design min for 1–3 cards. */
 const MIN_CARD_PX = 250
 /** Floor gap between cards (not at the row ends). */
 const MIN_GAP_PX = 20
 /** Share of leftover width that grows gaps vs cards (rest goes to card growth via 1fr). */
 const GAP_SHARE = 0.28
 const MAX_GAP_PX = 48
+const MAX_COLS = 4
+
+/** Measured row width → column count. Padding lives on the section, not this list. */
+const COL_BREAKPOINTS = [
+  { cols: 2, minWidth: 520 },
+  { cols: 3, minWidth: 760 },
+  { cols: 4, minWidth: 920 },
+] as const
 
 type Props = {
   items: SpotlightCardProps[]
@@ -21,9 +29,12 @@ type Props = {
 
 function columnCount(width: number, itemCount: number): number {
   if (width <= 0 || itemCount <= 0) return 1
-  // n * minCard + (n - 1) * minGap <= width
-  const n = Math.floor((width + MIN_GAP_PX) / (MIN_CARD_PX + MIN_GAP_PX))
-  return Math.min(itemCount, Math.max(1, n))
+  const max = Math.min(itemCount, MAX_COLS)
+  let n = 1
+  for (const step of COL_BREAKPOINTS) {
+    if (width >= step.minWidth) n = step.cols
+  }
+  return Math.min(max, n)
 }
 
 function gapForRow(width: number, cols: number): number {
@@ -35,8 +46,7 @@ function gapForRow(width: number, cols: number): number {
 
 /**
  * One-row SpotlightCards that fill the container width.
- * 250px is the minimum card width; cards and inter-card gaps grow until
- * another card fits at that minimum, then a new column is added.
+ * Adds columns 1 → 2 → 3 → 4 as soon as another card fits; extras stay hidden.
  */
 export function EventsRow({ items, ariaLabel, className = '' }: Props) {
   const listRef = useRef<HTMLUListElement>(null)
@@ -65,6 +75,7 @@ export function EventsRow({ items, ariaLabel, className = '' }: Props) {
   }, [items.length])
 
   const visible = items.slice(0, cols)
+  const minTrack = cols >= 4 ? 0 : MIN_CARD_PX
 
   return (
     <ul
@@ -73,13 +84,13 @@ export function EventsRow({ items, ariaLabel, className = '' }: Props) {
       aria-label={ariaLabel}
       className={['grid w-full', className].filter(Boolean).join(' ')}
       style={{
-        gridTemplateColumns: `repeat(${cols}, minmax(${MIN_CARD_PX}px, 1fr))`,
+        gridTemplateColumns: `repeat(${cols}, minmax(${minTrack}px, 1fr))`,
         columnGap: `${gapPx}px`,
       }}
     >
       {visible.map((item, index) => (
         <li key={`${item.image.src}-${item.primaryMeta}-${index}`} className="min-w-0">
-          <SpotlightCard {...item} className="w-full" />
+          <SpotlightCard {...item} className="h-full w-full min-w-0!" />
         </li>
       ))}
     </ul>

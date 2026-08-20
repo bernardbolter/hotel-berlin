@@ -67,7 +67,41 @@
     "building": "This page is being built.",
     "duringYourStay": "During your stay",
     "tonight": "Tonight",
+    "clockAria": "Current time in Berlin",
+    "locationLine": "Hotel Berlin, Berlin · Lützowplatz 17",
+    "artInBuilding": "Art in the building",
+    "inTheBasement": "In the basement",
+    "needHelp": "Need help?",
+    "faqsHeading": "Frequently asked",
+    "allGuestFaqs": "All guest FAQs →",
+    "exploreSection": "Explore the area",
+    "openFullMap": "Open full map →",
+    "faqFallback": {
+      "checkout": {
+        "q": "What time is check-out?",
+        "a": "Check-out is by 12:00 noon. Late check-out may be available — ask at reception."
+      },
+      "ubahn": {
+        "q": "Where is the nearest U-Bahn?",
+        "a": "Nollendorfplatz (U1 / U2 / U3 / U4) is a short walk. Buses 100, 106 and 187 stop at Lützowplatz."
+      },
+      "luggage": {
+        "q": "Can I store luggage after check-out?",
+        "a": "Yes — luggage storage is at reception, before check-in and after check-out."
+      }
+    },
+    "backToHub": "← Guest hub",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "heroFallback": {
+      "thursdayLine1": "Tournament night starts at 19:00",
+      "thursdayLine2": "KTTK · B2 basement"
+    },
     "stay": {
+      "title": "Stay info",
       "checkout": "Check-out",
       "breakfast": "Breakfast",
       "wifi": "WiFi",
@@ -75,6 +109,211 @@
       "luggage": "Luggage",
       "faqsCta": "Parking · luggage · pets · all FAQs →",
       "eventLabel": "Your event"
+    },
+    "goodToKnow": {
+      "section": "Good to know",
+      "title": "Good to know — the rest of the essentials",
+      "gettingAroundCta": "Full getting-around guide →",
+      "settled": {
+        "title": "Getting settled",
+        "checkin": "Check-in 15:00",
+        "luggage": "Luggage before/after stay",
+        "safes": "Room safes · housekeeping"
+      },
+      "money": {
+        "title": "Money & connectivity",
+        "cards": "Cards / contactless only",
+        "wifi": "Free WiFi hotel-wide",
+        "atm": "ATM · business center"
+      },
+      "health": {
+        "title": "Health & comfort",
+        "pets": "Pets €30/day",
+        "nonsmoking": "Non-smoking hotel",
+        "gym": "Sauna · 24/7 gym"
+      },
+      "around": {
+        "title": "Getting around",
+        "taxi": "Taxi · airport shuttle",
+        "ev": "EV charging (8× Type 2)",
+        "guide": "Full guide → /here/getting-around"
+      }
+    },
+    "art": {
+      "currentBadge": "Current show",
+      "currentMeta": "Gallery · ground floor · free entry · explore all editions →",
+      "fallbackTitle": "FKKB — Freiluft Kunst Klub Berlin",
+      "floors": {
+        "somari": {
+          "floor": "Floor 4 · near the lifts",
+          "title": "Somari",
+          "body": "A large mural by the lifts on the fourth floor — one of the hotel’s standing On the Walls commissions. Take the lift up and you walk straight into it.",
+          "cta": "Find Somari",
+          "metaLeft": "Floor 4",
+          "metaRight": "Near the lifts"
+        },
+        "deerbln": {
+          "floor": "Floor 2 · stairwell",
+          "title": "deerBLN",
+          "body": "deerBLN’s work sits in the second-floor stairwell — easy to miss if you only take the lift, worth the stairs if you want the walls.",
+          "cta": "Find deerBLN",
+          "metaLeft": "Floor 2",
+          "metaRight": "Stairwell"
+        },
+        "pisa73": {
+          "floor": "Lobby · main entrance",
+          "title": "Pisa73",
+          "body": "Pisa73 at the main entrance — the first mural most guests see, right as they come in off Lützowplatz.",
+          "cta": "Find Pisa73",
+          "metaLeft": "Lobby",
+          "metaRight": "Main entrance"
+        },
+        "wallride": {
+          "floor": "B2 · outside KTTK",
+          "title": "Wallride",
+          "body": "Permanent half-pipe exhibition in the basement — Cold War Berlin skate history, curated by Jürgen Blümlein and Skateboardmuseum Berlin.",
+          "cta": "Visit Wallride",
+          "metaLeft": "B2",
+          "metaRight": "Outside KTTK"
+        }
+      },
+      "currentDescription": "Independent gallery in the hotel — artists in residence, rotating exhibitions, free to walk in. The current duo show is on the ground floor.",
+      "currentCta": "Explore the gallery",
+      "wallsBadge": "On the walls",
+      "rowAria": "Art in the building"
+    },
+    "basement": {
+      "kttk": {
+        "badge": "B2 · Mon–Sun",
+        "title": "KTTK",
+        "line1": "4 JOOLA tables · €5 / 30 min",
+        "line2": "Bats at Lütze bar"
+      },
+      "wallride": {
+        "badge": "Permanent",
+        "title": "Wallride",
+        "line1": "Half-pipe · Cold War Berlin skate history",
+        "line2": "By Skateboardmuseum Berlin"
+      },
+      "fingerboard": {
+        "title": "Fingerboard ramps — placement TBD",
+        "body": "Blocked on content from the hotel team: location, photos, access, hours."
+      }
+    },
+    "pages": {
+      "events": {
+        "title": "What's on",
+        "intro": "Tournaments, exhibitions, and whatever else is happening in the building tonight.",
+        "kttkTitle": "KTTK tournament night",
+        "openPlayTitle": "Open play",
+        "when": "When",
+        "where": "Where",
+        "price": "Price",
+        "kttkWhen": "Thursdays from 19:00",
+        "kttkWhere": "B2 basement, across from the bar",
+        "kttkPrice": "€5 · no booking, no dress code",
+        "openPlayWhen": "Walk-in, tables when free",
+        "openPlayWhere": "B2 · 4 JOOLA tables",
+        "openPlayNote": "€5 / 30 min · bats at Lütze bar",
+        "upcoming": "Coming up",
+        "artCta": "Art programme →"
+      },
+      "art": {
+        "title": "Art programme",
+        "intro": "FKKB in the gallery, murals on the walls, Wallride in the basement.",
+        "fkkbTitle": "FKKB gallery",
+        "current": "Now showing",
+        "where": "Where",
+        "entry": "Entry",
+        "fkkbWhere": "Ground floor gallery",
+        "fkkbEntry": "Free · open to guests and Berliners",
+        "onTheWalls": "On the Walls",
+        "galleryCta": "FKKB gallery programme →",
+        "wallrideCta": "Wallride →"
+      },
+      "dining": {
+        "title": "Dining",
+        "intro": "Lütze is the place to eat, play, and hang all day — guests and Berliners alike.",
+        "lutzeTitle": "Lütze",
+        "kitchen": "Kitchen",
+        "bar": "Bar",
+        "where": "Where",
+        "reserve": "Reservations",
+        "kitchenHours": "11:30–15:00 · 17:00–22:30",
+        "barHours": "From 10:00 · open end",
+        "lutzeWhere": "Ground floor, Lützowplatz 17",
+        "reserveNote": "Ask at the bar or reception",
+        "breakfastTitle": "Breakfast",
+        "hours": "Hours",
+        "openEnd": "open end",
+        "weekdays": "Weekdays",
+        "weekends": "Weekends",
+        "breakfastWeek": "06:30 – 10:00",
+        "breakfastWeekend": "06:30 – 11:00",
+        "breakfastWhere": "Lütze, ground floor",
+        "wundermartTitle": "Wundermart",
+        "wundermartBody": "Shop / kiosk — hours and location to confirm with the hotel team.",
+        "gardenTitle": "Lütze-Garten",
+        "gardenBody": "Summer garden — confirm current season with reception."
+      },
+      "explore": {
+        "title": "Explore the area",
+        "intro": "Tiergarten, the canal, Ku'damm — guest picks within a short walk.",
+        "nearTitle": "Close by",
+        "tiergarten": "Tiergarten — a few minutes on foot",
+        "canal": "Landwehrkanal — jogging and evening walks",
+        "kudamm": "Ku'damm — short transit or a longer stroll"
+      },
+      "gettingAround": {
+        "title": "Getting around",
+        "intro": "U-Bahn, bus, taxi, parking, and the BER run — from the front door.",
+        "transitTitle": "Public transport",
+        "ubahn": "U-Bahn",
+        "ubahnBody": "Nollendorfplatz (U1 / U2 / U3 / U4) — short walk",
+        "bus": "Bus",
+        "busBody": "100, 106, 187 to Lützowplatz",
+        "address": "Address",
+        "addressBody": "Lützowplatz 17, 10785 Berlin",
+        "airportTitle": "Airport",
+        "airportBody": "Airport shuttle on request via reception / Guest Care.",
+        "taxi": "Taxi",
+        "taxiBody": "Ask reception to call one — rank at Lützowplatz",
+        "parkingTitle": "Parking & charging",
+        "parkingBody": "Underground · €4/hr · max €25/day · 208 spaces · 1.80 m max height",
+        "ev": "EV charging",
+        "evBody": "8 × Type 2 stations on site",
+        "jogTitle": "Jogging",
+        "jogBody": "Ask reception for the Tiergarten / canal loops."
+      },
+      "gallery": {
+        "title": "Gallery",
+        "intro": "FKKB — Freiluft Kunst Klub Berlin. Independent gallery, artists in residence, exhibitions that change and return.",
+        "nowTitle": "In the gallery",
+        "current": "Now showing",
+        "where": "Where",
+        "whereBody": "Ground floor, Hotel Berlin, Berlin",
+        "entry": "Entry",
+        "entryBody": "Free",
+        "editions": "Programme of rotating editions — more detail coming.",
+        "artCta": "Art in the building →"
+      },
+      "wallride": {
+        "title": "Wallride",
+        "intro": "Permanent half-pipe exhibition in the basement — Cold War Berlin skate history.",
+        "aboutTitle": "The exhibition",
+        "aboutBody": "A permanent installation in the Sissi Skateboard Club space.",
+        "curator": "Curated by",
+        "curatorBody": "Jürgen Blümlein / Skateboardmuseum Berlin",
+        "theme": "Theme",
+        "themeBody": "Cold War Berlin skate history",
+        "visitTitle": "Visit",
+        "where": "Where",
+        "whereBody": "B2 · outside KTTK",
+        "access": "Access",
+        "accessBody": "Permanent · walk-in with the basement venues",
+        "sissi": "Same room as the Sissi Skateboard Club mini-ramp.",
+        "kttkCta": "KTTK next door →"
+      }
     }
   },
   "hero": {
@@ -391,6 +630,24 @@
         "imageAlt": "Art exhibition at Haus am Lützowplatz"
       }
     }
+  },
+  "restaurantPage": {
+    "metaTitle": "Lütze — Eat & Drink | Hotel Berlin, Berlin",
+    "metaDescription": "Italian deli café, bar, and garden at Lützowplatz 17. Open to guests and Berliners alike.",
+    "breadcrumbHome": "Home",
+    "breadcrumbRestaurant": "Restaurant",
+    "galleryAria": "Lütze restaurant and bar at Hotel Berlin, Berlin",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "hoursHeading": "Hours",
+    "openEnd": "open end",
+    "segmentBar": "Bar",
+    "segmentKitchen": "Kitchen",
+    "menuCta": "Menu",
+    "reserveCta": "Reserve a table",
+    "breakfastHeading": "Breakfast",
+    "breakfastHours": "Hours",
+    "breakfastWhere": "Where"
   },
   "lutze": {
     "name": "Lütze",

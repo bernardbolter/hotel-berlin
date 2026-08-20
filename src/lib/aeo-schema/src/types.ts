@@ -135,6 +135,61 @@ export interface MeetingRoom {
   amenities?: HotelRoomAmenity[];
 }
 
+/** Payload `venues.venueType` — maps 1:1 via `venueTypeToSchemaType`. */
+export type VenueType =
+  | 'Restaurant'
+  | 'Bar'
+  | 'ArtGallery'
+  | 'SportsActivityLocation'
+  | 'EventVenue'
+  | 'LocalBusiness';
+
+export type VenueSchemaType =
+  | 'Restaurant'
+  | 'BarOrPub'
+  | 'ArtGallery'
+  | 'SportsActivityLocation'
+  | 'EventVenue'
+  | 'LocalBusiness';
+
+export const VENUE_TYPE_TO_SCHEMA: Record<VenueType, VenueSchemaType> = {
+  Restaurant: 'Restaurant',
+  Bar: 'BarOrPub',
+  ArtGallery: 'ArtGallery',
+  SportsActivityLocation: 'SportsActivityLocation',
+  EventVenue: 'EventVenue',
+  LocalBusiness: 'LocalBusiness',
+};
+
+export function venueTypeToSchemaType(venueType: VenueType): VenueSchemaType {
+  return VENUE_TYPE_TO_SCHEMA[venueType];
+}
+
+export interface VenueOpeningHours {
+  dayOfWeek?: string;
+  opens?: string;
+  closes?: string;
+  segment?: string;
+  note?: string;
+}
+
+export interface Venue {
+  id: string;
+  slug: string;
+  name: string;
+  venueType: VenueType;
+  description?: string;
+  images?: HotelRoomImage[];
+  servesCuisine?: string;
+  priceRange?: string;
+  openingHours?: VenueOpeningHours[];
+  menuUrl?: string;
+  reservationUrl?: string;
+  telephone?: string;
+  email?: string;
+  sameAs?: string[];
+}
+
 export interface SiteConfig {
   baseUrl: string; // e.g. "https://hotel-berlin.de"
   canonicalLocale: Locale; // 'de' — the site is German-first, bare domain redirects to /de
@@ -143,6 +198,7 @@ export interface SiteConfig {
     peopleHub: Record<Locale, string>; // { de: '/de/you-me-and-berlin', en: '/en/you-me-and-berlin' }
     rooms: Record<Locale, string>; // { de: '/de/zimmer', en: '/en/rooms' }
     meetings: Record<Locale, string>; // { de: '/de/tagungen', en: '/en/meetings' }
+    restaurant: Record<Locale, string>; // { de: '/de/restaurant', en: '/en/restaurant' }
   };
 }
 

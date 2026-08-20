@@ -8,6 +8,7 @@ import {
 } from '@/lib/venue-time'
 import { getCurrentExhibitionForVenue } from '@/lib/venue-time/queries'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
+import { firstHereImage, HERE_IMAGES, type HereImage } from '@/lib/here/images'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import type { Venue } from '@/payload-types'
 
@@ -15,7 +16,7 @@ export type TonightHeroData = {
   title: string
   meta: string
   statusLabel: string
-  image: { src: string; alt: string } | null
+  image: HereImage
   href: string
 }
 
@@ -74,26 +75,38 @@ export function activeSegmentClosesAt(
 export async function resolveTonightHero(
   locale: string,
   now: Date = getBerlinNow(),
-): Promise<TonightHeroData | null> {
-  const fkkb = await getVenueBySlug('fkkb').catch(() => null)
-  if (!fkkb) return null
+): Promise<TonightHeroData> {
+  const de = locale === 'de'
+  const fkkb = await getVenueBySlug('fkkb', de ? 'de' : 'en').catch(() => null)
+  const exhibition = fkkb
+    ? await getCurrentExhibitionForVenue(fkkb.id, now).catch(() => null)
+    : null
 
-  const exhibition = await getCurrentExhibitionForVenue(fkkb.id, now)
-  if (!exhibition) return null
-
-  // Slim type from selector — re-fetch isn't needed if we use venue image as fallback
-  const title = exhibition.title
-  const imageSrc = mediaUrl(fkkb.heroImage)
+  const title = exhibition?.title || 'Magwie × CokyOne'
   const location =
-    fkkb.spotlightLocation || fkkb.location || (locale === 'de' ? 'Erdgeschoss' : 'ground floor')
+    exhibition?.location ||
+    fkkb?.spotlightLocation ||
+    fkkb?.location ||
+    (de ? 'Erdgeschoss' : 'ground floor')
+
+  const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage) : null
+  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage) : null
 
   return {
     title,
-    meta: `FKKB gallery · ${location}`,
-    statusLabel: locale === 'de' ? 'Jetzt geöffnet · freier Eintritt' : 'Open now · free entry',
-    image: imageSrc
-      ? { src: imageSrc, alt: mediaAlt(fkkb.heroImage, title) }
-      : null,
+    meta: de
+      ? `FKKB-Galerie · ${location}`
+      : `FKKB gallery · ${location}`,
+    statusLabel: de ? 'Jetzt geöffnet · freier Eintritt' : 'Open now · free entry',
+    image: firstHereImage(
+      exhibitionSrc
+        ? { src: exhibitionSrc, alt: mediaAlt(exhibition?.heroImage, title) }
+        : null,
+      venueSrc
+        ? { src: venueSrc, alt: mediaAlt(fkkb?.heroImage, title) }
+        : null,
+      HERE_IMAGES.fkkb,
+    ),
     href: '/here/art',
   }
 }
@@ -109,38 +122,35 @@ export async function resolveTonightVenueCards(
 
   const cards: TonightVenueCardData[] = []
 
-  if (kttk) {
-    const parts = getBerlinParts(now)
-    // Next Thursday tournament badge — simplified: show weekday + typical start from hours
-    const thuHours = (kttk.openingHours ?? []).find((h) =>
-      /thu|thursday/i.test(h.dayOfWeek ?? ''),
-    )
-    const start = thuHours?.opens || '19:00'
-    const weekdayShort = new Intl.DateTimeFormat(locale === 'de' ? 'de-DE' : 'en-GB', {
-      weekday: 'short',
-      timeZone: 'Europe/Berlin',
-    }).format(now)
-    // If today is Thursday use today; else show "Thu 19:00" as standing label from brief
-    const badge =
-      parts.weekday === 4
-        ? `${weekdayShort} ${start}`
-        : locale === 'de'
-          ? `Do ${start}`
-          : `Thu ${start}`
+  const kttkLocation = kttk?.spotlightLocation || kttk?.location || 'B2'
+  const parts = getBerlinParts(now)
+  const thuHours = (kttk?.openingHours ?? []).find((h) =>
+    /thu|thursday/i.test(h.dayOfWeek ?? ''),
+  )
+  const start = thuHours?.opens || '19:00'
+  const weekdayShort = new Intl.DateTimeFormat(locale === 'de' ? 'de-DE' : 'en-GB', {
+    weekday: 'short',
+    timeZone: 'Europe/Berlin',
+  }).format(now)
+  const kttkBadge =
+    parts.weekday === 4
+      ? `${weekdayShort} ${start}`
+      : locale === 'de'
+        ? `Do ${start}`
+        : `Thu ${start}`
 
-    cards.push({
-      title: 'KTTK',
-      badge,
-      badgeVariant: 'schedule',
-      lines: [
-        locale === 'de'
-          ? `Turnierabend · €5 · ${kttk.spotlightLocation || kttk.location || 'B2'}`
-          : `Tournament night · €5 · ${kttk.spotlightLocation || kttk.location || 'B2'}`,
-      ],
-      href: '/here/events',
-      categoryToken: 'amber',
-    })
-  }
+  cards.push({
+    title: 'KTTK',
+    badge: kttkBadge,
+    badgeVariant: 'schedule',
+    lines: [
+      locale === 'de'
+        ? `Turnierabend · €5 · ${kttkLocation}`
+        : `Tournament night · €5 · ${kttkLocation}`,
+    ],
+    href: '/here/events',
+    categoryToken: 'amber',
+  })
 
   if (lutze) {
     const kitchen = pickKitchenOrPrimarySegment(lutze.openingHours, now)
@@ -169,6 +179,18 @@ export async function resolveTonightVenueCards(
       badgeVariant: 'liveStatus',
       liveOpen: open,
       lines: [`${until} · ${locale === 'de' ? 'reservieren →' : 'reserve →'}`],
+      href: '/here/dining',
+      categoryToken: 'gold',
+    })
+  } else {
+    cards.push({
+      title: 'Lütze',
+      badge: locale === 'de' ? 'Küche geöffnet' : 'Kitchen open',
+      badgeVariant: 'liveStatus',
+      liveOpen: true,
+      lines: [
+        locale === 'de' ? 'Bis 22:30 · reservieren →' : 'Until 22:30 · reserve →',
+      ],
       href: '/here/dining',
       categoryToken: 'gold',
     })

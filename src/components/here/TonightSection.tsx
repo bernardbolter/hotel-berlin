@@ -1,4 +1,3 @@
-import { SectionDivider } from '@/components/here/SectionDivider'
 import { TonightHeroCard } from '@/components/here/VenueCard'
 import { VenueCompactCard } from '@/components/cards/VenueCompactCard'
 import {
@@ -8,34 +7,32 @@ import {
 
 type Props = {
   locale: string
-  sectionLabel: string
+  /** When stay info sits beside tonight on desktop */
+  besideStay?: boolean
 }
 
-export async function TonightSection({ locale, sectionLabel }: Props) {
+export async function TonightSection({ locale, besideStay = false }: Props) {
   const [hero, venues] = await Promise.all([
     resolveTonightHero(locale),
     resolveTonightVenueCards(locale),
   ])
 
-  if (!hero && venues.length === 0) return null
-
   return (
     <>
-      <SectionDivider label={sectionLabel} />
-      {hero ? (
-        <TonightHeroCard
-          className="card-full col-span-2"
-          title={hero.title}
-          meta={hero.meta}
-          statusLabel={hero.statusLabel}
-          image={hero.image}
-          href={hero.href}
-        />
-      ) : null}
+      <TonightHeroCard
+        className={besideStay ? 'here-tonight h-full' : 'here-full'}
+        title={hero.title}
+        meta={hero.meta}
+        statusLabel={hero.statusLabel}
+        image={hero.image}
+        href={hero.href}
+      />
       {venues.map((card) => (
         <VenueCompactCard
           key={card.title}
-          className="card-half col-span-2 xs:col-span-1"
+          className={`here-tap h-full border ${
+            card.categoryToken === 'amber' ? 'border-[#B87A2E]' : 'border-[#A08C38]'
+          }`}
           density="compact"
           badge={card.badge}
           badgeVariant={card.badgeVariant}

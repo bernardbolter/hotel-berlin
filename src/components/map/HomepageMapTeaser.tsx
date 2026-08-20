@@ -56,6 +56,8 @@ type Props = {
   fallbackImageSrc?: string
   /** Accent kept for API compatibility (consent CTA removed for now). */
   accent?: 'forest' | 'teal'
+  /** Compact embed for the /here hub card (wireframe 160–280px). */
+  variant?: 'full' | 'compact'
 }
 
 /**
@@ -71,6 +73,7 @@ export function HomepageMapTeaser({
   hotelAriaLabel,
   shortAddress,
   fallbackImageSrc = FALLBACK_IMAGE,
+  variant = 'full',
 }: Props) {
   const t = useTranslations('heroMap')
   const [selectedId, setSelectedId] = useState<string | null>(places[0]?.id ?? null)
@@ -105,9 +108,14 @@ export function HomepageMapTeaser({
     [places],
   )
 
+  const compact = variant === 'compact'
+  const mapHeight = compact
+    ? 'h-[160px] md:h-[220px] lg:h-[280px]'
+    : 'h-[min(70vh,640px)] min-h-100'
+
   if (!accessToken) {
     return (
-      <div className="homepage-map-teaser relative h-[min(70vh,640px)] min-h-100 w-full overflow-hidden bg-hbb-page">
+      <div className={`homepage-map-teaser relative w-full overflow-hidden bg-hbb-page ${mapHeight}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={fallbackImageSrc}
@@ -149,7 +157,7 @@ export function HomepageMapTeaser({
 
   return (
     <div className="homepage-map-teaser relative w-full text-hbb-black">
-      <div className="relative h-[min(70vh,640px)] min-h-100 w-full">
+      <div className={`relative w-full ${mapHeight}`}>
         <NeighbourhoodGuideMap
           accessToken={accessToken}
           bounds={bounds}
@@ -157,20 +165,20 @@ export function HomepageMapTeaser({
           places={guidePlaces}
           hotelName={hotelName}
           hotelAriaLabel={hotelAriaLabel}
-          hideNavigation={false}
-          cooperativeGestures={false}
+          hideNavigation={compact}
+          cooperativeGestures={compact}
           styleId="mapbox/standard"
-          fitPadding={64}
+          fitPadding={compact ? 32 : 64}
           pinColorMode="category"
-          selectedId={effectiveSelectedId}
-          onSelect={places.length > 0 ? setSelectedId : undefined}
+          selectedId={compact ? null : effectiveSelectedId}
+          onSelect={!compact && places.length > 0 ? setSelectedId : undefined}
           ariaLabel={t('mapAria')}
           noscriptHtml={t.raw('noscript') as string}
-          className="h-full! min-h-100!"
+          className={compact ? 'h-full!' : 'h-full! min-h-100!'}
         />
 
         {/* Floating card — desktop only; mobile renders below */}
-        {card ? (
+        {!compact && card ? (
           <div className="pointer-events-none absolute right-4 top-4 z-10 hidden md:block">
             <div className="pointer-events-auto">{card}</div>
           </div>
@@ -178,7 +186,7 @@ export function HomepageMapTeaser({
       </div>
 
       {/* Mobile: card in document flow under the map */}
-      {card ? (
+      {!compact && card ? (
         <div className="border-t border-black/5 bg-hbb-page p-3 md:hidden">{card}</div>
       ) : null}
     </div>

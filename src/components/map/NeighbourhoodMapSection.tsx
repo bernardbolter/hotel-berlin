@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { HomepageMapTeaser, type MapTeaserPlace } from '@/components/map/HomepageMapTeaser'
+import { LineCta } from '@/components/primitives/LineCta'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { toAeoPlace } from '@/lib/aeo/mapToSchema'
 import {
@@ -96,13 +97,23 @@ function toTeaserPlace(
 
 type Props = {
   context?: TeaserContext
+  /** Defaults to `/neighbourhood`. Hub passes `/here/explore`. */
+  ctaHref?: '/neighbourhood' | '/here/explore'
+  ctaLabel?: string
+  /** `card` = compact embed inside the /here grid */
+  layout?: 'section' | 'card'
 }
 
 /**
  * Neighbourhood map teaser — full-bleed live Mapbox with curated pins (max 5).
  * Homepage (after Lutze / events) or `/here` via `context`.
  */
-export async function NeighbourhoodMapSection({ context = 'homepage' }: Props = {}) {
+export async function NeighbourhoodMapSection({
+  context = 'homepage',
+  ctaHref = '/neighbourhood',
+  ctaLabel,
+  layout = 'section',
+}: Props = {}) {
   const locale = (await getLocale()) as 'de' | 'en'
   const t = await getTranslations('map')
   const tMap = await getTranslations('heroMap')
@@ -159,6 +170,37 @@ export async function NeighbourhoodMapSection({ context = 'homepage' }: Props = 
 
   const accent = context === 'here' ? 'teal' : 'forest'
 
+  const teaser = (
+    <HomepageMapTeaser
+      accessToken={mapSettings.accessToken}
+      bounds={mapSettings.bounds}
+      center={mapSettings.center}
+      places={places}
+      hotelName={mapSettings.hotelName}
+      hotelAriaLabel={hotelAriaLabel}
+      shortAddress={mapCopy.shortAddress}
+      accent={accent}
+      variant={layout === 'card' ? 'compact' : 'full'}
+    />
+  )
+
+  if (layout === 'card') {
+    return (
+      <article
+        className="here-full overflow-hidden border border-[#4A7A68] bg-[#F0F6F0]"
+        aria-label={tMap('mapAria')}
+      >
+        {listGraph ? <JsonLdScript graph={listGraph} /> : null}
+        {teaser}
+        <div className="px-4 py-3">
+          <LineCta href={ctaHref} className="text-ui-sm">
+            {ctaLabel ?? t('cta')}
+          </LineCta>
+        </div>
+      </article>
+    )
+  }
+
   return (
     <section aria-labelledby="neighbourhood-map-heading" className="bg-hbb-page">
       {listGraph ? <JsonLdScript graph={listGraph} /> : null}
@@ -167,24 +209,13 @@ export async function NeighbourhoodMapSection({ context = 'homepage' }: Props = 
           <h2 id="neighbourhood-map-heading" className={HEADING_CLASS}>
             {t('title')}
           </h2>
-          <SweepCta href="/neighbourhood" color="ink" edge="right" className="shrink-0">
-            {t('cta')}
+          <SweepCta href={ctaHref} color="ink" edge="right" className="shrink-0">
+            {ctaLabel ?? t('cta')}
           </SweepCta>
         </div>
       </div>
 
-      <div className="w-full overflow-hidden border-t border-black/5">
-        <HomepageMapTeaser
-          accessToken={mapSettings.accessToken}
-          bounds={mapSettings.bounds}
-          center={mapSettings.center}
-          places={places}
-          hotelName={mapSettings.hotelName}
-          hotelAriaLabel={hotelAriaLabel}
-          shortAddress={mapCopy.shortAddress}
-          accent={accent}
-        />
-      </div>
+      <div className="w-full overflow-hidden border-t border-black/5">{teaser}</div>
     </section>
   )
 }

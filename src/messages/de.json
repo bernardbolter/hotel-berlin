@@ -67,7 +67,41 @@
     "building": "Diese Seite wird gerade gebaut.",
     "duringYourStay": "Dein Aufenthalt",
     "tonight": "Heute Abend",
+    "clockAria": "Aktuelle Uhrzeit in Berlin",
+    "locationLine": "Hotel Berlin, Berlin · Lützowplatz 17",
+    "artInBuilding": "Kunst im Haus",
+    "inTheBasement": "Im Keller",
+    "needHelp": "Brauchst du Hilfe?",
+    "faqsHeading": "Häufig gefragt",
+    "allGuestFaqs": "Alle Gäste-FAQs →",
+    "exploreSection": "Die Nachbarschaft",
+    "openFullMap": "Zur großen Karte →",
+    "faqFallback": {
+      "checkout": {
+        "q": "Wann ist Check-out?",
+        "a": "Check-out ist bis 12:00. Späterer Check-out nach Verfügbarkeit — an der Rezeption fragen."
+      },
+      "ubahn": {
+        "q": "Wo ist die nächste U-Bahn?",
+        "a": "Nollendorfplatz (U1 / U2 / U3 / U4) ist ein kurzer Fußweg. Busse 100, 106 und 187 halten am Lützowplatz."
+      },
+      "luggage": {
+        "q": "Kann ich nach dem Check-out Gepäck lassen?",
+        "a": "Ja — Gepäckaufbewahrung an der Rezeption, vor dem Check-in und nach dem Check-out."
+      }
+    },
+    "backToHub": "← Gästehub",
+    "greeting": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend"
+    },
+    "heroFallback": {
+      "thursdayLine1": "Turniernacht im Keller ab 19:00",
+      "thursdayLine2": "KTTK · B2 Keller"
+    },
     "stay": {
+      "title": "Aufenthalt",
       "checkout": "Check-out",
       "breakfast": "Frühstück",
       "wifi": "WLAN",
@@ -75,6 +109,211 @@
       "luggage": "Gepäck",
       "faqsCta": "Parken · Gepäck · Hunde · alle FAQs →",
       "eventLabel": "Dein Event"
+    },
+    "goodToKnow": {
+      "section": "Gut zu wissen",
+      "title": "Gut zu wissen — der Rest der Basics",
+      "gettingAroundCta": "Zum Orientierungs-Guide →",
+      "settled": {
+        "title": "Ankommen",
+        "checkin": "Check-in 15:00",
+        "luggage": "Gepäck vor/nach dem Aufenthalt",
+        "safes": "Zimmersafe · Housekeeping"
+      },
+      "money": {
+        "title": "Geld & Verbindung",
+        "cards": "Nur Karte / kontaktlos",
+        "wifi": "Kostenloses WLAN im ganzen Haus",
+        "atm": "Geldautomat · Business Center"
+      },
+      "health": {
+        "title": "Gesundheit & Komfort",
+        "pets": "Hunde €30/Tag",
+        "nonsmoking": "Nichtraucherhotel",
+        "gym": "Sauna · Fitness 24/7"
+      },
+      "around": {
+        "title": "Unterwegs",
+        "taxi": "Taxi · Flughafenshuttle",
+        "ev": "E-Laden (8× Typ 2)",
+        "guide": "Zum Guide → /hier/getting-around"
+      }
+    },
+    "art": {
+      "currentBadge": "Aktuelle Ausstellung",
+      "currentMeta": "Galerie · Erdgeschoss · freier Eintritt · alle Editionen →",
+      "fallbackTitle": "FKKB — Freiluft Kunst Klub Berlin",
+      "floors": {
+        "somari": {
+          "floor": "4. Etage · bei den Aufzügen",
+          "title": "Somari",
+          "body": "Ein großes Mural an den Aufzügen in der vierten Etage — eine der festen On-the-Walls-Arbeiten im Haus. Wer den Aufzug nimmt, steht direkt davor.",
+          "cta": "Somari finden",
+          "metaLeft": "4. Etage",
+          "metaRight": "Bei den Aufzügen"
+        },
+        "deerbln": {
+          "floor": "2. Etage · Treppenhaus",
+          "title": "deerBLN",
+          "body": "deerBLN im Treppenhaus der zweiten Etage — leicht zu verpassen, wenn man nur den Aufzug nimmt, die Treppe wert, wenn man die Wände will.",
+          "cta": "deerBLN finden",
+          "metaLeft": "2. Etage",
+          "metaRight": "Treppenhaus"
+        },
+        "pisa73": {
+          "floor": "Lobby · Haupteingang",
+          "title": "Pisa73",
+          "body": "Pisa73 am Haupteingang — das erste Mural, das die meisten Gäste sehen, direkt beim Reinlaufen vom Lützowplatz.",
+          "cta": "Pisa73 finden",
+          "metaLeft": "Lobby",
+          "metaRight": "Haupteingang"
+        },
+        "wallride": {
+          "floor": "B2 · vor dem KTTK",
+          "title": "Wallride",
+          "body": "Dauerhafte Halfpipe-Ausstellung im Keller — Skategeschichte im Kalten-Kriegs-Berlin, kuratiert von Jürgen Blümlein und dem Skateboardmuseum Berlin.",
+          "cta": "Wallride besuchen",
+          "metaLeft": "B2",
+          "metaRight": "Vor dem KTTK"
+        }
+      },
+      "currentDescription": "Unabhängige Galerie im Hotel — Artists in Residence, wechselnde Ausstellungen, einfach reingehen. Die aktuelle Duo-Show ist im Erdgeschoss.",
+      "currentCta": "Galerie entdecken",
+      "wallsBadge": "On the Walls",
+      "rowAria": "Kunst im Haus"
+    },
+    "basement": {
+      "kttk": {
+        "badge": "B2 · Mo–So",
+        "title": "KTTK",
+        "line1": "4 JOOLA-Platten · €5 / 30 Min.",
+        "line2": "Schläger an der Lütze-Bar"
+      },
+      "wallride": {
+        "badge": "Dauerhaft",
+        "title": "Wallride",
+        "line1": "Halfpipe · Skategeschichte im Kalten Krieg",
+        "line2": "Vom Skateboardmuseum Berlin"
+      },
+      "fingerboard": {
+        "title": "Fingerboard-Rampen — Platzierung offen",
+        "body": "Wartet auf Inhalte vom Hotel-Team: Ort, Fotos, Zugang, Öffnungszeiten."
+      }
+    },
+    "pages": {
+      "events": {
+        "title": "Was ist los",
+        "intro": "Turniere, Ausstellungen und was sonst heute im Haus passiert.",
+        "kttkTitle": "KTTK-Turniernacht",
+        "openPlayTitle": "Open Play",
+        "when": "Wann",
+        "where": "Wo",
+        "price": "Preis",
+        "kttkWhen": "Donnerstags ab 19:00",
+        "kttkWhere": "B2 Keller, gegenüber der Bar",
+        "kttkPrice": "€5 · ohne Buchung, ohne Dresscode",
+        "openPlayWhen": "Walk-in, Platten wenn frei",
+        "openPlayWhere": "B2 · 4 JOOLA-Platten",
+        "openPlayNote": "€5 / 30 Min. · Schläger an der Lütze-Bar",
+        "upcoming": "Als Nächstes",
+        "artCta": "Kunstprogramm →"
+      },
+      "art": {
+        "title": "Kunstprogramm",
+        "intro": "FKKB in der Galerie, Murals an den Wänden, Wallride im Keller.",
+        "fkkbTitle": "FKKB-Galerie",
+        "current": "Jetzt zu sehen",
+        "where": "Wo",
+        "entry": "Eintritt",
+        "fkkbWhere": "Galerie im Erdgeschoss",
+        "fkkbEntry": "Frei · für Gäste und Berliner:innen",
+        "onTheWalls": "On the Walls",
+        "galleryCta": "FKKB-Galerieprogramm →",
+        "wallrideCta": "Wallride →"
+      },
+      "dining": {
+        "title": "Essen & Trinken",
+        "intro": "Lütze ist der Ort zum Essen, Spielen und Hängen — für Gäste und Berliner:innen.",
+        "lutzeTitle": "Lütze",
+        "kitchen": "Küche",
+        "bar": "Bar",
+        "where": "Wo",
+        "reserve": "Reservierung",
+        "kitchenHours": "11:30–15:00 · 17:00–22:30",
+        "barHours": "Ab 10:00 · open end",
+        "lutzeWhere": "Erdgeschoss, Lützowplatz 17",
+        "reserveNote": "An der Bar oder an der Rezeption",
+        "breakfastTitle": "Frühstück",
+        "hours": "Zeiten",
+        "openEnd": "open end",
+        "weekdays": "Wochentags",
+        "weekends": "Wochenende",
+        "breakfastWeek": "06:30 – 10:00",
+        "breakfastWeekend": "06:30 – 11:00",
+        "breakfastWhere": "Lütze, Erdgeschoss",
+        "wundermartTitle": "Wundermart",
+        "wundermartBody": "Shop / Kiosk — Öffnungszeiten und Ort noch mit dem Hotel-Team zu klären.",
+        "gardenTitle": "Lütze-Garten",
+        "gardenBody": "Sommergarten — aktuelle Saison an der Rezeption erfragen."
+      },
+      "explore": {
+        "title": "Die Nachbarschaft",
+        "intro": "Tiergarten, Kanal, Ku'damm — Tipps in Laufweite.",
+        "nearTitle": "In der Nähe",
+        "tiergarten": "Tiergarten — wenige Minuten zu Fuß",
+        "canal": "Landwehrkanal — Joggen und Abendspaziergänge",
+        "kudamm": "Ku'damm — kurze Fahrt oder längerer Spaziergang"
+      },
+      "gettingAround": {
+        "title": "So kommst du hin",
+        "intro": "U-Bahn, Bus, Taxi, Parken und der Weg zum BER — ab der Haustür.",
+        "transitTitle": "ÖPNV",
+        "ubahn": "U-Bahn",
+        "ubahnBody": "Nollendorfplatz (U1 / U2 / U3 / U4) — kurzer Fußweg",
+        "bus": "Bus",
+        "busBody": "100, 106, 187 bis Lützowplatz",
+        "address": "Adresse",
+        "addressBody": "Lützowplatz 17, 10785 Berlin",
+        "airportTitle": "Flughafen",
+        "airportBody": "Flughafenshuttle auf Anfrage an der Rezeption / Guest Care.",
+        "taxi": "Taxi",
+        "taxiBody": "Rezeption ruft eins — Halteplatz am Lützowplatz",
+        "parkingTitle": "Parken & Laden",
+        "parkingBody": "Tiefgarage · €4/Std. · max. €25/Tag · 208 Plätze · 1,80 m Höhe",
+        "ev": "E-Laden",
+        "evBody": "8 × Typ-2-Stationen im Haus",
+        "jogTitle": "Joggen",
+        "jogBody": "Tiergarten- und Kanalrunden an der Rezeption erfragen."
+      },
+      "gallery": {
+        "title": "Galerie",
+        "intro": "FKKB — Freiluft Kunst Klub Berlin. Unabhängige Galerie, Artists in Residence, Ausstellungen die kommen und wiederkommen.",
+        "nowTitle": "In der Galerie",
+        "current": "Jetzt zu sehen",
+        "where": "Wo",
+        "whereBody": "Erdgeschoss, Hotel Berlin, Berlin",
+        "entry": "Eintritt",
+        "entryBody": "Frei",
+        "editions": "Rotierendes Editionsprogramm — mehr Details folgen.",
+        "artCta": "Kunst im Haus →"
+      },
+      "wallride": {
+        "title": "Wallride",
+        "intro": "Dauerhafte Halfpipe-Ausstellung im Keller — Skategeschichte im Kalten Krieg.",
+        "aboutTitle": "Die Ausstellung",
+        "aboutBody": "Eine dauerhafte Installation im Raum des Sissi Skateboard Club.",
+        "curator": "Kuratiert von",
+        "curatorBody": "Jürgen Blümlein / Skateboardmuseum Berlin",
+        "theme": "Thema",
+        "themeBody": "Skategeschichte im Kalten-Kriegs-Berlin",
+        "visitTitle": "Besuch",
+        "where": "Wo",
+        "whereBody": "B2 · vor dem KTTK",
+        "access": "Zugang",
+        "accessBody": "Dauerhaft · Walk-in mit den Kellervenues",
+        "sissi": "Im selben Raum wie die Mini-Ramp des Sissi Skateboard Club.",
+        "kttkCta": "KTTK nebenan →"
+      }
     }
   },
   "hero": {
@@ -391,6 +630,24 @@
         "imageAlt": "Ausstellung im Haus am Lützowplatz"
       }
     }
+  },
+  "restaurantPage": {
+    "metaTitle": "Lütze — Essen & Trinken | Hotel Berlin, Berlin",
+    "metaDescription": "Italienisches Deli-Café, Bar und Garten am Lützowplatz 17. Offen für Gäste und Berliner.",
+    "breadcrumbHome": "Start",
+    "breadcrumbRestaurant": "Restaurant",
+    "galleryAria": "Lütze Restaurant und Bar im Hotel Berlin, Berlin",
+    "prevImage": "Vorheriges Bild",
+    "nextImage": "Nächstes Bild",
+    "hoursHeading": "Öffnungszeiten",
+    "openEnd": "open end",
+    "segmentBar": "Bar",
+    "segmentKitchen": "Küche",
+    "menuCta": "Speisekarte",
+    "reserveCta": "Tisch reservieren",
+    "breakfastHeading": "Frühstück",
+    "breakfastHours": "Zeiten",
+    "breakfastWhere": "Ort"
   },
   "lutze": {
     "name": "Lütze",

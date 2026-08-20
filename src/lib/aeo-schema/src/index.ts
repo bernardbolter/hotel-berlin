@@ -8,5 +8,6 @@ export * from './builders/place';
 export * from './builders/review';
 export * from './builders/hotelRoom';
 export * from './builders/meetingRoom';
+export * from './builders/venue';
 export * from './builders/graph';
 export * from './builders/faq';

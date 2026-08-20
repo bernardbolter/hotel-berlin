@@ -13,29 +13,15 @@ const fallbackInsideLinks: Record<'de' | 'en', SecondaryNavLink[]> = {
     { id: 'fallback-getting-around', label: 'Getting around', href: '/here/getting-around' },
     { id: 'fallback-local-tips', label: 'Explore the area', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Gallery', href: '/here/gallery' },
-    {
-      id: 'fallback-wallride',
-      label: 'Wallride',
-      href: '/here/wallride',
-      comingSoon: true,
-    },
+    { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
   ],
   de: [
     { id: 'fallback-events', label: 'Was läuft heute Abend', href: '/here/events' },
     { id: 'fallback-getting-around', label: 'Orientierung', href: '/here/getting-around' },
     { id: 'fallback-local-tips', label: 'Die Nachbarschaft', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Galerie', href: '/here/gallery' },
-    {
-      id: 'fallback-wallride',
-      label: 'Wallride',
-      href: '/here/wallride',
-      comingSoon: true,
-    },
+    { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
   ],
-}
-
-function isWallrideSlug(slug: string): boolean {
-  return /wallride/i.test(slug)
 }
 
 function toInsideNavLink(row: InsideLinkRow): SecondaryNavLink | null {
@@ -46,14 +32,12 @@ function toInsideNavLink(row: InsideLinkRow): SecondaryNavLink | null {
   if (!label) return null
 
   const slug = page.slug.replace(/^\//, '')
-  const wallride = isWallrideSlug(slug)
 
   return {
     id: String(row.id ?? page.id),
     label,
-    href: wallride ? '#' : `/${slug}`,
+    href: `/${slug}`,
     external: false,
-    comingSoon: wallride || undefined,
   }
 }
 

@@ -6,6 +6,7 @@ import type { GuestStayInfo } from '@/lib/payload/hotel'
 export type StayInfoCardProps = {
   stay: GuestStayInfo
   labels: {
+    title?: string
     checkout: string
     breakfast: string
     wifi: string
@@ -55,8 +56,13 @@ export function StayInfoCard({
 }: StayInfoCardProps) {
   return (
     <article
-      className={`stay-info-card border border-[#E0E0E0] bg-white p-4 ${className}`}
+      className={`stay-info-card h-full border border-[#E0E0E0] bg-white p-4 ${className}`}
     >
+      {labels.title ? (
+        <h2 className="mb-2 font-ui text-ui-md font-medium text-hbb-black">
+          {labels.title}
+        </h2>
+      ) : null}
       <dl>
         {eventRow ? (
           <Row label={eventRow.label}>
@@ -91,7 +97,7 @@ export function StayInfoCard({
       </dl>
 
       <div className="mt-3 border-t border-gray-200 pt-3">
-        <LineCta href={faqHref} unlocalized className="text-ui-sm">
+        <LineCta href={faqHref} className="text-ui-sm">
           {labels.faqsCta}
         </LineCta>
       </div>

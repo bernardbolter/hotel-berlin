@@ -6,6 +6,7 @@ import type {
   NeighbourhoodPlace,
   Person,
   SiteConfig,
+  Venue,
 } from '../types';
 import {
   buildHotelRoomNode,
@@ -21,6 +22,10 @@ import {
 import { buildPersonNode, buildPersonRef } from './person';
 import { buildPlaceNode, buildPlaceRef } from './place';
 import { buildReviewNodesForPlace } from './review';
+import {
+  buildVenueBreadcrumbList,
+  buildVenueNode,
+} from './venue';
 import {
   meetingsListUrl,
   neighbourhoodListUrl,
@@ -211,4 +216,21 @@ export function buildMeetingsListGraph(
   };
 
   return wrap([listNode]);
+}
+
+/**
+ * Full JSON-LD graph for the public Lütze page (`/restaurant`).
+ * Declares the venue entity once plus BreadcrumbList — Home → Restaurant.
+ */
+export function buildVenuePageGraph(
+  venue: Venue,
+  config: SiteConfig,
+  breadcrumbLabels: { home: string; restaurant: string } = {
+    home: 'Home',
+    restaurant: 'Restaurant',
+  },
+): JsonLdGraph {
+  const venueNode = buildVenueNode(venue, config);
+  const breadcrumb = buildVenueBreadcrumbList(venue, config, breadcrumbLabels);
+  return wrap([venueNode, breadcrumb]);
 }

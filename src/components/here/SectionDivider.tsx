@@ -3,11 +3,11 @@ type SectionDividerProps = {
   className?: string
 }
 
-/** Centred label between hairlines — Archivo uppercase, muted. */
+/** Centred label between hairlines — Archivo uppercase, muted. Spans the full here-grid. */
 export function SectionDivider({ label, className = '' }: SectionDividerProps) {
   return (
     <div
-      className={`section-divider col-span-2 flex items-center gap-3 py-3 ${className}`}
+      className={`here-full section-divider flex items-center gap-3 py-3 ${className}`}
       role="separator"
       aria-label={label}
     >

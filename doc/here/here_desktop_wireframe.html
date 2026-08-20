@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/here — Desktop Wireframe · Hotel Berlin, Berlin</title>
+<style>
+  :root{
+    --accent:#2C6B7A;
+    --card-teal-bg:#F0F8F7; --card-teal-border:#2C6B7A;
+    --card-amber-bg:#FDF6EE; --card-amber-border:#B87A2E;
+    --card-gold-bg:#FDF8EE; --card-gold-border:#A08C38;
+    --card-green-bg:#F0F6F0; --card-green-border:#4A7A68;
+    --page-bg:#FBFBFB;
+    --footer-bg:#1E1530;
+    --ink:#141414;
+    --mute:#8a8a8a;
+    --ph:#d9d9d9;
+    --ph-line:#c2c2c2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#EDEDED; font-family: Arial, Helvetica, sans-serif; color:var(--ink);
+  }
+  .frame-label{
+    text-align:center; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:#666; padding:14px 0; background:#DADADA; border-bottom:1px solid #c8c8c8;
+  }
+  .page{
+    max-width:1280px; margin:0 auto; background:var(--page-bg);
+  }
+  .annotate{
+    font-size:11px; color:var(--mute); font-style:italic; padding:4px 24px 20px;
+    line-height:1.5; max-width:1000px;
+  }
+  /* Header */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; border-bottom:1px solid #eee;
+  }
+  .wordmark{ font-weight:700; font-size:16px; letter-spacing:0.02em; }
+  .primary-nav{ display:flex; gap:22px; font-size:13px; color:#333; }
+  .header-right{ display:flex; align-items:center; gap:16px; }
+  .cta{ background:var(--accent); color:#fff; font-size:12px; padding:8px 16px; border-radius:2px; }
+  .secondary-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    background:#F3F3F3; padding:8px 24px; font-size:12px; color:#444;
+  }
+  .secondary-nav .bridge{ color:var(--accent); font-weight:600; }
+
+  /* Hero */
+  .hero{
+    position:relative; height:280px; background:
+      linear-gradient(to top, rgba(20,15,10,0.75), rgba(20,15,10,0.15) 55%), var(--ph);
+    display:flex; flex-direction:column; justify-content:flex-end; padding:28px 24px;
+    color:#fff; margin:0;
+  }
+  .hero .clock{ position:absolute; top:20px; right:24px; font-size:14px; color:#ddd; }
+  .hero .day{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#e2e2e2; margin-bottom:6px; }
+  .hero h1{ font-size:30px; margin:0 0 8px; }
+  .hero .subline{ font-size:14px; color:#eee; margin-bottom:4px; }
+  .hero .subline2{ font-size:13px; color:#cfcfcf; margin-bottom:10px; }
+  .hero .loc{ font-size:12px; color:#c9c9c9; }
+
+  /* Grid */
+  .grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; padding:24px;
+  }
+  .divider{
+    grid-column: 1 / -1; display:flex; align-items:center; gap:14px; margin:6px 0 -4px;
+  }
+  .divider hr{ flex:1; border:none; border-top:1px solid #e2e2e2; }
+  .divider span{
+    font-size:10px; letter-spacing:0.09em; text-transform:uppercase; color:#aaa; white-space:nowrap;
+  }
+
+  .card{ border-radius:3px; padding:16px; }
+  .card h2, .card h3{ margin:0 0 6px; }
+  .card p{ margin:2px 0; font-size:12.5px; color:#555; }
+
+  .c-white{ background:#fff; border:1px solid #E0E0E0; }
+  .c-teal{ background:var(--card-teal-bg); border:1px solid var(--card-teal-border); }
+  .c-amber{ background:var(--card-amber-bg); border:1px solid var(--card-amber-border); }
+  .c-gold{ background:var(--card-gold-bg); border:1px solid var(--card-gold-border); }
+  .c-green{ background:var(--card-green-bg); border:1px solid var(--card-green-border); }
+  .c-tbd{ background:repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f0f0f0 10px,#f0f0f0 20px); border:1px dashed #bbb; }
+
+  .ph-img{ background:var(--ph); border-radius:2px; height:100px; display:flex; align-items:center; justify-content:center; color:#999; font-size:11px; margin-bottom:10px; }
+  .badge{ display:inline-block; font-size:10px; padding:3px 8px; border-radius:10px; background:rgba(0,0,0,0.06); margin-bottom:8px; }
+
+  /* row spans */
+  .stay-info{ grid-column: 1 / 3; grid-row: 1 / 3; }
+  .tonight{ grid-column: 3 / 5; grid-row: 1; }
+  .kttk-tap{ grid-column: 3 / 4; grid-row: 2; }
+  .luetze-tap{ grid-column: 4 / 5; grid-row: 2; }
+  .goodtoknow{ grid-column: 1 / -1; }
+  .art-show{ grid-column: 1 / -1; }
+  .floor{ grid-column: span 1; }
+  .map{ grid-column: 1 / -1; height:220px; display:flex; align-items:center; justify-content:center; }
+  .kttk-basement{ grid-column: 1 / 3; }
+  .wallride{ grid-column: 3 / 5; }
+  .fingerboard{ grid-column: 1 / -1; }
+  .faq{ grid-column: 1 / -1; }
+
+  .data-row{ display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid #eee; font-size:12.5px; }
+  .data-row:last-of-type{ border-bottom:none; }
+  .data-row .k{ color:#888; text-transform:uppercase; font-size:10.5px; letter-spacing:.06em; }
+  .data-row .v{ font-weight:600; }
+  .pill{ font-family:monospace; background:#F0F0F0; padding:2px 6px; border-radius:3px; font-size:11px; }
+  .stay-link{ text-align:center; font-size:12px; color:var(--accent); margin-top:10px; }
+
+  .gtk-cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:8px; }
+  .gtk-cols h4{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#888; margin:0 0 6px; }
+  .gtk-cols p{ font-size:11.5px; color:#555; margin:0 0 2px; }
+
+  .floor-cards{ grid-column: 1 / -1; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+
+  .faq-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee; font-size:13px; }
+  .faq-row:last-child{ border-bottom:none; }
+
+  footer{
+    background:var(--footer-bg); color:#fff; padding:22px 24px; font-size:12px;
+    display:flex; justify-content:space-between; align-items:center; margin-top:8px;
+  }
+  footer a{ color:var(--accent); }
+  .foot-links{ color:#cfc9dd; }
+  .foot-links span{ margin:0 6px; }
+</style>
+</head>
+<body>
+
+<div class="frame-label">/here · guest hub · desktop wireframe · 1280px+ · hotel berlin, berlin</div>
+
+<div class="page">
+
+  <header>
+    <div class="wordmark">Hotel Berlin, Berlin</div>
+    <nav class="primary-nav">
+      <span>Rooms</span><span>Meetings</span><span>Eat &amp; Drink</span><span>Happenings</span><span>Neighbourhood</span>
+    </nav>
+    <div class="header-right">
+      <span style="font-size:12px;color:#888;">DE | EN</span>
+      <span class="cta">Plan your next stay</span>
+    </div>
+  </header>
+  <div class="secondary-nav">
+    <span class="bridge">Not here yet? STAY →</span>
+    <span>What's on · Getting around · Local tips · Gallery · Wallride</span>
+  </div>
+  <div class="annotate">↑ Primary nav unchanged from homepage · teal accent replaces amber throughout /here · secondary nav carries the bridge link back to the outside site</div>
+
+  <div class="hero">
+    <div class="clock">20:47</div>
+    <div class="day">THURSDAY</div>
+    <h1>Good evening</h1>
+    <div class="subline">Ping Pong Tournament starts tonight at 18:00</div>
+    <div class="subline2">KTTK · Ground floor across from the bar</div>
+    <div class="loc">Hotel Berlin, Berlin · Lützowplatz 17</div>
+  </div>
+  <div class="annotate">↑ Full-width static image, 280px tall on desktop · live clock top-right · two-line live-event subline per the hero addendum (falls back to manual day-slot copy when nothing's live)</div>
+
+  <div class="grid">
+
+    <div class="divider"><hr><span>During your stay</span><hr></div>
+
+    <div class="card c-white stay-info">
+      <h3>Stay info</h3>
+      <div class="data-row"><span class="k">Check-out</span><span class="v">12:00 noon</span></div>
+      <div class="data-row"><span class="k">Breakfast</span><span class="v">06:30 – 10:00 · Lütze</span></div>
+      <div class="data-row"><span class="k">WiFi</span><span class="v"><span class="pill">HBB_Guest</span> <span class="pill">berlin1958</span></span></div>
+      <div class="data-row"><span class="k">Parking</span><span class="v">Underground · €4/hr · max €25/day</span></div>
+      <div class="data-row"><span class="k">Luggage</span><span class="v">After check-out · ask reception</span></div>
+      <div class="stay-link">Parking · luggage · pets · all FAQs →</div>
+    </div>
+
+    <div class="card c-teal tonight">
+      <div class="ph-img">Exhibition image</div>
+      <span class="badge">● Open now · free entry</span>
+      <h3>Anna Taut + Czarnobyl</h3>
+      <p>FKKB gallery · until 22:00 · ground floor</p>
+    </div>
+
+    <div class="card c-amber kttk-tap">
+      <span class="badge">Thu 19:00</span>
+      <h3>KTTK</h3>
+      <p>Tournament night · €5 · B2</p>
+    </div>
+
+    <div class="card c-gold luetze-tap">
+      <span class="badge">● Kitchen open</span>
+      <h3>Lütze</h3>
+      <p>Until 22:30 · reserve →</p>
+    </div>
+
+    <div class="annotate" style="grid-column:1/-1;">↑ Stay info spans the full height of the Tonight + KTTK/Lütze stack next to it — the two things a just-arrived guest needs side by side. KTTK/Lütze are tap targets, not reading cards.</div>
+
+    <div class="divider"><hr><span>Good to know</span><hr></div>
+
+    <div class="card c-white goodtoknow">
+      <h3>Good to know — the rest of the essentials</h3>
+      <div class="gtk-cols">
+        <div><h4>Getting settled</h4><p>Check-in 15:00</p><p>Luggage before/after stay</p><p>Room safes · housekeeping</p></div>
+        <div><h4>Money &amp; connectivity</h4><p>Cards / contactless only</p><p>Free WiFi hotel-wide</p><p>ATM · business center</p></div>
+        <div><h4>Health &amp; comfort</h4><p>Pets €30/day</p><p>Non-smoking hotel</p><p>Sauna · 24/7 gym</p></div>
+        <div><h4>Getting around</h4><p>Taxi · airport shuttle</p><p>EV charging (8× Type 2)</p><p>Full guide → /here/getting-around</p></div>
+      </div>
+    </div>
+    <div class="annotate" style="grid-column:1/-1;">↑ NEW card, added per the content strategy doc — absorbs the old site's A-Z guest directory that doesn't fit in Stay Info. Own full-width card rather than folded into the FAQ accordion. Content confirmed from old site; copy/grouping still to be finalized with the client.</div>
+
+    <div class="divider"><hr><span>Art in the building</span><hr></div>
+
+    <div class="card c-teal art-show">
+      <div class="ph-img">Current exhibition image</div>
+      <span class="badge">Current show</span>
+      <h3>FKKB — Anna Taut + Czarnobyl</h3>
+      <p>Gallery · ground floor · free entry · explore all 27 editions →</p>
+    </div>
+
+    <div class="floor-cards">
+      <div class="card c-white floor"><p style="color:var(--accent);font-weight:600;font-size:11px;">FLOOR 4 · NEAR THE LIFTS</p><h3>Somari</h3></div>
+      <div class="card c-white floor"><p style="color:var(--accent);font-weight:600;font-size:11px;">FLOOR 2 · STAIRWELL</p><h3>deerBLN</h3></div>
+      <div class="card c-white floor"><p style="color:var(--accent);font-weight:600;font-size:11px;">LOBBY · MAIN ENTRANCE</p><h3>Pisa73</h3></div>
+      <div class="card c-white floor"><p style="color:var(--accent);font-weight:600;font-size:11px;">B2 · OUTSIDE KTTK</p><h3>Wallride</h3></div>
+    </div>
+    <div class="annotate" style="grid-column:1/-1;">↑ "On the Walls" mural content — four quarter-width cards at desktop (vs. half-width, stacked on mobile). Flagged in the content strategy: confirm with the team whether this fully represents the mural programme or whether it deserves a more dedicated section.</div>
+
+    <div class="divider"><hr><span>Explore the area</span><hr></div>
+
+    <div class="card c-green map">Interactive Mapbox GL JS map — amber pins (neighbourhood) · teal (in-building) · purple (concierge picks)</div>
+    <div class="annotate" style="grid-column:1/-1;">↑ Full interactive map, 220–280px tall on desktop · "Open full map →" links to /here/explore</div>
+
+    <div class="divider"><hr><span>In the basement</span><hr></div>
+
+    <div class="card c-amber kttk-basement">
+      <span class="badge">B2 · Mon–Sun</span>
+      <h3>KTTK</h3>
+      <p>4 JOOLA tables · €5 / 30 min · bats at Lütze bar</p>
+    </div>
+    <div class="card c-white wallride">
+      <span class="badge">Permanent</span>
+      <h3>Wallride</h3>
+      <p>Half-pipe · Cold War Berlin skate history · by Skateboardmuseum Berlin</p>
+    </div>
+
+    <div class="card c-tbd fingerboard">
+      <h3 style="color:#999;">Fingerboard ramps — placement TBD</h3>
+      <p style="color:#999;">Blocked on content from the hotel team: location, photos, access model, hours. Sketched here next to KTTK/Wallride as the likely home if co-located — confirm before building.</p>
+    </div>
+    <div class="annotate" style="grid-column:1/-1;">↑ Basement section — KTTK + Wallride are speced and ready to build. Fingerboard ramps is a placeholder only, shown so the layout can be discussed before content exists.</div>
+
+    <div class="divider"><hr><span>Need help?</span><hr></div>
+
+    <div class="card c-white faq">
+      <h3>Frequently asked</h3>
+      <div class="faq-row"><span>What time is check-out?</span><span>+</span></div>
+      <div class="faq-row"><span>Where is the nearest U-Bahn?</span><span>+</span></div>
+      <div class="faq-row"><span>Can I store luggage after check-out?</span><span>+</span></div>
+      <div class="stay-link">All guest FAQs →</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>Hotel Berlin, Berlin · Lützowplatz 17 · 10785 Berlin</div>
+    <div class="foot-links">Contact <span>·</span> Accessibility <span>·</span> Privacy <span>·</span> <a href="#">hotel-berlin.de →</a></div>
+  </footer>
+
+</div>
+
+</body>
+</html>

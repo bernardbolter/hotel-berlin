@@ -2,9 +2,8 @@ import { getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { FAQPageView } from '@/components/faqs/FAQPageView'
-import { SiteFooter } from '@/components/layout/SiteFooter'
-import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
+import { hereAlternates } from '@/lib/here/canonical'
 import {
   getFaqs,
   GUEST_FAQ_CATEGORIES,
@@ -36,14 +35,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${t('guestPageTitle')} | Hotel Berlin, Berlin`,
     description: t('guestPageDescription'),
-    alternates: {
-      canonical: `https://hotel-berlin.de/${locale === 'de' ? 'de/hier/faq' : 'en/here/faq'}`,
-      languages: {
-        de: 'https://hotel-berlin.de/de/hier/faq',
-        en: 'https://hotel-berlin.de/en/here/faq',
-        'x-default': 'https://hotel-berlin.de/de/hier/faq',
-      },
-    },
+    alternates: hereAlternates('/here/faq', locale),
   }
 }
 
@@ -77,7 +69,6 @@ export default async function HereFaqPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="inside" />
       <main id="main-content">
         <FAQPageView
           items={items}
@@ -88,7 +79,6 @@ export default async function HereFaqPage({ params }: Props) {
           categoriesHeading={t('categoriesAria')}
         />
       </main>
-      <SiteFooter />
     </>
   )
 }

@@ -4,8 +4,10 @@ import {
   activeSegmentClosesAt,
   pickKitchenOrPrimarySegment,
 } from '../../src/lib/here/tonight'
+import { berlinTimeOfDay, getTimeOfDay } from '../../src/lib/here/greeting'
 import { berlinLocalToUtc } from '../../src/lib/venue-time/berlin'
 import { guestStayFromHotel } from '../../src/lib/payload/hotel'
+import { formatVenueHoursSegments } from '../../src/lib/venues/formatHours'
 import type { Hotel, Venue } from '../../src/payload-types'
 
 function atBerlin(isoLocal: string): Date {
@@ -68,5 +70,33 @@ describe('guestStayFromHotel', () => {
     expect(stay.breakfastHours).toBe('06:30 – 10:00')
     expect(stay.wifiPassword).toBe('secret')
     expect(stay.breakfastLocation).toBe('Lütze ground floor')
+  })
+})
+
+describe('getTimeOfDay', () => {
+  it('maps Berlin hours to greeting slots', () => {
+    expect(getTimeOfDay(6)).toBe('morning')
+    expect(getTimeOfDay(11)).toBe('morning')
+    expect(getTimeOfDay(12)).toBe('afternoon')
+    expect(getTimeOfDay(17)).toBe('afternoon')
+    expect(getTimeOfDay(18)).toBe('evening')
+    expect(getTimeOfDay(23)).toBe('evening')
+    expect(getTimeOfDay(2)).toBe('evening')
+  })
+
+  it('reads Berlin wall-clock from a UTC instant', () => {
+    // 2026-08-20 08:00 Berlin (CEST = UTC+2)
+    expect(berlinTimeOfDay(berlinLocalToUtc(2026, 8, 20, 8, 0, 0))).toBe('morning')
+    expect(berlinTimeOfDay(berlinLocalToUtc(2026, 8, 20, 19, 0, 0))).toBe('evening')
+  })
+})
+
+describe('formatVenueHoursSegments', () => {
+  it('collapses Kitchen lunch + dinner and keeps Bar open-end', () => {
+    const segments = formatVenueHoursSegments(lutzeHours)
+    expect(segments).toEqual([
+      { label: 'Bar', body: '10:00 – open end' },
+      { label: 'Kitchen', body: '11:30–15:00 · 17:00–22:30' },
+    ])
   })
 })

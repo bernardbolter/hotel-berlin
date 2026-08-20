@@ -40,8 +40,8 @@ export const pathnames = {
     en: '/meetings/request',
     de: '/tagungen/anfrage',
   },
-  // Placeholder — NOT final, do not let these reach production before sign-off:
   '/restaurant': { en: '/restaurant', de: '/restaurant' },
+  // Placeholder — NOT final, do not let these reach production before sign-off:
   '/happenings': { en: '/happenings', de: '/happenings' },
   '/offers': { en: '/offers', de: '/offers' },
   '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed

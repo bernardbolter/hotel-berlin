@@ -812,27 +812,69 @@ body {
   }
 }
 
-/* /here guest hub card grid — mobile-first, 2-col from xs (480px) */
+/* /here guest hub card grid — 1 col → 2 col (480px) → 4 col desktop (1024px) */
 .here-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
-  padding: 0 12px;
+  padding: 24px 12px;
+  background: #fbfbfb;
+  align-items: stretch;
+}
+
+.here-full,
+.here-stay,
+.here-tonight,
+.here-floors {
+  grid-column: 1 / -1;
+}
+
+.here-tap,
+.here-half {
+  grid-column: 1 / -1;
 }
 
 @media (min-width: 480px) {
   .here-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .here-tap,
+  .here-half {
+    grid-column: span 1;
+  }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .here-grid {
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    padding: 0 24px;
+    padding: 24px;
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .here-stay {
+    grid-column: 1 / 3;
+    grid-row: span 2;
+  }
+
+  .here-tonight {
+    grid-column: 3 / 5;
+  }
+
+  .here-tap {
+    grid-column: span 1;
+  }
+
+  .here-half {
+    grid-column: span 2;
+  }
+
+  .here-full,
+  .here-floors {
+    grid-column: 1 / -1;
   }
 }
 

@@ -1,11 +1,15 @@
 import { getTranslations } from 'next-intl/server'
 
+import { ArtInBuildingSection } from '@/components/here/ArtInBuildingSection'
+import { BasementSection } from '@/components/here/BasementSection'
+import { GoodToKnowCard } from '@/components/here/GoodToKnowCard'
+import { HereFaqSection } from '@/components/here/HereFaqSection'
+import { HereHero } from '@/components/here/HereHero'
 import { SectionDivider } from '@/components/here/SectionDivider'
 import { StayInfoCard } from '@/components/here/StayInfoCard'
 import { TonightSection } from '@/components/here/TonightSection'
-import { SiteFooter } from '@/components/layout/SiteFooter'
-import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import { NeighbourhoodMapSection } from '@/components/map/NeighbourhoodMapSection'
+import { hereAlternates } from '@/lib/here/canonical'
 import { getGuestStayInfo } from '@/lib/payload/hotel'
 
 type Props = {
@@ -24,14 +28,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${t('title')} | Hotel Berlin, Berlin`,
     description: t('heroSubline'),
-    alternates: {
-      canonical: `https://hotel-berlin.de/${locale === 'de' ? 'de/hier' : 'en/here'}`,
-      languages: {
-        de: 'https://hotel-berlin.de/de/hier',
-        en: 'https://hotel-berlin.de/en/here',
-        'x-default': 'https://hotel-berlin.de/de/hier',
-      },
-    },
+    alternates: hereAlternates('/here', locale),
   }
 }
 
@@ -47,53 +44,100 @@ export default async function HerePage({ params, searchParams }: Props) {
   const hideStay = context === 'dining' || context === 'gallery'
 
   return (
-    <>
-      <SiteNavWithData context="inside" />
-      <main id="main-content">
-        <div className="site-shell py-6 md:py-10">
-          <header className="mb-6 px-3 md:px-0">
-            <h1 className="font-ui text-ui-xl font-medium text-hbb-black md:font-serif md:text-serif-xl">
-              {t('heroHeadline')}
-            </h1>
-            <p className="mt-2 max-w-xl font-serif text-serif-sm text-gray-600">
-              {t('heroSubline')}
-            </p>
-          </header>
+    <main id="main-content" className="bg-[#EDEDED]">
+      <div className="mx-auto max-w-7xl bg-hbb-page">
+      <HereHero locale={locale} eventSlug={eventSlug} />
 
-          <div className="here-grid">
-            {!hideStay ? (
-              <>
-                <SectionDivider label={t('duringYourStay')} />
-                <StayInfoCard
-                  className="card-full col-span-2"
-                  stay={stay}
-                  labels={{
-                    checkout: t('stay.checkout'),
-                    breakfast: t('stay.breakfast'),
-                    wifi: t('stay.wifi'),
-                    parking: t('stay.parking'),
-                    luggage: t('stay.luggage'),
-                    faqsCta: t('stay.faqsCta'),
-                  }}
-                  eventRow={
-                    eventSlug
-                      ? {
-                          label: t('stay.eventLabel'),
-                          value: eventSlug,
-                        }
-                      : null
-                  }
-                />
-              </>
-            ) : null}
+      <div className="here-grid">
+        {!hideStay ? (
+          <>
+            <SectionDivider label={t('duringYourStay')} />
+            <StayInfoCard
+              className="here-stay"
+              stay={stay}
+              labels={{
+                title: t('stay.title'),
+                checkout: t('stay.checkout'),
+                breakfast: t('stay.breakfast'),
+                wifi: t('stay.wifi'),
+                parking: t('stay.parking'),
+                luggage: t('stay.luggage'),
+                faqsCta: t('stay.faqsCta'),
+              }}
+              eventRow={
+                eventSlug
+                  ? {
+                      label: t('stay.eventLabel'),
+                      value: eventSlug,
+                    }
+                  : null
+              }
+            />
+          </>
+        ) : null}
 
-            <TonightSection locale={locale} sectionLabel={t('tonight')} />
-          </div>
-        </div>
+        <TonightSection locale={locale} besideStay={!hideStay} />
 
-        <NeighbourhoodMapSection context="here" />
-      </main>
-      <SiteFooter />
-    </>
+        <SectionDivider label={t('goodToKnow.section')} />
+        <GoodToKnowCard
+          className="here-full"
+          title={t('goodToKnow.title')}
+          gettingAroundCta={t('goodToKnow.gettingAroundCta')}
+          columns={[
+            {
+              title: t('goodToKnow.settled.title'),
+              items: [
+                t('goodToKnow.settled.checkin'),
+                t('goodToKnow.settled.luggage'),
+                t('goodToKnow.settled.safes'),
+              ],
+            },
+            {
+              title: t('goodToKnow.money.title'),
+              items: [
+                t('goodToKnow.money.cards'),
+                t('goodToKnow.money.wifi'),
+                t('goodToKnow.money.atm'),
+              ],
+            },
+            {
+              title: t('goodToKnow.health.title'),
+              items: [
+                t('goodToKnow.health.pets'),
+                t('goodToKnow.health.nonsmoking'),
+                t('goodToKnow.health.gym'),
+              ],
+            },
+            {
+              title: t('goodToKnow.around.title'),
+              items: [
+                t('goodToKnow.around.taxi'),
+                t('goodToKnow.around.ev'),
+                t('goodToKnow.around.guide'),
+              ],
+            },
+          ]}
+        />
+
+        <ArtInBuildingSection locale={locale} />
+
+        <SectionDivider label={t('exploreSection')} />
+        <NeighbourhoodMapSection
+          context="here"
+          layout="card"
+          ctaHref="/here/explore"
+          ctaLabel={t('openFullMap')}
+        />
+
+        <BasementSection />
+        <SectionDivider label={t('needHelp')} />
+        <HereFaqSection
+          className="here-full"
+          heading={t('faqsHeading')}
+          ctaLabel={t('allGuestFaqs')}
+        />
+      </div>
+      </div>
+    </main>
   )
 }

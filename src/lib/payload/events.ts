@@ -3,9 +3,10 @@ import { getPayloadClient } from './client'
 type EventQuery = {
   featured?: boolean
   limit?: number
+  locale?: 'de' | 'en'
 }
 
-export async function getEvents({ featured, limit = 20 }: EventQuery = {}) {
+export async function getEvents({ featured, limit = 20, locale }: EventQuery = {}) {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
@@ -13,6 +14,7 @@ export async function getEvents({ featured, limit = 20 }: EventQuery = {}) {
     where: featured != null ? { featured: { equals: featured } } : undefined,
     sort: 'startDate',
     limit,
+    ...(locale ? { locale, fallbackLocale: 'en' } : {}),
   })
 
   return docs

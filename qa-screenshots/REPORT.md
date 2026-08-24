@@ -1,0 +1,13 @@
+# Map section pre-merge QA
+
+Base: http://localhost:3001
+When: 2026-08-24T12:38:07.712Z
+Totals: 5 pass / 0 fail / 0 blocked
+
+| id | status | title | screenshot | notes |
+|---|---|---|---|---|
+| keyboard-tab | **pass** | Tab reaches a map pin from the map region | 05b-keyboard-tab-to-pin.png, 05b-keyboard-tab-to-pin-closeup.png | After 1 Tab(s) from [data-hbb-guide-map], focus is pin aria-label="Hotel Berlin, Berlin". canvas tabindex=-1. path: BUTTON[Hotel Berlin, Berlin] |
+| keyboard-focus | **pass** | Focus-visible label reveal + aria-label has name + category | 05-keyboard-focus-label-page.png, 05-keyboard-focus-label-pin.png | activeElement aria-label="Neue Nationalgalerie, Art"; pin aria-label="Neue Nationalgalerie, Art"; label opacity=1. Tab was not used from document start — pin was focused directly so the check is "keyboard focus", not a full tab-order walk. |
+| keyboard-enter | **pass** | Enter on focused pin opens PlaceInfoCard | 06-keyboard-enter-card.png | Card h3="Neue Nationalgalerie" (desktop floating overlay). |
+| filter-click | **pass** | Click person → URL ?person=slug + person-emphasis card | 07-filter-maike-click.png | url=http://localhost:3001/en/you-me-and-berlin?person=maike. cardVisible=true. card excerpt: "× MA Maike Schloss Charlottenburg SIGHTSEEING “[TBC — no personal quote sourced yet]” 56 min walk RECOMMENDED BY AB Alessandra Botts" |
+| filter-clear | **pass** | Clear filter restores unfiltered URL and does not leave a stale card | 08-filter-cleared.png | url=http://localhost:3001/en/you-me-and-berlin. person param gone=true. stale card visible=false. |

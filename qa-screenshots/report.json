@@ -1,0 +1,40 @@
+{
+  "base": "http://localhost:3001",
+  "checks": [
+    {
+      "id": "keyboard-tab",
+      "title": "Tab reaches a map pin from the map region",
+      "status": "pass",
+      "screenshot": "05b-keyboard-tab-to-pin.png, 05b-keyboard-tab-to-pin-closeup.png",
+      "notes": "After 1 Tab(s) from [data-hbb-guide-map], focus is pin aria-label=\"Hotel Berlin, Berlin\". canvas tabindex=-1. path: BUTTON[Hotel Berlin, Berlin]"
+    },
+    {
+      "id": "keyboard-focus",
+      "title": "Focus-visible label reveal + aria-label has name + category",
+      "status": "pass",
+      "screenshot": "05-keyboard-focus-label-page.png, 05-keyboard-focus-label-pin.png",
+      "notes": "activeElement aria-label=\"Neue Nationalgalerie, Art\"; pin aria-label=\"Neue Nationalgalerie, Art\"; label opacity=1. Tab was not used from document start — pin was focused directly so the check is \"keyboard focus\", not a full tab-order walk."
+    },
+    {
+      "id": "keyboard-enter",
+      "title": "Enter on focused pin opens PlaceInfoCard",
+      "status": "pass",
+      "screenshot": "06-keyboard-enter-card.png",
+      "notes": "Card h3=\"Neue Nationalgalerie\" (desktop floating overlay)."
+    },
+    {
+      "id": "filter-click",
+      "title": "Click person → URL ?person=slug + person-emphasis card",
+      "status": "pass",
+      "screenshot": "07-filter-maike-click.png",
+      "notes": "url=http://localhost:3001/en/you-me-and-berlin?person=maike. cardVisible=true. card excerpt: \"× MA Maike Schloss Charlottenburg SIGHTSEEING “[TBC — no personal quote sourced yet]” 56 min walk RECOMMENDED BY AB Alessandra Botts\""
+    },
+    {
+      "id": "filter-clear",
+      "title": "Clear filter restores unfiltered URL and does not leave a stale card",
+      "status": "pass",
+      "screenshot": "08-filter-cleared.png",
+      "notes": "url=http://localhost:3001/en/you-me-and-berlin. person param gone=true. stale card visible=false."
+    }
+  ]
+}

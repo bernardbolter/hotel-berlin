@@ -19,13 +19,12 @@ import {
   defaultConfig,
 } from '@/lib/aeo-schema/src/index'
 import { getMapSettings } from '@/lib/map/settings'
-import { personInitials } from '@/lib/people/initials'
+import { mapPlaceLabels, mediaFileAlt, mediaFileUrl, personFromEndorsement, toMapViewPlace } from '@/lib/map/toMapPlace'
 import {
   getNeighbourhoodPlaces,
   PLACE_CATEGORIES,
   type DistanceTier,
   type IndoorOutdoor,
-  type NeighbourhoodPlaceDoc,
   type PlaceCategory,
 } from '@/lib/queries/neighbourhoodPlaces'
 
@@ -36,22 +35,6 @@ type Props = {
 
 function first(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value
-}
-
-function mediaUrl(image: NeighbourhoodPlaceDoc['image']): string | null {
-  return typeof image === 'object' && image && image.url ? image.url : null
-}
-
-function mediaAlt(image: NeighbourhoodPlaceDoc['image']): string {
-  return typeof image === 'object' && image && image.alt ? image.alt : ''
-}
-
-function personFromEndorsement(
-  person: NonNullable<NeighbourhoodPlaceDoc['endorsements']>[number]['person'],
-): { slug: string; name: string } | null {
-  if (!person || typeof person !== 'object') return null
-  if (typeof person.slug !== 'string') return null
-  return { slug: person.slug, name: person.name }
 }
 
 function isPlaceCategory(value: string | undefined): value is PlaceCategory {
@@ -142,67 +125,17 @@ export default async function NeighbourhoodPage({ params, searchParams }: Props)
   }))
 
   const mapPlaces = mapResult.docs
-    .filter((place) => place.geo?.latitude != null && place.geo?.longitude != null)
-    .map((place) => {
-      const transitRaw = place.transit
-      const transit =
-        transitRaw?.minutes != null && transitRaw.station && transitRaw.line
-          ? {
-              minutes: transitRaw.minutes,
-              station: transitRaw.station,
-              line: transitRaw.line,
-            }
-          : null
-
-      const imageSrc = mediaUrl(place.image)
-      const creditText = place.imageCredit?.creditText?.trim()
-      const imageCredit = creditText
-        ? {
-            creditText,
-            creditUrl: place.imageCredit?.creditUrl?.trim() || null,
-          }
-        : null
-      const endorsements =
-        place.endorsements
-          ?.map((entry) => personFromEndorsement(entry.person))
-          .filter((p): p is { slug: string; name: string } => p != null)
-          .map((p) => ({
-            person: {
-              name: p.name,
-              slug: p.slug,
-              initials: personInitials(p.name),
-            },
-          })) ?? []
-
-      return {
-        id: String(place.id),
-        slug: place.slug,
-        name: place.name,
-        category: place.category,
-        categoryLabel: t(`categories.${place.category}`),
-        description: place.description,
-        walkingMinutes: place.walkingMinutes,
-        walkingLabel:
-          place.walkingMinutes != null
-            ? t('walkingMinutes', { minutes: place.walkingMinutes })
-            : undefined,
-        transit,
-        transitLabel: transit
-          ? t('transitLine', {
-              minutes: transit.minutes,
-              line: transit.line,
-              station: transit.station,
-            })
-          : undefined,
-        image: imageSrc
-          ? { src: imageSrc, alt: mediaAlt(place.image) || place.name }
-          : null,
-        imageCredit,
-        endorsements,
-        latitude: place.geo!.latitude!,
-        longitude: place.geo!.longitude!,
-      }
-    })
+    .map((place) =>
+      toMapViewPlace(
+        place,
+        mapPlaceLabels(place, {
+          category: (category) => t(`categories.${category}`),
+          walking: (minutes) => t('walkingMinutes', { minutes }),
+          transit: (args) => t('transitLine', args),
+        }),
+      ),
+    )
+    .filter((p): p is NonNullable<typeof p> => p != null)
 
   return (
     <>
@@ -317,8 +250,8 @@ export default async function NeighbourhoodPage({ params, searchParams }: Props)
                           : undefined
                       }
                       description={place.description}
-                      imageUrl={mediaUrl(place.image)}
-                      imageAlt={mediaAlt(place.image)}
+                      imageUrl={mediaFileUrl(place.image)}
+                      imageAlt={mediaFileAlt(place.image)}
                       endorsements={endorsements}
                     />
                   </li>

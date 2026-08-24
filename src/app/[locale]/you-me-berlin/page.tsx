@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
+import { PlacesMapView } from '@/components/map/PlacesMapView'
 import { FilterChipBar } from '@/components/neighbourhood/FilterChipBar'
 import { PaginationNav } from '@/components/neighbourhood/PaginationNav'
 import { PersonCard } from '@/components/neighbourhood/PersonCard'
@@ -15,6 +16,9 @@ import {
   buildPeopleListGraph,
   defaultConfig,
 } from '@/lib/aeo-schema/src/index'
+import { getMapSettings } from '@/lib/map/settings'
+import { mapPlaceLabels, personFromEndorsement, toMapViewPlace } from '@/lib/map/toMapPlace'
+import { getNeighbourhoodPlaces } from '@/lib/queries/neighbourhoodPlaces'
 import { getPeople, getPeopleFilterTags } from '@/lib/queries/people'
 import type { Media, Person, Tag } from '@/payload-types'
 
@@ -69,12 +73,16 @@ export default async function YouMeBerlinPage({ params, searchParams }: Props) {
   const tag = first(sp.tag) ?? null
   const search = first(sp.search) ?? null
   const page = Math.max(1, Number(first(sp.page) ?? '1') || 1)
+  const personSlugFilter = first(sp.person) ?? null
 
-  const [result, tags, schemaPeople] = await Promise.all([
+  const tPlaces = await getTranslations('neighbourhood')
+
+  const [result, tags, schemaPeople, mapSettings, mapDocs] = await Promise.all([
     getPeople({ locale, tag, search, page }),
     getPeopleFilterTags(locale),
-    // JSON-LD describes the complete set (including drafts during preview).
     getAllPeopleForSchema(locale),
+    getMapSettings(),
+    getNeighbourhoodPlaces({ locale, unpaginated: true, defaultWalkable: false }),
   ])
 
   const listGraph = buildPeopleListGraph(schemaPeople, defaultConfig)
@@ -90,7 +98,49 @@ export default async function YouMeBerlinPage({ params, searchParams }: Props) {
   const preservedQuery = {
     tag: tag ?? undefined,
     search: search ?? undefined,
+    person: personSlugFilter ?? undefined,
   }
+
+  const labelFn = {
+    category: (category: string) => tPlaces(`categories.${category}`),
+    walking: (minutes: number) => tPlaces('walkingMinutes', { minutes }),
+    transit: (args: { minutes: number; line: string; station: string }) =>
+      tPlaces('transitLine', args),
+  }
+
+  const allRecommendationPlaces = mapDocs.docs
+    .map((place) =>
+      toMapViewPlace(place, mapPlaceLabels(place, labelFn), {
+        requirePublishedEndorsers: true,
+      }),
+    )
+    .filter((p): p is NonNullable<typeof p> => p != null && p.leadPerson != null)
+
+  const personOptions = new Map<string, string>()
+  for (const place of mapDocs.docs) {
+    for (const entry of place.endorsements ?? []) {
+      const person = personFromEndorsement(entry.person, { requirePublished: true })
+      if (person) personOptions.set(person.slug, person.name)
+    }
+  }
+  const personFilterOptions = [...personOptions.entries()]
+    .map(([value, label]) => ({ value, label }))
+    .sort((a, b) => a.label.localeCompare(b.label))
+
+  const mapPlaces = personSlugFilter
+    ? mapDocs.docs
+        .map((doc) =>
+          toMapViewPlace(doc, mapPlaceLabels(doc, labelFn), {
+            requirePublishedEndorsers: true,
+            leadPersonSlug: personSlugFilter,
+          }),
+        )
+        .filter(
+          (p): p is NonNullable<typeof p> =>
+            p != null && p.leadPerson?.slug === personSlugFilter,
+        )
+    : allRecommendationPlaces
+
 
   return (
     <>
@@ -105,6 +155,41 @@ export default async function YouMeBerlinPage({ params, searchParams }: Props) {
           />
           <p className="mt-6 max-w-2xl font-ui text-ui-sm text-gray-600">{t('intro')}</p>
         </div>
+
+        {mapSettings.accessToken && personFilterOptions.length > 0 ? (
+          <div className="border-y border-gray-200">
+            <div className="px-section-sm py-4 md:px-section-x">
+              <Suspense fallback={null}>
+                <FilterChipBar
+                  pathname="/you-me-berlin"
+                  options={personFilterOptions}
+                  param="person"
+                  activeValue={personSlugFilter}
+                  ariaLabel={t('personFilterAria')}
+                  allLabel={t('allPeople')}
+                  uppercase={false}
+                />
+              </Suspense>
+            </div>
+            {mapPlaces.length > 0 ? (
+              <PlacesMapView
+                accessToken={mapSettings.accessToken}
+                bounds={mapSettings.bounds}
+                center={mapSettings.center}
+                places={mapPlaces}
+                hotelName={mapSettings.hotelName}
+                ariaLabel={t('mapAria')}
+                noscriptHtml={t.raw('mapNoscript') as string}
+                pinVariant="person"
+                cardEmphasis="person"
+              />
+            ) : (
+              <p className="px-section-sm py-8 font-ui text-ui-sm text-gray-500 md:px-section-x">
+                {t('mapEmpty')}
+              </p>
+            )}
+          </div>
+        ) : null}
 
         <div className="px-section-sm pb-section-y md:px-section-x">
           <Suspense

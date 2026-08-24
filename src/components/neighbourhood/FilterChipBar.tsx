@@ -17,6 +17,8 @@ type Props = {
   activeValue?: string | null
   ariaLabel: string
   allLabel: string
+  /** Default true — person names stay in title case. */
+  uppercase?: boolean
 }
 
 export function FilterChipBar({
@@ -26,6 +28,7 @@ export function FilterChipBar({
   activeValue,
   ariaLabel,
   allLabel,
+  uppercase = true,
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -53,7 +56,7 @@ export function FilterChipBar({
         type="button"
         aria-pressed={!activeValue}
         onClick={() => navigate(null)}
-        className={`inline-flex min-h-10 items-center border px-3 font-ui text-ui-xs uppercase tracking-ui-label transition-colors duration-200 ease-out motion-reduce:transition-none ${
+        className={`inline-flex min-h-10 items-center border px-3 font-ui text-ui-xs ${uppercase ? 'uppercase tracking-ui-label' : ''} transition-colors duration-200 ease-out motion-reduce:transition-none ${
           !activeValue
             ? 'border-hbb-green bg-hbb-green/10 text-hbb-green'
             : 'border-gray-200 bg-transparent text-gray-600 hover:border-gray-400 hover:text-hbb-black'
@@ -69,7 +72,7 @@ export function FilterChipBar({
             type="button"
             aria-pressed={pressed}
             onClick={() => navigate(pressed ? null : option.value)}
-            className={`inline-flex min-h-10 items-center border px-3 font-ui text-ui-xs uppercase tracking-ui-label transition-colors duration-200 ease-out motion-reduce:transition-none ${
+            className={`inline-flex min-h-10 items-center border px-3 font-ui text-ui-xs ${uppercase ? 'uppercase tracking-ui-label' : ''} transition-colors duration-200 ease-out motion-reduce:transition-none ${
               pressed
                 ? 'border-hbb-green bg-hbb-green/10 text-hbb-green'
                 : 'border-gray-200 bg-transparent text-gray-600 hover:border-gray-400 hover:text-hbb-black'

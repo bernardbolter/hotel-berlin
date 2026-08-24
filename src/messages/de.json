@@ -342,6 +342,7 @@
     "placeListAria": "Hervorgehobene Orte in der Nachbarschaft",
     "hotelLegend": "Hotel",
     "recommendedBy": "Empfohlen von",
+    "endorserCountLabel": "{count, plural, one {# Empfehlung} other {# Empfehlungen}}",
     "paginationAria": "Kartenseiten",
     "pageLabel": "Seite {page}",
     "nextPage": "Nächste Seite",
@@ -768,7 +769,11 @@
     "previous": "Zurück",
     "next": "Weiter",
     "bridgeIntro": "Orte, empfohlen von Menschen, die Berlin wie zu Hause fühlen lassen.",
-    "bridgeCta": "You, Me & Berlin kennenlernen"
+    "bridgeCta": "You, Me & Berlin kennenlernen",
+    "addressLabel": "Adresse",
+    "walkingLabel": "Fußweg",
+    "transitLabel": "ÖPNV",
+    "backToList": "Alle Orte in der Nachbarschaft"
   },
   "youMeBerlin": {
     "label": "You, Me & Berlin",
@@ -786,7 +791,16 @@
     "previous": "Zurück",
     "next": "Weiter",
     "bridgeIntro": "Die Nachbarschaft über ihre Empfehlungen entdecken.",
-    "bridgeCta": "Nachbarschaft entdecken"
+    "bridgeCta": "Nachbarschaft entdecken",
+    "personFilterAria": "Karte nach Person filtern",
+    "allPeople": "Alle",
+    "mapAria": "Karte mit Orten, empfohlen von You, Me & Berlin",
+    "mapNoscript": "<p><strong>Hotel Berlin, Berlin</strong> — Lützowplatz 17, 10785 Berlin. Orte aus dem You, Me &amp; Berlin-Netzwerk.</p>",
+    "mapEmpty": "Für diese Person sind noch keine Orte auf der Karte.",
+    "picksHeading": "Tipps von {name}",
+    "picksComingSoon": "Empfehlungen von {name} folgen in Kürze.",
+    "videoTitle": "Video: {name}",
+    "backToList": "Alle You, Me & Berlin"
   },
   "faq": {
     "title": "Gute Fragen.",

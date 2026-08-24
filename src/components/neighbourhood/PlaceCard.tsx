@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Landmark } from 'lucide-react'
 
+import { PlaceImageFallback } from '@/components/neighbourhood/PlaceImageFallback'
 import { Link } from '@/i18n/routing'
 import { CATEGORY_LUCIDE_ICON } from '@/lib/neighbourhood/categoryIcons'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
@@ -39,11 +40,11 @@ export function PlaceCard({
 
   return (
     <article className="flex flex-col motion-safe:transition-opacity motion-reduce:transition-none">
-      {imageUrl ? (
-        <Link
-          href={{ pathname: '/neighbourhood/[slug]', params: { slug } }}
-          className="relative mb-4 aspect-4/3 overflow-hidden bg-gray-100"
-        >
+      <Link
+        href={{ pathname: '/neighbourhood/[slug]', params: { slug } }}
+        className="relative mb-4 aspect-4/3 overflow-hidden bg-gray-100"
+      >
+        {imageUrl ? (
           <Image
             src={imageUrl}
             alt={imageAlt}
@@ -51,8 +52,10 @@ export function PlaceCard({
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
           />
-        </Link>
-      ) : null}
+        ) : (
+          <PlaceImageFallback category={category} className="h-full w-full" />
+        )}
+      </Link>
 
       <div className="flex items-center gap-2 text-hbb-green">
         <Icon aria-hidden="true" size={16} strokeWidth={1.75} />

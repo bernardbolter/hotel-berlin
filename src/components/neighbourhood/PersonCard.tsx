@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { InitialsAvatar } from '@/components/people/InitialsAvatar'
 import { Link } from '@/i18n/routing'
 
 export type PersonCardProps = {
@@ -27,7 +28,7 @@ export function PersonCard({
     <article className="flex flex-col motion-safe:transition-opacity motion-reduce:transition-none">
       <Link
         href={{ pathname: '/you-me-berlin/[slug]', params: { slug } }}
-        className="relative mb-4 aspect-3/4 overflow-hidden bg-gray-100"
+        className="relative mb-4 flex aspect-3/4 items-center justify-center overflow-hidden bg-gray-100"
       >
         {portraitUrl ? (
           <Image
@@ -38,9 +39,7 @@ export function PersonCard({
             className="object-cover"
           />
         ) : (
-          <span className="absolute inset-0 flex items-center justify-center font-ui text-ui-lg text-gray-300">
-            {name.slice(0, 1)}
-          </span>
+          <InitialsAvatar name={name} size="xl" />
         )}
       </Link>
 

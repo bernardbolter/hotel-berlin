@@ -1310,6 +1310,9 @@ body {
 .hbb-map-pin-host {
   overflow: visible !important;
 }
+.mapboxgl-marker:has(.hbb-map-pin-host) {
+  overflow: visible !important;
+}
 .hbb-map-pin-host button {
   cursor: pointer;
 }

@@ -11,7 +11,7 @@ import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 export type MountedPinHandle = {
   element: HTMLElement
   root: Root
-  update: (next: MountCategoryPinOptions | MountHotelPinOptions) => void
+  update: (next: MountPinOptions) => void
   unmount: () => void
 }
 
@@ -32,9 +32,28 @@ type MountCategoryPinOptions = {
   labelVisible: boolean
   onSelect: () => void
   icon?: LucideIcon
+  extraEndorserCount?: number
 }
 
-function renderPin(root: Root, options: MountCategoryPinOptions | MountHotelPinOptions) {
+type MountPersonPinOptions = {
+  variant: 'person'
+  label: string
+  ariaLabel: string
+  initials: string
+  personName?: string
+  portraitUrl?: string | null
+  isActive: boolean
+  labelVisible: boolean
+  onSelect: () => void
+  extraEndorserCount?: number
+}
+
+export type MountPinOptions =
+  | MountHotelPinOptions
+  | MountCategoryPinOptions
+  | MountPersonPinOptions
+
+function renderPin(root: Root, options: MountPinOptions) {
   if (options.variant === 'hotel') {
     root.render(
       createElement(MapPin, {
@@ -50,6 +69,24 @@ function renderPin(root: Root, options: MountCategoryPinOptions | MountHotelPinO
     return
   }
 
+  if (options.variant === 'person') {
+    root.render(
+      createElement(MapPin, {
+        variant: 'person',
+        label: options.label,
+        ariaLabel: options.ariaLabel,
+        initials: options.initials,
+        personName: options.personName,
+        portraitUrl: options.portraitUrl,
+        isActive: options.isActive,
+        labelVisible: options.labelVisible,
+        extraEndorserCount: options.extraEndorserCount,
+        onSelect: options.onSelect,
+      }),
+    )
+    return
+  }
+
   const Icon = options.icon ?? CATEGORY_LUCIDE_ICON[options.category]
   root.render(
     createElement(MapPin, {
@@ -60,15 +97,14 @@ function renderPin(root: Root, options: MountCategoryPinOptions | MountHotelPinO
       ariaLabel: options.ariaLabel,
       isActive: options.isActive,
       labelVisible: options.labelVisible,
+      extraEndorserCount: options.extraEndorserCount,
       onSelect: options.onSelect,
     }),
   )
 }
 
 /** Host element + React root for a Mapbox marker. */
-export function mountMapPin(
-  options: MountCategoryPinOptions | MountHotelPinOptions,
-): MountedPinHandle {
+export function mountMapPin(options: MountPinOptions): MountedPinHandle {
   const element = document.createElement('div')
   element.className = 'hbb-map-pin-host'
   const root = createRoot(element)

@@ -53,6 +53,9 @@ export type NeighbourhoodPlaceDoc = {
               id?: number | string
               name: string
               slug?: string | null
+              jobTitle?: string | null
+              status?: string | null
+              portrait?: number | { url?: string | null; alt?: string | null } | null
             }
           | null
         quote?: string

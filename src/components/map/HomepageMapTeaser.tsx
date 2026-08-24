@@ -19,11 +19,6 @@ import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 
 const FALLBACK_IMAGE = '/images/hotel-berlin-berlin-luetzowplatz-satellite.jpg'
 
-/** Layout-test placeholder — replace with real/Commons photos before launch. */
-function placeholderImageSrc(slug: string): string {
-  return `https://picsum.photos/seed/${encodeURIComponent(slug)}/536/335`
-}
-
 export type MapTeaserPlace = {
   id: string
   slug: string
@@ -104,6 +99,7 @@ export function HomepageMapTeaser({
         walkingLabel: p.walkingLabel,
         latitude: p.latitude,
         longitude: p.longitude,
+        endorserCount: p.endorsements.length,
       })),
     [places],
   )
@@ -129,21 +125,17 @@ export function HomepageMapTeaser({
     )
   }
 
-  const cardImage = selected
-    ? selected.image?.src
-      ? selected.image
-      : { src: placeholderImageSrc(selected.slug), alt: selected.name }
-    : null
-
   const card = selected ? (
     <PlaceInfoCard
-      image={cardImage}
+      image={selected.image}
       imageCredit={selected.imageCredit}
       category={{
         label: selected.categoryLabel,
         token: pinColorForCategory(selected.category),
       }}
+      categoryKey={selected.category}
       name={selected.name}
+      placeSlug={selected.slug}
       description={selected.description}
       walkingMinutes={selected.walkingMinutes}
       walkingLabel={selected.walkingLabel}

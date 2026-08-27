@@ -317,7 +317,7 @@
     }
   },
   "hero": {
-    "headingLine1": "Let's start your",
+    "headingLine1": "Let's <em>start your</em>",
     "headingLine2": "Berlin story",
     "bodyLine1": "Hotel Berlin, Berlin is where travellers, locals, and ideas naturally meet.",
     "bodyLine2": "Sunlight fills the courtyard, artists make real work,",
@@ -338,6 +338,7 @@
     "mapAria": "Interactive neighbourhood map near Hotel Berlin, Berlin",
     "noscript": "<p><strong>Hotel Berlin, Berlin</strong> — Lützowplatz 17, 10785 Berlin. U-Bahn Nollendorfplatz / Bus 100, 106, 187 to Lützowplatz.</p>",
     "legendAria": "Places on this map page",
+    "viewboxAria": "Selected place",
     "categoryLegendAria": "Categories on this map",
     "placeListAria": "Highlighted neighbourhood places",
     "hotelLegend": "Hotel",
@@ -663,6 +664,7 @@
     "hoursKttk": "13:00–23:00 · 4 tables · €5/30 min",
     "hourLabelBar": "Bar",
     "hourLabelKitchen": "Kitchen",
+    "cuisineLabel": "Cuisine",
     "hourLabelVinyl": "Vinyl Nights",
     "hourLabelKttk": "KTTK",
     "ctaVisit": "Visit Lütze",

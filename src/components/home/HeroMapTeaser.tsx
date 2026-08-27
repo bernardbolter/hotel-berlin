@@ -2,8 +2,8 @@ import { ArrowRight } from 'lucide-react'
 
 const MAP_FALLBACK = '/images/hero_map.png'
 
-/** Max circle diameter — scales down with viewport via CSS clamp */
-export const HERO_MAP_SIZE_PX = 248
+/** Circular map diameter */
+export const HERO_MAP_BADGE_PX = 200
 
 /** Hero forest panel green — `#56674F` / `hbb-forest` */
 const PIN_COLOR = '#56674F'
@@ -14,7 +14,6 @@ type Props = {
   directionsLabel: string
   hotelName: string
   shortAddress: string
-  mapAlt: string
   linkLabel: string
 }
 
@@ -38,80 +37,85 @@ function HotelMapPin({ className }: { className?: string }) {
   )
 }
 
+/**
+ * Circular map teaser — original V2 style (white ring, pin, name, directions strip, address).
+ * Parent positions the circle center on the forest/photo corner.
+ */
 export function HeroMapTeaser({
   imageSrc = MAP_FALLBACK,
   directionsUrl,
   directionsLabel,
   hotelName,
   shortAddress,
-  mapAlt,
   linkLabel,
 }: Props) {
   return (
-    <figure className="hero-map-teaser w-fit">
-      {/* One directions hit target — layout shifts at 1100px */}
-      <a
-        href={directionsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={linkLabel}
-        className="group flex flex-col items-center gap-2.5 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-[1099px]:flex-row max-[1099px]:items-center max-[1099px]:gap-5 min-[1100px]:max-[1300px]:gap-1.5"
-      >
-        {/* Below 1100: address + CTA to the left of the circle */}
-        <div
+    <a
+      href={directionsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={linkLabel}
+      className="hero-map-badge group relative block"
+      style={{ width: HERO_MAP_BADGE_PX, height: HERO_MAP_BADGE_PX }}
+    >
+      {/* ≤550: address + CTA to the left of the circle */}
+      <span className="hero-map-teaser__aside" aria-hidden="true">
+        <span className="hero-map-teaser__aside-address">{shortAddress}</span>
+        <span className="book-now-btn book-now-btn--on-forest inline-flex">
+          <span className="book-now-btn__text">{directionsLabel}</span>
+          <span className="book-now-btn__line" />
+        </span>
+      </span>
+
+      <span className="hero-map-circle relative block h-full w-full overflow-hidden rounded-full bg-hbb-forest">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageSrc}
+          alt=""
           aria-hidden="true"
-          className="hidden max-[1099px]:flex max-[1099px]:flex-col max-[1099px]:items-end max-[1099px]:gap-3 max-[1099px]:text-right"
+          width={HERO_MAP_BADGE_PX}
+          height={HERO_MAP_BADGE_PX}
+          className="hero-map-circle__img h-full w-full object-cover"
+        />
+
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-[calc(46%+10px)] left-[calc(50%-4px)] z-10 -translate-x-1/2 -translate-y-full drop-shadow-[0_2px_5px_rgba(0,0,0,0.3)]"
         >
-          <p className="font-serif text-[15px] leading-snug text-white/95">{shortAddress}</p>
-          <span className="inline-flex book-now-btn book-now-btn--on-forest">
-            <span className="book-now-btn__text">{directionsLabel}</span>
-            <span className="book-now-btn__line" />
+          <HotelMapPin />
+        </span>
+
+        <span
+          aria-hidden="true"
+          className="hero-map-circle__name pointer-events-none absolute top-[calc(49%+10px)] left-1/2 z-10 max-w-[92%] -translate-x-1/2 text-center"
+        >
+          <span className="inline-block whitespace-nowrap rounded-sm bg-white/92 px-2 py-1 font-ui text-[11px] leading-none font-semibold tracking-[0.02em] text-hbb-forest shadow-[0_1px_2px_rgba(0,0,0,0.12)]">
+            {hotelName}
           </span>
-        </div>
+        </span>
 
-        <div className="hero-map-circle relative shrink-0 overflow-hidden rounded-full bg-hbb-forest">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageSrc}
-            alt={mapAlt}
-            width={HERO_MAP_SIZE_PX}
-            height={HERO_MAP_SIZE_PX}
-            className="hero-map-circle__img h-full w-full object-cover"
-          />
-
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute top-[calc(46%+10px)] left-[calc(50%-4px)] z-10 -translate-x-1/2 -translate-y-full drop-shadow-[0_2px_5px_rgba(0,0,0,0.3)]"
-          >
-            <HotelMapPin />
+        <span aria-hidden="true" className="hero-map-directions text-[11px] leading-none">
+          <span className="hero-map-directions__label text-[11px] leading-none">
+            <span className="text-[11px] leading-none">{directionsLabel}</span>
+            <ArrowRight size={11} strokeWidth={2.5} className="shrink-0" />
           </span>
+        </span>
+      </span>
 
-          <div
-            aria-hidden="true"
-            className="hero-map-circle__name pointer-events-none absolute top-[calc(49%+10px)] left-1/2 z-10 max-w-[78%] -translate-x-1/2 text-center"
-          >
-            <span className="inline-block rounded-sm bg-white/92 px-2 py-1 font-ui text-[11px] leading-tight font-semibold tracking-[0.02em] text-hbb-forest shadow-[0_1px_2px_rgba(0,0,0,0.12)] min-[1100px]:max-[1300px]:px-1.5 min-[1100px]:max-[1300px]:py-0.5 min-[1100px]:max-[1300px]:text-[9px]">
-              {hotelName}
-            </span>
-          </div>
-
-          {/* ≥1100: CTA strip inside the circle */}
-          <span
-            aria-hidden="true"
-            className="hero-map-directions hidden min-[1100px]:flex"
-          >
-            <span className="hero-map-directions__label">
-              <span>{directionsLabel}</span>
-              <ArrowRight size={14} strokeWidth={2.5} className="shrink-0" />
-            </span>
-          </span>
-        </div>
-
-        {/* ≥1100: address under the circle */}
-        <figcaption className="hero-map-teaser__address hidden text-center font-serif text-[15px] leading-snug text-white/95 transition-opacity group-hover:opacity-80 min-[1100px]:block">
-          {shortAddress}
-        </figcaption>
-      </a>
-    </figure>
+      <span
+        className="hero-map-teaser__address"
+        aria-hidden="true"
+        style={{
+          background: 'rgba(86, 103, 79, 0.85)',
+          fontFamily: 'var(--font-archivo), sans-serif',
+          fontSize: '11px',
+          fontWeight: 500,
+          padding: '0.25rem 0.55rem',
+          color: '#fff',
+        }}
+      >
+        {shortAddress}
+      </span>
+    </a>
   )
 }

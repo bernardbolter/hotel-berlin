@@ -21,9 +21,13 @@ export async function HeroSection() {
 
           <div className="absolute inset-0 z-10 flex flex-col justify-end p-section-sm pb-12 md:p-section-x md:pb-16">
             <h1 className="font-serif text-serif-2xl font-medium leading-tight text-white md:text-serif-3xl">
-              {t('headingLine1')}
+              {t.rich('headingLine1', {
+                em: (chunks) => <em className="italic font-bold">{chunks}</em>,
+              })}
               <br />
-              {t('headingLine2')}
+              {t.rich('headingLine2', {
+                em: (chunks) => <em className="italic font-bold">{chunks}</em>,
+              })}
             </h1>
             <p className="mt-4 max-w-md font-ui text-ui-lg text-white/80">
               {t('subtextLine1')}

@@ -23,8 +23,8 @@ export async function RoomsHero() {
 
   return (
     <section aria-labelledby="rooms-heading" className="bg-white">
-      {/* Full-bleed white; content in 1440 shell, 10px from the left */}
-      <div className="site-shell box-border py-14 pr-5 pl-[10px] md:py-16 md:pr-10 lg:py-20 xl:pr-14">
+      {/* Full-bleed white; 15px left at ≤550 (matches hero forest panel), 20px to lg, 10px at lg+ */}
+      <div className="site-shell box-border py-14 pr-5 pl-[15px] min-[551px]:pl-5 md:py-16 md:pr-10 lg:py-20 lg:pl-[10px] xl:pr-14">
         <RoomsTeaser rooms={items} copy={copy} />
       </div>
     </section>

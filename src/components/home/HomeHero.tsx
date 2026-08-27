@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { getHeroMapCopy, getHeroSlides } from '@/lib/payload/homepage'
@@ -5,6 +6,10 @@ import { getMapSettings } from '@/lib/map/settings'
 
 import { HeroMapTeaser } from './HeroMapTeaser'
 import { HomeHeroLayout } from './HomeHeroLayout'
+
+function headlineEm(chunks: ReactNode) {
+  return <em className="home-hero__headline-em">{chunks}</em>
+}
 
 export async function HomeHero() {
   const locale = (await getLocale()) as 'de' | 'en'
@@ -19,8 +24,8 @@ export async function HomeHero() {
     <HomeHeroLayout
       slides={slides}
       copy={{
-        headingLine1: t('headingLine1'),
-        headingLine2: t('headingLine2'),
+        headingLine1: t.rich('headingLine1', { em: headlineEm }),
+        headingLine2: t.rich('headingLine2', { em: headlineEm }),
         body,
         galleryAria: t('galleryAria'),
       }}
@@ -31,7 +36,6 @@ export async function HomeHero() {
           directionsLabel={mapCopy.directionsLabel}
           hotelName={mapSettings.hotelName}
           shortAddress={mapCopy.shortAddress}
-          mapAlt={t('satelliteAlt')}
           linkLabel={t('mapsLink')}
         />
       }

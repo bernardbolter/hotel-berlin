@@ -4,13 +4,23 @@
 
 :root {
   --font-archivo: 'Archivo', sans-serif;
-  --font-laica: 'Laica A', Georgia, serif;
+  /* --font-laica comes from next/font on <html>; overriding the family name breaks the webfont. */
   /* Line-CTA highlight swipe — coral; swap here if it doesn't read well live */
   --cta-highlight: #f95d62;
   /* Rooms pages accent — muted terracotta; NOT coral. Large text / non-text only. */
   --rooms-highlight: #c16157;
   /* Site content max width — 1440px */
   --site-max: 90rem;
+
+  /* Event / card category fills — DESIGN.md + tokens.json → color.category.
+     Skate / Wallride has no token yet; do not invent one here. */
+  --cat-art: #2c6b7a;
+  --cat-sport: #f79b2e;
+  --cat-music: #f95d62;
+  --cat-food: #b87a2e;
+  --cat-nbhd: #56674f;
+  --cat-partner: #6b5b8d;
+  --cat-community: #216a95; /* reuses --navy; status-badge + category dual-use */
 }
 
 /* Centered content shell — text/controls align inside 1440; full-bleed bgs stay outside */
@@ -36,6 +46,7 @@ body {
   font-family: var(--font-archivo);
   color: theme('colors.hbb-black');
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
@@ -213,7 +224,6 @@ body {
   color: white;
 }
 
-/* Book Now on forest — white type/line; white fill sweeps in; text goes forest */
 .book-now-btn--on-forest {
   color: white;
 }
@@ -232,13 +242,13 @@ body {
 }
 
 /* Whole map teaser link is the hit target — drive CTA sweep from parent hover */
-.hero-map-teaser a:hover .book-now-btn--on-forest::before,
-.hero-map-teaser a:focus-visible .book-now-btn--on-forest::before {
+.hero-map-badge:hover .book-now-btn--on-forest::before,
+.hero-map-badge:focus-visible .book-now-btn--on-forest::before {
   transform: scaleX(1);
 }
 
-.hero-map-teaser a:hover .book-now-btn--on-forest .book-now-btn__text,
-.hero-map-teaser a:focus-visible .book-now-btn--on-forest .book-now-btn__text {
+.hero-map-badge:hover .book-now-btn--on-forest .book-now-btn__text,
+.hero-map-badge:focus-visible .book-now-btn--on-forest .book-now-btn__text {
   color: theme('colors.hbb-forest');
 }
 
@@ -337,12 +347,9 @@ body {
   }
 }
 
-/* Hero map circle — forest fill + slight img scale kills the light AA fringe */
+/* Hero map circle — forest fill, slight img scale kills the AA fringe */
 .hero-map-circle {
   isolation: isolate;
-  /* Shrinks as the forest column narrows; caps at design size */
-  width: clamp(9.5rem, 16vw, 15.5rem);
-  height: clamp(9.5rem, 16vw, 15.5rem);
 }
 
 .hero-map-circle__img {
@@ -351,14 +358,36 @@ body {
   transform-origin: center center;
 }
 
+.hero-map-teaser__address {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 2;
+  margin-top: 0.55rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(86, 103, 79, 0.85);
+  padding: 0.25rem 0.55rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: white;
+}
+
+.hero-map-teaser__aside {
+  display: none;
+}
+
 /* Hero map — Get Directions strip (ENTER-style L→R white fill) */
-.hero-map-teaser:hover .hero-map-directions::before,
-.hero-map-teaser:focus-visible .hero-map-directions::before {
+.hero-map-badge:hover .hero-map-directions::before,
+.hero-map-badge:focus-visible .hero-map-directions::before {
   transform: scaleX(1);
 }
 
-.hero-map-teaser:hover .hero-map-directions__label,
-.hero-map-teaser:focus-visible .hero-map-directions__label {
+.hero-map-badge:hover .hero-map-directions__label,
+.hero-map-badge:focus-visible .hero-map-directions__label {
   color: theme('colors.hbb-forest');
 }
 
@@ -368,19 +397,20 @@ body {
   right: 0;
   left: 0;
   z-index: 10;
-  /* display via Tailwind (`hidden min-[1100px]:flex`) so breakpoints win */
-  height: 2.25rem;
+  display: flex;
+  height: 1.75rem;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
+  gap: 0.25rem;
   overflow: hidden;
   background: theme('colors.hbb-forest');
-  padding-right: 1.25rem;
-  padding-left: 1.25rem;
+  padding-right: 0.65rem;
+  padding-left: 0.65rem;
   font-family: var(--font-archivo), sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
   text-transform: uppercase;
   color: white;
 }
@@ -401,30 +431,20 @@ body {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.25rem;
   color: white;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
   transition: color 300ms ease-out;
 }
 
-/* 1100–1300: CTA + address closer and a bit lower in the circle */
-@media (min-width: 1100px) and (max-width: 1300px) {
-  .hero-map-directions {
-    top: 78%;
-    height: 1.85rem;
-    padding-right: 0.85rem;
-    padding-left: 0.85rem;
-    font-size: 10px;
-    letter-spacing: 0.06em;
-  }
-
-  .hero-map-directions__label svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .hero-map-teaser__address {
-    margin-top: 0.15rem;
-  }
+.hero-map-directions__label span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -433,8 +453,8 @@ body {
     transition: none;
   }
 
-  .hero-map-teaser:hover .hero-map-directions::before,
-  .hero-map-teaser:focus-visible .hero-map-directions::before {
+  .hero-map-badge:hover .hero-map-directions::before,
+  .hero-map-badge:focus-visible .hero-map-directions::before {
     transform: scaleX(1);
   }
 }
@@ -714,17 +734,32 @@ body {
   }
 }
 
-/* Rooms photo — D-shape (curve left) + hover scale */
+/* Rooms photo — soft top-left curve, near-square bottom-left.
+   Ratio/radius live in non-overlapping queries so 550px cannot lose to 3:2. */
 .rooms-photo-mask {
-  aspect-ratio: 3 / 2;
-  border-radius: 9999px 0 0 9999px;
   clip-path: none;
+  aspect-ratio: var(--rooms-photo-ratio, 3 / 2);
+  border-radius: var(--rooms-photo-radius, clamp(4.5rem, 16vw, 10rem) 0 0 6px);
 }
 
-/* Lütze / Eat & Drink — Rooms mirror: D-shape curve on the RIGHT */
+@media (min-width: 551px) {
+  .rooms-photo-mask {
+    --rooms-photo-ratio: 3 / 2;
+    --rooms-photo-radius: clamp(4.5rem, 16vw, 10rem) 0 0 6px;
+  }
+}
+
+@media (max-width: 550px) {
+  .rooms-photo-mask {
+    --rooms-photo-ratio: 1 / 0.75;
+    --rooms-photo-radius: clamp(2.25rem, 8vw, 5rem) 0 0 3px;
+  }
+}
+
+/* Lütze / Eat & Drink — Rooms photo, mirrored (soft curve on the right) */
 .lutze-photo-mask {
   aspect-ratio: 3 / 2;
-  border-radius: 0 9999px 9999px 0;
+  border-radius: 0 clamp(4.5rem, 16vw, 10rem) 6px 0;
   clip-path: none;
 }
 
@@ -756,6 +791,7 @@ body {
 .spotlight-card__badge {
   line-height: 1.2;
   white-space: nowrap;
+  border-radius: 2px 0 0 2px;
 }
 
 /* SpotlightCard CTA — same sweep as SweepCta; color via currentColor (category token).
@@ -764,6 +800,9 @@ body {
   position: relative;
   display: inline-flex;
   align-items: center;
+  align-self: start;
+  width: fit-content;
+  max-width: 100%;
   overflow: hidden;
   padding: 0.4em 0.85em 0.4em 0.95em;
   text-decoration: none;
@@ -939,103 +978,470 @@ body {
   }
 }
 
-/* Homepage V2 hero
-   <768: mobile — full-bleed photo on top, caption below, green copy + map
-   ≥768: side-by-side — green + copy + map | square photo (forest underlap) */
-@media (min-width: 768px) {
-  .home-hero {
-    --hero-photo: min(42vw, 32rem);
-    --hero-pad: 1.5rem;
-    --hero-pad-right: calc(var(--hero-pad) * 2);
-    --hero-underlap: calc(var(--hero-photo) * 0.14);
-    --hero-caption-inset: 0px;
-    --hero-band: calc(var(--hero-photo) + (var(--hero-pad) * 2));
-  }
+/* Homepage hero — 2:1 photo-to-text (33% forest / 67% photo)
+   <1100: stacked — 2:1 photo (caption bottom-right), forest with text left / map right
+   ≥1100: forest is content-height; photo extends so the address under the
+   map sits 50px above the photo bottom; badge stays on the column seam */
+.home-hero {
+  --hero-map-size: 200px;
+  --hero-address-gap: 0.55rem;
+  --hero-address-block: calc(0.5rem + 11px * 1.35);
+  --hero-photo-below-address: 50px;
+  /* Drop the forest/photo/circle junction below the copy */
+  --hero-copy-corner-drop: 20px;
+  /* Half the circle hangs below the forest panel, then address gap + chip + 50px */
+  --hero-seam-below-copy: calc(
+    (var(--hero-map-size) / 2) + var(--hero-address-gap) + var(--hero-address-block) +
+      var(--hero-photo-below-address)
+  );
+}
+.home-hero__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'photo'
+    'copy';
+}
 
-  .home-hero__row {
-    height: var(--hero-band);
-    overflow: visible;
-  }
+.home-hero__copy {
+  grid-area: copy;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: visible;
+  background: theme('colors.hbb-forest');
+  color: white;
+}
 
-  .home-hero__forest {
-    top: 0;
-    height: var(--hero-band);
-    width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
-  }
+.home-hero__copy-text {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  gap: 1.25rem;
+}
 
-  .home-hero__copy {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0;
-    min-width: 0;
-    height: var(--hero-band);
-    min-height: var(--hero-band);
-    max-height: var(--hero-band);
-    width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
-    max-width: calc(100% - var(--hero-photo) - var(--hero-pad-right) + var(--hero-underlap));
-    overflow: hidden;
-    box-sizing: border-box;
-  }
+.home-hero__headline {
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: white;
+  width: 100%;
+}
 
-  .home-hero__copy-text {
-    position: relative;
-    z-index: 3;
-    flex: 1 1 auto;
-    min-height: 0;
-    padding-right: max(1.5rem, calc(clamp(9.5rem, 16vw, 15.5rem) * 0.35));
-  }
+/* Laica has no roman Bold — emphasis must be 700 italic */
+.home-hero__headline-em {
+  font-family: inherit;
+  font-style: italic;
+  font-weight: 700;
+}
 
-  .home-hero__map {
-    position: relative;
-    z-index: 1;
-    margin-top: auto;
-    margin-bottom: 0;
-    align-self: flex-end;
-    flex-shrink: 0;
-    width: auto;
-  }
+.home-hero__body {
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  width: 100%;
+}
 
-  .home-hero__photo-col {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    width: calc(var(--hero-photo) + var(--hero-pad-right));
-    height: var(--hero-band);
-    padding-top: var(--hero-pad);
-    padding-bottom: var(--hero-pad);
-    padding-right: var(--hero-pad-right);
-  }
+.home-hero__photo-col {
+  grid-area: photo;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
+.home-hero__photo {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
   .home-hero__photo {
-    width: var(--hero-photo);
-    height: var(--hero-photo);
-    max-width: none;
-    flex-shrink: 0;
-    aspect-ratio: 1 / 1;
-  }
-
-  /* One line under the photo — shift left toward the green */
-  .home-hero__caption {
-    position: absolute;
-    top: calc(var(--hero-pad) + var(--hero-photo) + (var(--hero-pad) / 2));
-    left: -60px;
-    right: var(--hero-pad-right);
-    width: auto;
-    max-width: none;
-    transform: translateY(-50%);
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: clip;
+    aspect-ratio: 2 / 1;
   }
 }
 
-/* Desktop: larger photo + pads */
+@media (max-width: 767px) {
+  .home-hero__photo {
+    aspect-ratio: 1 / 0.75;
+  }
+}
+
+.home-hero__caption {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 2;
+  margin: 0;
+  padding: 0.3rem 0.55rem;
+  width: fit-content;
+  max-width: calc(100% - 1.5rem);
+  background: rgba(86, 103, 79, 0.6);
+  color: white;
+  font-family: var(--font-archivo), sans-serif;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.home-hero__caption .home-hero__caption-text,
+.home-hero__caption .invisible {
+  white-space: nowrap;
+}
+
+.home-hero__badge {
+  overflow: visible;
+}
+
+/* Shared <1100 chrome — no row/column layout here (those ranges must not overlap) */
+@media (max-width: 1099px) {
+  .home-hero__copy {
+    box-sizing: border-box;
+    justify-self: start;
+    border-bottom-left-radius: 25px;
+  }
+}
+
+/* 551–1099: text | map side-by-side, 50% each */
+@media (min-width: 551px) and (max-width: 1099px) {
+  .home-hero__copy {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1.75rem 1.25rem 2.75rem;
+  }
+
+  .home-hero__copy-text {
+    flex: 1 1 50%;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+    max-width: 50%;
+    gap: 0.85rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .home-hero__badge {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    max-width: 50%;
+    height: auto;
+    min-height: 200px;
+    padding: 0 0.75rem 2.25rem;
+  }
+
+  .home-hero__badge .hero-map-badge {
+    width: 200px !important;
+    height: 200px !important;
+    flex-shrink: 0;
+  }
+
+  .home-hero__badge .hero-map-badge img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .home-hero__badge .hero-map-teaser__address {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 2;
+    margin-top: 0.45rem;
+    transform: translateX(-50%);
+    font-size: 11px !important;
+    padding: 0.25rem 0.55rem !important;
+    background: rgba(86, 103, 79, 0.95) !important;
+    max-width: calc(100% - 0.5rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Stacked inset — ranges do not overlap so cascade/sort cannot keep 60px at 650 */
+@media (min-width: 651px) and (max-width: 1099px) {
+  .home-hero__copy {
+    width: calc(100% - 60px);
+    max-width: calc(100% - 60px);
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 650px) {
+  .home-hero__copy {
+    width: calc(100% - 15px);
+    max-width: calc(100% - 15px);
+    margin-left: 15px;
+  }
+}
+
+/* ≤550: headline + body stacked above address | map circle */
+@media (max-width: 550px) {
+  .home-hero__copy {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1.75rem;
+    padding: 1.75rem 1.25rem 2rem;
+  }
+
+  .home-hero__copy-text {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
+  }
+
+  .home-hero__badge {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    padding: 0 0.25rem;
+  }
+
+  .home-hero__badge .hero-map-badge {
+    display: flex;
+    width: auto !important;
+    height: auto !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.25rem;
+  }
+
+  .home-hero__badge .hero-map-circle {
+    flex-shrink: 0;
+  }
+
+  .home-hero__badge .hero-map-directions {
+    display: none;
+  }
+
+  .home-hero__badge .hero-map-teaser__address {
+    display: none;
+  }
+
+  .home-hero__badge .hero-map-teaser__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    text-align: right;
+  }
+
+  .home-hero__badge .hero-map-teaser__aside-address {
+    font-family: var(--font-laica), Georgia, serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* 451–550: circle stays 200px */
+@media (min-width: 451px) and (max-width: 550px) {
+  .home-hero__badge .hero-map-circle,
+  .home-hero__badge .hero-map-badge img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ≤450: circle shrinks with the viewport so address + map stay on screen */
+@media (max-width: 450px) {
+  .home-hero__badge .hero-map-badge {
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .home-hero__badge .hero-map-teaser__aside {
+    min-width: 0;
+  }
+
+  .home-hero__badge .hero-map-circle,
+  .home-hero__badge .hero-map-badge img {
+    /* 200px at 450vw, then down; floor so the pin/name stay readable */
+    width: clamp(112px, calc(100vw - 250px), 200px);
+    height: clamp(112px, calc(100vw - 250px), 200px);
+  }
+}
+
+/* ≤380: headline/body/address scale down so the stack still fits */
+@media (max-width: 380px) {
+  .home-hero .home-hero__headline {
+    font-size: 22px;
+  }
+
+  .home-hero .home-hero__body {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .home-hero .home-hero__copy-text {
+    gap: 0.7rem;
+  }
+
+  .home-hero .hero-map-teaser__aside-address {
+    font-size: 13px;
+  }
+
+  .home-hero .book-now-btn {
+    font-size: 0.85rem;
+  }
+
+  .home-hero .hero-map-circle__name span {
+    font-size: 9px;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Desktop (nav breakpoint) — photo bottom is 50px below the address chip */
 @media (min-width: 1100px) {
-  .home-hero {
-    --hero-photo: min(44vw, 38rem);
-    --hero-pad: 2rem;
+  .home-hero__row {
+    /* Mid desktop: slightly narrower photo so the forest column isn’t squeezed */
+    grid-template-columns: 1fr 1.45fr;
+    grid-template-areas: none;
+    grid-template-rows: auto var(--hero-seam-below-copy);
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .home-hero__copy {
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: start;
+    align-items: stretch;
+    grid-area: auto;
+    grid-column: 1;
+    grid-row: 1;
+    height: fit-content;
+    min-height: calc(350px + var(--hero-copy-corner-drop));
+    width: 100%;
+    margin-left: 10px;
+    padding: 2.5rem 1.5rem calc(2rem + var(--hero-copy-corner-drop)) 1.75rem;
+    border-bottom-left-radius: 25px;
+  }
+
+  .home-hero__copy-text {
+    display: block;
+    width: 100%;
+    max-width: none;
+    /* Bite a circle out at the copy’s bottom-right — matches the 200px map (r=100) + gap */
+    -webkit-mask-image: radial-gradient(
+      circle 112px at calc(100% + 1.5rem) calc(100% + 2rem + var(--hero-copy-corner-drop)),
+      transparent 110px,
+      #000 111px
+    );
+    mask-image: radial-gradient(
+      circle 112px at calc(100% + 1.5rem) calc(100% + 2rem + var(--hero-copy-corner-drop)),
+      transparent 110px,
+      #000 111px
+    );
+  }
+
+  .home-hero__headline {
+    display: block;
+    font-size: 40px;
+    margin-bottom: 1.25rem;
+  }
+
+  .home-hero__body {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .home-hero__body::before {
+    content: '';
+    float: right;
+    width: 7.5rem;
+    height: calc(8.5em + var(--hero-copy-corner-drop));
+    shape-outside: circle(6.75rem at 7.5rem calc(8.5em + var(--hero-copy-corner-drop)));
+    -webkit-shape-outside: circle(6.75rem at 7.5rem calc(8.5em + var(--hero-copy-corner-drop)));
+    shape-margin: 10px;
+  }
+
+  .home-hero__photo-col {
+    position: relative;
+    grid-area: auto;
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: stretch;
+    min-height: 0;
+  }
+
+  .home-hero__photo {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    height: 100%;
+    overflow: hidden;
+    border-bottom-left-radius: 50px;
+  }
+
+  .home-hero__caption {
+    right: 1.25rem;
+    bottom: 1.25rem;
+    max-width: none;
+  }
+
+  .home-hero__badge {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 200px;
+    height: 200px;
+    padding: 0;
+    overflow: visible;
+    transform: translate(50%, 50%);
+  }
+
+  .home-hero__badge .hero-map-badge {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .home-hero__badge .hero-map-badge img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .home-hero__badge .hero-map-teaser__address {
+    font-size: 11px !important;
+    padding: 0.25rem 0.55rem !important;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    background: rgba(86, 103, 79, 0.85) !important;
+  }
+}
+
+/* Wide desktop — restore full 1/3 · 2/3 photo split */
+@media (min-width: 1300px) {
+  .home-hero__row {
+    grid-template-columns: 1fr 2fr;
   }
 }
 

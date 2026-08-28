@@ -171,7 +171,7 @@ export const Rooms: CollectionConfig = {
           relationTo: 'media',
           admin: {
             description:
-              'Optional. Falls back to the room’s first gallery image if empty.',
+              'Unused for display — homepage always uses the room’s first gallery image. Kept for legacy CMS data only.',
           },
         },
         {

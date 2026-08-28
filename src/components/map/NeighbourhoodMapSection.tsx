@@ -17,6 +17,7 @@ import {
   type NeighbourhoodPlaceDoc,
 } from '@/lib/queries/neighbourhoodPlaces'
 import type { TeaserContext } from '@/lib/places/getTeaserPlaces'
+import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
 /** Slightly under Rooms / Happenings title scale (Laica), off-black. */
@@ -53,12 +54,17 @@ function toTeaserPlace(
 
   const imageSrc = mediaUrl(doc.image)
   const creditText = doc.imageCredit?.creditText?.trim()
-  const imageCredit = creditText
-    ? {
-        creditText,
-        creditUrl: doc.imageCredit?.creditUrl?.trim() || null,
-      }
-    : null
+  const resolvedMedia = withPlaceImageFallback(
+    doc.slug,
+    imageSrc ? { src: imageSrc, alt: mediaAlt(doc.image) || doc.name } : null,
+    creditText
+      ? {
+          creditText,
+          creditUrl: doc.imageCredit?.creditUrl?.trim() || null,
+        }
+      : null,
+    doc.name,
+  )
   const endorsements =
     doc.endorsements
       ?.map((entry) => {
@@ -85,10 +91,11 @@ function toTeaserPlace(
     description: doc.description,
     walkingMinutes: doc.walkingMinutes,
     walkingLabel,
+    priceRange: doc.priceRange ?? null,
     transit,
     transitLabel: transit ? transitLabel : undefined,
-    image: imageSrc ? { src: imageSrc, alt: mediaAlt(doc.image) || doc.name } : null,
-    imageCredit,
+    image: resolvedMedia.image,
+    imageCredit: resolvedMedia.imageCredit,
     endorsements,
     latitude: lat,
     longitude: lng,
@@ -105,8 +112,8 @@ type Props = {
 }
 
 /**
- * Neighbourhood map teaser — full-bleed live Mapbox with curated pins (max 5).
- * Homepage (after Lutze / events) or `/here` via `context`.
+ * Neighbourhood map teaser — live Mapbox.
+ * Homepage: featuredOrder 1–15 with side panel. `/here`: compact 5-place embed.
  */
 export async function NeighbourhoodMapSection({
   context = 'homepage',
@@ -169,6 +176,8 @@ export async function NeighbourhoodMapSection({
       : null
 
   const accent = context === 'here' ? 'teal' : 'forest'
+  const resolvedCta = ctaLabel ?? t('cta')
+  const showHomepagePanel = context === 'homepage' && layout !== 'card'
 
   const teaser = (
     <HomepageMapTeaser
@@ -181,6 +190,7 @@ export async function NeighbourhoodMapSection({
       shortAddress={mapCopy.shortAddress}
       accent={accent}
       variant={layout === 'card' ? 'compact' : 'full'}
+      showPlaceNav={showHomepagePanel}
     />
   )
 
@@ -210,7 +220,7 @@ export async function NeighbourhoodMapSection({
             {t('title')}
           </h2>
           <SweepCta href={ctaHref} color="ink" edge="right" className="shrink-0">
-            {ctaLabel ?? t('cta')}
+            {resolvedCta}
           </SweepCta>
         </div>
       </div>

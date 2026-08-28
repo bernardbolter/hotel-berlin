@@ -243,7 +243,7 @@ export const NeighbourhoodPlaces: CollectionConfig = {
       label: 'Homepage teaser',
       admin: {
         description:
-          'Independent from hereTeaser — feature a different set of places on the homepage map. Same pattern as rooms.homepageTeaser. Limit 5 via getTeaserPlaces.',
+          'Independent from hereTeaser. Fallback if featuredOrder is empty — prefer featuredOrder 1–15 for the paginated homepage map.',
       },
       fields: [
         {
@@ -287,7 +287,7 @@ export const NeighbourhoodPlaces: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description:
-          'Legacy homepage map pagination order (1–15). Prefer homepageTeaser.enabled/order from the Neighbourhood Map revision brief going forward.',
+          'Homepage map pagination order (1–15). Non-null includes the place; pages of 5 in featuredOrder sequence. Used by getFeaturedOrderPlaces / getMapTeaserPlaces.',
       },
     },
     {

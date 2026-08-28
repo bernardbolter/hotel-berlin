@@ -60,6 +60,28 @@ function shortVenueName(name: string | null | undefined): string {
   return name.split(/[—–(-]/)[0]?.trim() || name
 }
 
+function joinMeta(...parts: Array<string | null | undefined>): string {
+  return parts.map((part) => part?.trim()).filter(Boolean).join(' · ')
+}
+
+function venueLocationLabel(
+  venue: {
+    slug?: string | null
+    spotlightLocation?: string | null
+    location?: string | null
+  } | null,
+  locale = 'en',
+): string {
+  if (!venue) return ''
+  const pinned = venue.spotlightLocation?.trim()
+  if (pinned) return pinned
+  // FKKB has no public street address yet — placeholder until one is confirmed.
+  if (venue.slug === 'fkkb') {
+    return locale === 'de' ? 'Im Atrium über der Lobby' : 'In the atrium above the lobby'
+  }
+  return (venue.location || '').trim()
+}
+
 /** Prefer the long name after an em dash: "FKKB — Freiluft…" → "Freiluft…" */
 function venueLabelFromName(name: string | null | undefined): string {
   if (!name?.trim()) return ''
@@ -185,8 +207,6 @@ export async function resolveEventSpotlight(
   if (!occ) return null
 
   const monogramSrc = venue ? mediaUrl(venue.venueMonogram) : null
-  const left = venue?.name ? shortVenueName(venue.name) : ''
-  const right = venue?.spotlightLocation || venue?.location || ''
 
   return {
     image: { src: imageSrc, alt: mediaAlt(event.heroImage, event.name || event.slug) },
@@ -194,12 +214,9 @@ export async function resolveEventSpotlight(
     identityMark: monogramSrc && venue ? { src: monogramSrc, alt: venue.name } : undefined,
     title: event.name || event.slug,
     venueLabel: venue ? venueLabelFromName(venue.name) : undefined,
+    locationLabel: venueLocationLabel(venue, locale) || undefined,
     primaryMeta: formatEventPrimaryMeta(occ.start, occ.end, now, locale),
     description: event.shortDescription || '',
-    secondaryMeta:
-      left || right
-        ? { left, right }
-        : undefined,
     cta: {
       label: locale === 'de' ? 'Zum Event' : 'See event',
       href: event.ticketUrl || `/here/events/${event.slug}`,
@@ -261,7 +278,6 @@ export function buildVenueSpotlightFromParts(args: {
       : venueImage(venue, venue.name)
     if (!image) return null
 
-    const location = venue.spotlightLocation || venue.location || ''
     const until = formatExhibitionEnd(ex.endDate, locale)
     const body =
       lexicalToPlain(ex.description) ||
@@ -269,6 +285,7 @@ export function buildVenueSpotlightFromParts(args: {
       venue.shortDescription ||
       ex.title
     const shortName = shortVenueName(venue.name)
+    const status = locale === 'de' ? 'Jetzt · freier Eintritt' : 'On now · Free entry'
 
     return {
       image,
@@ -276,12 +293,9 @@ export function buildVenueSpotlightFromParts(args: {
       identityMark: monogram,
       title: ex.title,
       venueLabel: venueLabelFromName(venue.name),
-      primaryMeta: locale === 'de' ? 'Jetzt · freier Eintritt' : 'On now · Free entry',
+      locationLabel: venueLocationLabel(venue, locale) || undefined,
+      primaryMeta: joinMeta(status, until),
       description: body,
-      secondaryMeta:
-        location || until
-          ? { left: location, right: until }
-          : undefined,
       cta: {
         label:
           locale === 'de'
@@ -312,12 +326,9 @@ export function buildVenueSpotlightFromParts(args: {
       identityMark: monogram,
       title: args.nextEvent.event.name,
       venueLabel: venueLabelFromName(venue.name),
+      locationLabel: venueLocationLabel(venue, locale) || undefined,
       primaryMeta,
       description: venue.shortDescription || args.nextEvent.event.name,
-      secondaryMeta: {
-        left: venue.spotlightLocation || venue.location || '',
-        right: formatBerlinTime(args.nextEvent.occurrenceStart),
-      },
       cta: {
         label: `Explore ${shortVenueName(venue.name) || venue.slug}`,
         href: `/here/${venue.slug}`,

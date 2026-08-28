@@ -1,14 +1,23 @@
 /**
- * Category token → visual colors for SpotlightCard badge + Line-CTA.
- * Hex values match map pin palette v2 (`CATEGORY_PIN_COLOR` / tokens.json → color.category.pin).
+ * Category token → visual colors for SpotlightCard badge, title underline, Line-CTA.
+ *
+ * Event / venue card fills match DESIGN.md category tokens (`tokens.json` →
+ * `color.category`, CSS `--cat-*`). Person-type tokens keep the map-pin palette
+ * (`color.category.pin`) — different taxonomy.
+ *
+ * Open: Skate / Wallride has no category token yet. Do not invent one here.
  */
-export type CategoryToken =
+export type EventCategory =
   | 'art'
-  | 'music'
   | 'sport'
+  | 'music'
   | 'food'
-  | 'community'
   | 'neighbourhood'
+  | 'partnerships'
+  | 'community'
+
+export type CategoryToken =
+  | EventCategory
   | 'other'
   | 'artist'
   | 'curator'
@@ -18,14 +27,28 @@ export type CategoryToken =
   | 'local'
 
 export type CategoryTokenStyle = {
-  /** Solid brand hex for CTA and badge — same as map pin for that category */
+  /** Solid brand hex for CTA, badge fill, and title underline */
   fill: string
-  /** Darker stop for badge label on translucent fill */
-  text: string
+  /** Text on a solid fill — White, or Ink where white fails AA (amber / coral / gold) */
+  onFill: string
   label: string
 }
 
-/** Map pin palette (shared with neighbourhood maps). */
+const WHITE = '#FFFFFF'
+const INK = '#1A2B4A'
+
+/** DESIGN.md card category fills (`tokens.json` → color.category). */
+const CAT = {
+  art: '#2C6B7A',
+  sport: '#F79B2E',
+  music: '#F95D62',
+  food: '#B87A2E',
+  neighbourhood: '#56674F',
+  partnerships: '#6B5B8D',
+  community: '#216A95',
+} as const
+
+/** Map pin palette — person-type tokens only. */
 const PIN = {
   art: '#2C6B7A',
   museum: '#A08C38',
@@ -39,19 +62,20 @@ const PIN = {
 } as const
 
 export const CATEGORY_TOKENS: Record<CategoryToken, CategoryTokenStyle> = {
-  art: { fill: PIN.art, text: '#1A3C40', label: 'Art' },
-  music: { fill: PIN.party, text: '#1E1530', label: 'Music' },
-  sport: { fill: PIN.kids, text: '#1A3C40', label: 'Sport' },
-  food: { fill: PIN.restaurant, text: '#1E1530', label: 'Food' },
-  community: { fill: PIN.shopping, text: '#1E1530', label: 'Community' },
-  neighbourhood: { fill: PIN.museum, text: '#1E1530', label: 'Neighbourhood' },
-  other: { fill: PIN.parks, text: '#1A3C40', label: 'Other' },
-  artist: { fill: PIN.art, text: '#1A3C40', label: 'Artist' },
-  curator: { fill: PIN.museum, text: '#1E1530', label: 'Curator' },
-  host: { fill: PIN.sightseeing, text: '#1E1530', label: 'Host' },
-  partner: { fill: PIN.shopping, text: '#1E1530', label: 'Partner' },
-  staff: { fill: PIN.parks, text: '#1A3C40', label: 'Staff' },
-  local: { fill: PIN.parks, text: '#1A3C40', label: 'Local' },
+  art: { fill: CAT.art, onFill: WHITE, label: 'Art' },
+  sport: { fill: CAT.sport, onFill: INK, label: 'Sport' },
+  music: { fill: CAT.music, onFill: INK, label: 'Music' },
+  food: { fill: CAT.food, onFill: INK, label: 'Food' },
+  neighbourhood: { fill: CAT.neighbourhood, onFill: WHITE, label: 'Neighbourhood' },
+  partnerships: { fill: CAT.partnerships, onFill: WHITE, label: 'Partnerships' },
+  community: { fill: CAT.community, onFill: WHITE, label: 'Community' },
+  other: { fill: CAT.neighbourhood, onFill: WHITE, label: 'Other' },
+  artist: { fill: PIN.art, onFill: WHITE, label: 'Artist' },
+  curator: { fill: PIN.museum, onFill: INK, label: 'Curator' },
+  host: { fill: PIN.sightseeing, onFill: INK, label: 'Host' },
+  partner: { fill: CAT.partnerships, onFill: WHITE, label: 'Partner' },
+  staff: { fill: PIN.parks, onFill: WHITE, label: 'Staff' },
+  local: { fill: PIN.parks, onFill: WHITE, label: 'Local' },
 }
 
 export function resolveCategoryToken(token: string): CategoryTokenStyle {
@@ -79,12 +103,15 @@ const EVENT_CATEGORY_TOKEN: Record<string, CategoryToken> = {
   Food: 'food',
   Community: 'community',
   Neighbourhood: 'neighbourhood',
+  Partnerships: 'partnerships',
   Other: 'other',
 }
 
 export function categoryTokenForEventCategory(category: string | null | undefined): CategoryToken {
   if (!category) return 'other'
-  return EVENT_CATEGORY_TOKEN[category] ?? 'other'
+  if (EVENT_CATEGORY_TOKEN[category]) return EVENT_CATEGORY_TOKEN[category]
+  const key = category.toLowerCase() as CategoryToken
+  return CATEGORY_TOKENS[key] ? key : 'other'
 }
 
 export function categoryTokenForPersonType(type: string): CategoryToken {

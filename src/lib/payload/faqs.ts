@@ -16,6 +16,7 @@ export async function getFAQs(opts: {
     const { docs } = await payload.find({
       collection: 'faqs',
       locale: (opts.locale as 'de' | 'en') ?? 'en',
+      fallbackLocale: 'en',
       where: Object.keys(where).length > 0 ? where : undefined,
       sort: 'order',
       limit: 50,

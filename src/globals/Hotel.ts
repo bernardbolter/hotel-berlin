@@ -163,7 +163,7 @@ export const Hotel: GlobalConfig = {
       localized: true,
       admin: {
         description:
-          'Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.',
+          'Short display address in the hero map badge hover pill (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.',
       },
     },
     {

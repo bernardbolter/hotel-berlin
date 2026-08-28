@@ -49,16 +49,44 @@ page gets this treatment without an explicit decision logged here.
 
 ### Category tokens (card left-border / label color — driven by CMS field, never hand-picked)
 
-| Category | Token | Hex |
-|---|---|---|
-| Art · FKKB | `--cat-art` | `#2C6B7A` (teal) |
-| Sport · KTTK | `--cat-sport` | `#F79B2E` (amber) |
-| Music · Events | `--cat-music` | `#F95D62` (coral) |
-| Food · Lütze | `--cat-food` | `#B87A2E` (gold) |
-| Neighbourhood | `--cat-nbhd` | `#56674F` (green) |
-| Partnerships | `--cat-partner` | `#6B5B8D` (purple) |
+| Category | Token | Hex | Text on fill |
+|---|---|---|---|
+| Art · FKKB | `--cat-art` | `#2C6B7A` (teal) | White `#FFFFFF` |
+| Sport · KTTK | `--cat-sport` | `#F79B2E` (amber) | Ink `#1A2B4A` — white fails AA |
+| Music · Events | `--cat-music` | `#F95D62` (coral) | Ink `#1A2B4A` — white fails AA |
+| Food · Lütze | `--cat-food` | `#B87A2E` (gold) | Ink `#1A2B4A` — white fails AA |
+| Neighbourhood | `--cat-nbhd` | `#56674F` (green) | White `#FFFFFF` |
+| Partnerships | `--cat-partner` | `#6B5B8D` (purple) | White `#FFFFFF` |
+| Community | `--cat-community` | `#216A95` (navy) | White `#FFFFFF` |
 
-**Rule:** card category color comes from the CMS category field, not per-card editorial choice. One category = one token, always.
+**Rule:** card category color comes from the CMS category field, not per-card editorial choice. One category = one token, always. Badge fill and title underline read from that same value — never from venue.
+
+`--cat-community` reuses `--navy` (Pantone 3015 U) rather than introducing a new hex. `--navy` is also the Conference status-badge fill — first time a brand token is claimed by both a status badge and a category token. No direct collision (different token families, different contexts), but flagged here so `tokens.json` owners are aware.
+
+**Open — Skate / Wallride:** no `--cat-skate` (or equivalent) yet. Same gap as Community had. Leave unresolved until that frontend exists; do not invent a token here.
+
+### Map pins
+
+Live in `tokens.json` → `color.category.pin` and `src/lib/neighbourhood/categories.ts`. Glyphs are Lucide, white unless noted.
+
+| Marker | Fill | Glyph |
+|---|---|---|
+| Hotel | Amber `#F79B2E` | Ink `#1A2B4A` `Home` |
+| Art | `#2C6B7A` | White `Palette` |
+| Museum | `#A08C38` | White `Landmark` |
+| Shopping | `#5F4E68` | White `ShoppingBag` |
+| Bar | `#D14A50` | White `Martini` |
+| Restaurant | `#C1652F` | White `UtensilsCrossed` |
+| Parks and Nature | `#56674F` | White `TreePine` |
+| Sightseeing | `#E08A28` | **Ink** `#1A2B4A` `FerrisWheel` — white fails non-text 3:1 (2.68:1) |
+| Party | `#9B3F6B` | White `PartyPopper` |
+| Kids | `#4A90C4` (provisional) | White `Baby` |
+
+**Hotel marker (signed off):** pin shape + `Home` glyph, **not** an “HBB” text badge. Fill is brand amber `#F79B2E`, glyph is ink `#1A2B4A`. Same treatment on `/` and `/here` — it does **not** track the page accent (forest vs teal). Person-pin fallback fill stays ink so endorser avatars never pick up amber.
+
+**Sightseeing glyph (signed off):** keep fill `#E08A28`; switch the glyph to ink. Icon stays `FerrisWheel` pending a live-size legibility check.
+
+The hotel fill is `color.map.hotelFill`. `color.map.hotelInk` is the glyph / person-pin ink, not the hotel disc.
 
 ### Accessibility — verified contrast pairs (WCAG 2.1 AA baseline, EAA-required)
 
@@ -71,10 +99,13 @@ page gets this treatment without an explicit decision logged here.
 | White on Amber `#F79B2E` | 2.6:1 | **Fail** — use Ink text on amber | Pass |
 | Ink on Amber | 5.4:1 | Pass | Pass |
 | White on Coral `#F95D62` | 3.4:1 | **Fail** for small text — use Ink | Pass |
+| White on Food/gold `#B87A2E` | 3.6:1 | **Fail** for small text — use Ink | Pass |
+| Ink on Food/gold `#B87A2E` | 3.9:1 | Short of 4.5:1 at 10px badge size; still the required pairing — never white | Pass |
 | White on Green `#56674F` | 6.1:1 | Pass | Pass |
 | Green on white | 6.1:1 | Pass | Pass |
+| White on Navy `#216A95` | 5.9:1 | Pass | Pass |
 
-Never place white text on Amber or Coral at body-copy sizes — this is the single most likely accessibility regression when this system gets reused, since both colors look "brand-safe" but fail contrast at small sizes.
+Never place white text on Amber, Coral, or Food/gold at body-copy or badge sizes — this is the single most likely accessibility regression when this system gets reused, since all three look "brand-safe" but fail contrast at small sizes.
 
 ---
 

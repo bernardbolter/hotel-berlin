@@ -756,11 +756,26 @@ body {
   }
 }
 
-/* Lütze / Eat & Drink — Rooms photo, mirrored (soft curve on the right) */
+/* Lütze / Eat & Drink — Rooms photo, mirrored (soft curve on the right).
+   Ratio/radius live in non-overlapping queries so 550px cannot lose to 3:2. */
 .lutze-photo-mask {
-  aspect-ratio: 3 / 2;
-  border-radius: 0 clamp(4.5rem, 16vw, 10rem) 6px 0;
   clip-path: none;
+  aspect-ratio: var(--lutze-photo-ratio, 3 / 2);
+  border-radius: var(--lutze-photo-radius, 0 clamp(4.5rem, 16vw, 10rem) 6px 0);
+}
+
+@media (min-width: 551px) {
+  .lutze-photo-mask {
+    --lutze-photo-ratio: 3 / 2;
+    --lutze-photo-radius: 0 clamp(4.5rem, 16vw, 10rem) 6px 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .lutze-photo-mask {
+    --lutze-photo-ratio: 1 / 0.75;
+    --lutze-photo-radius: 0 clamp(2.25rem, 8vw, 5rem) 3px 0;
+  }
 }
 
 .lutze-photo-mask .hero-photo-img {
@@ -1710,6 +1725,12 @@ body {
 
 .hbb-map-popup .mapboxgl-popup-tip {
   border-top-color: #fff;
+}
+
+/* Pin silhouette — three rounded corners, square bottom-left.
+   Percentages track pin size (14px/2px on a ~40px hotel pin). Used by MapPin and the teaser list. */
+.hbb-pin-shape {
+  border-radius: 35% 35% 35% 5%;
 }
 
 /* React MapPin hosts — labels sit above the disc; don't clip */

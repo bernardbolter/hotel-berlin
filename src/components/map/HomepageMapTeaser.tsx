@@ -13,9 +13,15 @@ import {
   type PlaceInfoCardImageCredit,
   type PlaceInfoCardTransit,
 } from '@/components/map/PlaceInfoCard'
+import {
+  TeaserPlaceList,
+} from '@/components/map/TeaserPlaceIndex'
 import type { MapBounds } from '@/lib/map/config'
 import { pinColorForCategory } from '@/lib/neighbourhood/categories'
-import type { PlaceCategory } from '@/lib/neighbourhood/constants'
+import {
+  HOMEPAGE_FEATURED_PAGE_SIZE,
+  type PlaceCategory,
+} from '@/lib/neighbourhood/constants'
 
 const FALLBACK_IMAGE = '/images/hotel-berlin-berlin-luetzowplatz-satellite.jpg'
 
@@ -28,6 +34,7 @@ export type MapTeaserPlace = {
   description?: string | null
   walkingMinutes?: number | null
   walkingLabel?: string
+  priceRange?: string | null
   transit?: PlaceInfoCardTransit | null
   transitLabel?: string
   image?: { src: string; alt: string } | null
@@ -53,6 +60,8 @@ type Props = {
   accent?: 'forest' | 'teal'
   /** Compact embed for the /here hub card (wireframe 160–280px). */
   variant?: 'full' | 'compact'
+  /** Homepage: compact name list floating on the map. */
+  showPlaceNav?: boolean
 }
 
 /**
@@ -69,26 +78,34 @@ export function HomepageMapTeaser({
   shortAddress,
   fallbackImageSrc = FALLBACK_IMAGE,
   variant = 'full',
+  showPlaceNav = false,
 }: Props) {
   const t = useTranslations('heroMap')
-  const [selectedId, setSelectedId] = useState<string | null>(places[0]?.id ?? null)
+  const compact = variant === 'compact'
+  const showPanel = showPlaceNav && !compact
+  /** Homepage: five places for now (pagination of 15 comes back later). */
+  const visiblePlaces = showPanel
+    ? places.slice(0, HOMEPAGE_FEATURED_PAGE_SIZE)
+    : places
+  const pagePlaces = visiblePlaces
+  const [selectedId, setSelectedId] = useState<string | null>(pagePlaces[0]?.id ?? null)
 
   useEffect(() => {
-    if (places.length === 0) {
+    if (pagePlaces.length === 0) {
       setSelectedId(null)
       return
     }
-    if (!places.some((p) => p.id === selectedId)) {
-      setSelectedId(places[0].id)
+    if (!pagePlaces.some((p) => p.id === selectedId)) {
+      setSelectedId(pagePlaces[0].id)
     }
-  }, [places, selectedId])
+  }, [pagePlaces, selectedId])
 
-  const selected = places.find((p) => p.id === selectedId) ?? places[0] ?? null
+  const selected = pagePlaces.find((p) => p.id === selectedId) ?? pagePlaces[0] ?? null
   const effectiveSelectedId = selected?.id ?? null
 
   const guidePlaces: GuideMapPlace[] = useMemo(
     () =>
-      places.map((p) => ({
+      pagePlaces.map((p) => ({
         id: p.id,
         slug: p.slug,
         name: p.name,
@@ -101,13 +118,24 @@ export function HomepageMapTeaser({
         longitude: p.longitude,
         endorserCount: p.endorsements.length,
       })),
-    [places],
+    [pagePlaces],
   )
 
-  const compact = variant === 'compact'
+  const listItems = useMemo(
+    () =>
+      pagePlaces.map((p) => ({
+        id: p.id,
+        name: p.name,
+        category: p.category,
+      })),
+    [pagePlaces],
+  )
+
   const mapHeight = compact
     ? 'h-[160px] md:h-[220px] lg:h-[280px]'
-    : 'h-[min(70vh,640px)] min-h-100'
+    : showPanel
+      ? 'h-[min(48vh,360px)] min-h-64 md:h-[min(70vh,640px)] md:min-h-100'
+      : 'h-[min(70vh,640px)] min-h-100'
 
   if (!accessToken) {
     return (
@@ -147,6 +175,16 @@ export function HomepageMapTeaser({
     />
   ) : null
 
+  const placeList =
+    showPanel && listItems.length > 0 ? (
+      <TeaserPlaceList
+        places={listItems}
+        selectedId={effectiveSelectedId}
+        onSelect={setSelectedId}
+        ariaLabel={t('placeListAria')}
+      />
+    ) : null
+
   return (
     <div className="homepage-map-teaser relative w-full text-hbb-black">
       <div className={`relative w-full ${mapHeight}`}>
@@ -158,28 +196,45 @@ export function HomepageMapTeaser({
           hotelName={hotelName}
           hotelAriaLabel={hotelAriaLabel}
           hideNavigation={compact}
-          cooperativeGestures={compact}
           styleId="mapbox/standard"
           fitPadding={compact ? 32 : 64}
           pinColorMode="category"
+          pinTabOrder={showPanel ? 'source' : 'geographic'}
           selectedId={compact ? null : effectiveSelectedId}
-          onSelect={!compact && places.length > 0 ? setSelectedId : undefined}
+          onSelect={!compact && visiblePlaces.length > 0 ? setSelectedId : undefined}
           ariaLabel={t('mapAria')}
           noscriptHtml={t.raw('noscript') as string}
-          className={compact ? 'h-full!' : 'h-full! min-h-100!'}
+          className={
+            compact ? 'h-full!' : showPanel ? 'h-full! min-h-0! md:min-h-100!' : 'h-full! min-h-100!'
+          }
         />
 
-        {/* Floating card — desktop only; mobile renders below */}
         {!compact && card ? (
-          <div className="pointer-events-none absolute right-4 top-4 z-10 hidden md:block">
+          <div className="pointer-events-none absolute left-4 top-4 z-10 hidden md:left-14 md:block">
             <div className="pointer-events-auto">{card}</div>
           </div>
         ) : null}
+
+        {placeList ? (
+          <aside className="pointer-events-none absolute top-4 right-4 z-10 hidden w-[min(15rem,calc(100%-22rem))] md:block">
+            <div className="pointer-events-auto bg-white/92 py-1.5 shadow-[0_8px_28px_rgba(0,0,0,0.14)]">
+              {placeList}
+            </div>
+          </aside>
+        ) : null}
       </div>
 
-      {/* Mobile: card in document flow under the map */}
-      {!compact && card ? (
-        <div className="border-t border-black/5 bg-hbb-page p-3 md:hidden">{card}</div>
+      {!compact && (card || placeList) ? (
+        <div className="flex items-stretch gap-3 border-t border-black/5 bg-hbb-page p-3 md:hidden">
+          {card ? <div className="min-w-0 flex-1">{card}</div> : null}
+          {placeList ? (
+            <aside className="w-[min(12.5rem,42%)] shrink-0">
+              <div className="h-full bg-white py-1.5 shadow-[0_8px_28px_rgba(0,0,0,0.14)]">
+                {placeList}
+              </div>
+            </aside>
+          ) : null}
+        </div>
       ) : null}
     </div>
   )

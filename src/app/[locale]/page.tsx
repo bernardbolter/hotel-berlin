@@ -37,9 +37,7 @@ export default function HomePage() {
     <>
       <SiteNavWithData context="outside" />
       <main id="main-content">
-        <div className="site-shell">
-          <HomeHero />
-        </div>
+        <HomeHero />
         <RoomsHero />
         <MeetingsSection />
         <div className="site-shell">

@@ -14,9 +14,9 @@ export type PlaceCategory = (typeof PLACE_CATEGORIES)[number]
 export type DistanceTier = 'walkable' | 'short-transit' | 'further-out'
 export type IndoorOutdoor = 'indoor' | 'outdoor' | 'both'
 
-/** Homepage map teaser: legacy paginated set (featuredOrder 1–15). Prefer TEASER_PLACE_LIMIT. */
+/** Homepage map teaser: featuredOrder 1–15, paginated in batches of 5. */
 export const HOMEPAGE_FEATURED_LIMIT = 15
 export const HOMEPAGE_FEATURED_PAGE_SIZE = 5
 
-/** Curated map teaser size (homepage / here) — no pagination. */
+/** Compact /here teaser (and homepage fallback if featuredOrder is empty). */
 export const TEASER_PLACE_LIMIT = 5

@@ -53,6 +53,7 @@ export async function getFaqs({ context, locale, category }: GetFaqsParams): Pro
   const { docs } = await payload.find({
     collection: 'faqs',
     locale: locale as 'de' | 'en',
+    fallbackLocale: 'en',
     where: { and },
     sort: 'order',
     limit: 200,

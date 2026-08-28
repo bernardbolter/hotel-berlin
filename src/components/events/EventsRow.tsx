@@ -82,7 +82,7 @@ export function EventsRow({ items, ariaLabel, className = '' }: Props) {
       ref={listRef}
       role="list"
       aria-label={ariaLabel}
-      className={['grid w-full', className].filter(Boolean).join(' ')}
+      className={['grid w-full items-start', className].filter(Boolean).join(' ')}
       style={{
         gridTemplateColumns: `repeat(${cols}, minmax(${minTrack}px, 1fr))`,
         columnGap: `${gapPx}px`,
@@ -90,7 +90,7 @@ export function EventsRow({ items, ariaLabel, className = '' }: Props) {
     >
       {visible.map((item, index) => (
         <li key={`${item.image.src}-${item.primaryMeta}-${index}`} className="min-w-0">
-          <SpotlightCard {...item} className="h-full w-full min-w-0!" />
+          <SpotlightCard {...item} className="w-full min-w-0!" />
         </li>
       ))}
     </ul>

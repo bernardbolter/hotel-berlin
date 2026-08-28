@@ -20,4 +20,6 @@ export const laica = localFont({
   ],
   variable: '--font-laica',
   display: 'swap',
+  fallback: ['Georgia', 'serif'],
+  adjustFontFallback: 'Times New Roman',
 })

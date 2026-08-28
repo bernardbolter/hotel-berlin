@@ -3,14 +3,57 @@
 import { type LucideIcon } from 'lucide-react'
 
 import { InitialsAvatar } from '@/components/people/InitialsAvatar'
-import { HOTEL_PIN_COLOR, pinColorForCategory } from '@/lib/neighbourhood/categories'
+import {
+  HOTEL_PIN_COLOR,
+  HOTEL_PIN_FILL,
+  PIN_GLYPH_INK,
+  PIN_GLYPH_WHITE,
+  pinColorForCategory,
+  pinGlyphColorForCategory,
+} from '@/lib/neighbourhood/categories'
+import { CATEGORY_LUCIDE_ICON } from '@/lib/neighbourhood/categoryIcons'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 
 export type MapPinVariant = 'hotel' | 'category' | 'person'
 
+/** Shared pin silhouette — `.hbb-pin-shape` in globals.css. */
+export const PIN_SHAPE_CLASS = 'hbb-pin-shape'
+
+type CategoryPinMarkProps = {
+  category: PlaceCategory
+  className?: string
+  /** Default 32px, matching category MapPins. */
+  size?: 'md' | 'lg'
+}
+
+/** Category fill + glyph in the pin silhouette. Used by map markers and the teaser list. */
+export function CategoryPinMark({
+  category,
+  className = '',
+  size = 'md',
+}: CategoryPinMarkProps) {
+  const Icon = CATEGORY_LUCIDE_ICON[category]
+  const fill = pinColorForCategory(category)
+  const glyphColor = pinGlyphColorForCategory(category)
+  const box = size === 'lg' ? 'h-9 w-9' : 'h-8 w-8'
+  const iconSize = size === 'lg' ? 16 : 14
+
+  return (
+    <span
+      className={`${PIN_SHAPE_CLASS} ${box} flex shrink-0 items-center justify-center ${className}`}
+      style={{ backgroundColor: fill }}
+      aria-hidden="true"
+    >
+      {Icon ? (
+        <Icon size={iconSize} strokeWidth={1.75} style={{ color: glyphColor }} />
+      ) : null}
+    </span>
+  )
+}
+
 export type MapPinProps = {
   /**
-   * `hotel` — 42px ink house, always-labeled.
+   * `hotel` — 42px amber fill, ink Home glyph, always-labeled. Same on `/` and `/here`.
    * `category` — 32px addendum-v2 category fill + glyph (destinations map).
    * `person` — 32px portrait / initials-on-ink at the pick's existing lat/long
    * (recommendations map). Same a11y contract as category; different skin.
@@ -67,11 +110,18 @@ export function MapPin({
   const isHotel = variant === 'hotel'
   const isPerson = variant === 'person'
   const showLabel = isHotel || labelVisible || isActive
-  const fill = isHotel || isPerson
-    ? HOTEL_PIN_COLOR
+  const fill = isHotel
+    ? HOTEL_PIN_FILL
+    : isPerson
+      ? HOTEL_PIN_COLOR
+      : category
+        ? pinColorForCategory(category)
+        : HOTEL_PIN_COLOR
+  const glyphColor = isHotel
+    ? PIN_GLYPH_INK
     : category
-      ? pinColorForCategory(category)
-      : HOTEL_PIN_COLOR
+      ? pinGlyphColorForCategory(category)
+      : PIN_GLYPH_WHITE
 
   const size = isHotel ? 'h-[42px] w-[42px]' : isActive ? 'h-9 w-9' : 'h-8 w-8'
   const iconSize = isHotel ? 20 : isActive ? 16 : 14
@@ -92,12 +142,12 @@ export function MapPin({
         aria-label={ariaLabel}
         aria-pressed={isActive}
         onClick={onSelect}
-        className={`pointer-events-auto relative flex ${size} shrink-0 items-center justify-center overflow-visible rounded-full shadow-md ring-2 ring-white transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-hbb-forest ${
+        className={`pointer-events-auto relative flex ${size} ${PIN_SHAPE_CLASS} shrink-0 items-center justify-center overflow-visible shadow-md ring-2 ring-white transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-hbb-forest ${
           isActive ? 'scale-110 ring-[3px] shadow-lg' : ''
         }`}
         style={{ backgroundColor: fill }}
       >
-        <span className="flex h-full w-full items-center justify-center overflow-hidden rounded-full">
+        <span className={`flex h-full w-full items-center justify-center overflow-hidden ${PIN_SHAPE_CLASS}`}>
           {isPerson ? (
             <InitialsAvatar
               name={personName ?? label}
@@ -107,7 +157,12 @@ export function MapPin({
               size={isActive ? 'pinActive' : 'pin'}
             />
           ) : Icon ? (
-            <Icon aria-hidden="true" size={iconSize} strokeWidth={1.75} className="text-white" />
+            <Icon
+              aria-hidden="true"
+              size={iconSize}
+              strokeWidth={1.75}
+              style={{ color: glyphColor }}
+            />
           ) : null}
         </span>
         {showExtra ? (

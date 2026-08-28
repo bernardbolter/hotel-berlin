@@ -43,12 +43,10 @@ export async function ArtInBuildingSection({ locale }: Props) {
         badge: { label: t('art.currentBadge'), categoryToken: 'art' },
         title: show.title,
         venueLabel: 'FKKB',
+        locationLabel:
+          locale === 'de' ? 'Im Atrium über der Lobby' : 'In the atrium above the lobby',
         primaryMeta: show.statusLabel,
         description: t('art.currentDescription'),
-        secondaryMeta: {
-          left: locale === 'de' ? 'Erdgeschoss' : 'Ground floor',
-          right: locale === 'de' ? 'Freier Eintritt' : 'Free entry',
-        },
         cta: {
           label: t('art.currentCta'),
           href: '/here/art',

@@ -16,8 +16,20 @@ export const CATEGORY_ICON: Record<PlaceCategory, string> = {
 /** Default single pin color for `/nachbarschaft` when category is unknown. */
 export const NEIGHBOURHOOD_PIN_COLOR = '#56674F' // forest
 
-/** Hotel map marker — ink, outside the category palette (tokens.json → color.map.hotelInk). */
+/**
+ * Hotel map marker fill — brand amber, same on `/` and `/here`.
+ * Does not track the page accent (forest / teal). tokens.json → color.map.hotelFill.
+ */
+export const HOTEL_PIN_FILL = '#F79B2E'
+
+/**
+ * Ink — hotel Home glyph, Sightseeing glyph, person-pin fallback fill.
+ * tokens.json → color.map.hotelInk.
+ */
 export const HOTEL_PIN_COLOR = '#1A2B4A'
+
+export const PIN_GLYPH_WHITE = '#FFFFFF'
+export const PIN_GLYPH_INK = HOTEL_PIN_COLOR
 
 /**
  * Palette v2 — one hex per `neighbourhoodPlaces.category` value.
@@ -39,4 +51,9 @@ export const CATEGORY_PIN_COLOR: Record<PlaceCategory, string> = {
 
 export function pinColorForCategory(category: PlaceCategory): string {
   return CATEGORY_PIN_COLOR[category] ?? NEIGHBOURHOOD_PIN_COLOR
+}
+
+/** White fails WCAG non-text 3:1 on Sightseeing `#E08A28` (2.68:1); ink is 5.26:1. */
+export function pinGlyphColorForCategory(category: PlaceCategory): string {
+  return category === 'Sightseeing' ? PIN_GLYPH_INK : PIN_GLYPH_WHITE
 }

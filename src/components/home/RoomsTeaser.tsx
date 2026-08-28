@@ -87,7 +87,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
   return (
     <div className="grid w-full grid-cols-1 items-start gap-10 max-lg:grid-cols-[minmax(0,1fr)_auto] max-lg:gap-x-3 max-lg:gap-y-0.5 lg:grid-cols-[2fr_1fr] lg:grid-rows-[auto_auto] lg:gap-x-10 lg:gap-y-0">
       {/* 1) Photo — 2/3 + accent bar */}
-      <figure className="relative min-w-0 w-full max-lg:col-span-2 lg:col-start-1 lg:row-start-1">
+      <figure className="relative min-w-0 w-full max-lg:col-span-2 max-lg:row-start-2 lg:col-start-1 lg:row-start-1">
         <div className="flex w-full items-stretch gap-[2px] max-lg:w-[calc(100%+1.25rem-5px)] max-lg:-mr-[15px] max-lg:gap-px md:max-lg:w-[calc(100%+2.5rem-5px)] md:max-lg:-mr-[35px]">
           <div
             className="rooms-photo-mask relative min-w-0 flex-1 overflow-hidden bg-hbb-warm max-[550px]:aspect-[1/0.75] min-[551px]:aspect-[3/2]"
@@ -144,7 +144,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
       {/* Specs — under photo on desktop; same row as room name below lg */}
       <ul
         role="list"
-        className={`mt-[2px] ml-auto flex w-fit border border-hbb-rooms-highlight/30 transition-opacity duration-300 max-lg:col-start-2 max-lg:row-start-2 max-lg:mt-0 max-lg:mr-[calc(5px-1.25rem)] max-[500px]:flex-col md:max-lg:mr-[calc(5px-2.5rem)] lg:col-start-1 lg:row-start-2 ${
+        className={`mt-[2px] ml-auto flex w-fit border border-hbb-rooms-highlight/30 transition-opacity duration-300 max-lg:col-start-2 max-lg:row-start-3 max-lg:mt-0 max-lg:mr-[calc(5px-1.25rem)] max-[500px]:flex-col md:max-lg:mr-[calc(5px-2.5rem)] lg:col-start-1 lg:row-start-2 ${
           priceVisible ? 'opacity-100' : 'opacity-0'
         } motion-reduce:opacity-100`}
       >
@@ -171,18 +171,18 @@ export function RoomsTeaser({ rooms, copy }: Props) {
       <div className="flex w-full min-w-0 flex-col items-start max-lg:contents lg:col-start-2 lg:row-start-1 lg:row-span-2">
         <h2
           id="rooms-heading"
-          className="text-left font-serif text-[clamp(2.15rem,3.4vw,3.1rem)] font-normal leading-[1.12] text-hbb-rooms-highlight max-lg:col-span-2 max-lg:mt-5"
+          className="text-left font-serif text-[clamp(2.15rem,3.4vw,3.1rem)] font-normal leading-[1.12] text-hbb-rooms-highlight max-lg:col-span-2 max-lg:row-start-1 max-lg:mb-3 max-lg:w-full max-lg:pr-px max-lg:text-right"
         >
           {copy.heading}
         </h2>
 
-        <p className="mt-6 text-left font-serif text-[clamp(0.95rem,1.05vw,1.05rem)] leading-[1.65] text-[#3a3a3a] max-lg:col-span-2 max-lg:mt-4">
+        <p className="mt-6 text-left font-serif text-[clamp(0.95rem,1.05vw,1.05rem)] leading-[1.65] text-[#3a3a3a] max-lg:col-span-2 max-lg:mt-4 max-lg:max-w-[550px]">
           {copy.body}
         </p>
 
-        <div className="mt-9 min-h-16 text-left max-lg:col-start-1 max-lg:row-start-2 max-lg:mt-0 max-lg:min-h-0 max-lg:pr-2 max-[500px]:contents">
+        <div className="mt-9 min-h-16 text-left max-lg:col-start-1 max-lg:row-start-3 max-lg:mt-0 max-lg:min-h-0 max-lg:pr-2 max-[500px]:contents">
           <div
-            className="max-[500px]:col-start-1 max-[500px]:row-start-2 max-[500px]:pr-2"
+            className="max-[500px]:col-start-1 max-[500px]:row-start-3 max-[500px]:pr-2"
             aria-live="polite"
             aria-atomic="true"
           >
@@ -212,7 +212,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           {active.amenities.length > 0 ? (
             <ul
               role="list"
-              className={`mt-4 flex flex-wrap gap-x-5 gap-y-2.5 transition-opacity duration-300 max-[500px]:col-span-2 max-[500px]:row-start-3 max-[500px]:mt-3 max-[500px]:w-full max-[500px]:justify-between ${
+              className={`mt-4 flex flex-wrap gap-x-5 gap-y-2.5 transition-opacity duration-300 max-[500px]:col-span-2 max-[500px]:row-start-4 max-[500px]:mt-3 max-[500px]:w-full max-[500px]:justify-between ${
                 priceVisible ? 'opacity-100' : 'opacity-0'
               } motion-reduce:opacity-100`}
             >
@@ -233,7 +233,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           ) : null}
         </div>
 
-        <SweepCta href="/rooms" className="mt-10 max-lg:col-span-2 max-lg:mt-8">
+        <SweepCta href="/rooms" className="mt-10 max-lg:col-span-2 max-lg:mt-8 max-lg:w-fit max-lg:justify-self-start">
           {copy.ctaLabel}
           <span className="sr-only"> {t('ctaSrSuffix')}</span>
         </SweepCta>

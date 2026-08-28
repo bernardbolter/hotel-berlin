@@ -54,12 +54,16 @@ type Props = {
    * Accessibility (aria-label, focus-visible label, touch two-tap) is the same either way.
    */
   pinVariant?: Exclude<MapPinVariant, 'hotel'>
-  /** @deprecated Pins always use addendum v2 category tokens. Kept for call-site compat. */
+  /** @deprecated Pins always use addendum-v2 category tokens. Kept for call-site compat. */
   pinColorMode?: 'single' | 'category'
-  /** @deprecated Hotel pin is always the ink house marker. */
+  /**
+   * `geographic` (default) — west→east then north→south, for the full destinations map.
+   * `source` — mount order matches `places` (homepage teaser legend / list / tab order).
+   */
+  pinTabOrder?: 'geographic' | 'source'
+  /** @deprecated Hotel pin is amber fill + ink Home glyph. */
   hotelMarkerVariant?: 'disc' | 'hbb'
   styleId?: string
-  cooperativeGestures?: boolean
 }
 
 type PinRuntime = {
@@ -144,8 +148,8 @@ export function NeighbourhoodGuideMap({
   hideNavigation = false,
   fitPadding = 48,
   pinVariant = 'category',
+  pinTabOrder = 'geographic',
   styleId,
-  cooperativeGestures = true,
 }: Props) {
   const t = useTranslations('heroMap')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -193,7 +197,9 @@ export function NeighbourhoodGuideMap({
       center: [center.lng, center.lat],
       zoom: 13.5,
       attributionControl: true,
-      cooperativeGestures,
+      // ctrl/cmd+scroll to zoom; page scroll passes through. Pinch-zoom is
+      // TouchZoomRotateHandler — cooperativeGestures does not disable it.
+      cooperativeGestures: true,
       ...(useSoftFaded ? { config: { basemap: STANDARD_SOFT_FADED_CONFIG } } : {}),
     })
 
@@ -280,7 +286,6 @@ export function NeighbourhoodGuideMap({
     fitPadding,
     resolvedStyleId,
     useSoftFaded,
-    cooperativeGestures,
   ])
 
   // Build markers when place set changes
@@ -294,7 +299,8 @@ export function NeighbourhoodGuideMap({
     }
     pinsRef.current = []
 
-    for (const place of placesInTabOrder(places)) {
+    const ordered = pinTabOrder === 'source' ? places : placesInTabOrder(places)
+    for (const place of ordered) {
       const activate = () => {
         if (selectionMode) {
           onSelectRef.current?.(place.id)
@@ -368,7 +374,7 @@ export function NeighbourhoodGuideMap({
 
       pinsRef.current.push({ place, handle, marker, popup })
     }
-  }, [places, selectionMode, mapEpoch, pinVariant, copyForPlace])
+  }, [places, selectionMode, mapEpoch, pinVariant, pinTabOrder, copyForPlace])
 
   // Update pin visuals without remounting
   useEffect(() => {

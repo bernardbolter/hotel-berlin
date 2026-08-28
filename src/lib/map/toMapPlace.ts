@@ -3,6 +3,7 @@ import type { MapViewPlace } from '@/components/map/PlacesMapView'
 import { personInitials } from '@/lib/people/initials'
 import type { NeighbourhoodPlaceDoc } from '@/lib/queries/neighbourhoodPlaces'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
+import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 
 export function mediaFileUrl(
   image: { url?: string | null } | number | null | undefined,
@@ -92,6 +93,17 @@ export function toMapViewPlace(
 
   const imageSrc = mediaFileUrl(place.image)
   const creditText = place.imageCredit?.creditText?.trim()
+  const resolvedMedia = withPlaceImageFallback(
+    place.slug,
+    imageSrc ? { src: imageSrc, alt: mediaFileAlt(place.image, place.name) } : null,
+    creditText
+      ? {
+          creditText,
+          creditUrl: place.imageCredit?.creditUrl?.trim() || null,
+        }
+      : null,
+    place.name,
+  )
   const endorsements = endorsementChips(place, {
     requirePublished: opts.requirePublishedEndorsers,
   })
@@ -135,15 +147,8 @@ export function toMapViewPlace(
     walkingLabel: labels.walkingLabel,
     transit,
     transitLabel: transit ? labels.transitLabel : undefined,
-    image: imageSrc
-      ? { src: imageSrc, alt: mediaFileAlt(place.image, place.name) }
-      : null,
-    imageCredit: creditText
-      ? {
-          creditText,
-          creditUrl: place.imageCredit?.creditUrl?.trim() || null,
-        }
-      : null,
+    image: resolvedMedia.image,
+    imageCredit: resolvedMedia.imageCredit,
     endorsements,
     leadPerson,
     latitude: lat,

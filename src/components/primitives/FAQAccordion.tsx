@@ -84,24 +84,33 @@ export function FAQAccordion({
                 aria-expanded={isOpen}
                 aria-controls={answerId}
                 onClick={() => setOpenId(isOpen ? null : item.id)}
-                className={`flex min-h-11 w-full items-center justify-between gap-4 py-4 text-left font-ui text-ui-md font-medium outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${accent.focus}`}
+                className={`flex min-h-11 w-full items-center justify-between gap-4 py-4 text-left font-ui text-ui-md font-medium text-[#1F1F1F] outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${accent.focus}`}
               >
-                <span className={isOpen ? accent.text : `text-[#1F1F1F] ${accent.hover}`}>
-                  {item.question}
-                </span>
+                <span className={isOpen ? accent.text : accent.hover}>{item.question}</span>
                 <ChevronDown
                   aria-hidden="true"
                   size={18}
-                  className={`shrink-0 transition-transform ${accent.chevron} ${
+                  className={`shrink-0 transition-transform duration-300 ease-out motion-reduce:transition-none ${accent.chevron} ${
                     isOpen ? 'rotate-180' : ''
                   }`}
                 />
               </button>
             </h3>
-            <div id={answerId} role="region" aria-labelledby={questionId} hidden={!isOpen}>
-              <p className="pb-5 pr-8 font-ui text-ui-sm leading-relaxed text-gray-600">
-                {item.answer}
-              </p>
+            <div
+              id={answerId}
+              role="region"
+              aria-labelledby={questionId}
+              aria-hidden={!isOpen}
+              {...(!isOpen ? { inert: true } : {})}
+              className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
+                isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+              }`}
+            >
+              <div className="overflow-hidden">
+                <p className="pb-5 pr-8 font-ui text-ui-sm leading-relaxed text-[#3a3a3a]">
+                  {item.answer}
+                </p>
+              </div>
             </div>
           </div>
         )
@@ -110,7 +119,7 @@ export function FAQAccordion({
   )
 
   if (embedded) {
-    return <div className={className}>{list}</div>
+    return <div className={`text-[#1F1F1F] ${className}`}>{list}</div>
   }
 
   const padding =
@@ -121,7 +130,7 @@ export function FAQAccordion({
   return (
     <section
       aria-labelledby={heading ? 'faq-heading' : undefined}
-      className={`bg-hbb-page ${padding} ${className}`}
+      className={`bg-hbb-page text-[#1F1F1F] ${padding} ${className}`}
     >
       <div className="mx-auto w-full max-w-(--site-max)">
         {(heading || (variant === 'mini' && ctaHref)) && (

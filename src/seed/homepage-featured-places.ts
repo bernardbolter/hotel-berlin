@@ -30,12 +30,19 @@ const HERE_TEASER_SLUGS = [
   'anjoy',
 ] as const
 
-/** Legacy featuredOrder 1–15 (pagination fallback / migration). */
+/** Homepage map — featuredOrder 1–15 (pagination, 3 pages of 5). */
 const FEATURED_SLUGS = [
   ...HOMEPAGE_TEASER_SLUGS,
   'schloss-charlottenburg',
   'anjoy',
   'britzer-garten',
+  'kadewe',
+  'viktoriapark',
+  'vater-bar',
+  'nobelhart-und-schmutzig',
+  'tempelhofer-feld',
+  'einar-und-bert-bookshop',
+  'bayerischer-platz',
 ] as const
 
 async function clearTeaserFlags(
@@ -138,7 +145,7 @@ async function seed() {
     console.warn('✗ missing place slug=kadewe — skip transit')
   }
 
-  console.log(`--- Setting legacy featuredOrder on ${FEATURED_SLUGS.length} places ---`)
+  console.log(`--- Setting featuredOrder 1–15 on ${FEATURED_SLUGS.length} places ---`)
   for (let i = 0; i < FEATURED_SLUGS.length; i++) {
     const slug = FEATURED_SLUGS[i]
     const order = i + 1

@@ -3,10 +3,16 @@ import { describe, expect, it } from 'vitest'
 import {
   buildVenueSpotlightFromParts,
   pickBarOrPrimarySegment,
+  resolveEventSpotlight,
   resolvePersonSpotlight,
 } from '../../src/lib/spotlight/resolvers'
+import {
+  CATEGORY_TOKENS,
+  categoryTokenForEventCategory,
+  resolveCategoryToken,
+} from '../../src/lib/spotlight/categoryTokens'
 import { berlinLocalToUtc } from '../../src/lib/venue-time/berlin'
-import type { Person, Venue } from '../../src/payload-types'
+import type { Event, Person, Venue } from '../../src/payload-types'
 
 function atBerlin(isoLocal: string): Date {
   const [date, time = '00:00:00'] = isoLocal.split('T')
@@ -89,12 +95,40 @@ describe('buildVenueSpotlightFromParts', () => {
     })
     expect(card?.title).toBe('Magwie × CokyOne')
     expect(card?.venueLabel).toBe('Lütze')
-    expect(card?.primaryMeta).toBe('On now · Free entry')
+    expect(card?.locationLabel).toBe('Ground floor')
+    expect(card?.primaryMeta).toMatch(/^On now · Free entry · Until /i)
     expect(card?.description).toBe('Surreal dreamscapes meet graffiti.')
-    expect(card?.secondaryMeta?.left).toBe('Ground floor')
-    expect(card?.secondaryMeta?.right).toMatch(/Until/i)
+    expect(card?.secondaryMeta).toBeUndefined()
     expect(card?.cta.categoryToken).toBe('food')
     expect(card?.cta.label).toBe('Explore Lütze')
+  })
+
+  it('uses the FKKB atrium placeholder when no spotlightLocation is set', () => {
+    const fkkb = {
+      ...lutzeVenue,
+      slug: 'fkkb',
+      name: 'FKKB — Freiluft Kunst Klub Berlin',
+      venueType: 'ArtGallery',
+      location: 'Hotel Berlin, Berlin — multiple floors',
+      spotlightLocation: null,
+    } as unknown as Venue
+
+    const card = buildVenueSpotlightFromParts({
+      venue: fkkb,
+      exhibition: {
+        id: 1,
+        title: 'Magwie × CokyOne',
+        slug: 'magwie-x-cokyone',
+        status: 'current',
+        endDate: '2026-09-30T21:59:00.000Z',
+        updatedAt: '',
+        createdAt: '',
+      } as never,
+    })
+
+    expect(card?.locationLabel).toBe('In the atrium above the lobby')
+    expect(card?.primaryMeta).toMatch(/Until /i)
+    expect(card?.secondaryMeta).toBeUndefined()
   })
 
   it('prefers populated exhibition heroImage over venue fallback', () => {
@@ -154,7 +188,8 @@ describe('buildVenueSpotlightFromParts', () => {
       now: atBerlin('2026-08-06T16:00:00'),
     })
     expect(card?.primaryMeta).toBe('Open')
-    expect(card?.secondaryMeta?.left).toBe('Ground floor')
+    expect(card?.locationLabel).toBe('Ground floor')
+    expect(card?.secondaryMeta).toBeUndefined()
     expect(card?.identityMark).toBeUndefined()
   })
 })
@@ -192,3 +227,66 @@ describe('resolvePersonSpotlight', () => {
     expect(resolvePersonSpotlight(person)).toBeNull()
   })
 })
+
+describe('category tokens (DESIGN.md card palette)', () => {
+  it('maps all seven event categories to DESIGN.md fills', () => {
+    expect(resolveCategoryToken('art')).toEqual(
+      expect.objectContaining({ fill: '#2C6B7A', onFill: '#FFFFFF' }),
+    )
+    expect(resolveCategoryToken('sport')).toEqual(
+      expect.objectContaining({ fill: '#F79B2E', onFill: '#1A2B4A' }),
+    )
+    expect(resolveCategoryToken('music')).toEqual(
+      expect.objectContaining({ fill: '#F95D62', onFill: '#1A2B4A' }),
+    )
+    expect(resolveCategoryToken('food')).toEqual(
+      expect.objectContaining({ fill: '#B87A2E', onFill: '#1A2B4A' }),
+    )
+    expect(resolveCategoryToken('neighbourhood')).toEqual(
+      expect.objectContaining({ fill: '#56674F', onFill: '#FFFFFF' }),
+    )
+    expect(resolveCategoryToken('partnerships')).toEqual(
+      expect.objectContaining({ fill: '#6B5B8D', onFill: '#FFFFFF' }),
+    )
+    expect(resolveCategoryToken('community')).toEqual(
+      expect.objectContaining({ fill: '#216A95', onFill: '#FFFFFF' }),
+    )
+  })
+
+  it('does not invent a skate / Wallride token', () => {
+    expect(categoryTokenForEventCategory('Skate')).toBe('other')
+    expect(CATEGORY_TOKENS).not.toHaveProperty('skate')
+  })
+
+  it('maps CMS Community to the community token, not the venue (food) token', () => {
+    expect(categoryTokenForEventCategory('Community')).toBe('community')
+    expect(categoryTokenForEventCategory('Food')).toBe('food')
+  })
+})
+
+describe('resolveEventSpotlight', () => {
+  it('puts venue location on the identity row and drops the duplicate bottom meta', async () => {
+    const event = {
+      id: 3,
+      name: 'Zeichenstammtisch',
+      slug: 'zeichenstammtisch',
+      category: 'Community',
+      shortDescription: 'Open drawing table.',
+      startDate: berlinLocalToUtc(2026, 8, 27, 19, 0, 0).toISOString(),
+      isRecurring: true,
+      recurrenceRule: 'FREQ=MONTHLY;BYDAY=-1TH',
+      heroImage: { id: 11, url: '/media/zeichen.jpg', alt: 'Drawing' },
+      venue: lutzeVenue,
+      updatedAt: '',
+      createdAt: '',
+    } as unknown as Event
+
+    const card = await resolveEventSpotlight(event, { now: atBerlin('2026-08-06T12:00:00') })
+    expect(card?.badge.categoryToken).toBe('community')
+    expect(card?.cta.categoryToken).toBe('community')
+    expect(card?.venueLabel).toBe('Lütze')
+    expect(card?.locationLabel).toBe('Ground floor')
+    expect(card?.secondaryMeta).toBeUndefined()
+  })
+})
+

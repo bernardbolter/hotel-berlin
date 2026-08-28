@@ -34,7 +34,7 @@ export type RoomHeroItem = {
   sleepsLabel: string
   locale: 'en' | 'de'
   bookingUrl: string | null
-  /** Primary teaser image (homepage D-shape rotator) */
+  /** First gallery image (homepage D-shape rotator) */
   teaserImage: { src: string; alt: string }
   images: { src: string; alt: string }[]
   amenities: RoomTeaserAmenity[]
@@ -45,72 +45,20 @@ function resolveMediaUrl(image: number | Media | undefined | null): string | nul
   return image.url ?? null
 }
 
-function resolveMediaFilename(image: number | Media | undefined | null): string {
-  if (!image || typeof image === 'number') return ''
-  return (image.filename ?? image.url ?? '').toLowerCase()
-}
-
-/** Prefer gallery images whose filename/alt looks like this room type. */
-function pickBestTeaserImage(
+/** Homepage teaser always uses the room gallery’s first image (source of truth). */
+function pickTeaserImage(
   room: Room,
-  images: { src: string; alt: string; filename?: string }[],
+  images: { src: string; alt: string }[],
 ): { src: string; alt: string } {
-  const teaserUpload = room.homepageTeaser?.teaserImage
-  const teaserSrc = resolveMediaUrl(teaserUpload)
-  if (teaserSrc) {
-    return {
-      src: teaserSrc,
-      alt: room.name,
-    }
+  const first = images[0]
+  if (first) {
+    return { src: first.src, alt: first.alt || room.name }
   }
 
-  if (images.length === 0) {
-    return { src: DEFAULT_ROOM_IMAGE, alt: room.name }
-  }
-
-  const slug = room.slug
-  const hints = SLUG_IMAGE_HINTS[slug] ?? [slug]
-
-  let best = images[0]!
-  let bestScore = -Infinity
-
-  for (const image of images) {
-    const haystack = `${image.filename ?? ''} ${image.src} ${image.alt}`.toLowerCase()
-    let score = 0
-    for (const hint of hints) {
-      if (haystack.includes(hint)) score += 12
-    }
-    // Penalize obviously wrong type labels in the asset name
-    if (slug !== 'superior' && haystack.includes('superior')) score -= 10
-    if (!slug.includes('suite') && slug !== 'studio-45' && haystack.includes('executive-suite')) {
-      score -= 8
-    }
-    if (slug !== 'corner-suite' && haystack.includes('corner-suite')) score -= 6
-    if (haystack.includes('thumb')) score -= 3
-    if (score > bestScore) {
-      bestScore = score
-      best = image
-    }
-  }
-
-  return { src: best.src, alt: best.alt || room.name }
+  return { src: DEFAULT_ROOM_IMAGE, alt: room.name }
 }
 
-const SLUG_IMAGE_HINTS: Record<string, string[]> = {
-  individual: ['individual', 'einzel', 'standard-room'],
-  'cosy-small': ['cosy', 'gemuetlich', 'cozy'],
-  standard: ['standard-room', 'standard'],
-  superior: ['superior'],
-  family: ['family', 'familien', 'quadruple'],
-  'premium-family': ['premium-family', 'quadruple'],
-  premium: ['premium-room', 'premium'],
-  'junior-suite': ['junior', 'executive-suite'],
-  'suite-one-bedroom': ['one-bedroom', 'onebedroom'],
-  'corner-suite': ['corner-suite', 'corner'],
-  'studio-45': ['studio', 'hybrid-studio'],
-}
-
-type ResolvedRoomImage = { src: string; alt: string; filename?: string }
+type ResolvedRoomImage = { src: string; alt: string }
 
 function resolveRoomImages(room: Room): ResolvedRoomImage[] {
   const cmsImages =
@@ -121,7 +69,6 @@ function resolveRoomImages(room: Room): ResolvedRoomImage[] {
         return {
           src,
           alt: entry.alt,
-          filename: resolveMediaFilename(entry.image),
         }
       })
       .filter((img): img is ResolvedRoomImage => img !== null) ?? []
@@ -181,7 +128,7 @@ export function mapRoomToHeroItem(
 ): RoomHeroItem {
   const floorSizeM2 = room.floorSizeM2
   const images = resolveRoomImages(room)
-  const teaserImage = pickBestTeaserImage(room, images)
+  const teaserImage = pickTeaserImage(room, images)
   const priceLabel = formatRoomPrice(room.fromPrice, locale)
 
   return {

@@ -349,7 +349,7 @@ export interface Room {
      */
     order?: number | null;
     /**
-     * Optional. Falls back to the room’s first gallery image if empty.
+     * Unused for display — homepage always uses the room’s first gallery image. Kept for legacy CMS data only.
      */
     teaserImage?: (number | null) | Media;
     /**
@@ -1095,7 +1095,7 @@ export interface NeighbourhoodPlace {
       | null;
   };
   /**
-   * Independent from hereTeaser — feature a different set of places on the homepage map. Same pattern as rooms.homepageTeaser. Limit 5 via getTeaserPlaces.
+   * Independent from hereTeaser. Fallback if featuredOrder is empty — prefer featuredOrder 1–15 for the paginated homepage map.
    */
   homepageTeaser?: {
     /**
@@ -1121,7 +1121,7 @@ export interface NeighbourhoodPlace {
     order?: number | null;
   };
   /**
-   * Legacy homepage map pagination order (1–15). Prefer homepageTeaser.enabled/order from the Neighbourhood Map revision brief going forward.
+   * Homepage map pagination order (1–15). Non-null includes the place; pages of 5 in featuredOrder sequence. Used by getFeaturedOrderPlaces / getMapTeaserPlaces.
    */
   featuredOrder?: number | null;
   status: 'active' | 'inactive';
@@ -2121,7 +2121,7 @@ export interface Hotel {
    */
   getDirectionsLabel?: string | null;
   /**
-   * Short display address under the hero map (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.
+   * Short display address in the hero map badge hover pill (e.g. "Lützowplatz 17, Tiergarten"). Distinct from the full structured address.
    */
   heroShortAddress?: string | null;
   /**

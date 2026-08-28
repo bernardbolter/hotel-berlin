@@ -5,7 +5,7 @@ export {
   categoryTokenForVenueType,
   resolveCategoryToken,
 } from './categoryTokens'
-export type { CategoryToken, CategoryTokenStyle } from './categoryTokens'
+export type { CategoryToken, CategoryTokenStyle, EventCategory } from './categoryTokens'
 export { mediaAlt, mediaUrl } from './media'
 export {
   buildVenueSpotlightFromParts,

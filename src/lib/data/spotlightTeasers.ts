@@ -28,10 +28,11 @@ export const spotlightTeasers: SpotlightCardProps[] = [
     },
     badge: { label: 'Sport', categoryToken: 'sport' },
     title: 'Thursday Tournament',
+    venueLabel: 'KTTK',
+    locationLabel: 'B2 Basement',
     primaryMeta: 'Thu · 19:00',
     description:
       'Four JOOLA tables in the basement, open to guests and Berliners. Sign up at the door, no dress code, bats provided. €5 gets you into the knockout rounds and a night of loud rallies.',
-    secondaryMeta: { left: 'KTTK', right: 'B2 Basement' },
     cta: {
       label: 'See event',
       href: '/here/events',
@@ -45,10 +46,11 @@ export const spotlightTeasers: SpotlightCardProps[] = [
     },
     badge: { label: 'Food', categoryToken: 'food' },
     title: 'Vinyl Nights',
+    venueLabel: 'Lütze',
+    locationLabel: 'Ground floor',
     primaryMeta: 'Mon · 18:00',
     description:
       'Monday evenings at Lütze: local selectors on the decks, drinks flowing, no cover. Bring a friend, claim a corner of the bar, and stay until the last record runs out.',
-    secondaryMeta: { left: 'Lütze', right: 'Ground floor' },
     cta: {
       label: 'See event',
       href: '/here/events',
@@ -62,10 +64,11 @@ export const spotlightTeasers: SpotlightCardProps[] = [
     },
     badge: { label: 'Community', categoryToken: 'community' },
     title: 'Zeichenstammtisch',
+    venueLabel: 'Lütze',
+    locationLabel: 'Ground floor',
     primaryMeta: 'Last Thu · 19:00',
     description:
       'An open drawing table for illustrators, sketchers, and the merely curious. Bring your own materials, share the table, and leave with new lines — and maybe a new collaborator.',
-    secondaryMeta: { left: 'Lütze', right: 'Monthly' },
     cta: {
       label: 'See event',
       href: '/here/events',

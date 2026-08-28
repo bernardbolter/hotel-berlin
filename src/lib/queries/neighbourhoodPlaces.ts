@@ -1,13 +1,18 @@
 import type { Where } from 'payload'
 
 import {
+  HOMEPAGE_FEATURED_LIMIT,
   TEASER_PLACE_LIMIT,
   type DistanceTier,
   type IndoorOutdoor,
   type PlaceCategory,
 } from '@/lib/neighbourhood/constants'
 import { getPayloadClient } from '@/lib/payload/client'
-import { getTeaserPlaces, type TeaserContext } from '@/lib/places/getTeaserPlaces'
+import {
+  getFeaturedOrderPlaces,
+  getTeaserPlaces,
+  type TeaserContext,
+} from '@/lib/places/getTeaserPlaces'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
 export {
@@ -81,26 +86,49 @@ export type NeighbourhoodPlaceListParams = {
   unpaginated?: boolean
 }
 
+function geoActiveWhere(extra: Where[] = []): Where {
+  return {
+    and: [
+      { status: { equals: 'active' } },
+      { 'geo.latitude': { exists: true } },
+      { 'geo.longitude': { exists: true } },
+      ...extra,
+    ],
+  }
+}
+
 /**
- * Curated teaser places for homepage or /here (max 5).
- * Prefers `homepageTeaser` / `hereTeaser`; falls back to legacy `featuredOrder` on homepage
- * until editors finish migrating.
+ * Homepage: `featuredOrder` 1–15 (paginated UI). `/here`: `hereTeaser` (max 5).
+ * Homepage falls back to `homepageTeaser`, then any geo-tagged place, if featuredOrder is empty.
  */
 export async function getMapTeaserPlaces(locale: string, context: TeaserContext) {
   const payload = await getPayloadClient()
+  const loc = locale as 'de' | 'en'
+
+  if (context === 'homepage') {
+    const featured = await payload.find({
+      collection: 'neighbourhood-places',
+      locale: loc,
+      where: geoActiveWhere([{ featuredOrder: { exists: true } }]),
+      depth: 2,
+      sort: 'featuredOrder',
+      limit: HOMEPAGE_FEATURED_LIMIT,
+    })
+    const ordered = getFeaturedOrderPlaces(
+      featured.docs as NeighbourhoodPlace[],
+      HOMEPAGE_FEATURED_LIMIT,
+    )
+    if (ordered.length > 0) {
+      return ordered as unknown as NeighbourhoodPlaceDoc[]
+    }
+  }
+
   const teaserField = context === 'homepage' ? 'homepageTeaser' : 'hereTeaser'
 
   const teaserResult = await payload.find({
     collection: 'neighbourhood-places',
-    locale: locale as 'de' | 'en',
-    where: {
-      and: [
-        { status: { equals: 'active' } },
-        { [`${teaserField}.enabled`]: { equals: true } },
-        { 'geo.latitude': { exists: true } },
-        { 'geo.longitude': { exists: true } },
-      ],
-    },
+    locale: loc,
+    where: geoActiveWhere([{ [`${teaserField}.enabled`]: { equals: true } }]),
     depth: 2,
     sort: `${teaserField}.order`,
     limit: 40,
@@ -117,38 +145,10 @@ export async function getMapTeaserPlaces(locale: string, context: TeaserContext)
 
   if (context !== 'homepage') return []
 
-  // Legacy fallback — featuredOrder 1–5 until homepageTeaser is seeded
-  const legacy = await payload.find({
-    collection: 'neighbourhood-places',
-    locale: locale as 'de' | 'en',
-    where: {
-      and: [
-        { status: { equals: 'active' } },
-        { featuredOrder: { exists: true } },
-        { 'geo.latitude': { exists: true } },
-        { 'geo.longitude': { exists: true } },
-      ],
-    },
-    depth: 2,
-    sort: 'featuredOrder',
-    limit: TEASER_PLACE_LIMIT,
-  })
-
-  if (legacy.docs.length > 0) {
-    return legacy.docs as unknown as NeighbourhoodPlaceDoc[]
-  }
-
-  // Last resort — any active geo-tagged places so the homepage map still has pins
   const anyGeo = await payload.find({
     collection: 'neighbourhood-places',
-    locale: locale as 'de' | 'en',
-    where: {
-      and: [
-        { status: { equals: 'active' } },
-        { 'geo.latitude': { exists: true } },
-        { 'geo.longitude': { exists: true } },
-      ],
-    },
+    locale: loc,
+    where: geoActiveWhere(),
     depth: 2,
     sort: 'walkingMinutes',
     limit: TEASER_PLACE_LIMIT,

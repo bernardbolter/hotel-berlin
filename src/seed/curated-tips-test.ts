@@ -474,7 +474,7 @@ async function seed() {
       ],
       status: 'active' as const,
       hereTeaser: { enabled: true, order },
-      geo,
+      geo: geo ?? undefined,
       walkingMinutes,
       distanceTier,
     }

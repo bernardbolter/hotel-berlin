@@ -10,8 +10,10 @@ import type { Payload } from 'payload'
 import config from '../payload.config'
 import { faqsSeed } from './data'
 import { GUEST_AZ_FAQS, type GuestAzFaq } from './guest-az-faqs'
+import type { Faq } from '@/payload-types'
 
 type ProspectFaq = (typeof faqsSeed)[number]
+type FaqWrite = Pick<Faq, 'slug' | 'question' | 'answer' | 'context' | 'category' | 'order'>
 
 function prospectLocales(faq: ProspectFaq) {
   const { questionDE, answerDE, question, answer, ...rest } = faq
@@ -38,7 +40,7 @@ function guestLocales(faq: GuestAzFaq) {
 async function upsertFaq(
   payload: Payload,
   slug: string,
-  en: Record<string, unknown>,
+  en: FaqWrite,
   de: { question: string; answer: string },
 ) {
   const existing = await payload.find({

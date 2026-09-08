@@ -20,7 +20,7 @@ import { getPayloadClient } from '@/lib/payload/client'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
 import { localizeInBuildingLocation } from '@/lib/venues/localizeCopy'
-import type { Media } from '@/payload-types'
+import type { Media, Venue } from '@/payload-types'
 
 export type InHouseAmenity = Omit<AmenityCardProps, 'icon'> & {
   key: string
@@ -101,7 +101,7 @@ function photoFromMedia(
 }
 
 function venueImage(
-  venue: Awaited<ReturnType<typeof getVenueBySlug>>,
+  venue: Venue | null | undefined,
   fallback: AmenityCardImage | null,
 ): AmenityCardImage | null {
   if (venue) {

@@ -14,4 +14,4 @@ export {
   resolvePersonSpotlight,
   resolveVenueSpotlight,
 } from './resolvers'
-export type { SpotlightCardProps } from './types'
+export type { SpotlightCardProps, SpotlightFraming } from './types'

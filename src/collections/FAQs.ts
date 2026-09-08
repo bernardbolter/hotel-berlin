@@ -62,6 +62,12 @@ export const FAQs: CollectionConfig = {
         { label: 'WiFi & tech', value: 'wifi-tech' },
         { label: 'Guest services', value: 'guest-services' },
         { label: 'Neighbourhood (guest)', value: 'neighbourhood-guest' },
+        { label: 'Arrival & departure', value: 'arrival-departure' },
+        { label: 'In the room', value: 'in-room' },
+        { label: 'Money & payment', value: 'money-payment' },
+        { label: 'Health & emergency', value: 'health-emergency' },
+        { label: 'Getting around (guest)', value: 'getting-around' },
+        { label: 'House & rules', value: 'house-rules' },
       ],
       admin: {
         description:

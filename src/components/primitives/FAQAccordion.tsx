@@ -148,10 +148,9 @@ export function FAQAccordion({
             {variant === 'mini' && ctaHref ? (
               <SweepCta
                 href={ctaHref}
-                color={context === 'guest' ? 'meet-work' : 'ink'}
+                color={context === 'guest' ? 'ctx' : 'ink'}
                 edge="right"
                 className="shrink-0"
-                style={context === 'guest' ? { color: '#2C6B7A' } : undefined}
               >
                 {ctaLabel}
               </SweepCta>

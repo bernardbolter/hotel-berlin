@@ -21,13 +21,18 @@ const HOMEPAGE_TEASER_SLUGS = [
   '893-ryotei-bar',
 ] as const
 
-/** /here teaser — independently curated set. */
+/** /here teaser — independently curated set of endorsed tips. */
 const HERE_TEASER_SLUGS = [
-  '893-ryotei-bar',
-  'hamburger-bahnhof',
+  'kaethe-kollwitz-museum',
+  'bayerischer-platz',
+  'olympiastadion',
   'koenig-galerie',
-  'schloss-charlottenburg',
+  'einsunternull',
+  'lokal',
+  'nobelhart-und-schmutzig',
+  'holocaust-memorial',
   'anjoy',
+  'einar-und-bert-bookshop',
 ] as const
 
 /** Homepage map — featuredOrder 1–15 (pagination, 3 pages of 5). */

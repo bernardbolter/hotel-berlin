@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import { berlinLocalToUtc, getBerlinParts } from '../../src/lib/venue-time/berlin'
-import { deriveOpenClosed } from '../../src/lib/venue-time/deriveOpenClosed'
+import { deriveGuestDiningStatus, deriveOpenClosed } from '../../src/lib/venue-time/deriveOpenClosed'
 import { formatRelativeTime } from '../../src/lib/venue-time/formatRelativeTime'
-import { isAlwaysOnDailyRecurring, resolveOccurrence } from '../../src/lib/venue-time/recurrence'
+import { expandOccurrencesInWindow, isAlwaysOnDailyRecurring, resolveOccurrence } from '../../src/lib/venue-time/recurrence'
 import { selectCurrentExhibitionForVenue } from '../../src/lib/venue-time/selectCurrentExhibition'
 import { selectCurrentOrNextEventToday } from '../../src/lib/venue-time/selectCurrentOrNextEventToday'
 import { selectNextEventForVenue } from '../../src/lib/venue-time/selectNextEvent'
@@ -19,7 +19,7 @@ function atBerlin(isoLocal: string): Date {
 }
 
 const lutzeHours: OpeningHoursEntry[] = [
-  { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', segment: 'Bar' },
+  { dayOfWeek: 'Mo-Su', opens: '10:00', closes: '01:00', segment: 'Bar' },
   { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
   { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
 ]
@@ -37,12 +37,12 @@ describe('deriveOpenClosed', () => {
   it('returns a one-item array for a single-segment venue', () => {
     const noon = atBerlin('2026-08-06T14:00:00')
     expect(deriveOpenClosed(kttkHours, noon)).toEqual([
-      { label: 'KTTK', status: 'Open' },
+      { label: 'KTTK', status: 'Open', closesAt: '23:00', minutesUntilClose: 9 * 60 },
     ])
 
     const morning = atBerlin('2026-08-06T10:00:00')
     expect(deriveOpenClosed(kttkHours, morning)).toEqual([
-      { label: 'KTTK', status: 'Closed', note: 'Reopens 13:00' },
+      { label: 'KTTK', status: 'Closed', nextOpensAt: '13:00', nextOpensTomorrow: false },
     ])
   })
 
@@ -50,18 +50,58 @@ describe('deriveOpenClosed', () => {
     // Between lunch and dinner — bar open, kitchen closed
     const afternoon = atBerlin('2026-08-06T16:00:00')
     expect(deriveOpenClosed(lutzeHours, afternoon)).toEqual([
-      { label: 'Bar', status: 'Open' },
-      { label: 'Kitchen', status: 'Closed', note: 'Reopens 17:00' },
+      { label: 'Bar', status: 'Open', closesAt: '01:00', minutesUntilClose: 9 * 60 },
+      { label: 'Kitchen', status: 'Closed', nextOpensAt: '17:00', nextOpensTomorrow: false },
     ])
   })
 
   it('treats exact open time as open and exact close as closed', () => {
     expect(deriveOpenClosed(kttkHours, atBerlin('2026-08-06T13:00:00'))).toEqual([
-      { label: 'KTTK', status: 'Open' },
+      { label: 'KTTK', status: 'Open', closesAt: '23:00', minutesUntilClose: 10 * 60 },
     ])
     expect(deriveOpenClosed(kttkHours, atBerlin('2026-08-06T23:00:00'))).toEqual([
-      { label: 'KTTK', status: 'Closed' },
+      { label: 'KTTK', status: 'Closed', nextOpensAt: '13:00', nextOpensTomorrow: true },
     ])
+  })
+})
+
+describe('deriveGuestDiningStatus', () => {
+  it('reports kitchen open until close', () => {
+    expect(deriveGuestDiningStatus(lutzeHours, atBerlin('2026-08-06T19:00:00'))).toEqual({
+      kind: 'kitchenOpen',
+      until: '22:30',
+    })
+  })
+
+  it('reports kitchen closing within 30 minutes', () => {
+    expect(deriveGuestDiningStatus(lutzeHours, atBerlin('2026-08-06T22:10:00'))).toEqual({
+      kind: 'kitchenClosingSoon',
+      minutes: 20,
+    })
+  })
+
+  it('reports bar open with kitchen next today', () => {
+    expect(deriveGuestDiningStatus(lutzeHours, atBerlin('2026-08-06T16:00:00'))).toEqual({
+      kind: 'barOnly',
+      kitchenOpensAt: '17:00',
+      kitchenOpensTomorrow: false,
+    })
+  })
+
+  it('reports both closed after bar close, kitchen later the same morning', () => {
+    expect(deriveGuestDiningStatus(lutzeHours, atBerlin('2026-08-07T02:00:00'))).toEqual({
+      kind: 'closed',
+      kitchenOpensAt: '11:30',
+      kitchenOpensTomorrow: false,
+    })
+  })
+
+  it('reports bar open after kitchen close with kitchen tomorrow', () => {
+    expect(deriveGuestDiningStatus(lutzeHours, atBerlin('2026-08-06T23:00:00'))).toEqual({
+      kind: 'barOnly',
+      kitchenOpensAt: '11:30',
+      kitchenOpensTomorrow: true,
+    })
   })
 })
 
@@ -320,7 +360,9 @@ describe('Berlin DST boundaries', () => {
     // the wall-clock hour used by deriveOpenClosed must still be 2.
     const ambiguous = atBerlin('2026-10-25T02:30:00')
     expect(getBerlinParts(ambiguous).hour).toBe(2)
-    expect(deriveOpenClosed(hours, ambiguous)).toEqual([{ label: 'Night', status: 'Open' }])
+    expect(deriveOpenClosed(hours, ambiguous)).toEqual([
+      { label: 'Night', status: 'Open', closesAt: '04:00', minutesUntilClose: 90 },
+    ])
   })
 
   it('weekly recurrence still lands on the correct Berlin weekday across a DST transition week', () => {
@@ -338,5 +380,60 @@ describe('Berlin DST boundaries', () => {
     expect(parts.day).toBe(2) // 2 Apr 2026
     expect(parts.month).toBe(4)
     expect(parts.hour).toBe(19)
+  })
+})
+
+describe('expandOccurrencesInWindow', () => {
+  it('expands weekly Thursdays across a seven-day window', () => {
+    const occs = expandOccurrencesInWindow(
+      berlinLocalToUtc(2026, 9, 3, 19, 0, 0).toISOString(),
+      berlinLocalToUtc(2026, 9, 3, 22, 0, 0).toISOString(),
+      true,
+      'FREQ=WEEKLY;BYDAY=TH',
+      atBerlin('2026-09-02T12:00:00'),
+      atBerlin('2026-09-09T12:00:00'),
+    )
+    expect(occs).toHaveLength(1)
+    const parts = getBerlinParts(occs[0]!.start)
+    expect(parts).toMatchObject({ year: 2026, month: 9, day: 3, weekday: 4, hour: 19 })
+  })
+
+  it('expands daily Open Play once per day in the window, including in-progress', () => {
+    const occs = expandOccurrencesInWindow(
+      berlinLocalToUtc(2026, 8, 1, 13, 0, 0).toISOString(),
+      berlinLocalToUtc(2026, 8, 1, 23, 0, 0).toISOString(),
+      true,
+      'FREQ=DAILY',
+      atBerlin('2026-09-02T15:00:00'),
+      atBerlin('2026-09-05T12:00:00'),
+    )
+    expect(occs.length).toBeGreaterThanOrEqual(3)
+    expect(getBerlinParts(occs[0]!.start)).toMatchObject({ day: 2, hour: 13 })
+  })
+
+  it('includes Zeichenstammtisch last Thursday of September in a 30-day window', () => {
+    const occs = expandOccurrencesInWindow(
+      berlinLocalToUtc(2026, 8, 27, 19, 0, 0).toISOString(),
+      berlinLocalToUtc(2026, 8, 27, 22, 0, 0).toISOString(),
+      true,
+      'FREQ=MONTHLY;BYDAY=-1TH',
+      atBerlin('2026-09-02T12:00:00'),
+      atBerlin('2026-10-02T12:00:00'),
+    )
+    expect(occs).toHaveLength(1)
+    expect(getBerlinParts(occs[0]!.start)).toMatchObject({ year: 2026, month: 9, day: 24, hour: 19 })
+  })
+
+  it('excludes a past one-off', () => {
+    expect(
+      expandOccurrencesInWindow(
+        berlinLocalToUtc(2026, 8, 13, 19, 0, 0).toISOString(),
+        berlinLocalToUtc(2026, 8, 13, 22, 0, 0).toISOString(),
+        false,
+        null,
+        atBerlin('2026-09-02T12:00:00'),
+        atBerlin('2026-09-09T12:00:00'),
+      ),
+    ).toEqual([])
   })
 })

@@ -1,4 +1,6 @@
 export { CtaButton, type CtaButtonProps, type CtaButtonColor, type CtaButtonSize, type CtaButtonVariant } from './CtaButton'
+export { EditorialBand, type EditorialBandRatio, type EditorialBandImageCredit } from './EditorialBand'
+export { LineCta, type LineCtaProps } from './LineCta'
 export { ContentCard, type ContentCardProps } from './ContentCard'
 export { FAQAccordion, type FAQAccordionProps } from './FAQAccordion'
 export { HintDot, type HintDotProps, type HintDotVariant } from './HintDot'

@@ -20,16 +20,6 @@ export type TonightHeroData = {
   href: string
 }
 
-export type TonightVenueCardData = {
-  title: string
-  badge: string
-  badgeVariant: 'schedule' | 'liveStatus' | 'static'
-  liveOpen?: boolean
-  lines: string[]
-  href: string
-  categoryToken: 'amber' | 'gold' | 'neutral'
-}
-
 /** Prefer Kitchen segment for VenueCompactCard (Tonight Lütze) — not bar. */
 export function pickKitchenOrPrimarySegment(
   openingHours: Venue['openingHours'],
@@ -64,6 +54,7 @@ export function activeSegmentClosesAt(
         ? minutesNow >= opens && minutesNow < closes
         : minutesNow >= opens || minutesNow < closes
     if (open && entry.closes) {
+      if (entry.isOpenEnded) return null
       const raw = entry.closes.trim().toLowerCase()
       if (raw.includes('open')) return null
       return entry.closes.trim()
@@ -109,92 +100,4 @@ export async function resolveTonightHero(
     ),
     href: '/here/art',
   }
-}
-
-export async function resolveTonightVenueCards(
-  locale: string,
-  now: Date = getBerlinNow(),
-): Promise<TonightVenueCardData[]> {
-  const [kttk, lutze] = await Promise.all([
-    getVenueBySlug('kttk').catch(() => null),
-    getVenueBySlug('lutze').catch(() => null),
-  ])
-
-  const cards: TonightVenueCardData[] = []
-
-  const kttkLocation = kttk?.spotlightLocation || kttk?.location || 'B2'
-  const parts = getBerlinParts(now)
-  const thuHours = (kttk?.openingHours ?? []).find((h) =>
-    /thu|thursday/i.test(h.dayOfWeek ?? ''),
-  )
-  const start = thuHours?.opens || '19:00'
-  const weekdayShort = new Intl.DateTimeFormat(locale === 'de' ? 'de-DE' : 'en-GB', {
-    weekday: 'short',
-    timeZone: 'Europe/Berlin',
-  }).format(now)
-  const kttkBadge =
-    parts.weekday === 4
-      ? `${weekdayShort} ${start}`
-      : locale === 'de'
-        ? `Do ${start}`
-        : `Thu ${start}`
-
-  cards.push({
-    title: 'KTTK',
-    badge: kttkBadge,
-    badgeVariant: 'schedule',
-    lines: [
-      locale === 'de'
-        ? `Turnierabend · €5 · ${kttkLocation}`
-        : `Tournament night · €5 · ${kttkLocation}`,
-    ],
-    href: '/here/events',
-    categoryToken: 'amber',
-  })
-
-  if (lutze) {
-    const kitchen = pickKitchenOrPrimarySegment(lutze.openingHours, now)
-    const closes = activeSegmentClosesAt(lutze.openingHours, 'Kitchen', now)
-    const open = kitchen?.status === 'Open'
-    const until =
-      closes != null
-        ? locale === 'de'
-          ? `Bis ${closes}`
-          : `Until ${closes}`
-        : open
-          ? locale === 'de'
-            ? 'Geöffnet'
-            : 'Open'
-          : kitchen?.note || (locale === 'de' ? 'Geschlossen' : 'Closed')
-
-    cards.push({
-      title: 'Lütze',
-      badge: open
-        ? locale === 'de'
-          ? 'Küche geöffnet'
-          : 'Kitchen open'
-        : locale === 'de'
-          ? 'Küche geschlossen'
-          : 'Kitchen closed',
-      badgeVariant: 'liveStatus',
-      liveOpen: open,
-      lines: [`${until} · ${locale === 'de' ? 'reservieren →' : 'reserve →'}`],
-      href: '/here/dining',
-      categoryToken: 'gold',
-    })
-  } else {
-    cards.push({
-      title: 'Lütze',
-      badge: locale === 'de' ? 'Küche geöffnet' : 'Kitchen open',
-      badgeVariant: 'liveStatus',
-      liveOpen: true,
-      lines: [
-        locale === 'de' ? 'Bis 22:30 · reservieren →' : 'Until 22:30 · reserve →',
-      ],
-      href: '/here/dining',
-      categoryToken: 'gold',
-    })
-  }
-
-  return cards
 }

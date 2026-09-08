@@ -10,7 +10,7 @@ export type FilterChipOption = {
 
 type Props = {
   /** Canonical pathname key for next-intl navigation. */
-  pathname: '/neighbourhood' | '/you-me-berlin'
+  pathname: '/neighbourhood' | '/you-me-berlin' | '/here/explore'
   options: FilterChipOption[]
   /** Query param name for this chip group. */
   param: string

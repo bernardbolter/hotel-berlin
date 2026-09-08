@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/here — Wireframe v2 · Hotel Berlin, Berlin</title>
+<style>
+  :root{
+    /* — from tokens.json, exact — */
+    --amber:#F79B2E; --amber-dark:#B87A2E;
+    --teal:#2C6B7A; --teal-light:#EBF3F5;
+    --green:#56674F; --coral:#F95D62; --navy:#216A95;
+    --ink:#1A2B4A; --body:#2A3540; --dim:#6B7C8D; --rule:#D8DCE0;
+    --bg-subtle:#F4F6F7; --page-bg:#FBFBFB; --footer-bg:#1E1530;
+    --ph:#d7dbdb; --ph-dark:#aeb6b6;
+    --font-ui: 'Archivo', Arial, sans-serif;
+    --font-body: 'Laica A','Bitstream Charter','Charter',Georgia,serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:#E7E7E7; font-family:var(--font-ui); color:var(--body);}
+
+  .banner{
+    text-align:center; padding:16px 0 6px; background:#DADADA; border-bottom:1px solid #c8c8c8;
+  }
+  .banner .fl{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#555; }
+  .banner .sub{ font-size:11.5px; color:#777; max-width:720px; margin:6px auto 14px; line-height:1.5; padding:0 20px;}
+
+  .changelog{
+    max-width:820px; margin:0 auto; padding:14px 24px 26px; font-size:12.5px; color:#444; line-height:1.6;
+    background:#DADADA;
+  }
+  .changelog b{ color:#1A2B4A; }
+  .changelog .tag{ display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    padding:2px 7px; border-radius:2px; margin-right:6px; background:var(--teal); color:#fff; }
+  .changelog .tag.unch{ background:#9aa0a6; }
+
+  .frame-label{
+    text-align:center; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:#666; padding:14px 0; background:#D2D2D2; border-bottom:1px solid #c0c0c0; margin-top:26px;
+  }
+  .page{ background:var(--page-bg); }
+  .page.mobile{ max-width:480px; margin:0 auto; border-left:1px solid #ccc; border-right:1px solid #ccc; }
+  .page.desktop{ max-width:1280px; margin:0 auto; }
+
+  .annotate{
+    font-size:11px; color:var(--dim); font-style:italic; padding:5px 20px 18px; line-height:1.55;
+  }
+  .annotate.hi{ color:#1F5561; font-style:normal; font-weight:600; }
+
+  /* header */
+  header{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid #eee; }
+  .wordmark{ font-weight:700; font-size:14px; color:var(--ink); }
+  .primary-nav{ display:none; }
+  .desktop .primary-nav{ display:flex; gap:20px; font-size:12.5px; color:#333; }
+  .header-right{ display:flex; align-items:center; gap:14px; }
+  .cta{ background:var(--teal); color:#fff; font-size:11.5px; padding:7px 14px; border-radius:2px; font-weight:600; }
+  .burger{ width:20px; height:14px; position:relative; }
+  .burger span{ position:absolute; left:0; right:0; height:2px; background:var(--ink); }
+  .burger span:nth-child(1){top:0;} .burger span:nth-child(2){top:6px;} .burger span:nth-child(3){top:12px;}
+  .desktop .burger{ display:none; }
+
+  .secondary-nav{ display:flex; justify-content:space-between; align-items:center; background:#F3F3F3; padding:8px 18px; font-size:11.5px; color:#444; }
+  .secondary-nav .bridge{ color:var(--teal); font-weight:700; border:1.5px solid var(--teal); border-radius:2px; padding:3px 9px; }
+  .secondary-nav .sub-links{ display:none; }
+  .desktop .secondary-nav .sub-links{ display:block; color:#666; }
+
+  /* ============ HERO — NEW ============ */
+  .hero-wrap{ position:relative; }
+  .hero-tag{ position:absolute; top:-19px; left:18px; font-size:9.5px; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; background:var(--teal); color:#fff; padding:2px 7px; border-radius:2px; z-index:5; }
+
+  .mobile .hero{ display:flex; flex-direction:column; }
+  .mobile .hero-photo{ position:relative; height:210px; background:linear-gradient(135deg,var(--ph),var(--ph-dark)); }
+  .mobile .hero-text{ background:var(--teal); color:#fff; padding:22px 20px 26px; }
+
+  .desktop .hero{ display:grid; grid-template-columns: 1fr 2fr; min-height:340px; }
+  .desktop .hero-text{ background:var(--teal); color:#fff; padding:40px 34px; display:flex; flex-direction:column; justify-content:center; }
+  .desktop .hero-photo{ position:relative; background:linear-gradient(135deg,var(--ph),var(--ph-dark)); }
+
+  .hero-clock{ position:absolute; top:14px; right:16px; font-size:12.5px; color:#fff; background:rgba(0,0,0,0.28);
+    padding:3px 8px; border-radius:2px; letter-spacing:.03em; z-index:3; }
+  .hero-caption{ position:absolute; bottom:14px; left:16px; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.5); z-index:3; }
+  .hero-dots{ position:absolute; bottom:14px; right:16px; display:flex; gap:5px; z-index:3; }
+  .hero-dots span{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.45); }
+  .hero-dots span.on{ background:#fff; }
+  .hero-photo::after{ content:'rotating gallery — KenBurnsSlider, 4–5 evergreen photos'; position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center; color:#7c8383; font-size:11px; text-align:center; padding:0 40px; }
+
+  .hero-day{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#cfe4e8; margin-bottom:8px; font-weight:700; }
+  .hero-greeting{ font-family:var(--font-body); font-style:italic; font-weight:400; margin:0 0 10px; line-height:1.15; }
+  .mobile .hero-greeting{ font-size:30px; }
+  .desktop .hero-greeting{ font-size:36px; }
+  .hero-loc{ font-size:12px; color:#cfe4e8; }
+
+  /* ============ grid / cards (schematic — unchanged) ============ */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:14px 12px; }
+  .desktop .grid{ grid-template-columns:repeat(4,1fr); gap:16px; padding:24px; }
+  .divider{ grid-column:1/-1; display:flex; align-items:center; gap:12px; margin:8px 0 -2px; }
+  .divider hr{ flex:1; border:none; border-top:1px solid #e2e2e2; }
+  .divider span{ font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#aaa; white-space:nowrap; display:flex; align-items:center; gap:6px;}
+  .unch{ font-size:8.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#b5b5b5; border:1px solid #ddd; border-radius:8px; padding:1px 6px; }
+
+  .card{ border-radius:3px; padding:14px; }
+  .card h3{ margin:0 0 5px; font-size:14px; color:var(--ink); }
+  .card p{ margin:2px 0; font-size:11.5px; color:var(--dim); }
+  .c-white{ background:#fff; border:1px solid var(--rule); }
+  .c-teal{ background:var(--teal-light); border:1px solid var(--teal); }
+  .c-amber{ background:#FDF6EE; border:1px solid var(--amber-dark); }
+  .c-gold{ background:#FDF8EE; border:1px solid #A08C38; }
+  .c-schem{ background:repeating-linear-gradient(45deg,#fafafa,#fafafa 9px,#f1f1f1 9px,#f1f1f1 18px); border:1px dashed #ccc; color:#999; }
+  .c-schem h3{ color:#999; }
+  .badge{ display:inline-block; font-size:9.5px; padding:2px 7px; border-radius:9px; background:rgba(0,0,0,.06); margin-bottom:6px; color:var(--body); }
+  .ph-img{ background:var(--ph); border-radius:2px; height:70px; margin-bottom:8px; }
+
+  .full{ grid-column:1/-1; }
+  .half{ grid-column: span 2; }
+  .desktop .half{ grid-column: span 2; }
+  .desktop .quarter{ grid-column: span 1; }
+  .quarter{ grid-column: span 1; }
+  .stay-desktop{ grid-column:1/3; grid-row:1/3; }
+  .tonight-desktop{ grid-column:3/5; grid-row:1; }
+  .kttk-desktop{ grid-column:3/4; grid-row:2; }
+  .luetze-desktop{ grid-column:4/5; grid-row:2; }
+
+  .data-row{ display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #eee; font-size:11.5px; }
+  .data-row:last-of-type{ border-bottom:none; }
+  .data-row .k{ color:#999; text-transform:uppercase; font-size:9.5px; letter-spacing:.05em; }
+  .data-row .v{ font-weight:600; color:var(--ink); }
+
+  /* ============ MAP / RECOMMENDED — NEW ============ */
+  .rec-wrap{ background:var(--bg-subtle); border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+  .mobile .rec-wrap{ display:flex; flex-direction:column; }
+  .desktop .rec-wrap{ display:grid; grid-template-columns: 1.1fr 1.4fr; }
+  .rec-map{ background:linear-gradient(135deg,#dfe8e6,#c9d6d3); min-height:160px; position:relative; display:flex; align-items:center; justify-content:center; color:#7c8f8a; font-size:11px; text-align:center; padding:20px;}
+  .rec-list{ padding:14px; }
+  .rec-item{ display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--rule); }
+  .rec-item:last-child{ border-bottom:none; }
+  .rec-avatar{ width:30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .rec-body .who{ font-size:10px; color:var(--teal); font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .rec-body .place{ font-size:13px; font-weight:700; color:var(--ink); }
+  .rec-body .meta{ font-size:11px; color:var(--dim); }
+  .rec-more{ text-align:center; font-size:11.5px; color:var(--teal); font-weight:600; padding:10px 14px 4px; }
+
+  .faq-row{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; font-size:12px; color:var(--body); }
+  .faq-row:last-child{ border-bottom:none; }
+  .stay-link{ text-align:center; font-size:11px; color:var(--teal); margin-top:8px; }
+
+  footer{ background:var(--footer-bg); color:#fff; padding:18px; font-size:11px; display:flex; flex-direction:column; gap:6px; }
+  .desktop footer{ flex-direction:row; justify-content:space-between; align-items:center; padding:20px 24px; }
+  footer a{ color:var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="fl">/here — guest hub · wireframe v2 · hotel berlin, berlin</div>
+  <div class="sub">Supersedes claude_HotelBerlin_HereDesktop_Wireframe.html and the 480px PNG on the two sections below. Everything else on the page is drawn schematically for context only — it hasn't changed and is already live per the Sept 1 audit.</div>
+</div>
+
+<div class="changelog">
+  <div style="margin-bottom:8px;"><span class="tag">Hero</span><b>2:1 grid, rotating gallery, no live-event resolver.</b> Photo panel reuses <code>KenBurnsSlider</code> — the same evergreen 4–5 image set the homepage already maintains, so no new photo-upload burden. Text panel keeps only what updates itself: day label, time-of-day greeting, location. Clock sits on the photo panel, top-right — the previously-deferred position call, resolved here since the whole layout changed anyway. No manual subline, no FKKB/Lütze toggle — that logic now lives only in the Tonight card, where it already has to be correct for other reasons.</div>
+  <div style="margin-bottom:8px;"><span class="tag">Map</span><b>Person-led framing.</b> Same <code>NeighbourhoodMapSection context="here"</code> / <code>hereTeaser</code> data as today — just with <code>EndorsementChipList</code> turned on for the compact variant (currently gated off by <code>!compact && card</code> in <code>HomepageMapTeaser.tsx</code>), and the recommender surfaced first rather than as an afterthought. Needs the <code>hamburger-bahnhof</code> endorsement backfilled, or it drops out of the <code>hereTeaser</code> set — it's the one place with an empty <code>endorsements</code> array today.</div>
+  <div><span class="tag unch">Unchanged</span>Stay info, Tonight, Good to know, Art in the building, In the basement, FAQ — all shown schematically below, same content/behaviour as what's live now. Wordmark stays "Hotel Berlin, Berlin," links to <code>/</code> — no change needed, already matches.</div>
+</div>
+
+<!-- ======================= MOBILE 480 ======================= -->
+<div class="frame-label">mobile · 480px · primary frame</div>
+<div class="page mobile">
+
+  <header>
+    <div class="wordmark">Hotel Berlin, Berlin</div>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </header>
+  <div class="secondary-nav">
+    <span class="bridge">Not here yet? STAY →</span>
+  </div>
+
+  <div class="hero-wrap">
+    <div class="hero-tag">New hero</div>
+    <div class="hero">
+      <div class="hero-photo">
+        <div class="hero-clock">20:47</div>
+        <div class="hero-caption">Innenhof · Tiergarten</div>
+        <div class="hero-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="hero-text">
+        <div class="hero-day">Thursday</div>
+        <div class="hero-greeting">Good evening</div>
+        <div class="hero-loc">Hotel Berlin, Berlin · Lützowplatz 17</div>
+      </div>
+    </div>
+  </div>
+  <div class="annotate hi">↑ Photo on top (210px), teal panel below — same information hierarchy as the desktop 1fr/2fr split, just stacked instead of side by side. Photo still leads.</div>
+
+  <div class="grid">
+    <div class="divider"><hr><span>During your stay <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white full">
+      <h3>Stay info</h3>
+      <div class="data-row"><span class="k">Check-out</span><span class="v">12:00</span></div>
+      <div class="data-row"><span class="k">Breakfast</span><span class="v">06:30–10:00 · Lütze</span></div>
+      <div class="data-row"><span class="k">WiFi</span><span class="v">HBB_Guest / berlin1958</span></div>
+    </div>
+    <div class="card c-teal full">
+      <div class="ph-img"></div>
+      <span class="badge">● Open now · free entry</span>
+      <h3>Anna Taut + Czarnobyl</h3>
+      <p>FKKB gallery · until 22:00</p>
+    </div>
+    <div class="card c-amber quarter"><span class="badge">Thu 19:00</span><h3>KTTK</h3><p>Tournament · €5</p></div>
+    <div class="card c-gold quarter"><span class="badge">● Kitchen open</span><h3>Lütze</h3><p>Until 22:30</p></div>
+
+    <div class="divider"><hr><span>Good to know <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white full"><h3>Getting settled · Money · Health · Getting around</h3><p>i18n only, deliberately — permanent hotel-ops info, not editorial content</p></div>
+
+    <div class="divider"><hr><span>Art in the building <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-teal full"><div class="ph-img"></div><span class="badge">Current show</span><h3>FKKB — Anna Taut + Czarnobyl</h3></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;">FLOOR 4</p><h3>Somari</h3></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;">FLOOR 2</p><h3>deerBLN</h3></div>
+
+    <div class="divider"><hr><span>Local picks</span><hr></div>
+  </div>
+  <div class="hero-wrap" style="padding:0 12px;">
+    <div class="hero-tag" style="left:12px;">New framing</div>
+  </div>
+  <div style="padding:0 12px 6px;">
+    <div class="rec-wrap">
+      <div class="rec-map">Mapbox teaser · same hereTeaser pins as today</div>
+      <div class="rec-list">
+        <div class="rec-item">
+          <div class="rec-avatar">KK</div>
+          <div class="rec-body"><div class="who">Kristiane recommends</div><div class="place">König Galerie</div><div class="meta">18 min walk</div></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-avatar">MA</div>
+          <div class="rec-body"><div class="who">Maike recommends</div><div class="place">Schloss Charlottenburg</div><div class="meta">25 min walk</div></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-avatar">GK</div>
+          <div class="rec-body"><div class="who">Gita recommends</div><div class="place">Anjoy</div><div class="meta">9 min walk</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="rec-more">See the full map & more picks →</div>
+  </div>
+  <div class="annotate hi">↑ Recommender leads (avatar + "[name] recommends"), place is second. Same data as the existing homepage teaser — chips were just switched off for this compact instance. hamburger-bahnhof needs an endorsement or it should drop from the set.</div>
+
+  <div class="grid">
+    <div class="divider"><hr><span>In the basement <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-amber half"><span class="badge">B2 · Mon–Sun</span><h3>KTTK</h3><p>4 JOOLA tables · €5/30min</p></div>
+    <div class="card c-white half"><span class="badge">Permanent</span><h3>Wallride</h3><p>Skateboardmuseum Berlin</p></div>
+
+    <div class="divider"><hr><span>Need help? <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white full">
+      <div class="faq-row"><span>What time is check-out?</span><span>+</span></div>
+      <div class="faq-row"><span>Where is the nearest U-Bahn?</span><span>+</span></div>
+      <div class="stay-link">All guest FAQs →</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Hotel Berlin, Berlin · Lützowplatz 17 · 10785 Berlin</div>
+    <div>Contact · Accessibility · <a href="#">hotel-berlin.de →</a></div>
+  </footer>
+</div>
+
+<!-- ======================= DESKTOP 1280 ======================= -->
+<div class="frame-label">desktop · 1280px+</div>
+<div class="page desktop">
+
+  <header>
+    <div class="wordmark">Hotel Berlin, Berlin</div>
+    <nav class="primary-nav"><span>Rooms</span><span>Meetings</span><span>Eat &amp; Drink</span><span>Happenings</span><span>Neighbourhood</span></nav>
+    <div class="header-right">
+      <span style="font-size:11.5px;color:#888;">DE | EN</span>
+      <span class="cta">Plan your next stay</span>
+    </div>
+  </header>
+  <div class="secondary-nav">
+    <span class="bridge">Not here yet? STAY →</span>
+    <span class="sub-links">What's on tonight · Getting around · Explore the area · Gallery · Wallride</span>
+  </div>
+
+  <div class="hero-wrap">
+    <div class="hero-tag">New hero</div>
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-day">Thursday</div>
+        <div class="hero-greeting">Good evening</div>
+        <div class="hero-loc">Hotel Berlin, Berlin · Lützowplatz 17</div>
+      </div>
+      <div class="hero-photo">
+        <div class="hero-clock">20:47</div>
+        <div class="hero-caption">Innenhof · Tiergarten</div>
+        <div class="hero-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotate hi">↑ 1fr 2fr grid — teal text panel (1/3) + KenBurnsSlider gallery (2/3), same ratio rule as the homepage's HomeHeroLayout. No map badge here (that's a homepage-specific device); no CTA in-panel — the nav already carries "Plan your next stay," repeating it here would be redundant given /here's commercial content is deliberately secondary.</div>
+
+  <div class="grid">
+    <div class="divider"><hr><span>During your stay <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white stay-desktop">
+      <h3>Stay info</h3>
+      <div class="data-row"><span class="k">Check-out</span><span class="v">12:00 noon</span></div>
+      <div class="data-row"><span class="k">Breakfast</span><span class="v">06:30–10:00 · Lütze</span></div>
+      <div class="data-row"><span class="k">WiFi</span><span class="v">HBB_Guest / berlin1958</span></div>
+      <div class="data-row"><span class="k">Parking</span><span class="v">€4/hr · max €25/day</span></div>
+      <div class="stay-link">Parking · luggage · pets · all FAQs →</div>
+    </div>
+    <div class="card c-teal tonight-desktop">
+      <div class="ph-img"></div>
+      <span class="badge">● Open now · free entry</span>
+      <h3>Anna Taut + Czarnobyl</h3>
+      <p>FKKB gallery · until 22:00 · ground floor</p>
+    </div>
+    <div class="card c-amber kttk-desktop"><span class="badge">Thu 19:00</span><h3>KTTK</h3><p>Tournament night · €5 · B2</p></div>
+    <div class="card c-gold luetze-desktop"><span class="badge">● Kitchen open</span><h3>Lütze</h3><p>Until 22:30 · reserve →</p></div>
+
+    <div class="divider"><hr><span>Good to know <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white full"><h3>Getting settled · Money &amp; connectivity · Health &amp; comfort · Getting around</h3><p>i18n-only by design — permanent hotel-ops info, doesn't need editorial upkeep</p></div>
+
+    <div class="divider"><hr><span>Art in the building <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-teal full"><div class="ph-img"></div><span class="badge">Current show</span><h3>FKKB — Anna Taut + Czarnobyl</h3><p>Gallery · ground floor · free entry · all 27 editions →</p></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;font-size:11px;">FLOOR 4</p><h3>Somari</h3></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;font-size:11px;">FLOOR 2</p><h3>deerBLN</h3></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;font-size:11px;">LOBBY</p><h3>Pisa73</h3></div>
+    <div class="card c-white quarter"><p style="color:var(--teal);font-weight:700;font-size:11px;">B2</p><h3>Wallride</h3></div>
+
+    <div class="divider"><hr><span>Local picks</span></div>
+  </div>
+  <div class="hero-wrap" style="padding:0 24px;">
+    <div class="hero-tag" style="left:24px;">New framing</div>
+  </div>
+  <div style="padding:0 24px 8px;">
+    <div class="rec-wrap">
+      <div class="rec-map">Mapbox teaser — same hereTeaser pins as today, chips now on</div>
+      <div class="rec-list">
+        <div class="rec-item">
+          <div class="rec-avatar">KK</div>
+          <div class="rec-body"><div class="who">Kristiane recommends</div><div class="place">König Galerie</div><div class="meta">18 min walk · Art</div></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-avatar">MA</div>
+          <div class="rec-body"><div class="who">Maike recommends</div><div class="place">Schloss Charlottenburg</div><div class="meta">25 min walk · Landmark</div></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-avatar">GK</div>
+          <div class="rec-body"><div class="who">Gita recommends</div><div class="place">Anjoy</div><div class="meta">9 min walk · Food</div></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-avatar">MK</div>
+          <div class="rec-body"><div class="who">Mascha recommends</div><div class="place">893 Ryotei Bar</div><div class="meta">12 min walk · Bar</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="rec-more">See the full map & more picks →</div>
+  </div>
+  <div class="annotate hi">↑ Map left, recommender-led list right. Each row: avatar/initials → "[name] recommends" → place → walk time. Links through to /you-me-and-berlin/[person-slug], same as the chip pattern already live on /neighbourhood and /you-me-berlin — just newly surfaced here instead of the place-first framing.</div>
+
+  <div class="grid">
+    <div class="divider"><hr><span>In the basement <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-amber half"><span class="badge">B2 · Mon–Sun</span><h3>KTTK</h3><p>4 JOOLA tables · €5/30min · bats at Lütze bar</p></div>
+    <div class="card c-white half"><span class="badge">Permanent</span><h3>Wallride</h3><p>Half-pipe · Cold War Berlin skate history · Skateboardmuseum Berlin</p></div>
+
+    <div class="divider"><hr><span>Need help? <i class="unch">unchanged</i></span><hr></div>
+    <div class="card c-white full">
+      <div class="faq-row"><span>What time is check-out?</span><span>+</span></div>
+      <div class="faq-row"><span>Where is the nearest U-Bahn?</span><span>+</span></div>
+      <div class="faq-row"><span>Can I store luggage after check-out?</span><span>+</span></div>
+      <div class="stay-link">All guest FAQs →</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Hotel Berlin, Berlin · Lützowplatz 17 · 10785 Berlin</div>
+    <div>Contact · Accessibility · Privacy · <a href="#">hotel-berlin.de →</a></div>
+  </footer>
+</div>
+
+</body>
+</html>

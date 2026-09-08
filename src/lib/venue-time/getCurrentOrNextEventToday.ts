@@ -6,6 +6,7 @@ import type { EventWithRelativeTime, VenueTimeEvent } from './types'
 
 export async function getCurrentOrNextEventToday(
   now: Date = getBerlinNow(),
+  locale: 'de' | 'en' = 'en',
 ): Promise<EventWithRelativeTime | null> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
@@ -13,7 +14,7 @@ export async function getCurrentOrNextEventToday(
     limit: 100,
     depth: 2,
     sort: 'startDate',
-    locale: 'en',
+    locale,
   })
 
   return selectCurrentOrNextEventToday(docs as VenueTimeEvent[], now)

@@ -21,7 +21,7 @@ const lutze: Venue = {
   email: 'luetze@hotel-berlin.de',
   sameAs: ['https://instagram.com/lutze'],
   openingHours: [
-    { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end' },
+    { dayOfWeek: 'Mo-Su', opens: '10:00', closes: '01:00' },
     { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00' },
     { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30' },
   ],
@@ -37,7 +37,7 @@ const kttk: Venue = {
   venueType: 'SportsActivityLocation',
   description: 'Four JOOLA tables in the basement.',
   openingHours: [
-    { dayOfWeek: 'Thursday', opens: '19:00', closes: 'open end' },
+    { dayOfWeek: 'Thursday', opens: '19:00', closes: '02:00', isOpenEnded: true },
   ],
 }
 
@@ -76,7 +76,7 @@ test('buildVenueNode emits Restaurant for Lütze with cuisine, menu, reservation
   assert.equal(images[0]?.description, 'Lütze interior')
   const hours = node.openingHoursSpecification as { closes?: string }[]
   assert.equal(hours.length, 3)
-  assert.equal(hours[0]?.closes, undefined)
+  assert.equal(hours[0]?.closes, '01:00')
 })
 
 test('buildVenueNode omits servesCuisine for non-dining venueTypes', () => {
@@ -85,6 +85,8 @@ test('buildVenueNode omits servesCuisine for non-dining venueTypes', () => {
   assert.equal(node.servesCuisine, undefined)
   assert.equal(node.menu, undefined)
   assert.equal(node.acceptsReservations, false)
+  const hours = node.openingHoursSpecification as { closes?: string }[]
+  assert.equal(hours[0]?.closes, undefined)
 })
 
 test('buildVenuePageGraph includes venue + breadcrumb, no Offer', () => {

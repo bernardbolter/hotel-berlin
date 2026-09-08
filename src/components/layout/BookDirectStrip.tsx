@@ -12,7 +12,7 @@ export function BookDirectStrip({ message, ctaLabel, ctaUrl }: BookDirectStripPr
     <div className="bg-white">
       <div className="site-shell flex flex-col items-start justify-between gap-5 px-section-sm py-5 md:flex-row md:items-center md:gap-8 md:px-section-x md:py-6">
         <p className="font-ui text-ui-lg font-bold text-hbb-black md:text-ui-xl">{message}</p>
-        <SweepCta href={ctaUrl} unlocalized color="nav-amber" className="shrink-0">
+        <SweepCta href={ctaUrl} unlocalized color="ctx" className="shrink-0">
           {ctaLabel}
         </SweepCta>
       </div>

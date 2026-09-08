@@ -2,10 +2,17 @@ import { getTranslations } from 'next-intl/server'
 
 import { HereFactGroup } from '@/components/here/HereFactGroup'
 import { HereSubpage } from '@/components/here/HereSubpage'
+import { LineCta } from '@/components/primitives/LineCta'
+import { OpenStatusBadge } from '@/components/primitives/OpenStatusBadge'
 import { herePageMetadata } from '@/lib/here/canonical'
-import { getHotel, guestStayFromHotel } from '@/lib/payload/hotel'
+import { guestStayFromHotel, getHotel } from '@/lib/payload/hotel'
 import { getVenueBySlug } from '@/lib/payload/venues'
-import { formatVenueHoursSegments, localizeHoursSegmentLabel, toOpeningHoursEntries } from '@/lib/venues/formatHours'
+import { localizeInBuildingLocation } from '@/lib/venues/localizeCopy'
+import {
+  formatVenueHoursSegments,
+  localizeHoursSegmentLabel,
+  toOpeningHoursEntries,
+} from '@/lib/venues/formatHours'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -26,15 +33,23 @@ export default async function HereDiningPage({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations('here')
   const loc = locale === 'de' ? 'de' : 'en'
-  const [lutze, hotel] = await Promise.all([
+  const [lutze, wundermart, hotel] = await Promise.all([
     getVenueBySlug('lutze', loc).catch(() => null),
+    getVenueBySlug('wundermart', loc).catch(() => null),
     getHotel(loc).catch(() => null),
   ])
-  const stay = guestStayFromHotel(hotel)
-  const hourSegments = formatVenueHoursSegments(
-    toOpeningHoursEntries(lutze?.openingHours),
-    t('pages.dining.openEnd'),
-  )
+  const stay = guestStayFromHotel(hotel, loc)
+  const hoursEntries = toOpeningHoursEntries(lutze?.openingHours)
+  const hourSegments = formatVenueHoursSegments(hoursEntries, t('pages.dining.openEnd'))
+  const price = stay.breakfastPricing
+  const priceBody =
+    price.adultPrice != null && price.childPrice != null && price.childAgeFrom != null
+      ? t('pages.dining.breakfastPrice', {
+          adult: price.adultPrice,
+          child: price.childPrice,
+          age: price.childAgeFrom,
+        })
+      : null
 
   const lutzeItems = [
     ...hourSegments.map((segment) => ({
@@ -45,35 +60,64 @@ export default async function HereDiningPage({ params }: Props) {
       body: segment.body,
     })),
     ...(lutze?.location
-      ? [{ label: t('pages.dining.where'), body: lutze.location }]
+      ? [
+          {
+            label: t('pages.dining.where'),
+            body: localizeInBuildingLocation(lutze.location, loc) || lutze.location,
+          },
+        ]
       : [{ label: t('pages.dining.where'), body: t('pages.dining.lutzeWhere') }]),
     { label: t('pages.dining.reserve'), body: t('pages.dining.reserveNote') },
   ]
 
+  const breakfastItems = [
+    {
+      label: t('pages.dining.weekdays'),
+      body: stay.breakfastWeekdays || stay.breakfastHours,
+    },
+    ...(stay.breakfastWeekend
+      ? [{ label: t('pages.dining.weekends'), body: stay.breakfastWeekend }]
+      : []),
+    { label: t('pages.dining.where'), body: stay.breakfastLocation },
+    ...(priceBody ? [{ label: t('pages.dining.price'), body: priceBody }] : []),
+  ]
+
   return (
     <HereSubpage
-      kicker={t('inProgress')}
       title={t('pages.dining.title')}
       intro={lutze?.shortDescription || t('pages.dining.intro')}
       backLabel={t('backToHub')}
     >
+      {hoursEntries.length > 0 ? (
+        <div className="mb-6">
+          <OpenStatusBadge variant="guest" openingHours={hoursEntries} />
+        </div>
+      ) : null}
+
       <div className="grid gap-4 md:grid-cols-2">
         <HereFactGroup title={t('pages.dining.lutzeTitle')} items={lutzeItems} />
-        <HereFactGroup
-          title={t('pages.dining.breakfastTitle')}
-          items={[
-            { label: t('pages.dining.hours'), body: stay.breakfastHours },
-            { label: t('pages.dining.where'), body: stay.breakfastLocation },
-          ]}
-        />
-        <HereFactGroup
-          title={t('pages.dining.wundermartTitle')}
-          items={[{ body: t('pages.dining.wundermartBody') }]}
-        />
-        <HereFactGroup
-          title={t('pages.dining.gardenTitle')}
-          items={[{ body: t('pages.dining.gardenBody') }]}
-        />
+        <div id="breakfast" className="scroll-mt-28">
+          <HereFactGroup title={t('pages.dining.breakfastTitle')} items={breakfastItems} />
+        </div>
+        {wundermart ? (
+          <div id="wundermart" className="scroll-mt-28">
+            <HereFactGroup
+              title={wundermart.name}
+              items={[
+                ...(wundermart.location
+                  ? [{ label: t('pages.dining.where'), body: wundermart.location }]
+                  : []),
+                { body: wundermart.shortDescription || t('pages.dining.wundermartBody') },
+              ]}
+            />
+          </div>
+        ) : null}
+      </div>
+
+      <div className="mt-8">
+        <LineCta href="/restaurant" className="text-ui-sm">
+          {t('pages.dining.restaurantCta')}
+        </LineCta>
       </div>
     </HereSubpage>
   )

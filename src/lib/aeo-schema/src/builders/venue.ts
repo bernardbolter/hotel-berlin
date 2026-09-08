@@ -42,9 +42,10 @@ const DAY_ALIASES: Record<string, number> = {
   saturday: 6,
 }
 
-function isOpenEnded(closes?: string): boolean {
-  if (!closes) return true
-  const n = closes.trim().toLowerCase()
+function isOpenEnded(hours: { closes?: string; isOpenEnded?: boolean }): boolean {
+  if (hours.isOpenEnded) return true
+  if (!hours.closes) return true
+  const n = hours.closes.trim().toLowerCase()
   return n === 'open end' || n === 'open-end' || n === 'openend' || n === 'late'
 }
 
@@ -116,7 +117,7 @@ export function buildVenueNode(venue: Venue, config: SiteConfig): JsonLdNode {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: toSchemaDays(h.dayOfWeek),
         opens: h.opens,
-        closes: isOpenEnded(h.closes) ? undefined : h.closes,
+        closes: isOpenEnded(h) ? undefined : h.closes,
       }),
     ),
     menu: venue.menuUrl,

@@ -55,6 +55,25 @@ export const NeighbourhoodPlaces: CollectionConfig = {
       required: true,
     },
     {
+      name: 'secondaryCategory',
+      type: 'select',
+      options: [
+        { label: 'Art', value: 'Art' },
+        { label: 'Bar', value: 'Bar' },
+        { label: 'Kids', value: 'Kids' },
+        { label: 'Museum', value: 'Museum' },
+        { label: 'Parks and Nature', value: 'Parks and Nature' },
+        { label: 'Party', value: 'Party' },
+        { label: 'Restaurant', value: 'Restaurant' },
+        { label: 'Shopping', value: 'Shopping' },
+        { label: 'Sightseeing', value: 'Sightseeing' },
+      ],
+      admin: {
+        description:
+          'xlsx “Also” column. Stored as a tag; primary `category` drives card colour and the map pin.',
+      },
+    },
+    {
       name: 'schemaType',
       type: 'select',
       options: [

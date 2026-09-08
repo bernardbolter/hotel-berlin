@@ -1,13 +1,11 @@
 import Image from 'next/image'
-import type { ComponentProps } from 'react'
 
 import { Link } from '@/i18n/routing'
+import { toAppHref } from '@/i18n/toAppHref'
 import { resolveCategoryToken } from '@/lib/spotlight/categoryTokens'
 import type { SpotlightCardProps } from '@/lib/spotlight/types'
 
 export type { SpotlightCardProps }
-
-type AppHref = ComponentProps<typeof Link>['href']
 
 type Props = SpotlightCardProps & {
   className?: string
@@ -155,7 +153,7 @@ export function SpotlightCard({
 
   return (
     <Link
-      href={cta.href as AppHref}
+      href={toAppHref(cta.href)}
       className={cardClass}
       data-spotlight-card
       aria-label={ariaLabel}

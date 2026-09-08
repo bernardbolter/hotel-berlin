@@ -30,7 +30,7 @@ const variantColors: Record<LanguageSwitcherVariant, Required<LanguageSwitcherCo
   nav: {
     label: 'text-hbb-nav-link/70',
     link: 'text-hbb-nav-link',
-    active: 'text-hbb-teal',
+    active: 'text-hbb-black',
     hover: 'hover:text-hbb-black',
     separator: 'text-hbb-nav-link/35',
   },

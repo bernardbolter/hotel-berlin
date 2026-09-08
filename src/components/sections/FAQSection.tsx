@@ -8,6 +8,8 @@ import { getFaqs, getRelevantFaqs, type FaqCategory, type FaqContext } from '@/l
 export type FAQSectionProps = {
   context?: FaqContext
   category?: FaqCategory
+  /** Prefer these slugs, in order, when present in the CMS. */
+  slugs?: readonly string[]
   pageId?: string
   limit?: number
   showAllLink?: boolean
@@ -15,12 +17,14 @@ export type FAQSectionProps = {
 }
 
 /**
- * Mini FAQ block — CMS-driven, JSON-LD matches the 4 items on screen.
- * Homepage uses context=prospect, category=general.
+ * Mini FAQ block — CMS-driven, JSON-LD matches the items on screen.
+ * Homepage: context=prospect, category=general.
+ * Guest hub: context=guest, slugs for the in-stay questions.
  */
 export async function FAQSection({
   context = 'prospect',
   category = 'general',
+  slugs,
   pageId,
   limit = 4,
   showAllLink = true,
@@ -33,7 +37,13 @@ export async function FAQSection({
     return []
   })
 
-  const relevant = getRelevantFaqs(allFaqs, { context, pageId, category, limit })
+  const relevant = getRelevantFaqs(allFaqs, {
+    context,
+    pageId,
+    category: slugs?.length ? undefined : category,
+    slugs,
+    limit,
+  })
   if (relevant.length === 0) return null
 
   const items = relevant.map((f) => ({

@@ -1,12 +1,13 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import type { ComponentProps } from 'react'
+import type { ComponentProps, CSSProperties } from 'react'
 
 import { Link, usePathname } from '@/i18n/routing'
 
 import { NavBridgeButton } from '@/components/layout/NavBridgeButton'
 
+import type { BridgeLabelParts } from '@/lib/nav/bridge'
 import type { SecondaryNavLink } from '@/lib/nav/types'
 
 type AppHref = ComponentProps<typeof Link>['href']
@@ -14,65 +15,60 @@ type AppHref = ComponentProps<typeof Link>['href']
 type Props = {
   context: 'outside' | 'inside'
   links: SecondaryNavLink[]
-  /** Which secondary links to show in this instance */
-  visibility?: 'all' | 'tablet' | 'promoted'
+  label: BridgeLabelParts
   layout?: 'bar' | 'stacked'
-  showBridge?: boolean
   className?: string
   onNavigate?: () => void
 }
 
-function isOverflowLink(link: SecondaryNavLink): boolean {
-  return /gallery|wallride|galerie/i.test(link.label) || /gallery|wallride/i.test(link.href)
-}
-
+/**
+ * Row 2 — bridge plus the other context’s links.
+ * Home: ENTER + /here destinations. /here: BLEIB + hotel destinations.
+ */
 export function NavSecondary({
   context,
   links,
-  visibility = 'all',
+  label,
   layout = 'bar',
-  showBridge = true,
   className = '',
   onNavigate,
 }: Props) {
   const t = useTranslations('nav')
   const tc = useTranslations('common')
   const pathname = usePathname()
-
-  const visibleLinks = (() => {
-    if (visibility === 'promoted') return links.slice(0, 1)
-    if (visibility === 'tablet') return links.filter((link) => !isOverflowLink(link))
-    return links
-  })()
+  const isInside = context === 'inside'
 
   const isCurrent = (href: string) =>
     href !== '#' && (pathname === href || pathname.startsWith(`${href}/`))
 
   const isBar = layout === 'bar'
-  /** Third-row (tablet) is slightly smaller; desktop bar (≥1100) stays 14px; drawer stacked is larger */
   const textSize = isBar ? 'text-[12px] min-[1100px]:text-[14px]' : 'text-[15px]'
-  const accentActive = context === 'inside' ? 'text-hbb-teal' : 'text-hbb-nav-amber'
-  const accentHover =
-    context === 'inside'
-      ? 'text-hbb-nav-secondary hover:text-hbb-teal'
-      : 'text-hbb-nav-amber hover:text-hbb-nav-amber'
+  const accent = isInside ? 'text-hbb-teal' : 'text-hbb-amber-text'
+  const underline = isInside ? 'after:bg-hbb-teal' : 'after:bg-hbb-amber-text'
 
   const secondaryNavLinkClass = (href: string) => {
     const current = isCurrent(href)
     return [
-      'relative font-ui font-normal tracking-[0.02em] transition-colors duration-200 ease-out',
+      'relative font-ui font-normal tracking-[0.02em] no-underline',
+      'transition-colors duration-200 ease-out',
       textSize,
-      'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-current',
+      accent,
+      "after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:h-px after:content-['']",
+      underline,
       'after:w-0 after:transition-[width] after:duration-200 after:ease-out',
       'motion-reduce:transition-none motion-reduce:after:transition-none',
-      current ? `${accentActive} after:w-full` : `${accentHover} hover:after:w-full`,
+      current ? 'after:w-full' : 'hover:after:w-full',
     ].join(' ')
   }
 
-  const pipeClass =
-    context === 'inside'
-      ? `select-none px-2 font-ui font-medium text-hbb-nav-secondary/50 ${textSize}`
-      : `select-none px-2 font-ui font-medium text-hbb-nav-amber/40 ${textSize}`
+  const pipeClass = isInside
+    ? `select-none px-2 font-ui font-medium text-hbb-teal/40 ${textSize}`
+    : `select-none px-2 font-ui font-medium text-hbb-amber-text/40 ${textSize}`
+
+  const row2Vars = {
+    '--ctx-accent': isInside ? '#2C6B7A' : '#B87A2E',
+    '--ctx-accent-text': isInside ? '#2C6B7A' : '#9A6420',
+  } as CSSProperties
 
   const renderLink = (link: SecondaryNavLink) => {
     if (link.comingSoon) {
@@ -122,23 +118,14 @@ export function NavSecondary({
       <nav
         aria-label={tc('guestNavAria')}
         className={`nav-secondary flex flex-col items-start gap-3 ${className}`}
+        style={row2Vars}
       >
-        {showBridge ? <NavBridgeButton context={context} size="stacked" onNavigate={onNavigate} /> : null}
+        <NavBridgeButton context={context} label={label} size="stacked" onNavigate={onNavigate} />
         <ul role="list" className="flex flex-col gap-3.5">
-          {visibleLinks.map((link) => (
+          {links.map((link) => (
             <li key={link.id}>{renderLink(link)}</li>
           ))}
         </ul>
-      </nav>
-    )
-  }
-
-  if (visibility === 'promoted') {
-    const link = visibleLinks[0]
-    if (!link) return null
-    return (
-      <nav aria-label={tc('guestNavAria')} className={className}>
-        {renderLink(link)}
       </nav>
     )
   }
@@ -147,13 +134,14 @@ export function NavSecondary({
     <nav
       aria-label={tc('guestNavAria')}
       className={`nav-secondary w-full ${className || 'bg-hbb-nav-bg'}`}
+      style={row2Vars}
     >
       <div className="site-shell flex items-center px-4 py-2 md:px-8 xl:px-10">
         <div className="flex min-w-0 flex-nowrap items-center gap-x-1">
-          {showBridge ? <NavBridgeButton context={context} size="bar" onNavigate={onNavigate} /> : null}
-          {visibleLinks.length > 0 ? (
+          <NavBridgeButton context={context} label={label} size="bar" onNavigate={onNavigate} />
+          {links.length > 0 ? (
             <ul role="list" className="flex flex-nowrap items-center">
-              {visibleLinks.map((link) => (
+              {links.map((link) => (
                 <li key={link.id} className="flex items-center">
                   <span aria-hidden="true" className={pipeClass}>
                     |
@@ -168,5 +156,3 @@ export function NavSecondary({
     </nav>
   )
 }
-
-export { isOverflowLink }

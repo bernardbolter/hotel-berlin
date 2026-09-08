@@ -13,6 +13,7 @@ import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 
 export type GuideMapPersonPin = {
   name: string
+  shortName?: string
   initials: string
   portraitUrl?: string | null
 }
@@ -32,6 +33,8 @@ export type GuideMapPlace = {
   personPin?: GuideMapPersonPin
   /** Total endorsers represented on this pin (filtered list). Badge shows count − 1. */
   endorserCount?: number
+  /** Person-first label: how many places this endorser recommends in the current set. */
+  endorserPlaceCount?: number
 }
 
 type Props = {
@@ -61,6 +64,8 @@ type Props = {
    * `source` — mount order matches `places` (homepage teaser legend / list / tab order).
    */
   pinTabOrder?: 'geographic' | 'source'
+  /** Place-first vs person-first hover/aria labels. Independent of pin glyph. */
+  pinLabelMode?: 'place' | 'endorser'
   /** @deprecated Hotel pin is amber fill + ink Home glyph. */
   hotelMarkerVariant?: 'disc' | 'hbb'
   styleId?: string
@@ -149,6 +154,7 @@ export function NeighbourhoodGuideMap({
   fitPadding = 48,
   pinVariant = 'category',
   pinTabOrder = 'geographic',
+  pinLabelMode = 'place',
   styleId,
 }: Props) {
   const t = useTranslations('heroMap')
@@ -172,6 +178,17 @@ export function NeighbourhoodGuideMap({
 
   const copyForPlace = useCallback(
     (place: GuideMapPlace) => {
+      if (pinLabelMode === 'endorser' && place.personPin) {
+        const n = place.endorserPlaceCount ?? 0
+        const countLabel = n > 0 ? t('placeCountLabel', { count: n }) : null
+        const name = place.personPin.shortName ?? place.personPin.name
+        return {
+          visibleLabel: countLabel ? `${name} — ${countLabel}` : name,
+          ariaLabel: countLabel
+            ? `${name}, ${place.name}, ${countLabel}`
+            : `${name}, ${place.name}`,
+        }
+      }
       const count = place.endorserCount ?? 0
       const countLabel = count > 1 ? t('endorserCountLabel', { count }) : null
       const baseAria =
@@ -183,7 +200,7 @@ export function NeighbourhoodGuideMap({
         ariaLabel: countLabel ? `${baseAria}, ${countLabel}` : baseAria,
       }
     },
-    [t, pinVariant],
+    [t, pinVariant, pinLabelMode],
   )
 
   useEffect(() => {

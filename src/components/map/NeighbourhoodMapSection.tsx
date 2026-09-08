@@ -2,7 +2,6 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { HomepageMapTeaser, type MapTeaserPlace } from '@/components/map/HomepageMapTeaser'
-import { LineCta } from '@/components/primitives/LineCta'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { toAeoPlace } from '@/lib/aeo/mapToSchema'
 import {
@@ -10,7 +9,7 @@ import {
   defaultConfig,
 } from '@/lib/aeo-schema/src/index'
 import { getMapSettings } from '@/lib/map/settings'
-import { personInitials } from '@/lib/people/initials'
+import { personGivenName, personInitials, personShortName } from '@/lib/people/initials'
 import { getHeroMapCopy } from '@/lib/payload/homepage'
 import {
   getMapTeaserPlaces,
@@ -82,6 +81,28 @@ function toTeaserPlace(
       })
       .filter((e): e is NonNullable<typeof e> => e != null) ?? []
 
+  const leadEntry = doc.endorsements?.find((entry) => {
+    const person = entry.person
+    return person && typeof person === 'object' && typeof person.slug === 'string'
+  })
+  const leadPerson = leadEntry?.person
+  const leadEndorser =
+    leadPerson && typeof leadPerson === 'object' && typeof leadPerson.slug === 'string'
+      ? {
+          name: leadPerson.name,
+          givenName: personGivenName(leadPerson.name),
+          shortName: personShortName(leadPerson.name),
+          slug: leadPerson.slug,
+          initials: personInitials(leadPerson.name),
+          portraitUrl:
+            typeof leadPerson.portrait === 'object' && leadPerson.portrait?.url
+              ? leadPerson.portrait.url
+              : null,
+          jobTitle: leadPerson.jobTitle ?? null,
+          quote: leadEntry?.quote ?? null,
+        }
+      : null
+
   return {
     id: String(doc.id),
     slug: doc.slug,
@@ -97,6 +118,7 @@ function toTeaserPlace(
     image: resolvedMedia.image,
     imageCredit: resolvedMedia.imageCredit,
     endorsements,
+    leadEndorser,
     latitude: lat,
     longitude: lng,
   }
@@ -104,10 +126,12 @@ function toTeaserPlace(
 
 type Props = {
   context?: TeaserContext
-  /** Defaults to `/neighbourhood`. Hub passes `/here/explore`. */
+  /** Place-first (home) vs person-first (/here). Same map, flipped reading. */
+  framing?: 'place' | 'endorser'
+  /** Defaults to `/neighbourhood`. Hub / explore pass `/here/explore`. */
   ctaHref?: '/neighbourhood' | '/here/explore'
   ctaLabel?: string
-  /** `card` = compact embed inside the /here grid */
+  /** @deprecated Compact /here chrome removed — section is full-bleed in both contexts. */
   layout?: 'section' | 'card'
 }
 
@@ -117,9 +141,9 @@ type Props = {
  */
 export async function NeighbourhoodMapSection({
   context = 'homepage',
+  framing = 'place',
   ctaHref = '/neighbourhood',
   ctaLabel,
-  layout = 'section',
 }: Props = {}) {
   const locale = (await getLocale()) as 'de' | 'en'
   const t = await getTranslations('map')
@@ -155,6 +179,18 @@ export async function NeighbourhoodMapSection({
     })
     .filter((p): p is MapTeaserPlace => p != null)
 
+  const endorserPlaceCounts = new Map<string, number>()
+  for (const place of places) {
+    for (const entry of place.endorsements) {
+      const slug = entry.person.slug
+      endorserPlaceCounts.set(slug, (endorserPlaceCounts.get(slug) ?? 0) + 1)
+    }
+  }
+  for (const place of places) {
+    const slug = place.leadEndorser?.slug
+    if (slug) place.endorserPlaceCount = endorserPlaceCounts.get(slug) ?? 0
+  }
+
   const hotelAriaLabel = tMap('hotelBadgeAria', {
     hotelName: mapSettings.hotelName,
     address: mapCopy.shortAddress,
@@ -175,9 +211,11 @@ export async function NeighbourhoodMapSection({
       ? buildNeighbourhoodListGraph(schemaPlaces, defaultConfig)
       : null
 
-  const accent = context === 'here' ? 'teal' : 'forest'
-  const resolvedCta = ctaLabel ?? t('cta')
-  const showHomepagePanel = context === 'homepage' && layout !== 'card'
+  const resolvedCta = ctaLabel ?? (framing === 'endorser' ? t('hereCta') : t('cta'))
+  const heading = framing === 'endorser' ? t('hereTitle') : t('title')
+  const headingId =
+    framing === 'endorser' ? 'here-neighbourhood-map-heading' : 'neighbourhood-map-heading'
+  const showHomepagePanel = framing === 'place' && context === 'homepage'
 
   const teaser = (
     <HomepageMapTeaser
@@ -188,36 +226,19 @@ export async function NeighbourhoodMapSection({
       hotelName={mapSettings.hotelName}
       hotelAriaLabel={hotelAriaLabel}
       shortAddress={mapCopy.shortAddress}
-      accent={accent}
-      variant={layout === 'card' ? 'compact' : 'full'}
+      framing={framing}
+      variant="full"
       showPlaceNav={showHomepagePanel}
     />
   )
 
-  if (layout === 'card') {
-    return (
-      <article
-        className="here-full overflow-hidden border border-[#4A7A68] bg-[#F0F6F0]"
-        aria-label={tMap('mapAria')}
-      >
-        {listGraph ? <JsonLdScript graph={listGraph} /> : null}
-        {teaser}
-        <div className="px-4 py-3">
-          <LineCta href={ctaHref} className="text-ui-sm">
-            {ctaLabel ?? t('cta')}
-          </LineCta>
-        </div>
-      </article>
-    )
-  }
-
   return (
-    <section aria-labelledby="neighbourhood-map-heading" className="bg-hbb-page">
+    <section aria-labelledby={headingId} className="bg-hbb-page">
       {listGraph ? <JsonLdScript graph={listGraph} /> : null}
       <div className="site-shell px-section-sm pb-6 pt-section-y md:px-section-x">
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
-          <h2 id="neighbourhood-map-heading" className={HEADING_CLASS}>
-            {t('title')}
+          <h2 id={headingId} className={HEADING_CLASS}>
+            {heading}
           </h2>
           <SweepCta href={ctaHref} color="ink" edge="right" className="shrink-0">
             {resolvedCta}

@@ -5,6 +5,16 @@ import {
   resolveCategoryToken,
 } from '@/lib/spotlight/categoryTokens'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
+import {
+  eventListHref,
+  eventVenue,
+  formatGuestTimeState,
+  formatPracticalLine,
+  formatProspectPrimaryMeta,
+  venueAddress,
+  venueFloor,
+  type SpotlightFraming,
+} from '@/lib/spotlight/eventMeta'
 import type { SpotlightCardProps } from '@/lib/spotlight/types'
 import {
   deriveOpenClosed,
@@ -186,40 +196,77 @@ export async function resolveVenueSpotlight(
 
 export async function resolveEventSpotlight(
   event: Event,
-  options: { locale?: string; now?: Date } = {},
+  options: {
+    locale?: string
+    now?: Date
+    framing?: SpotlightFraming
+    occurrence?: { start: Date; end: Date | null }
+    alwaysOn?: boolean
+  } = {},
 ): Promise<SpotlightCardProps | null> {
   const now = options.now ?? getBerlinNow()
   const locale = options.locale ?? 'en'
-  const venue = typeof event.venue === 'object' && event.venue ? event.venue : null
+  const framing = options.framing ?? 'prospect'
+  const venue = eventVenue(event)
   const token = categoryTokenForEventCategory(event.category)
   const tokenStyle = resolveCategoryToken(token)
 
-  const imageSrc = mediaUrl(event.heroImage)
-  if (!imageSrc) return null
-
-  const occ = resolveOccurrence(
-    event.startDate,
-    event.endDate,
-    event.isRecurring,
-    event.recurrenceRule,
-    now,
-  )
+  const occ =
+    options.occurrence ??
+    resolveOccurrence(
+      event.startDate,
+      event.endDate,
+      event.isRecurring,
+      event.recurrenceRule,
+      now,
+    )
   if (!occ) return null
 
+  const imageFromEvent = mediaUrl(event.heroImage)
+  const image = imageFromEvent
+    ? { src: imageFromEvent, alt: mediaAlt(event.heroImage, event.name || event.slug) }
+    : venue
+      ? venueImage(venue, event.name || event.slug)
+      : null
+  if (!image) return null
+
   const monogramSrc = venue ? mediaUrl(venue.venueMonogram) : null
+  const floor = venueFloor(venue, locale)
+  const address = venueAddress(venue, locale)
+  const venueName = venue ? venueLabelFromName(venue.name) : undefined
+  const alwaysOn = options.alwaysOn ?? false
+
+  const primaryMeta =
+    framing === 'guest'
+      ? formatGuestTimeState({
+          start: occ.start,
+          end: occ.end,
+          now,
+          locale,
+          alwaysOn,
+        })
+      : alwaysOn
+        ? locale === 'de'
+          ? 'Immer'
+          : 'Always'
+        : formatProspectPrimaryMeta(occ.start, locale)
+
+  const href = event.ticketUrl || eventListHref(framing, event.slug)
 
   return {
-    image: { src: imageSrc, alt: mediaAlt(event.heroImage, event.name || event.slug) },
+    image,
     badge: { label: tokenStyle.label, categoryToken: token },
     identityMark: monogramSrc && venue ? { src: monogramSrc, alt: venue.name } : undefined,
     title: event.name || event.slug,
-    venueLabel: venue ? venueLabelFromName(venue.name) : undefined,
-    locationLabel: venueLocationLabel(venue, locale) || undefined,
-    primaryMeta: formatEventPrimaryMeta(occ.start, occ.end, now, locale),
-    description: event.shortDescription || '',
+    venueLabel: venueName,
+    locationLabel: (framing === 'guest' ? floor : address) || undefined,
+    primaryMeta,
+    description:
+      framing === 'guest' ? formatPracticalLine(event, locale) : event.shortDescription || '',
+    framing,
     cta: {
       label: locale === 'de' ? 'Zum Event' : 'See event',
-      href: event.ticketUrl || `/here/events/${event.slug}`,
+      href,
       categoryToken: token,
       external: Boolean(event.ticketUrl),
     },

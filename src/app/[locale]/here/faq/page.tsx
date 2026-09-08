@@ -5,6 +5,7 @@ import { FAQPageView } from '@/components/faqs/FAQPageView'
 import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
 import { hereAlternates } from '@/lib/here/canonical'
 import {
+  FAQ_CATEGORY_I18N_KEY,
   getFaqs,
   GUEST_FAQ_CATEGORIES,
   type FaqCategory,
@@ -12,20 +13,6 @@ import {
 
 type Props = {
   params: Promise<{ locale: string }>
-}
-
-const CATEGORY_MESSAGE_KEY: Record<FaqCategory, string> = {
-  'rooms-booking': 'categories.roomsBooking',
-  'checkin-checkout': 'categories.checkinCheckout',
-  dining: 'categories.dining',
-  meetings: 'categories.meetings',
-  accessibility: 'categories.accessibility',
-  'getting-here': 'categories.gettingHere',
-  'pets-parking': 'categories.petsParking',
-  general: 'categories.general',
-  'wifi-tech': 'categories.wifiTech',
-  'guest-services': 'categories.guestServices',
-  'neighbourhood-guest': 'categories.neighbourhoodGuest',
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -60,7 +47,7 @@ export default async function HereFaqPage({ params }: Props) {
     { value: 'all' as const, label: t('allCategories') },
     ...presentCategories.map((value) => ({
       value,
-      label: t(CATEGORY_MESSAGE_KEY[value]),
+      label: t(FAQ_CATEGORY_I18N_KEY[value]),
     })),
   ]
 

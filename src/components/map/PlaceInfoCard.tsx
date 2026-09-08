@@ -59,6 +59,8 @@ export type PlaceInfoCardProps = {
   endorsements: PlaceInfoCardEndorsement[]
   /** Uppercase label above recommender chips — same treatment as category. */
   recommendedByLabel?: string
+  /** Person-first: label above the place name, e.g. "empfiehlt:" */
+  recommendsLabel?: string
   /** Optional close control (full-page map). */
   onClose?: () => void
   closeLabel?: string
@@ -185,6 +187,7 @@ export function PlaceInfoCard({
   transitLabel,
   endorsements,
   recommendedByLabel,
+  recommendsLabel,
   onClose,
   closeLabel = 'Close',
   className = '',
@@ -252,6 +255,11 @@ export function PlaceInfoCard({
           </Link>
 
           <h3 className="mt-3 font-ui text-ui-sm font-medium leading-snug text-hbb-black">
+            {recommendsLabel ? (
+              <span className="mb-0.5 block font-ui text-[9px] font-semibold uppercase tracking-[0.14em] text-gray-500">
+                {recommendsLabel}
+              </span>
+            ) : null}
             {placeTitle}
           </h3>
           <p
@@ -260,6 +268,34 @@ export function PlaceInfoCard({
           >
             {category.label}
           </p>
+
+          {image?.src ? (
+            <div className="relative mt-2.5 h-20 w-full overflow-hidden bg-gray-100">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="268px"
+                className="object-cover"
+              />
+              {creditText ? (
+                <p className="absolute bottom-0 left-0 right-0 bg-black/55 px-2 py-0.5 font-ui text-[9px] leading-tight text-white/90">
+                  {imageCredit?.creditUrl ? (
+                    <a
+                      href={imageCredit.creditUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline-offset-2 hover:underline"
+                    >
+                      {creditText}
+                    </a>
+                  ) : (
+                    creditText
+                  )}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {leadPerson.quote ? (
             <blockquote className="mt-2 font-ui text-[12px] leading-snug text-gray-600">

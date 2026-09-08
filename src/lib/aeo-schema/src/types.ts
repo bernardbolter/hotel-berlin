@@ -169,6 +169,7 @@ export interface VenueOpeningHours {
   dayOfWeek?: string;
   opens?: string;
   closes?: string;
+  isOpenEnded?: boolean;
   segment?: string;
   note?: string;
 }

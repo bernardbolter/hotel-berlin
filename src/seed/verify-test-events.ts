@@ -102,11 +102,11 @@ async function main() {
   }
 
   {
-    const now = atBerlin('2026-08-13T17:00:00') // Thu tournament day, before 19:00
+    const now = atBerlin('2026-09-03T17:00:00') // Thu tournament day, before 19:00
     const hero = await getCurrentOrNextEventToday(now)
     const ok = hero?.name === 'KTTK Tournament Night'
     checks.push({
-      name: 'Aug 13 hero picks Tournament Night (excludes daily Open Play)',
+      name: 'Sep 3 hero picks Tournament Night (excludes daily Open Play)',
       ok: Boolean(ok),
       detail: hero
         ? `${hero.name} relative=${hero.relativeTime.kind}`

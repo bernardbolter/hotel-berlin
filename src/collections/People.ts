@@ -52,6 +52,15 @@ export const People: CollectionConfig = {
       admin: { description: 'Physical room where their welcome letter is placed.' },
     },
     {
+      name: 'roomConfirmed',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description:
+          'Guest-facing room pill. Only when the hotel has confirmed this number. Disagreeing source files must not print a room.',
+      },
+    },
+    {
       name: 'basedIn',
       type: 'text',
       admin: { description: 'e.g. "Neukölln"' },
@@ -107,6 +116,8 @@ export const People: CollectionConfig = {
         allowCreate: false,
       },
     },
+    { name: 'featured', type: 'checkbox', defaultValue: false },
+    { name: 'displayOrder', type: 'number' },
     {
       name: 'status',
       type: 'select',

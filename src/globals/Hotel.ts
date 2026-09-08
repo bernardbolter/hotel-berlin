@@ -1,4 +1,27 @@
-import type { GlobalConfig } from 'payload'
+import type { Field, GlobalConfig } from 'payload'
+
+import { openingHoursArrayField } from '../fields/openingHours'
+
+type LocalePairDefaults = {
+  valueDE?: string
+  valueEN?: string
+  noteDE?: string
+  noteEN?: string
+}
+
+function localePair(name: string, label: string, defaults: LocalePairDefaults = {}): Field {
+  return {
+    name,
+    label,
+    type: 'group',
+    fields: [
+      { name: 'valueDE', type: 'text', defaultValue: defaults.valueDE ?? undefined },
+      { name: 'valueEN', type: 'text', defaultValue: defaults.valueEN ?? undefined },
+      { name: 'noteDE', type: 'text', defaultValue: defaults.noteDE ?? undefined },
+      { name: 'noteEN', type: 'text', defaultValue: defaults.noteEN ?? undefined },
+    ],
+  }
+}
 
 export const Hotel: GlobalConfig = {
   slug: 'hotel',
@@ -60,47 +83,122 @@ export const Hotel: GlobalConfig = {
     { name: 'checkoutTime', type: 'text' },
     {
       name: 'guestStay',
-      label: 'Guest stay info (/here StayInfoCard)',
+      label: 'Guest stay info (/here hero + extras)',
       type: 'group',
       fields: [
+        {
+          name: 'wifiNetwork',
+          type: 'text',
+          admin: { description: 'Guest WiFi SSID — shown in monospace pill. Not localised.' },
+        },
+        {
+          name: 'wifiPassword',
+          type: 'text',
+          admin: { description: 'Guest WiFi password — shown in monospace pill. Not localised.' },
+        },
+        localePair('checkout', 'Check-out', {
+          valueDE: '12:00',
+          valueEN: '12:00',
+          noteDE: 'Später auf Anfrage',
+          noteEN: 'Later on request',
+        }),
+        localePair('breakfast', 'Breakfast / Frühstück', {
+          valueDE: '06:30 – 10:00',
+          valueEN: '06:30 – 10:00',
+          noteDE: 'Lütze, Erdgeschoss',
+          noteEN: 'Lütze, ground floor',
+        }),
+        localePair('parking', 'Parking / Parken', {
+          valueDE: '4 € / Std.',
+          valueEN: '€4 / hour',
+          noteDE: 'Tiefgarage · max. 25 €/Tag',
+          noteEN: 'Underground · max. €25/day',
+        }),
+        localePair('luggage', 'Luggage / Gepäck', {
+          valueDE: 'Rezeption',
+          valueEN: 'Reception',
+          noteDE: 'Auch nach dem Check-out',
+          noteEN: 'Also after check-out',
+        }),
+        {
+          name: 'more',
+          label: 'Stay card extras (not in the hero)',
+          type: 'group',
+          admin: {
+            description:
+              'Wundermart, Bett & Bike, Sauna, pets — render only when a value is set. Leave blank to hide.',
+          },
+          fields: [
+            localePair('wundermart', 'Wundermart', {}),
+            localePair('bettAndBike', 'Bett & Bike', {}),
+            localePair('saunaFitness', 'Sauna & Fitness', {
+              valueDE: '24/7',
+              valueEN: '24/7',
+              noteDE: 'Sauna · Fitness',
+              noteEN: 'Sauna · gym',
+            }),
+            localePair('pets', 'Pets / Hunde', {
+              valueDE: '€30 / Tag',
+              valueEN: '€30 / day',
+              noteDE: 'Hunde willkommen',
+              noteEN: 'Dogs welcome',
+            }),
+          ],
+        },
         {
           name: 'checkoutNote',
           type: 'text',
           localized: true,
-          admin: { description: 'e.g. "noon" / "Mittag"' },
+          admin: { hidden: true, description: 'Legacy — use checkout.noteDE / noteEN' },
         },
         {
           name: 'breakfastLocation',
           type: 'text',
           localized: true,
-          admin: { description: 'e.g. "Lütze ground floor"' },
-        },
-        {
-          name: 'wifiNetwork',
-          type: 'text',
-          admin: { description: 'Guest WiFi SSID — shown in monospace pill' },
-        },
-        {
-          name: 'wifiPassword',
-          type: 'text',
-          admin: { description: 'Guest WiFi password — shown in monospace pill' },
+          admin: { hidden: true, description: 'Legacy — use breakfast.noteDE / noteEN' },
         },
         {
           name: 'parkingSummary',
           type: 'text',
           localized: true,
-          admin: {
-            description:
-              'e.g. "Underground · 200+ spaces · €4/hr · max €25/day"',
-          },
+          admin: { hidden: true, description: 'Legacy — use parking.value / note' },
         },
         {
           name: 'luggageNote',
           type: 'text',
           localized: true,
-          admin: {
-            description: 'e.g. "Available after check-out · ask at reception"',
-          },
+          admin: { hidden: true, description: 'Legacy — use luggage.value / note' },
+        },
+      ],
+    },
+    {
+      name: 'bridgeNav',
+      label: 'Bridge navigation',
+      type: 'group',
+      admin: {
+        description:
+          'Row-2 door between outside (home) and /here. Full string; the last caps word becomes the boxed button.',
+      },
+      fields: [
+        {
+          name: 'toHereLabelEN',
+          type: 'text',
+          defaultValue: 'Already in the house? ENTER →',
+        },
+        {
+          name: 'toHereLabelDE',
+          type: 'text',
+          defaultValue: 'Schon im Haus? ENTER →',
+        },
+        {
+          name: 'toStayLabelEN',
+          type: 'text',
+          defaultValue: 'Not here yet? STAY →',
+        },
+        {
+          name: 'toStayLabelDE',
+          type: 'text',
+          defaultValue: 'Noch nicht hier? BLEIB →',
         },
       ],
     },
@@ -135,9 +233,64 @@ export const Hotel: GlobalConfig = {
     {
       name: 'openingHours',
       type: 'group',
+      admin: {
+        hidden: true,
+        description: 'Legacy flat strings — kept so Postgres columns are not renamed. Use Hours rows.',
+      },
       fields: [
-        { name: 'reception', type: 'text', defaultValue: 'Mo-Su 00:00-24:00' },
-        { name: 'breakfast', type: 'text', defaultValue: 'Mo-Su 06:30-10:00' },
+        { name: 'reception', type: 'text' },
+        { name: 'breakfast', type: 'text' },
+      ],
+    },
+    openingHoursArrayField({
+      name: 'hours',
+      label: 'Hours',
+      admin: {
+        description:
+          'Same row shape as venues. Reception, breakfast (weekday/weekend), and any other hotel-wide hours.',
+      },
+    }),
+    {
+      name: 'breakfastPricing',
+      label: 'Breakfast prices',
+      type: 'group',
+      admin: {
+        description: 'A–Z breakfast prices. Shown on the guest hub dining band, not hardcoded.',
+      },
+      fields: [
+        { name: 'adultPrice', type: 'number', admin: { description: 'Adult price in EUR, e.g. 23' } },
+        { name: 'childPrice', type: 'number', admin: { description: 'Child price in EUR, e.g. 12' } },
+        {
+          name: 'childAgeFrom',
+          type: 'number',
+          admin: { description: 'Children from this age pay the child price, e.g. 6' },
+        },
+      ],
+    },
+    {
+      name: 'roomService',
+      label: 'Room service',
+      type: 'group',
+      admin: {
+        description:
+          'Guest hub dining band states this plainly. Default is no room service — collect at the bar.',
+      },
+      fields: [
+        {
+          name: 'offered',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: { description: 'Hotel offers in-room dining. Leave off to state that it does not.' },
+        },
+        {
+          name: 'note',
+          type: 'text',
+          localized: true,
+          admin: {
+            description:
+              'Guest-facing line, e.g. "Kein Zimmerservice — Abholung an der Bar".',
+          },
+        },
       ],
     },
     {

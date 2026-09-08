@@ -17,6 +17,12 @@ export type FaqCategory =
   | 'wifi-tech'
   | 'guest-services'
   | 'neighbourhood-guest'
+  | 'arrival-departure'
+  | 'in-room'
+  | 'money-payment'
+  | 'health-emergency'
+  | 'getting-around'
+  | 'house-rules'
 
 export const PROSPECT_FAQ_CATEGORIES: FaqCategory[] = [
   'rooms-booking',
@@ -30,11 +36,21 @@ export const PROSPECT_FAQ_CATEGORIES: FaqCategory[] = [
 ]
 
 export const GUEST_FAQ_CATEGORIES: FaqCategory[] = [
+  'arrival-departure',
+  'in-room',
+  'money-payment',
+  'health-emergency',
+  'getting-around',
+  'house-rules',
+  'dining',
   'wifi-tech',
   'guest-services',
   'neighbourhood-guest',
   'general',
 ]
+
+/** Accordion on /here — WiFi, luggage, check-out, in that order. */
+export const HUB_FAQ_SLUGS = ['guest-wifi', 'guest-luggage', 'guest-checkout'] as const
 
 type GetFaqsParams = {
   context: FaqContext

@@ -3,6 +3,7 @@ import type { Where } from 'payload'
 import {
   HOMEPAGE_FEATURED_LIMIT,
   TEASER_PLACE_LIMIT,
+  HERE_TEASER_PLACE_LIMIT,
   type DistanceTier,
   type IndoorOutdoor,
   type PlaceCategory,
@@ -20,6 +21,7 @@ export {
   HOMEPAGE_FEATURED_LIMIT,
   HOMEPAGE_FEATURED_PAGE_SIZE,
   TEASER_PLACE_LIMIT,
+  HERE_TEASER_PLACE_LIMIT,
   type PlaceCategory,
   type DistanceTier,
   type IndoorOutdoor,
@@ -98,7 +100,7 @@ function geoActiveWhere(extra: Where[] = []): Where {
 }
 
 /**
- * Homepage: `featuredOrder` 1–15 (paginated UI). `/here`: `hereTeaser` (max 5).
+ * Homepage: `featuredOrder` 1–15 (paginated UI). `/here`: `hereTeaser` (the curated tips set).
  * Homepage falls back to `homepageTeaser`, then any geo-tagged place, if featuredOrder is empty.
  */
 export async function getMapTeaserPlaces(locale: string, context: TeaserContext) {
@@ -125,6 +127,8 @@ export async function getMapTeaserPlaces(locale: string, context: TeaserContext)
 
   const teaserField = context === 'homepage' ? 'homepageTeaser' : 'hereTeaser'
 
+  const teaserLimit = context === 'here' ? HERE_TEASER_PLACE_LIMIT : TEASER_PLACE_LIMIT
+
   const teaserResult = await payload.find({
     collection: 'neighbourhood-places',
     locale: loc,
@@ -137,7 +141,7 @@ export async function getMapTeaserPlaces(locale: string, context: TeaserContext)
   const curated = getTeaserPlaces(
     teaserResult.docs as NeighbourhoodPlace[],
     context,
-    TEASER_PLACE_LIMIT,
+    teaserLimit,
   )
   if (curated.length > 0) {
     return curated as unknown as NeighbourhoodPlaceDoc[]

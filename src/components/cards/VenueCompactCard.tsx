@@ -1,8 +1,5 @@
-import type { ComponentProps } from 'react'
-
 import { Link } from '@/i18n/routing'
-
-type AppHref = ComponentProps<typeof Link>['href']
+import { toAppHref } from '@/i18n/toAppHref'
 
 export type VenueCompactCardProps = {
   density: 'compact' | 'detailed'
@@ -90,7 +87,7 @@ export function VenueCompactCard({
   }
 
   return (
-    <Link href={href as AppHref} className={sharedClass}>
+    <Link href={toAppHref(href)} className={sharedClass}>
       {body}
     </Link>
   )

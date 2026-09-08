@@ -106,7 +106,7 @@ export default async function MeetingRoomDetailPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="meetings" />
+      <SiteNavWithData context="outside" />
       <main id="main-content" className="bg-hbb-page">
         <div className="mx-auto max-w-5xl px-section-sm pt-section-y md:px-section-x">
           <nav aria-label="Breadcrumb" className="font-ui text-ui-sm text-gray-400">

@@ -182,12 +182,15 @@ async function main() {
       isRecurring: true,
       recurrenceRule: 'FREQ=WEEKLY;BYDAY=MO',
       recurrenceNote: 'Every Monday from 18:00',
+      isFree: true,
       price: 0,
+      bookingRequired: false,
       featured: true,
     },
     {
       en: {
         name: 'Vinyl Nights',
+        bookingNote: 'no cover',
         shortDescription:
           'Monday evenings at Lütze: local selectors on the decks, drinks flowing, no cover. Bring a friend, claim a corner of the bar, and stay until the last record runs out.',
         description: plainRichText(
@@ -196,6 +199,7 @@ async function main() {
       },
       de: {
         name: 'Vinyl Nights',
+        bookingNote: 'kein Eintritt',
         shortDescription:
           'Montags bei Lütze: lokale DJs an den Decks, Drinks, kein Eintritt. Bring Freund:innen mit, schnapp dir eine Ecke an der Bar und bleib bis zur letzten Platte.',
         description: plainRichText(
@@ -220,12 +224,15 @@ async function main() {
       isRecurring: true,
       recurrenceRule: 'FREQ=MONTHLY;BYDAY=-1TH',
       recurrenceNote: 'Last Thursday of every month, from 19:00',
+      isFree: true,
       price: 0,
+      bookingRequired: false,
       featured: true,
     },
     {
       en: {
         name: 'Zeichenstammtisch',
+        bookingNote: 'no booking',
         shortDescription:
           'An open drawing table for illustrators, sketchers, and the merely curious. Bring your own materials, share the table, and leave with new lines — and maybe a new collaborator.',
         description: plainRichText(
@@ -234,6 +241,7 @@ async function main() {
       },
       de: {
         name: 'Zeichenstammtisch',
+        bookingNote: 'ohne Buchung',
         shortDescription:
           'Offener Zeichentisch für Illustrator:innen, Sketcher:innen und Neugierige. Eigenes Material mitbringen, den Tisch teilen und mit neuen Linien — und vielleicht neuen Kontakten — nach Hause gehen.',
         description: plainRichText(
@@ -258,12 +266,16 @@ async function main() {
       isRecurring: true,
       recurrenceRule: 'FREQ=DAILY',
       recurrenceNote: 'Daily, 13:00–23:00',
-      price: 0,
+      isFree: false,
+      price: 5,
+      currency: 'EUR',
+      bookingRequired: false,
       featured: false,
     },
     {
       en: {
         name: 'KTTK Open Play',
+        bookingNote: 'no booking · 30 min',
         shortDescription:
           'Drop-in table tennis every day in the basement — four JOOLA tables, no booking, bats at the Lütze bar. Come for a quick rally or stay for the afternoon.',
         description: plainRichText(
@@ -272,6 +284,7 @@ async function main() {
       },
       de: {
         name: 'KTTK Open Play',
+        bookingNote: 'ohne Buchung · 30 Min.',
         shortDescription:
           'Tischtennis ohne Anmeldung im Keller — vier JOOLA-Platten, Schläger an der Lütze-Bar. Kurz reinschauen oder den Nachmittag bleiben.',
         description: plainRichText(
@@ -281,7 +294,7 @@ async function main() {
     },
   )
 
-  // 4 KTTK Tournament Night — one-off Thu 13 Aug
+  // 4 KTTK Turnierabend — weekly Thursday 19:00
   await upsertLocalized(
     payload,
     'events',
@@ -291,27 +304,34 @@ async function main() {
       slug: 'kttk-tournament-night',
       category: 'Sport',
       venue: kttkId,
-      startDate: berlinIso(2026, 8, 13, 19, 0),
-      endDate: berlinIso(2026, 8, 13, 22, 0),
-      isRecurring: false,
+      startDate: berlinIso(2026, 9, 3, 19, 0),
+      endDate: berlinIso(2026, 9, 3, 22, 0),
+      isRecurring: true,
+      recurrenceRule: 'FREQ=WEEKLY;BYDAY=TH',
+      recurrenceNote: 'Every Thursday from 19:00',
+      isFree: false,
       price: 5,
+      currency: 'EUR',
+      bookingRequired: false,
       featured: true,
     },
     {
       en: {
         name: 'KTTK Tournament Night',
+        bookingNote: 'no booking, no dress code',
         shortDescription:
-          'One-night knockout tournament in the basement. Sign up at the door, no dress code, bats provided. €5 entry — loud rallies and a packed room guaranteed.',
+          'Weekly knockout tournament in the basement. Sign up at the door, no dress code, bats provided. €5 entry — loud rallies and a packed room guaranteed.',
         description: plainRichText(
-          'A single-elimination night open to anyone who shows up. Warm-up from 19:00, brackets fill fast. Spectators welcome at the rail.',
+          'Thursday night, open to anyone who shows up. Warm-up from 19:00, brackets fill fast. Spectators welcome at the rail.',
         ),
       },
       de: {
-        name: 'KTTK Tournament Night',
+        name: 'KTTK Turnierabend',
+        bookingNote: 'ohne Buchung, ohne Dresscode',
         shortDescription:
-          'Ein Abend Knockout-Turnier im Keller. Anmeldung an der Tür, kein Dresscode, Schläger gestellt. 5 € Eintritt — laute Ballwechsel und volles Haus inklusive.',
+          'Wöchentliches Knockout-Turnier im Keller. Anmeldung an der Tür, kein Dresscode, Schläger gestellt. 5 € Eintritt — laute Ballwechsel und volles Haus inklusive.',
         description: plainRichText(
-          'Einmaliges K.o.-Turnier für alle, die auftauchen. Aufwärmen ab 19:00, die Brackets füllen sich schnell. Zuschauer:innen am Geländer willkommen.',
+          'Donnerstags, für alle, die auftauchen. Aufwärmen ab 19:00, die Brackets füllen sich schnell. Zuschauer:innen am Geländer willkommen.',
         ),
       },
     },

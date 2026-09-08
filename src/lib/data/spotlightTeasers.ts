@@ -17,7 +17,7 @@ export const spotlightTeasers: SpotlightCardProps[] = [
       'Independent art in the hotel — residencies, murals on every floor, and shows that rotate through the seasons. Drop in for the current duo exhibition, or follow the trail of works upstairs.',
     cta: {
       label: 'Explore FKKB',
-      href: '/here/gallery',
+      href: '/happenings',
       categoryToken: 'art',
     },
   },
@@ -35,7 +35,7 @@ export const spotlightTeasers: SpotlightCardProps[] = [
       'Four JOOLA tables in the basement, open to guests and Berliners. Sign up at the door, no dress code, bats provided. €5 gets you into the knockout rounds and a night of loud rallies.',
     cta: {
       label: 'See event',
-      href: '/here/events',
+      href: '/happenings',
       categoryToken: 'sport',
     },
   },
@@ -53,7 +53,7 @@ export const spotlightTeasers: SpotlightCardProps[] = [
       'Monday evenings at Lütze: local selectors on the decks, drinks flowing, no cover. Bring a friend, claim a corner of the bar, and stay until the last record runs out.',
     cta: {
       label: 'See event',
-      href: '/here/events',
+      href: '/happenings',
       categoryToken: 'food',
     },
   },
@@ -71,7 +71,7 @@ export const spotlightTeasers: SpotlightCardProps[] = [
       'An open drawing table for illustrators, sketchers, and the merely curious. Bring your own materials, share the table, and leave with new lines — and maybe a new collaborator.',
     cta: {
       label: 'See event',
-      href: '/here/events',
+      href: '/happenings',
       categoryToken: 'community',
     },
   },

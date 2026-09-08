@@ -41,7 +41,7 @@
 - **Getting settled** — check-in 15:00, luggage storage (before check-in / after check-out), room safes + lockboxes, housekeeping, iron on request, adapters on request
 - **Money & connectivity** — payment is cards/contactless only (no cash), ATM on site, free WiFi hotel-wide, business center
 - **Health & comfort** — pharmacy & doctor on request via concierge, pets €30/day, non-smoking (€250 violation fee), climate control, water treatment note (chlorine dioxide system — probably skip, too technical for guest-facing copy)
-- **Getting around** — taxi, airport shuttle, jogging routes, EV charging (8 × Type 2 stations), links out to `/here/getting-around` for the fuller version
+- **Getting around** — taxi, jogging routes, EV charging (8 × Type 2 stations), links out to `/here/getting-around` for the fuller version
 - **24/7 support** — Guest Care Center / concierge
 
 **Data source recommendation:** this is mostly static, rarely-changing hotel-ops data — a good candidate for its own field group on the `hotel` Payload global, the same place WiFi credentials already live, rather than a new collection.

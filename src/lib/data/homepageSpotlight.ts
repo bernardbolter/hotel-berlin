@@ -39,7 +39,8 @@ export async function getHomepageSpotlightCards(
       if (venueCard) {
         cards.push({
           ...venueCard,
-          cta: { ...venueCard.cta, href: '/here/art' },
+          framing: 'prospect',
+          cta: { ...venueCard.cta, href: '/happenings' },
         })
       }
     }
@@ -67,13 +68,11 @@ export async function getHomepageSpotlightCards(
     if (cards.length >= HOMEPAGE_CARD_LIMIT) break
     const doc = bySlug.get(slug)
     if (!doc) continue
-    const card = await resolveEventSpotlight(doc, { locale, now })
+    const card = await resolveEventSpotlight(doc, { locale, now, framing: 'prospect' })
     if (!card) continue
-    // Event detail routes aren't built yet — send CTAs to the events hub
     cards.push({
       ...card,
       title: card.title || doc.name || slug,
-      cta: { ...card.cta, href: '/here/events', external: false },
     })
   }
 

@@ -571,7 +571,7 @@ export interface Venue {
   openingHours?:
     | {
         /**
-         * e.g. Mo-Su or Monday,Tuesday
+         * e.g. Mo-Su, Mo-Fr, Sa-Su, or Thursday
          */
         dayOfWeek?: string | null;
         /**
@@ -579,11 +579,15 @@ export interface Venue {
          */
         opens?: string | null;
         /**
-         * e.g. 23:00 or open-end
+         * Clock time, e.g. 22:30 or 01:00. Required for open/closed status.
          */
         closes?: string | null;
         /**
-         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen". Multiple rows may share a segment.
+         * No advertised close — still store a clock bound in `closes` so status can be derived. The UI renders the i18n “open end” phrase.
+         */
+        isOpenEnded?: boolean | null;
+        /**
+         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen" / "Breakfast". Multiple rows may share a segment.
          */
         segment?: string | null;
         /**
@@ -623,7 +627,7 @@ export interface Venue {
   createdAt: string;
 }
 /**
- * Homepage hero photo rotation. Unlimited slides — disable to pause without deleting.
+ * Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hero-slides".
@@ -651,6 +655,10 @@ export interface HeroSlide {
    * Photographer/agency credit — feeds ImageObject.creditText.
    */
   credit?: string | null;
+  /**
+   * Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.
+   */
+  context: 'homepage' | 'here';
   /**
    * Controls rotation sequence (lower first).
    */
@@ -694,7 +702,13 @@ export interface Faq {
     | 'general'
     | 'wifi-tech'
     | 'guest-services'
-    | 'neighbourhood-guest';
+    | 'neighbourhood-guest'
+    | 'arrival-departure'
+    | 'in-room'
+    | 'money-payment'
+    | 'health-emergency'
+    | 'getting-around'
+    | 'house-rules';
   /**
    * Optional pin — forces this question into a page’s mini block regardless of category. Use sparingly; category matching covers most cases.
    */
@@ -799,6 +813,10 @@ export interface Artwork {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Floor + wing for /here art wall captions, e.g. "Floor 4 · near the lifts". Blank shows Location TBC.
+   */
+  locationInBuilding?: string | null;
   images?:
     | {
         image: number | Media;
@@ -885,7 +903,17 @@ export interface Event {
   endDate?: string | null;
   category?: ('Art' | 'Music' | 'Sport' | 'Food' | 'Community' | 'Neighbourhood' | 'Other') | null;
   venue?: (number | null) | Venue;
+  /**
+   * Show as free entry rather than unpriced. Independent of price = 0.
+   */
+  isFree?: boolean | null;
   price?: number | null;
+  currency?: 'EUR' | null;
+  bookingRequired?: boolean | null;
+  /**
+   * e.g. "ohne Buchung, ohne Dresscode"
+   */
+  bookingNote?: string | null;
   ticketUrl?: string | null;
   heroImage?: (number | null) | Media;
   tags?: (number | Tag)[] | null;
@@ -950,6 +978,10 @@ export interface Person {
    */
   roomNumber?: string | null;
   /**
+   * Guest-facing room pill. Only when the hotel has confirmed this number. Disagreeing source files must not print a room.
+   */
+  roomConfirmed?: boolean | null;
+  /**
    * e.g. "Neukölln"
    */
   basedIn?: string | null;
@@ -979,6 +1011,8 @@ export interface Person {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  featured?: boolean | null;
+  displayOrder?: number | null;
   status: 'draft' | 'published';
   updatedAt: string;
   createdAt: string;
@@ -1001,6 +1035,12 @@ export interface NeighbourhoodPlace {
     | 'Restaurant'
     | 'Shopping'
     | 'Sightseeing';
+  /**
+   * xlsx “Also” column. Stored as a tag; primary `category` drives card colour and the map pin.
+   */
+  secondaryCategory?:
+    | ('Art' | 'Bar' | 'Kids' | 'Museum' | 'Parks and Nature' | 'Party' | 'Restaurant' | 'Shopping' | 'Sightseeing')
+    | null;
   /**
    * Drives the JSON-LD @type — apply the category→schemaType mapping at seed time, not by editor judgment.
    */
@@ -1618,6 +1658,7 @@ export interface VenuesSelect<T extends boolean = true> {
         dayOfWeek?: T;
         opens?: T;
         closes?: T;
+        isOpenEnded?: T;
         segment?: T;
         note?: T;
         id?: T;
@@ -1659,6 +1700,7 @@ export interface HeroSlidesSelect<T extends boolean = true> {
   venue?: T;
   captionOverride?: T;
   credit?: T;
+  context?: T;
   order?: T;
   enabled?: T;
   updatedAt?: T;
@@ -1714,6 +1756,7 @@ export interface ArtworksSelect<T extends boolean = true> {
   dimensions?: T;
   year?: T;
   description?: T;
+  locationInBuilding?: T;
   images?:
     | T
     | {
@@ -1761,7 +1804,11 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   category?: T;
   venue?: T;
+  isFree?: T;
   price?: T;
+  currency?: T;
+  bookingRequired?: T;
+  bookingNote?: T;
   ticketUrl?: T;
   heroImage?: T;
   tags?: T;
@@ -1789,6 +1836,7 @@ export interface PeopleSelect<T extends boolean = true> {
   website?: T;
   instagram?: T;
   roomNumber?: T;
+  roomConfirmed?: T;
   basedIn?: T;
   type?: T;
   tags?: T;
@@ -1811,6 +1859,8 @@ export interface PeopleSelect<T extends boolean = true> {
             };
       };
   picks?: T;
+  featured?: T;
+  displayOrder?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1823,6 +1873,7 @@ export interface NeighbourhoodPlacesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   category?: T;
+  secondaryCategory?: T;
   schemaType?: T;
   address?:
     | T
@@ -2054,29 +2105,91 @@ export interface Hotel {
   checkoutTime?: string | null;
   guestStay?: {
     /**
-     * e.g. "noon" / "Mittag"
-     */
-    checkoutNote?: string | null;
-    /**
-     * e.g. "Lütze ground floor"
-     */
-    breakfastLocation?: string | null;
-    /**
-     * Guest WiFi SSID — shown in monospace pill
+     * Guest WiFi SSID — shown in monospace pill. Not localised.
      */
     wifiNetwork?: string | null;
     /**
-     * Guest WiFi password — shown in monospace pill
+     * Guest WiFi password — shown in monospace pill. Not localised.
      */
     wifiPassword?: string | null;
+    checkout?: {
+      valueDE?: string | null;
+      valueEN?: string | null;
+      noteDE?: string | null;
+      noteEN?: string | null;
+    };
+    breakfast?: {
+      valueDE?: string | null;
+      valueEN?: string | null;
+      noteDE?: string | null;
+      noteEN?: string | null;
+    };
+    parking?: {
+      valueDE?: string | null;
+      valueEN?: string | null;
+      noteDE?: string | null;
+      noteEN?: string | null;
+    };
+    luggage?: {
+      valueDE?: string | null;
+      valueEN?: string | null;
+      noteDE?: string | null;
+      noteEN?: string | null;
+    };
     /**
-     * e.g. "Underground · 200+ spaces · €4/hr · max €25/day"
+     * Wundermart, Bett & Bike, Sauna, pets — render only when a value is set. Leave blank to hide.
+     */
+    more?: {
+      wundermart?: {
+        valueDE?: string | null;
+        valueEN?: string | null;
+        noteDE?: string | null;
+        noteEN?: string | null;
+      };
+      bettAndBike?: {
+        valueDE?: string | null;
+        valueEN?: string | null;
+        noteDE?: string | null;
+        noteEN?: string | null;
+      };
+      saunaFitness?: {
+        valueDE?: string | null;
+        valueEN?: string | null;
+        noteDE?: string | null;
+        noteEN?: string | null;
+      };
+      pets?: {
+        valueDE?: string | null;
+        valueEN?: string | null;
+        noteDE?: string | null;
+        noteEN?: string | null;
+      };
+    };
+    /**
+     * Legacy — use checkout.noteDE / noteEN
+     */
+    checkoutNote?: string | null;
+    /**
+     * Legacy — use breakfast.noteDE / noteEN
+     */
+    breakfastLocation?: string | null;
+    /**
+     * Legacy — use parking.value / note
      */
     parkingSummary?: string | null;
     /**
-     * e.g. "Available after check-out · ask at reception"
+     * Legacy — use luggage.value / note
      */
     luggageNote?: string | null;
+  };
+  /**
+   * Row-2 door between outside (home) and /here. Full string; the last caps word becomes the boxed button.
+   */
+  bridgeNav?: {
+    toHereLabelEN?: string | null;
+    toHereLabelDE?: string | null;
+    toStayLabelEN?: string | null;
+    toStayLabelDE?: string | null;
   };
   starRating?: number | null;
   priceRange?: string | null;
@@ -2108,9 +2221,74 @@ export interface Hotel {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Legacy flat strings — kept so Postgres columns are not renamed. Use Hours rows.
+   */
   openingHours?: {
     reception?: string | null;
     breakfast?: string | null;
+  };
+  /**
+   * Same row shape as venues. Reception, breakfast (weekday/weekend), and any other hotel-wide hours.
+   */
+  hours?:
+    | {
+        /**
+         * e.g. Mo-Su, Mo-Fr, Sa-Su, or Thursday
+         */
+        dayOfWeek?: string | null;
+        /**
+         * e.g. 10:00
+         */
+        opens?: string | null;
+        /**
+         * Clock time, e.g. 22:30 or 01:00. Required for open/closed status.
+         */
+        closes?: string | null;
+        /**
+         * No advertised close — still store a clock bound in `closes` so status can be derived. The UI renders the i18n “open end” phrase.
+         */
+        isOpenEnded?: boolean | null;
+        /**
+         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen" / "Breakfast". Multiple rows may share a segment.
+         */
+        segment?: string | null;
+        /**
+         * Optional status note, e.g. "Kitchen closes 22:30"
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * A–Z breakfast prices. Shown on the guest hub dining band, not hardcoded.
+   */
+  breakfastPricing?: {
+    /**
+     * Adult price in EUR, e.g. 23
+     */
+    adultPrice?: number | null;
+    /**
+     * Child price in EUR, e.g. 12
+     */
+    childPrice?: number | null;
+    /**
+     * Children from this age pay the child price, e.g. 6
+     */
+    childAgeFrom?: number | null;
+  };
+  /**
+   * Guest hub dining band states this plainly. Default is no room service — collect at the bar.
+   */
+  roomService?: {
+    /**
+     * Hotel offers in-room dining. Leave off to state that it does not.
+     */
+    offered?: boolean | null;
+    /**
+     * Guest-facing line, e.g. "Kein Zimmerservice — Abholung an der Bar".
+     */
+    note?: string | null;
   };
   /**
    * Circular map image in the homepage hero. Upload a square image (~600×600). Replaces the generated Mapbox preview when set.
@@ -2288,7 +2466,7 @@ export interface Homepage {
   createdAt?: string | null;
 }
 /**
- * Choose and reorder up to 5 inside (/here) pages for the secondary nav row. Primary nav links stay fixed in code.
+ * Choose and reorder up to 5 inside (/here) pages for the primary nav on /here. Outside primary links stay fixed in code.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation".
@@ -2296,7 +2474,7 @@ export interface Homepage {
 export interface Navigation {
   id: number;
   /**
-   * Drag to reorder. Pick from inside pages only — create them under Pages first. Maximum 5 links.
+   * Drag to reorder. These become row 1 on /here. Maximum 5 links.
    */
   secondaryLinks?:
     | {
@@ -2614,12 +2792,88 @@ export interface HotelSelect<T extends boolean = true> {
   guestStay?:
     | T
     | {
-        checkoutNote?: T;
-        breakfastLocation?: T;
         wifiNetwork?: T;
         wifiPassword?: T;
+        checkout?:
+          | T
+          | {
+              valueDE?: T;
+              valueEN?: T;
+              noteDE?: T;
+              noteEN?: T;
+            };
+        breakfast?:
+          | T
+          | {
+              valueDE?: T;
+              valueEN?: T;
+              noteDE?: T;
+              noteEN?: T;
+            };
+        parking?:
+          | T
+          | {
+              valueDE?: T;
+              valueEN?: T;
+              noteDE?: T;
+              noteEN?: T;
+            };
+        luggage?:
+          | T
+          | {
+              valueDE?: T;
+              valueEN?: T;
+              noteDE?: T;
+              noteEN?: T;
+            };
+        more?:
+          | T
+          | {
+              wundermart?:
+                | T
+                | {
+                    valueDE?: T;
+                    valueEN?: T;
+                    noteDE?: T;
+                    noteEN?: T;
+                  };
+              bettAndBike?:
+                | T
+                | {
+                    valueDE?: T;
+                    valueEN?: T;
+                    noteDE?: T;
+                    noteEN?: T;
+                  };
+              saunaFitness?:
+                | T
+                | {
+                    valueDE?: T;
+                    valueEN?: T;
+                    noteDE?: T;
+                    noteEN?: T;
+                  };
+              pets?:
+                | T
+                | {
+                    valueDE?: T;
+                    valueEN?: T;
+                    noteDE?: T;
+                    noteEN?: T;
+                  };
+            };
+        checkoutNote?: T;
+        breakfastLocation?: T;
         parkingSummary?: T;
         luggageNote?: T;
+      };
+  bridgeNav?:
+    | T
+    | {
+        toHereLabelEN?: T;
+        toHereLabelDE?: T;
+        toStayLabelEN?: T;
+        toStayLabelDE?: T;
       };
   starRating?: T;
   priceRange?: T;
@@ -2653,6 +2907,30 @@ export interface HotelSelect<T extends boolean = true> {
     | {
         reception?: T;
         breakfast?: T;
+      };
+  hours?:
+    | T
+    | {
+        dayOfWeek?: T;
+        opens?: T;
+        closes?: T;
+        isOpenEnded?: T;
+        segment?: T;
+        note?: T;
+        id?: T;
+      };
+  breakfastPricing?:
+    | T
+    | {
+        adultPrice?: T;
+        childPrice?: T;
+        childAgeFrom?: T;
+      };
+  roomService?:
+    | T
+    | {
+        offered?: T;
+        note?: T;
       };
   heroMapImage?: T;
   getDirectionsLabel?: T;

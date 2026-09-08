@@ -101,6 +101,7 @@ async function seedHeroImages() {
         captionOverride: slide.caption.en,
         order: index,
         enabled: true,
+        context: 'homepage',
       },
     })
 
@@ -117,9 +118,59 @@ async function seedHeroImages() {
     console.log(`  Seeded: ${slide.file}`)
   }
 
+  // /here guest-hub slides — same photos, separate docs (context is not hasMany).
+  const homepageDocs = await payload.find({
+    collection: 'hero-slides',
+    where: { context: { equals: 'homepage' } },
+    limit: 50,
+    sort: 'order',
+    depth: 0,
+    locale: 'en',
+  })
+
+  for (const doc of homepageDocs.docs) {
+    const hereDoc = await payload.create({
+      collection: 'hero-slides',
+      locale: 'en',
+      data: {
+        adminTitle: `${doc.adminTitle ?? 'Slide'} (/here)`,
+        image: typeof doc.image === 'object' ? doc.image?.id : doc.image,
+        altText: doc.altText ?? '',
+        captionOverride: doc.captionOverride ?? undefined,
+        venue: typeof doc.venue === 'object' ? doc.venue?.id : doc.venue,
+        credit: doc.credit ?? undefined,
+        order: doc.order,
+        enabled: true,
+        context: 'here',
+      },
+    })
+
+    const deDoc = await payload.findByID({
+      collection: 'hero-slides',
+      id: doc.id,
+      locale: 'de',
+      depth: 0,
+    })
+
+    await payload.update({
+      collection: 'hero-slides',
+      id: hereDoc.id,
+      locale: 'de',
+      data: {
+        altText: deDoc.altText ?? doc.altText ?? '',
+        captionOverride: deDoc.captionOverride ?? doc.captionOverride ?? undefined,
+      },
+    })
+  }
+
+  console.log(`Also seeded ${homepageDocs.docs.length} /here-context slide(s) from the same photos.`)
+
   // Also keep legacy homepage global in sync for migration safety
   const collectionDocs = await payload.find({
     collection: 'hero-slides',
+    where: {
+      or: [{ context: { equals: 'homepage' } }, { context: { exists: false } }],
+    },
     limit: 50,
     sort: 'order',
     depth: 0,
@@ -141,6 +192,9 @@ async function seedHeroImages() {
 
   const collectionDocsDe = await payload.find({
     collection: 'hero-slides',
+    where: {
+      or: [{ context: { equals: 'homepage' } }, { context: { exists: false } }],
+    },
     limit: 50,
     sort: 'order',
     depth: 0,

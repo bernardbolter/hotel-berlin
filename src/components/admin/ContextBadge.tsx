@@ -3,8 +3,8 @@
 import type { DefaultCellComponentProps } from 'payload'
 
 const contextStyles: Record<string, { background: string; label: string }> = {
-  outside: { background: '#F79B2E', label: 'Outside' },
-  inside: { background: '#7ab8b0', label: 'Inside' },
+  outside: { background: '#216A95', label: 'Outside' },
+  inside: { background: '#9A6420', label: 'Inside' },
   both: { background: '#4a4a6a', label: 'Both' },
 }
 

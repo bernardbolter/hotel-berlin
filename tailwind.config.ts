@@ -7,10 +7,22 @@ const config: Config = {
       colors: {
         // Brand palette
         'hbb-teal': '#2C6B7A',
+        'hbb-navy': '#216A95',
         'hbb-amber': '#F79B2E',
         'hbb-nav-amber': '#B87A2E',
-        'hbb-green': '#4A7A68',
+        'hbb-amber-text': '#9A6420',
+        'hbb-amber-deep': '#8A5818',
+        'hbb-cardline': '#E0DCD5',
+        'hbb-nbhd': '#56674F',
+        'hbb-panel-grey': '#EAE6E0',
+        /** Canonical green — DESIGN.md `--green`. Was `#4A7A68` (F3). */
+        'hbb-green': '#56674F',
         'hbb-forest': '#56674F',
+        /** Hub dining band — DESIGN.md `--forest`. Not the canonical green. */
+        'hbb-deep-forest': '#1E4234',
+        'ctx-accent': 'var(--ctx-accent)',
+        'ctx-accent-text': 'var(--ctx-accent-text)',
+        'ctx-accent-quiet': 'var(--ctx-accent-quiet)',
         'hbb-coral': '#F95D62',
         /** Rooms pages only — prices, nav rail, amenity icons. Not site-wide coral. */
         'hbb-rooms-highlight': '#C16157',

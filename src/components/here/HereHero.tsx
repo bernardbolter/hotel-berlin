@@ -1,17 +1,15 @@
-import Image from 'next/image'
-
-import { HeroClock } from '@/components/here/HeroClock'
+import { HereHeroLayout } from '@/components/here/HereHeroLayout'
+import { type HeroSlide } from '@/components/home/heroSlides'
 import {
   berlinTimeOfDay,
   formatBerlinDayLabel,
 } from '@/lib/here/greeting'
-import {
-  relativeTimeKey,
-  resolveEventHeroOverride,
-  resolveHereHeroSubline,
-} from '@/lib/here/hero'
-import { HERE_IMAGES } from '@/lib/here/images'
+import { getHeroSubline } from '@/lib/here/getHeroSubline'
+import { resolveEventHeroOverride } from '@/lib/here/hero'
+import { getHeroSlides } from '@/lib/payload/homepage'
+import { getGuestStayInfo } from '@/lib/payload/hotel'
 import { getBerlinNow } from '@/lib/venue-time'
+import { relativeTimeMessage } from '@/lib/venue-time/relativeTimeMessage'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
@@ -20,79 +18,84 @@ type Props = {
 }
 
 /**
- * Guest-hub hero — courtyard image, clock, day label, greeting, two-line event subline.
+ * Guest-hub hero — same `.home-hero` 1fr 2fr shell as home.
+ * Greeting currently from i18n day-slot copy: `hereHero` Payload global
+ * was specced in the original /here brief and is still not in the schema.
  */
 export async function HereHero({ locale, eventSlug }: Props) {
   const t = await getTranslations('here')
-  const tr = await getTranslations('relativeTime')
+  const tRel = await getTranslations('relativeTime')
   const now = getBerlinNow()
   const slot = berlinTimeOfDay(now)
   const dayLabel = formatBerlinDayLabel(now, locale)
+  const loc = locale === 'de' ? 'de' : 'en'
 
-  const eventOverride = await resolveEventHeroOverride(eventSlug)
-  const live = eventOverride ? null : await resolveHereHeroSubline()
+  const [eventOverride, subline, stay] = await Promise.all([
+    resolveEventHeroOverride(eventSlug),
+    getHeroSubline({
+      now,
+      locale: loc,
+      skipLive: Boolean(eventSlug),
+      translateRelative: (state) => {
+        const rel = relativeTimeMessage(state)
+        return rel.values != null ? tRel(rel.key, rel.values) : tRel(rel.key)
+      },
+    }),
+    getGuestStayInfo(loc),
+  ])
 
-  const greeting = t(
-    slot === 'morning'
-      ? 'greeting.morning'
-      : slot === 'afternoon'
-        ? 'greeting.afternoon'
-        : 'greeting.evening',
-  )
+  const greeting = eventOverride
+    ? eventOverride.name
+    : t(
+        slot === 'morning'
+          ? 'greeting.morning'
+          : slot === 'afternoon'
+            ? 'greeting.afternoon'
+            : 'greeting.evening',
+      )
 
-  let line1: string | null = null
-  let line2: string | null = null
-
-  if (eventOverride) {
-    line1 = eventOverride.name
-    line2 = eventOverride.shortDescription
-  } else if (live?.kind === 'thursday') {
-    line1 = t('heroFallback.thursdayLine1')
-    line2 = t('heroFallback.thursdayLine2')
-  } else if (live?.kind === 'live') {
-    if (live.relativeTime) {
-      const { key, values } = relativeTimeKey(live.relativeTime)
-      line1 = `${live.line1} ${tr(key, values ?? {})}`
-    } else {
-      line1 = live.line1
+  let photoSlides: HeroSlide[] = []
+  if (eventOverride?.image) {
+    photoSlides = [
+      {
+        src: eventOverride.image.src,
+        alt: eventOverride.image.alt,
+        captionEN: eventOverride.name,
+        captionDE: eventOverride.name,
+      },
+    ]
+  } else if (!eventOverride) {
+    photoSlides = await getHeroSlides('here')
+    // /here-tagged slides are optional in CMS; reuse the home gallery so the
+    // 2/3 photo half is never an empty slab. Photography choice is still open.
+    if (photoSlides.length === 0) {
+      photoSlides = await getHeroSlides('homepage')
     }
-    line2 = live.line2
   }
 
-  const image = HERE_IMAGES.hero
-
   return (
-    <header className="relative flex min-h-[120px] flex-col justify-end overflow-hidden text-white md:h-[280px] md:min-h-0">
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div
-        className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-black/10"
-        aria-hidden="true"
-      />
-      <div className="absolute top-4 right-4 z-10 md:top-5 md:right-6">
-        <HeroClock ariaLabel={t('clockAria')} />
-      </div>
-      <div className="relative z-10 px-4 py-5 md:px-6 md:py-7">
-        <p className="mb-1.5 font-ui text-[11px] uppercase tracking-[0.12em] text-[#e2e2e2]">
-          {dayLabel}
-        </p>
-        <h1 className="font-ui text-[1.5rem] font-medium leading-tight md:text-[1.875rem]">
-          {greeting}
-        </h1>
-        {line1 ? (
-          <p className="mt-1.5 font-ui text-[14px] text-[#eee]">{line1}</p>
-        ) : null}
-        {line2 ? (
-          <p className="mt-1 font-ui text-[13px] text-[#cfcfcf]">{line2}</p>
-        ) : null}
-        <p className="mt-2.5 font-ui text-[12px] text-[#c9c9c9]">{t('locationLine')}</p>
-      </div>
-    </header>
+    <HereHeroLayout
+      slides={photoSlides}
+      stay={stay}
+      copy={{
+        dayLabel,
+        greeting,
+        subline1: subline.type === 'none' ? null : subline.line1,
+        subline2: subline.type === 'none' ? null : subline.line2,
+        wifiLabel: t('stay.wifi'),
+        checkoutLabel: t('stay.checkout'),
+        breakfastLabel: t('stay.breakfast'),
+        parkingLabel: t('stay.parking'),
+        luggageLabel: t('stay.luggage'),
+        stayCta: t('heroStayCta'),
+        clockAria: t('clockAria'),
+        galleryAria: t('galleryAria'),
+        wifiPasswordAria: t('heroWifiPasswordAria'),
+        guestCareKicker: t('help.guestCare.kicker'),
+        guestCareTitle: t('help.guestCare.title'),
+        guestCareBody: t('help.guestCare.body'),
+        guestCareExtension: t('help.guestCare.extension').trim() || null,
+      }}
+    />
   )
 }

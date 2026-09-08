@@ -1,3 +1,5 @@
+export type SpotlightFraming = 'prospect' | 'guest'
+
 export type SpotlightCardProps = {
   image: { src: string; alt: string }
   badge: { label: string; categoryToken: string }
@@ -12,4 +14,8 @@ export type SpotlightCardProps = {
   description: string
   secondaryMeta?: { left: string; right: string }
   cta: { label: string; href: string; categoryToken: string; external?: boolean }
+  /**
+   * Which strings fill the slots. The card does not read this — resolvers do.
+   */
+  framing?: SpotlightFraming
 }

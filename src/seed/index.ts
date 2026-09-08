@@ -7,14 +7,16 @@ import config from '../payload.config'
 type SeedableCollection = keyof Config['collections']
 import {
   defaultInsideNavSlugs,
-  faqsSeed,
   hotelSeed,
+  lutzeLocaleDe,
   meetingRoomsSeed,
   pagesSeed,
   tagsSeed,
   venuesSeed,
+  wundermartLocaleDe,
 } from './data'
 import roomsSeed from './data/rooms.json'
+import { upsertFaqs } from './faqs'
 import { upsertPage } from './pages'
 import { plainRichText } from './richText'
 import type { AmenityTagSeed, RoomSeedRecord } from './types'
@@ -89,7 +91,27 @@ async function seed() {
 
   if (!(await isHotelSeeded())) {
     console.log('Seeding hotel global...')
-    await payload.updateGlobal({ slug: 'hotel', data: hotelSeed })
+    await payload.updateGlobal({ slug: 'hotel', data: hotelSeed, locale: 'en' })
+    await payload.updateGlobal({
+      slug: 'hotel',
+      locale: 'en',
+      data: {
+        roomService: {
+          offered: false,
+          note: 'No room service — collect at the bar',
+        },
+      },
+    })
+    await payload.updateGlobal({
+      slug: 'hotel',
+      locale: 'de',
+      data: {
+        roomService: {
+          offered: false,
+          note: 'Kein Zimmerservice — Abholung an der Bar',
+        },
+      },
+    })
   }
 
   if (!(await isSeeded('rooms'))) {
@@ -185,16 +207,27 @@ async function seed() {
 
   if (!(await isSeeded('venues'))) {
     console.log('Seeding venues...')
+    const venueDe: Record<string, object> = {
+      lutze: lutzeLocaleDe,
+      wundermart: wundermartLocaleDe,
+    }
     for (const venue of venuesSeed) {
-      await payload.create({ collection: 'venues', data: venue, locale: 'en' })
+      const doc = await payload.create({ collection: 'venues', data: venue, locale: 'en' })
+      const de = venueDe[venue.slug]
+      if (de) {
+        await payload.update({
+          collection: 'venues',
+          id: doc.id,
+          data: de,
+          locale: 'de',
+        })
+      }
     }
   }
 
   if (!(await isSeeded('faqs'))) {
     console.log('Seeding FAQs...')
-    for (const faq of faqsSeed) {
-      await payload.create({ collection: 'faqs', data: faq, locale: 'en' })
-    }
+    await upsertFaqs(payload)
   }
 
   const pageIds = new Map<string, number>()

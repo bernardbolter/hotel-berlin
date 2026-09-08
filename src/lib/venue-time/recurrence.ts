@@ -268,3 +268,128 @@ function addBerlinDays(from: Date, days: number): Date {
   const base = berlinLocalToUtc(parts.year, parts.month, parts.day, 12, 0, 0)
   return new Date(base.getTime() + days * 24 * 60 * 60 * 1000)
 }
+
+function seriesDurationMs(
+  startDateIso: string,
+  endDateIso: string | null | undefined,
+): { seriesStart: Date; durationMs: number | null } | null {
+  const seriesStart = new Date(startDateIso)
+  if (Number.isNaN(seriesStart.getTime())) return null
+  const seriesEnd = endDateIso ? new Date(endDateIso) : null
+  const durationMs =
+    seriesEnd && !Number.isNaN(seriesEnd.getTime())
+      ? Math.max(0, seriesEnd.getTime() - seriesStart.getTime())
+      : null
+  return { seriesStart, durationMs }
+}
+
+function overlapsWindow(
+  start: Date,
+  end: Date | null,
+  from: Date,
+  to: Date,
+): boolean {
+  const endMs = end?.getTime() ?? start.getTime()
+  return start.getTime() < to.getTime() && endMs >= from.getTime()
+}
+
+/**
+ * Every occurrence that overlaps `[from, to)` — RRULEs expanded across the window,
+ * not just the next hit. One-offs included when they overlap, including in-progress.
+ */
+export function expandOccurrencesInWindow(
+  startDateIso: string,
+  endDateIso: string | null | undefined,
+  isRecurring: boolean | null | undefined,
+  recurrenceRule: string | null | undefined,
+  from: Date,
+  to: Date,
+): Occurrence[] {
+  if (to.getTime() <= from.getTime()) return []
+
+  const series = seriesDurationMs(startDateIso, endDateIso)
+  if (!series) return []
+  const { seriesStart, durationMs } = series
+
+  if (!isRecurring || !recurrenceRule) {
+    const end =
+      durationMs != null ? new Date(seriesStart.getTime() + durationMs) : null
+    return overlapsWindow(seriesStart, end, from, to)
+      ? [{ start: seriesStart, end }]
+      : []
+  }
+
+  const rule = parseRecurrenceRule(recurrenceRule)
+  if (!rule) return []
+
+  const startParts = getBerlinParts(seriesStart)
+  const hour = rule.byHour ?? startParts.hour
+  const minute = rule.byMinute ?? startParts.minute
+
+  if (rule.freq === 'MONTHLY') {
+    return expandMonthlyWindow(rule, startParts, hour, minute, durationMs, from, to)
+  }
+
+  const results: Occurrence[] = []
+  for (let offset = 0; offset < 800; offset++) {
+    const day = addBerlinDays(seriesStart, offset)
+    const parts = getBerlinParts(day)
+
+    if (rule.freq === 'WEEKLY' && rule.byDay) {
+      const weekdays = rule.byDay.map((s) => s.weekday)
+      if (!weekdays.includes(parts.weekday)) continue
+    }
+
+    if (parts.dateKey < startParts.dateKey) continue
+
+    const occStart = berlinLocalToUtc(parts.year, parts.month, parts.day, hour, minute, 0)
+    if (rule.until && occStart.getTime() > rule.until.getTime()) break
+    if (occStart.getTime() >= to.getTime()) break
+
+    const occEnd = durationMs != null ? new Date(occStart.getTime() + durationMs) : null
+    if (!overlapsWindow(occStart, occEnd, from, to)) continue
+    results.push({ start: occStart, end: occEnd })
+  }
+
+  return results
+}
+
+function expandMonthlyWindow(
+  rule: ParsedRRule,
+  startParts: ReturnType<typeof getBerlinParts>,
+  hour: number,
+  minute: number,
+  durationMs: number | null,
+  from: Date,
+  to: Date,
+): Occurrence[] {
+  const byDay = rule.byDay ?? [{ weekday: startParts.weekday, nth: null }]
+  const results: Occurrence[] = []
+  let year = startParts.year
+  let month = startParts.month
+
+  for (let i = 0; i < 48; i++) {
+    const days = monthlyOccurrenceDays(year, month, byDay)
+    for (const day of days) {
+      const dateKey = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+      if (dateKey < startParts.dateKey) continue
+
+      const occStart = berlinLocalToUtc(year, month, day, hour, minute, 0)
+      if (rule.until && occStart.getTime() > rule.until.getTime()) return results
+      if (occStart.getTime() >= to.getTime()) return results
+
+      const occEnd = durationMs != null ? new Date(occStart.getTime() + durationMs) : null
+      if (overlapsWindow(occStart, occEnd, from, to)) {
+        results.push({ start: occStart, end: occEnd })
+      }
+    }
+
+    month += 1
+    if (month > 12) {
+      month = 1
+      year += 1
+    }
+  }
+
+  return results
+}

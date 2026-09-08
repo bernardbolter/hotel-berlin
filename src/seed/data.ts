@@ -80,13 +80,66 @@ export const hotelSeed = {
     reception: 'Mo-Su 00:00-24:00',
     breakfast: 'Mo-Su 06:30-10:00',
   },
+  hours: [
+    { dayOfWeek: 'Mo-Su', opens: '00:00', closes: '24:00', segment: 'Reception' },
+    { dayOfWeek: 'Mo-Fr', opens: '06:30', closes: '10:00', segment: 'Breakfast' },
+    { dayOfWeek: 'Sa-Su', opens: '06:30', closes: '11:00', segment: 'Breakfast' },
+  ],
+  breakfastPricing: {
+    adultPrice: 23,
+    childPrice: 12,
+    childAgeFrom: 6,
+  },
+  roomService: {
+    offered: false,
+  },
   guestStay: {
-    checkoutNote: 'noon',
-    breakfastLocation: 'Lütze ground floor',
     wifiNetwork: 'HBB_Guest',
     wifiPassword: 'welcome1958',
-    parkingSummary: 'Underground · 200+ spaces · €4/hr · max €25/day',
-    luggageNote: 'Available after check-out · ask at reception',
+    checkout: {
+      valueDE: '12:00',
+      valueEN: '12:00',
+      noteDE: 'Später auf Anfrage',
+      noteEN: 'Later on request',
+    },
+    breakfast: {
+      valueDE: '06:30 – 10:00 · Sa/So bis 11:00',
+      valueEN: '06:30 – 10:00 · Sat/Sun until 11:00',
+      noteDE: 'Lütze, Erdgeschoss',
+      noteEN: 'Lütze, ground floor',
+    },
+    parking: {
+      valueDE: '4 € / Std.',
+      valueEN: '€4 / hour',
+      noteDE: 'Tiefgarage · max. 25 €/Tag',
+      noteEN: 'Underground · max. €25/day',
+    },
+    luggage: {
+      valueDE: 'Rezeption',
+      valueEN: 'Reception',
+      noteDE: 'Auch nach dem Check-out',
+      noteEN: 'Also after check-out',
+    },
+    more: {
+      saunaFitness: {
+        valueDE: '24/7',
+        valueEN: '24/7',
+        noteDE: 'Sauna · Fitness',
+        noteEN: 'Sauna · gym',
+      },
+      pets: {
+        valueDE: '€30 / Tag',
+        valueEN: '€30 / day',
+        noteDE: 'Hunde willkommen',
+        noteEN: 'Dogs welcome',
+      },
+    },
+  },
+  bridgeNav: {
+    toHereLabelEN: 'Already in the house? ENTER →',
+    toHereLabelDE: 'Schon im Haus? ENTER →',
+    toStayLabelEN: 'Not here yet? STAY →',
+    toStayLabelDE: 'Noch nicht hier? BLEIB →',
   },
 }
 
@@ -652,6 +705,39 @@ export const meetingRoomsSeed = [
   },
 ]
 
+export const lutzeHoursSeed = [
+  { dayOfWeek: 'Mo-Su', opens: '10:00', closes: '01:00', segment: 'Bar' },
+  { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
+  { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
+]
+
+export const lutzeLocaleDe = {
+  name: 'Lütze',
+  tagline: 'Der Ort zum Essen, Spielen und Verweilen.',
+  shortDescription:
+    'Italienisches Deli-Café, Bar und Garten am Lützowplatz 17. Offen für Gäste und Berliner:innen.',
+}
+
+export const wundermartSeed = {
+  name: 'Wundermart',
+  slug: 'wundermart',
+  venueType: 'LocalBusiness' as const,
+  location: 'Lobby',
+  openingHours: [{ dayOfWeek: 'Mo-Su', opens: '00:00', closes: '24:00' }],
+  shortDescription:
+    'Grab, Scan & Go — snacks, drinks, adapters, cables, umbrellas. Card payment.',
+  isGuestFacing: true,
+  isOpenToPublic: true,
+  featured: false,
+  displayOrder: 5,
+}
+
+export const wundermartLocaleDe = {
+  name: 'Wundermart',
+  shortDescription:
+    'Grab, Scan & Go — Snacks, Getränke, Adapter, Ladekabel, Schirme. Zahlung per Karte.',
+}
+
 export const venuesSeed = [
   {
     name: 'Lütze',
@@ -663,16 +749,13 @@ export const venuesSeed = [
     location: 'Ground Floor, Lützowplatz 17',
     email: 'luetze@hotel-berlin.de',
     website: 'https://hotel-berlin.de/en/eat-drink/luetze-bar-berlin',
-    openingHours: [
-      { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', segment: 'Bar' },
-      { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
-      { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
-    ],
+    openingHours: lutzeHoursSeed,
     spotlightLocation: 'Ground floor',
-    servesCuisine: 'Italian, International',
+    servesCuisine: 'Italian',
     reservationUrl: 'https://hotel-berlin.de/en/eat-drink/luetze-bar-berlin',
     priceRange: '€€',
     isOpenToPublic: true,
+    isGuestFacing: true,
     featured: true,
     displayOrder: 1,
   },
@@ -700,10 +783,12 @@ export const venuesSeed = [
     location: 'B2 Basement',
     website: 'https://hotel-berlin.de',
     openingHours: [
+      { dayOfWeek: 'Mo-Su', opens: '13:00', closes: '23:00', segment: 'Open Play' },
       {
         dayOfWeek: 'Thursday',
         opens: '19:00',
-        closes: 'open end',
+        closes: '02:00',
+        isOpenEnded: true,
         segment: 'Tournament Night',
       },
     ],
@@ -725,7 +810,116 @@ export const venuesSeed = [
     featured: false,
     displayOrder: 4,
   },
+  wundermartSeed,
+  {
+    name: 'Wallride',
+    slug: 'wallride',
+    venueType: 'LocalBusiness' as const,
+    shortDescription:
+      'Permanent half-pipe exhibition — Cold War Berlin skate history, curated by Jürgen Blümlein and Skateboardmuseum Berlin.',
+    location: 'B2 · outside KTTK',
+    spotlightLocation: 'B2 Basement',
+    isGuestFacing: true,
+    isOpenToPublic: true,
+    featured: false,
+    displayOrder: 6,
+  },
+  {
+    name: 'Gym',
+    slug: 'gym',
+    venueType: 'SportsActivityLocation' as const,
+    shortDescription: '24/7 gym for hotel guests.',
+    location: 'In the hotel',
+    openingHours: [{ dayOfWeek: 'Mo-Su', opens: '00:00', closes: '24:00' }],
+    isGuestFacing: true,
+    isOpenToPublic: false,
+    featured: false,
+    displayOrder: 7,
+  },
+  {
+    name: 'Sauna & Sanarium',
+    slug: 'sauna',
+    venueType: 'LocalBusiness' as const,
+    shortDescription:
+      'Finnish sauna and Sanarium. 45 minutes’ notice. Hours contradict on the source site — do not pick a schedule until the hotel confirms.',
+    location: 'In the hotel',
+    isGuestFacing: true,
+    isOpenToPublic: false,
+    featured: false,
+    displayOrder: 8,
+  },
+  {
+    name: 'Bett & Bike',
+    slug: 'bett-and-bike',
+    venueType: 'LocalBusiness' as const,
+    shortDescription: 'Bike rental for guests. Confirm current offer at reception.',
+    location: 'In the hotel',
+    isGuestFacing: true,
+    isOpenToPublic: false,
+    featured: false,
+    displayOrder: 9,
+  },
+  {
+    name: 'Business Center',
+    slug: 'business-center',
+    venueType: 'LocalBusiness' as const,
+    shortDescription: 'Business center and on-site ATM.',
+    location: 'In the hotel',
+    isGuestFacing: true,
+    isOpenToPublic: false,
+    featured: false,
+    displayOrder: 10,
+  },
+  {
+    name: 'EV charging',
+    slug: 'e-laden',
+    venueType: 'LocalBusiness' as const,
+    shortDescription: '8 × Type 2 charging stations on site.',
+    location: 'On site',
+    isGuestFacing: true,
+    isOpenToPublic: true,
+    featured: false,
+    displayOrder: 11,
+  },
 ]
+
+export const hereAmenityLocalesDe: Record<
+  string,
+  { name: string; shortDescription: string; location: string }
+> = {
+  wallride: {
+    name: 'Wallride',
+    shortDescription:
+      'Permanente Halfpipe-Ausstellung — Skate-Geschichte des Kalten Kriegs, kuratiert von Jürgen Blümlein und Skateboardmuseum Berlin.',
+    location: 'B2 · vor KTTK',
+  },
+  gym: {
+    name: 'Gym',
+    shortDescription: '24/7 Fitnessraum für Hotelgäste.',
+    location: 'Im Hotel',
+  },
+  sauna: {
+    name: 'Sauna & Sanarium',
+    shortDescription:
+      'Finnische Sauna und Sanarium. 45 Minuten Vorlauf. Die Zeiten widersprechen sich auf der Quellseite — keine Variante wählen, bis das Hotel bestätigt.',
+    location: 'Im Hotel',
+  },
+  'bett-and-bike': {
+    name: 'Bett & Bike',
+    shortDescription: 'Fahrradverleih für Gäste. Aktuelles Angebot an der Rezeption erfragen.',
+    location: 'Im Hotel',
+  },
+  'business-center': {
+    name: 'Business Center',
+    shortDescription: 'Business Center und Geldautomat im Haus.',
+    location: 'Im Hotel',
+  },
+  'e-laden': {
+    name: 'E-Laden',
+    shortDescription: '8 × Typ-2-Ladestationen vor Ort.',
+    location: 'Vor Ort',
+  },
+}
 
 export const faqsSeed = [
   // —— Prospect (homepage mini pulls category: general) ——
@@ -734,6 +928,9 @@ export const faqsSeed = [
     question: 'What time can I check in at Hotel Berlin, Berlin?',
     answer:
       'Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.',
+    questionDE: 'Wann kann ich im Hotel Berlin, Berlin einchecken?',
+    answerDE:
+      'Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang.',
     context: 'prospect' as const,
     category: 'general' as const,
     order: 1,
@@ -743,6 +940,9 @@ export const faqsSeed = [
     question: 'Is there parking at Hotel Berlin, Berlin?',
     answer:
       'Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.',
+    questionDE: 'Gibt es Parkplätze im Hotel Berlin, Berlin?',
+    answerDE:
+      'Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe.',
     context: 'prospect' as const,
     category: 'general' as const,
     order: 2,
@@ -752,6 +952,9 @@ export const faqsSeed = [
     question: 'Are pets allowed at Hotel Berlin, Berlin?',
     answer:
       'Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.',
+    questionDE: 'Sind Haustiere im Hotel Berlin, Berlin erlaubt?',
+    answerDE:
+      'Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen.',
     context: 'prospect' as const,
     category: 'general' as const,
     order: 3,
@@ -761,6 +964,9 @@ export const faqsSeed = [
     question: 'How do I get to Hotel Berlin, Berlin from BER airport?',
     answer:
       'Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total.',
+    questionDE: 'Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?',
+    answerDE:
+      'Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten.',
     context: 'prospect' as const,
     category: 'general' as const,
     order: 4,
@@ -770,6 +976,9 @@ export const faqsSeed = [
     question: 'What is the cancellation policy for a flexible rate?',
     answer:
       'Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night.',
+    questionDE: 'Wie lautet die Stornierungsbedingung beim flexiblen Tarif?',
+    answerDE:
+      'Flexible Buchungen im Hotel Berlin, Berlin können bis 18:00 am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden 90 % der ersten Nacht berechnet.',
     context: 'prospect' as const,
     category: 'rooms-booking' as const,
     order: 10,
@@ -779,6 +988,9 @@ export const faqsSeed = [
     question: 'What are the breakfast times at Hotel Berlin?',
     answer:
       'Breakfast is served daily from 06:30 to 10:00. It is a full buffet with vegan options available.',
+    questionDE: 'Wann ist das Frühstück im Hotel Berlin?',
+    answerDE:
+      'Frühstück gibt es täglich von 06:30 bis 10:00. Volles Buffet mit veganen Optionen.',
     context: 'prospect' as const,
     category: 'dining' as const,
     order: 20,
@@ -788,7 +1000,10 @@ export const faqsSeed = [
     slug: 'guest-wifi',
     question: 'How do I connect to the hotel WiFi?',
     answer:
-      'Connect to the Hotel Berlin network and open any browser page — the login portal appears automatically. Reception can help if you need a new access code.',
+      'Ask at the Guest Care Center beside the lobby for the current network details. They will get you online.',
+    questionDE: 'Wie verbinde ich mich mit dem WLAN?',
+    answerDE:
+      'Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht.',
     context: 'guest' as const,
     category: 'wifi-tech' as const,
     order: 1,
@@ -796,7 +1011,11 @@ export const faqsSeed = [
   {
     slug: 'guest-luggage',
     question: 'Where can I store luggage before check-in or after check-out?',
-    answer: 'Luggage storage is available at reception at Hotel Berlin, Berlin — ask at the front desk.',
+    answer:
+      'Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby.',
+    questionDE: 'Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?',
+    answerDE:
+      'Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby.',
     context: 'guest' as const,
     category: 'guest-services' as const,
     order: 2,
@@ -805,7 +1024,10 @@ export const faqsSeed = [
     slug: 'guest-checkout',
     question: 'What time is check-out?',
     answer:
-      'Check-out at Hotel Berlin, Berlin is by 12:00 noon. Late check-out may be available on request — ask at reception on the morning of departure.',
+      'Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave.',
+    questionDE: 'Wann ist der Check-out?',
+    answerDE:
+      'Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen.',
     context: 'guest' as const,
     category: 'guest-services' as const,
     order: 3,
@@ -815,6 +1037,9 @@ export const faqsSeed = [
     question: 'What is worth seeing within a short walk of the hotel?',
     answer:
       'Tiergarten, the Landwehrkanal, and Ku’damm are all within walking distance of Lützowplatz. Ask reception for a printed map, or open the neighbourhood guide in the guest hub.',
+    questionDE: 'Was lohnt sich in kurzer Gehweite vom Hotel?',
+    answerDE:
+      'Tiergarten, Landwehrkanal und Ku’damm sind zu Fuß vom Lützowplatz erreichbar. An der Rezeption gibt es eine gedruckte Karte, oder öffne den Kiezführer im Guest Hub.',
     context: 'guest' as const,
     category: 'neighbourhood-guest' as const,
     order: 4,
@@ -824,6 +1049,9 @@ export const faqsSeed = [
     question: 'Who do I ask if I need anything during my stay?',
     answer:
       'Reception is available 24 hours at Hotel Berlin, Berlin. For restaurant, spa, or event questions, they will point you to the right team.',
+    questionDE: 'Wen frage ich, wenn ich während meines Aufenthalts etwas brauche?',
+    answerDE:
+      'Die Rezeption im Hotel Berlin, Berlin ist rund um die Uhr besetzt. Bei Fragen zu Restaurant, Spa oder Veranstaltungen wird man an das richtige Team verwiesen.',
     context: 'guest' as const,
     category: 'general' as const,
     order: 5,

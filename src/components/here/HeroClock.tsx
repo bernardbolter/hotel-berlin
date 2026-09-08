@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 
 type Props = {
   ariaLabel: string
+  weekday?: string
 }
 
-export function HeroClock({ ariaLabel }: Props) {
+export function HeroClock({ ariaLabel, weekday }: Props) {
   const [time, setTime] = useState('')
 
   useEffect(() => {
@@ -28,13 +29,16 @@ export function HeroClock({ ariaLabel }: Props) {
   if (!time) return null
 
   return (
-    <time
-      className="font-ui text-[13px] text-[#cccccc]"
-      dateTime={time}
-      aria-label={ariaLabel}
-      aria-live="off"
-    >
-      {time}
-    </time>
+    <>
+      <time
+        className="here-hero__clock-time"
+        dateTime={time}
+        aria-label={ariaLabel}
+        aria-live="off"
+      >
+        {time}
+      </time>
+      {weekday ? <p className="here-hero__clock-day">{weekday}</p> : null}
+    </>
   )
 }

@@ -47,6 +47,16 @@ export const PLACE_IMAGE_FALLBACKS: Record<string, PlaceImageFallbackAsset> = {
     creditText: 'Unsplash (temporary)',
     creditUrl: 'https://unsplash.com',
   },
+  olympiastadion: {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Olympiastadion_Berlin.jpg/960px-Olympiastadion_Berlin.jpg',
+    creditText: 'Horst Schötzel, CC BY 3.0',
+    creditUrl: 'https://commons.wikimedia.org/wiki/File:Olympiastadion_Berlin.jpg',
+  },
+  'holocaust-memorial': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Holocaust_Memorial_Berlin.JPG/960px-Holocaust_Memorial_Berlin.JPG',
+    creditText: 'Txalapartari, CC BY 3.0',
+    creditUrl: 'https://commons.wikimedia.org/wiki/File:Holocaust_Memorial_Berlin.JPG',
+  },
 }
 
 type ImageRef = { src: string; alt: string } | null

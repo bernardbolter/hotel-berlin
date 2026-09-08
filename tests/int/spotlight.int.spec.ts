@@ -30,7 +30,7 @@ const lutzeVenue = {
   location: 'Ground Floor',
   spotlightLocation: 'Ground floor',
   openingHours: [
-    { dayOfWeek: 'Mo-Su', opens: '10:00', closes: 'open end', segment: 'Bar' },
+    { dayOfWeek: 'Mo-Su', opens: '10:00', closes: '01:00', segment: 'Bar' },
     { dayOfWeek: 'Mo-Su', opens: '11:30', closes: '15:00', segment: 'Kitchen' },
     { dayOfWeek: 'Mo-Su', opens: '17:00', closes: '22:30', segment: 'Kitchen' },
   ],
@@ -45,7 +45,7 @@ describe('pickBarOrPrimarySegment', () => {
       lutzeVenue.openingHours,
       atBerlin('2026-08-06T16:00:00'),
     )
-    expect(segment).toEqual({
+    expect(segment).toMatchObject({
       label: 'Bar',
       status: 'Open',
     })
@@ -187,7 +187,7 @@ describe('buildVenueSpotlightFromParts', () => {
       },
       now: atBerlin('2026-08-06T16:00:00'),
     })
-    expect(card?.primaryMeta).toBe('Open')
+    expect(card?.primaryMeta).toBe('Open · 01:00')
     expect(card?.locationLabel).toBe('Ground floor')
     expect(card?.secondaryMeta).toBeUndefined()
     expect(card?.identityMark).toBeUndefined()
@@ -285,8 +285,42 @@ describe('resolveEventSpotlight', () => {
     expect(card?.badge.categoryToken).toBe('community')
     expect(card?.cta.categoryToken).toBe('community')
     expect(card?.venueLabel).toBe('Lütze')
-    expect(card?.locationLabel).toBe('Ground floor')
+    expect(card?.locationLabel).toBe('Ground Floor')
     expect(card?.secondaryMeta).toBeUndefined()
+    expect(card?.cta.href).toBe('/happenings#zeichenstammtisch')
+    expect(card?.framing).toBe('prospect')
+    expect(card?.primaryMeta).toMatch(/19:00/)
+    expect(card?.description).toBe('Open drawing table.')
+  })
+
+  it('guest framing fills the same slots with time-state and practical copy', async () => {
+    const event = {
+      id: 3,
+      name: 'Zeichenstammtisch',
+      slug: 'zeichenstammtisch',
+      category: 'Community',
+      shortDescription: 'Open drawing table.',
+      bookingNote: 'no booking',
+      isFree: true,
+      startDate: berlinLocalToUtc(2026, 8, 27, 19, 0, 0).toISOString(),
+      isRecurring: true,
+      recurrenceRule: 'FREQ=MONTHLY;BYDAY=-1TH',
+      heroImage: { id: 11, url: '/media/zeichen.jpg', alt: 'Drawing' },
+      venue: lutzeVenue,
+      updatedAt: '',
+      createdAt: '',
+    } as unknown as Event
+
+    const card = await resolveEventSpotlight(event, {
+      now: atBerlin('2026-08-06T12:00:00'),
+      framing: 'guest',
+    })
+    expect(card?.description).toBe('free entry · no booking')
+    expect(card?.locationLabel).toBe('Ground floor')
+    expect(card?.framing).toBe('guest')
+    expect(card?.cta.label).toBe('See event')
+    expect(card?.cta.href).toBe('/here/events#zeichenstammtisch')
+    expect(card?.cta.href).not.toMatch(/\/here\/events\//)
   })
 })
 

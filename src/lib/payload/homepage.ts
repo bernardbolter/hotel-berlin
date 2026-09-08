@@ -1,4 +1,5 @@
 import type { HeroSlide as HeroSlideDoc, Homepage, Hotel, Media } from '@/payload-types'
+import type { Where } from 'payload'
 
 import { heroSlides as fallbackHeroSlides, type HeroSlide } from '@/components/home/heroSlides'
 import { getPayloadClient } from '@/lib/payload/client'
@@ -62,9 +63,24 @@ function mapHomepageSlides(enPage: Homepage, dePage: Homepage): HeroSlide[] {
     .filter((slide): slide is HeroSlide => slide !== null)
 }
 
-export async function getHeroSlides(): Promise<HeroSlide[]> {
+export type HeroSlideContext = 'homepage' | 'here'
+
+/** Homepage includes untagged rows so the new `context` field cannot empty the live hero. */
+export function heroSlideContextWhere(context: HeroSlideContext): Where {
+  if (context === 'here') {
+    return { context: { equals: 'here' } }
+  }
+  return {
+    or: [{ context: { equals: 'homepage' } }, { context: { exists: false } }],
+  }
+}
+
+export async function getHeroSlides(
+  context: HeroSlideContext = 'homepage',
+): Promise<HeroSlide[]> {
   try {
     const payload = await getPayloadClient()
+    const contextWhere = heroSlideContextWhere(context)
 
     const [enResult, deResult] = await Promise.all([
       payload.find({
@@ -73,7 +89,9 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
         depth: 2,
         limit: 50,
         sort: 'order',
-        where: { enabled: { equals: true } },
+        where: {
+          and: [{ enabled: { equals: true } }, contextWhere],
+        },
       }),
       payload.find({
         collection: 'hero-slides',
@@ -81,7 +99,9 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
         depth: 2,
         limit: 50,
         sort: 'order',
-        where: { enabled: { equals: true } },
+        where: {
+          and: [{ enabled: { equals: true } }, contextWhere],
+        },
       }),
     ])
 
@@ -94,6 +114,9 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
 
     if (fromCollection.length > 0) return fromCollection
 
+    // /here has no legacy global / hardcoded fallback — those are homepage-only.
+    if (context === 'here') return []
+
     const [enPage, dePage] = await Promise.all([
       payload.findGlobal({ slug: 'homepage', locale: 'en', depth: 2 }),
       payload.findGlobal({ slug: 'homepage', locale: 'de', depth: 2 }),
@@ -102,6 +125,7 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
     const fromHomepage = mapHomepageSlides(enPage, dePage)
     if (fromHomepage.length > 0) return fromHomepage
   } catch {
+    if (context === 'here') return []
     // Fall through to placeholders when CMS is unavailable.
   }
 

@@ -5,7 +5,7 @@ export const Navigation: GlobalConfig = {
   label: 'Inside Navigation',
   admin: {
     description:
-      'Choose and reorder up to 5 inside (/here) pages for the secondary nav row. Primary nav links stay fixed in code.',
+      'Choose and reorder up to 5 inside (/here) pages for the primary nav on /here. Outside primary links stay fixed in code.',
   },
   hooks: {
     beforeValidate: [
@@ -47,7 +47,7 @@ export const Navigation: GlobalConfig = {
       maxRows: 5,
       admin: {
         description:
-          'Drag to reorder. Pick from inside pages only — create them under Pages first. Maximum 5 links.',
+          'Drag to reorder. These become row 1 on /here. Maximum 5 links.',
         initCollapsed: false,
       },
       fields: [

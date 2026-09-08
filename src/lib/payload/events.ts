@@ -6,6 +6,11 @@ type EventQuery = {
   locale?: 'de' | 'en'
 }
 
+/**
+ * Raw CMS docs sorted by series `startDate` — no RRULE expansion, no date filter.
+ * Do not use for page lists (that is why `/hier/events` showed August).
+ * Use {@link getEventOccurrences} instead.
+ */
 export async function getEvents({ featured, limit = 20, locale }: EventQuery = {}) {
   const payload = await getPayloadClient()
 

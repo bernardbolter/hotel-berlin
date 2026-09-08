@@ -9,15 +9,15 @@ type InsideLinkRow = {
 
 const fallbackInsideLinks: Record<'de' | 'en', SecondaryNavLink[]> = {
   en: [
-    { id: 'fallback-events', label: "What's on tonight", href: '/here/events' },
+    { id: 'fallback-events', label: "What's on", href: '/here/events' },
     { id: 'fallback-getting-around', label: 'Getting around', href: '/here/getting-around' },
-    { id: 'fallback-local-tips', label: 'Explore the area', href: '/here/explore' },
+    { id: 'fallback-local-tips', label: 'The neighbourhood', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Gallery', href: '/here/gallery' },
     { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
   ],
   de: [
-    { id: 'fallback-events', label: 'Was läuft heute Abend', href: '/here/events' },
-    { id: 'fallback-getting-around', label: 'Orientierung', href: '/here/getting-around' },
+    { id: 'fallback-events', label: 'Was ist los', href: '/here/events' },
+    { id: 'fallback-getting-around', label: 'So kommst du hin', href: '/here/getting-around' },
     { id: 'fallback-local-tips', label: 'Die Nachbarschaft', href: '/here/explore' },
     { id: 'fallback-gallery', label: 'Galerie', href: '/here/gallery' },
     { id: 'fallback-wallride', label: 'Wallride', href: '/here/wallride' },
@@ -41,7 +41,7 @@ function toInsideNavLink(row: InsideLinkRow): SecondaryNavLink | null {
   }
 }
 
-/** Secondary nav row links — sourced from Inside Navigation global `secondaryLinks`. */
+/** `/here` row-1 links — sourced from Inside Navigation global `secondaryLinks`. */
 export async function getSecondaryNavLinks(locale: 'de' | 'en'): Promise<SecondaryNavLink[]> {
   try {
     const payload = await getPayloadClient()

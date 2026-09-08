@@ -63,7 +63,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd) }}
         />
       </head>
-      <body>
+      <body data-context="outside">
         <a href="#main-content" className="skip-link">
           {tc('skipToMain')}
         </a>

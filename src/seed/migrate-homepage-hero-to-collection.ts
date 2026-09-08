@@ -174,6 +174,7 @@ async function migrate() {
         captionOverride: copy.captionEn,
         order: index,
         enabled: true,
+        context: 'homepage',
       },
     })
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -13,9 +13,8 @@ import {
   type PlaceInfoCardImageCredit,
   type PlaceInfoCardTransit,
 } from '@/components/map/PlaceInfoCard'
-import {
-  TeaserPlaceList,
-} from '@/components/map/TeaserPlaceIndex'
+import { HereRecommenderList } from '@/components/map/HereRecommenderList'
+import { TeaserPlaceList } from '@/components/map/TeaserPlaceIndex'
 import type { MapBounds } from '@/lib/map/config'
 import { pinColorForCategory } from '@/lib/neighbourhood/categories'
 import {
@@ -40,6 +39,18 @@ export type MapTeaserPlace = {
   image?: { src: string; alt: string } | null
   imageCredit?: PlaceInfoCardImageCredit | null
   endorsements: PlaceInfoCardEndorsement[]
+  leadEndorser?: {
+    name: string
+    givenName: string
+    shortName: string
+    slug: string
+    initials: string
+    portraitUrl: string | null
+    jobTitle?: string | null
+    quote?: string | null
+  } | null
+  /** Places this lead endorser recommends in the current set (person-first labels). */
+  endorserPlaceCount?: number
   latitude: number
   longitude: number
 }
@@ -56,9 +67,9 @@ type Props = {
   hotelAriaLabel: string
   shortAddress: string
   fallbackImageSrc?: string
-  /** Accent kept for API compatibility (consent CTA removed for now). */
-  accent?: 'forest' | 'teal'
-  /** Compact embed for the /here hub card (wireframe 160–280px). */
+  /** Place-first (home) vs person-first (/here). */
+  framing?: 'place' | 'endorser'
+  /** Compact embed for a /here hub card (retired for parity — kept for call-site compat). */
   variant?: 'full' | 'compact'
   /** Homepage: compact name list floating on the map. */
   showPlaceNav?: boolean
@@ -77,10 +88,12 @@ export function HomepageMapTeaser({
   hotelAriaLabel,
   shortAddress,
   fallbackImageSrc = FALLBACK_IMAGE,
+  framing = 'place',
   variant = 'full',
   showPlaceNav = false,
 }: Props) {
   const t = useTranslations('heroMap')
+  const tHere = useTranslations('here')
   const compact = variant === 'compact'
   const showPanel = showPlaceNav && !compact
   /** Homepage: five places for now (pagination of 15 comes back later). */
@@ -117,6 +130,15 @@ export function HomepageMapTeaser({
         latitude: p.latitude,
         longitude: p.longitude,
         endorserCount: p.endorsements.length,
+        endorserPlaceCount: p.endorserPlaceCount,
+        personPin: p.leadEndorser
+          ? {
+              name: p.leadEndorser.name,
+              shortName: p.leadEndorser.shortName,
+              initials: p.leadEndorser.initials,
+              portraitUrl: p.leadEndorser.portraitUrl,
+            }
+          : undefined,
       })),
     [pagePlaces],
   )
@@ -131,30 +153,102 @@ export function HomepageMapTeaser({
     [pagePlaces],
   )
 
+  const recommenderItems = useMemo(
+    () =>
+      pagePlaces.flatMap((p) => {
+        const person = p.leadEndorser
+        if (!person) return []
+        const meta = [p.walkingLabel, p.categoryLabel].filter(Boolean).join(' · ')
+        return [
+          {
+            placeId: p.id,
+            placeName: p.name,
+            placeMeta: meta,
+            person,
+          },
+        ]
+      }),
+    [pagePlaces],
+  )
+
   const mapHeight = compact
-    ? 'h-[160px] md:h-[220px] lg:h-[280px]'
+    ? 'h-[160px] md:h-[220px] min-[1100px]:h-full min-[1100px]:min-h-[220px]'
     : showPanel
       ? 'h-[min(48vh,360px)] min-h-64 md:h-[min(70vh,640px)] md:min-h-100'
       : 'h-[min(70vh,640px)] min-h-100'
 
+  const fallbackMap = (
+    <div className={`relative w-full overflow-hidden bg-hbb-page ${mapHeight}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={fallbackImageSrc}
+        alt={t('fallbackAlt')}
+        className="h-full w-full object-cover"
+      />
+      <p className="absolute bottom-0 left-0 right-0 bg-black/55 px-4 py-3 font-serif text-[15px] leading-snug text-white">
+        {shortAddress}
+      </p>
+    </div>
+  )
+
+  const recommenderList = (
+    <HereRecommenderList
+      items={recommenderItems}
+      recommendsLabel={(name) => tHere('recommends', { name })}
+      ariaLabel={tHere('localPicks')}
+    />
+  )
+
+  const compactShell = (map: ReactNode) => (
+    <div className="homepage-map-teaser grid w-full text-hbb-black min-[1024px]:grid-cols-[1.1fr_1.4fr]">
+      {map}
+      {recommenderList}
+    </div>
+  )
+
   if (!accessToken) {
-    return (
-      <div className={`homepage-map-teaser relative w-full overflow-hidden bg-hbb-page ${mapHeight}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={fallbackImageSrc}
-          alt={t('fallbackAlt')}
-          className="h-full w-full object-cover"
+    return compact ? compactShell(fallbackMap) : fallbackMap
+  }
+
+  if (compact) {
+    return compactShell(
+      <div className={`relative w-full ${mapHeight}`}>
+        <NeighbourhoodGuideMap
+          accessToken={accessToken}
+          bounds={bounds}
+          center={center}
+          places={guidePlaces}
+          hotelName={hotelName}
+          hotelAriaLabel={hotelAriaLabel}
+          hideNavigation
+          styleId="mapbox/standard"
+          fitPadding={32}
+          pinColorMode="category"
+          pinTabOrder="geographic"
+          selectedId={null}
+          ariaLabel={t('mapAria')}
+          noscriptHtml={t.raw('noscript') as string}
+          className="h-full!"
         />
-        <p className="absolute bottom-0 left-0 right-0 bg-black/55 px-4 py-3 font-serif text-[15px] leading-snug text-white">
-          {shortAddress}
-        </p>
-      </div>
+      </div>,
     )
   }
 
   const card = selected ? (
     <PlaceInfoCard
+      emphasis={framing === 'endorser' ? 'person' : 'place'}
+      leadPerson={
+        framing === 'endorser' && selected.leadEndorser
+          ? {
+              name: selected.leadEndorser.name,
+              slug: selected.leadEndorser.slug,
+              jobTitle: selected.leadEndorser.jobTitle,
+              initials: selected.leadEndorser.initials,
+              portraitUrl: selected.leadEndorser.portraitUrl,
+              quote: selected.leadEndorser.quote,
+            }
+          : null
+      }
       image={selected.image}
       imageCredit={selected.imageCredit}
       category={{
@@ -171,6 +265,7 @@ export function HomepageMapTeaser({
       transitLabel={selected.transitLabel}
       endorsements={selected.endorsements}
       recommendedByLabel={t('recommendedBy')}
+      recommendsLabel={framing === 'endorser' ? t('recommendsPrefix') : undefined}
       className="w-full md:w-[268px]"
     />
   ) : null
@@ -195,21 +290,21 @@ export function HomepageMapTeaser({
           places={guidePlaces}
           hotelName={hotelName}
           hotelAriaLabel={hotelAriaLabel}
-          hideNavigation={compact}
+          hideNavigation={false}
           styleId="mapbox/standard"
-          fitPadding={compact ? 32 : 64}
+          fitPadding={64}
           pinColorMode="category"
+          pinVariant={framing === 'endorser' ? 'person' : 'category'}
+          pinLabelMode={framing === 'endorser' ? 'endorser' : 'place'}
           pinTabOrder={showPanel ? 'source' : 'geographic'}
-          selectedId={compact ? null : effectiveSelectedId}
-          onSelect={!compact && visiblePlaces.length > 0 ? setSelectedId : undefined}
+          selectedId={effectiveSelectedId}
+          onSelect={visiblePlaces.length > 0 ? setSelectedId : undefined}
           ariaLabel={t('mapAria')}
           noscriptHtml={t.raw('noscript') as string}
-          className={
-            compact ? 'h-full!' : showPanel ? 'h-full! min-h-0! md:min-h-100!' : 'h-full! min-h-100!'
-          }
+          className={showPanel ? 'h-full! min-h-0! md:min-h-100!' : 'h-full! min-h-100!'}
         />
 
-        {!compact && card ? (
+        {card ? (
           <div className="pointer-events-none absolute left-4 top-4 z-10 hidden md:left-14 md:block">
             <div className="pointer-events-auto">{card}</div>
           </div>
@@ -224,7 +319,7 @@ export function HomepageMapTeaser({
         ) : null}
       </div>
 
-      {!compact && (card || placeList) ? (
+      {card || placeList ? (
         <div className="flex items-stretch gap-3 border-t border-black/5 bg-hbb-page p-3 md:hidden">
           {card ? <div className="min-w-0 flex-1">{card}</div> : null}
           {placeList ? (

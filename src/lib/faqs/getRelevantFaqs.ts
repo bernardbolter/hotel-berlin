@@ -26,11 +26,20 @@ export function getRelevantFaqs(
     context: FaqContext
     pageId?: string
     category?: FaqCategory
+    slugs?: readonly string[]
     limit?: number
   },
 ): Faq[] {
-  const { context, pageId, category, limit = 4 } = opts
+  const { context, pageId, category, slugs, limit = 4 } = opts
   const inContext = allFaqs.filter((f) => f.context === context)
+
+  if (slugs && slugs.length > 0) {
+    const bySlug = new Map(inContext.map((faq) => [faq.slug, faq]))
+    const ordered = slugs
+      .map((slug) => bySlug.get(slug))
+      .filter((faq): faq is Faq => Boolean(faq))
+    if (ordered.length > 0) return ordered.slice(0, limit)
+  }
 
   const pinned = pageId
     ? inContext.filter((f) =>

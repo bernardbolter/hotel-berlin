@@ -4,7 +4,7 @@ import { useRouter } from '@/i18n/routing'
 import { useSearchParams } from 'next/navigation'
 
 type Props = {
-  pathname: '/neighbourhood' | '/you-me-berlin'
+  pathname: '/neighbourhood' | '/you-me-berlin' | '/here/explore'
   options: { value: string; label: string }[]
   param: string
   activeValue?: string | null
@@ -31,7 +31,7 @@ export function ToggleFilterGroup({
     }
     const qs = params.toString()
     // Query string appended to canonical pathname key — next-intl localizes the path.
-    router.push((qs ? `${pathname}?${qs}` : pathname) as '/neighbourhood')
+    router.push((qs ? `${pathname}?${qs}` : pathname) as typeof pathname)
   }
 
   return (

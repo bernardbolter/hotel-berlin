@@ -22,6 +22,7 @@ import {
   localizeHoursSegmentLabel,
   toOpeningHoursEntries,
 } from '@/lib/venues/formatHours'
+import { localizeInBuildingLocation } from '@/lib/venues/localizeCopy'
 import {
   mapVenueToAeo,
   resolveLocale,
@@ -67,7 +68,7 @@ export default async function RestaurantPage({ params }: Props) {
 
   if (!venue) notFound()
 
-  const breakfast = guestStayFromHotel(hotel)
+  const breakfast = guestStayFromHotel(hotel, locale === 'de' ? 'de' : 'en')
   const hoursEntries = toOpeningHoursEntries(venue.openingHours)
   const hourSegments = formatVenueHoursSegments(hoursEntries, t('openEnd'))
   const gallery = venueGalleryImages(venue, eatAndDrink.image)
@@ -76,7 +77,12 @@ export default async function RestaurantPage({ params }: Props) {
     restaurant: t('breadcrumbRestaurant'),
   })
 
-  const cuisineLine = [venue.servesCuisine, venue.priceRange].filter(Boolean).join(' · ')
+  const cuisine = venue.servesCuisine
+    ? locale === 'de'
+      ? venue.servesCuisine.replace(/\bItalian\b/gi, 'Italienisch')
+      : venue.servesCuisine
+    : null
+  const cuisineLine = [cuisine, venue.priceRange].filter(Boolean).join(' · ')
   const intro = venue.shortDescription || eatAndDrink.body
 
   return (
@@ -157,7 +163,9 @@ export default async function RestaurantPage({ params }: Props) {
           ) : null}
 
           {venue.location ? (
-            <p className="mt-2 font-ui text-ui-sm text-gray-500">{venue.location}</p>
+            <p className="mt-2 font-ui text-ui-sm text-gray-500">
+              {localizeInBuildingLocation(venue.location, locale) || venue.location}
+            </p>
           ) : null}
 
           <RichTextParagraphs
@@ -173,12 +181,12 @@ export default async function RestaurantPage({ params }: Props) {
           {(venue.menuUrl || venue.reservationUrl) && (
             <div className="mt-8 flex flex-wrap gap-6">
               {venue.menuUrl ? (
-                <SweepCta href={venue.menuUrl} external color="nav-amber">
+                <SweepCta href={venue.menuUrl} external color="ctx">
                   {t('menuCta')}
                 </SweepCta>
               ) : null}
               {venue.reservationUrl ? (
-                <SweepCta href={venue.reservationUrl} external color="nav-amber">
+                <SweepCta href={venue.reservationUrl} external color="ctx">
                   {t('reserveCta')}
                 </SweepCta>
               ) : null}
@@ -198,9 +206,23 @@ export default async function RestaurantPage({ params }: Props) {
                 <dd className="font-ui text-ui-sm text-hbb-black">{breakfast.breakfastHours}</dd>
               </div>
               {breakfast.breakfastLocation ? (
-                <div className="grid grid-cols-[7.5rem_1fr] gap-x-3 py-2.5 sm:grid-cols-[8.5rem_1fr]">
+                <div className="grid grid-cols-[7.5rem_1fr] gap-x-3 border-b border-gray-100 py-2.5 sm:grid-cols-[8.5rem_1fr]">
                   <dt className="font-ui text-ui-sm text-gray-500">{t('breakfastWhere')}</dt>
                   <dd className="font-ui text-ui-sm text-hbb-black">{breakfast.breakfastLocation}</dd>
+                </div>
+              ) : null}
+              {breakfast.breakfastPricing.adultPrice != null &&
+              breakfast.breakfastPricing.childPrice != null &&
+              breakfast.breakfastPricing.childAgeFrom != null ? (
+                <div className="grid grid-cols-[7.5rem_1fr] gap-x-3 py-2.5 sm:grid-cols-[8.5rem_1fr]">
+                  <dt className="font-ui text-ui-sm text-gray-500">{t('breakfastPrice')}</dt>
+                  <dd className="font-ui text-ui-sm text-hbb-black">
+                    €{breakfast.breakfastPricing.adultPrice} / €
+                    {breakfast.breakfastPricing.childPrice}{' '}
+                    {locale === 'de'
+                      ? `ab ${breakfast.breakfastPricing.childAgeFrom} J.`
+                      : `from age ${breakfast.breakfastPricing.childAgeFrom}`}
+                  </dd>
                 </div>
               ) : null}
             </dl>

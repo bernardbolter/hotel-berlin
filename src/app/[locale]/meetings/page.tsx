@@ -156,7 +156,7 @@ export default async function MeetingsIndexPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="meetings" />
+      <SiteNavWithData context="outside" />
       <main id="main-content" className="bg-hbb-page">
         <MeetingsHero
           kicker={meetings.heroKicker}

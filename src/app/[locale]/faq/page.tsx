@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
 import {
+  FAQ_CATEGORY_I18N_KEY,
   getFaqs,
   PROSPECT_FAQ_CATEGORIES,
   type FaqCategory,
@@ -13,20 +14,6 @@ import {
 
 type Props = {
   params: Promise<{ locale: string }>
-}
-
-const CATEGORY_MESSAGE_KEY: Record<FaqCategory, string> = {
-  'rooms-booking': 'categories.roomsBooking',
-  'checkin-checkout': 'categories.checkinCheckout',
-  dining: 'categories.dining',
-  meetings: 'categories.meetings',
-  accessibility: 'categories.accessibility',
-  'getting-here': 'categories.gettingHere',
-  'pets-parking': 'categories.petsParking',
-  general: 'categories.general',
-  'wifi-tech': 'categories.wifiTech',
-  'guest-services': 'categories.guestServices',
-  'neighbourhood-guest': 'categories.neighbourhoodGuest',
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -68,7 +55,7 @@ export default async function FaqPage({ params }: Props) {
     { value: 'all' as const, label: t('allCategories') },
     ...presentCategories.map((value) => ({
       value,
-      label: t(CATEGORY_MESSAGE_KEY[value]),
+      label: t(FAQ_CATEGORY_I18N_KEY[value]),
     })),
   ]
 

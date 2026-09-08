@@ -1,6 +1,8 @@
 export { getPayloadClient } from './client'
 export { getSecondaryNavLinks } from './navigation'
 export { getEvents, getEventBySlug } from './events'
+export { getEventOccurrences } from './getEventOccurrences'
+export type { EventOccurrence } from './getEventOccurrences'
 export { getFAQs } from './faqs'
 export { getHotel, getGuestStayInfo, getRoomsPageIntro, getRoomsPageContent, guestStayFromHotel } from './hotel'
 export {

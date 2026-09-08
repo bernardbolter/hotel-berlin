@@ -42,8 +42,8 @@
     "mainSite": "hotel-berlin.de",
     "bridgeToGuestAria": "Zum Gäste-Hub",
     "bridgeToMainAria": "Zur Hauptseite des Hotels",
-    "whatsOn": "Was läuft heute Abend",
-    "gettingAround": "Orientierung",
+    "whatsOn": "Was ist los",
+    "gettingAround": "So kommst du hin",
     "localTips": "Die Nachbarschaft",
     "gallery": "Galerie",
     "skateboardMuseum": "Skateboard-Museum",
@@ -67,14 +67,130 @@
     "building": "Diese Seite wird gerade gebaut.",
     "duringYourStay": "Dein Aufenthalt",
     "tonight": "Heute Abend",
+    "hubStrip": {
+      "title": "Was heute läuft",
+      "cta": "Was ist los →",
+      "rowAria": "Was diese Woche im Haus läuft"
+    },
+    "diningBand": {
+      "eyebrow": "Restaurant & Bar",
+      "heading": "Essen & Trinken",
+      "cta": "Frühstück & Wundermart →",
+      "restaurantCta": "Zum Restaurant",
+      "body": "Im Erdgeschoss, gleich neben der Lobby. Frühstück an der Theke, Mittagessen auf der Terrasse, Cocktails bis spät.",
+      "chipsAria": "Lütze Zeiten und Details",
+      "kickerBreakfast": "Täglich",
+      "kickerWundermart": "Rund um die Uhr",
+      "kickerGarden": "Saison",
+      "cardOnly": "Zahlung nur mit Karte — kein Bargeld.",
+      "rowAria": "Frühstück, Wundermart und andere Orte zum Essen im Haus"
+    },
     "clockAria": "Aktuelle Uhrzeit in Berlin",
+    "galleryAria": "Hotel-Fotogalerie",
     "locationLine": "Hotel Berlin, Berlin · Lützowplatz 17",
+    "heroStayCta": "Alle FAQs",
+    "heroWifiPasswordAria": "WLAN-Passwort",
     "artInBuilding": "Kunst im Haus",
-    "inTheBasement": "Im Keller",
+    "inTheBasement": "Im Haus",
+    "inHouse": {
+      "title": "Im Haus",
+      "rowAria": "Angebote im Haus",
+      "specWhen": "Wann",
+      "specPrice": "Preis",
+      "specWhat": "Was",
+      "hoursToConfirm": "Zeiten noch zu bestätigen",
+      "askReception": "An der Rezeption erfragen",
+      "locationTbc": "Ort folgt",
+      "kttk": {
+        "eyebrow": "B2 Keller",
+        "title": "KTTK",
+        "when": "Mo–So, 13:00–23:00",
+        "price": "5 € / 30 Min.",
+        "sub": "4 JOOLA-Platten · Schläger an der Lütze-Bar"
+      },
+      "wallride": {
+        "eyebrow": "B2 · vor KTTK",
+        "title": "Wallride",
+        "what": "Permanent",
+        "sub": "Halfpipe · Skate-Geschichte des Kalten Kriegs"
+      },
+      "fingerboard": {
+        "eyebrow": "Platzierung folgt",
+        "title": "Fingerboard-Rampen",
+        "sub": "Wartet auf das Hotelteam: Ort, Fotos, Zugang, Zeiten."
+      },
+      "gym": {
+        "eyebrow": "Im Hotel",
+        "title": "Gym",
+        "when": "24/7",
+        "sub": "Rund um die Uhr"
+      },
+      "sauna": {
+        "eyebrow": "Im Hotel",
+        "title": "Sauna & Sanarium",
+        "sub": "Finnische Sauna + Sanarium · 45 Min. Vorlauf. Zwei veröffentlichte Zeiten — das Hotel muss bestätigen, welche gilt."
+      },
+      "bettAndBike": {
+        "eyebrow": "Im Hotel",
+        "title": "Bett & Bike",
+        "sub": "Fahrradverleih — an der Rezeption erfragen"
+      },
+      "businessCenter": {
+        "eyebrow": "Im Hotel",
+        "title": "Business Center",
+        "sub": "Geldautomat im Haus"
+      },
+      "eLaden": {
+        "eyebrow": "Vor Ort",
+        "title": "E-Laden",
+        "what": "8 × Typ 2",
+        "sub": "Ladestationen für Elektroautos"
+      }
+    },
+    "artWall": {
+      "nowChip": "Jetzt",
+      "nowUntil": "Jetzt · bis {date}",
+      "locationTbc": "Ort folgt",
+      "more": "Alle Werke",
+      "moreCount": "Noch {count} Werke",
+      "seeAll": "Alle ansehen →"
+    },
+    "peopleRow": {
+      "title": "Wem die Nachbarschaft gehört",
+      "cta": "Alle Empfehlungen →",
+      "rowAria": "Tipps von Menschen, die die Nachbarschaft empfehlen",
+      "profileCta": "Ihre Geschichte",
+      "room": "Zimmer {n}",
+      "walk": "{minutes} Min.",
+      "roleFallback": "Lokal",
+      "placeholder": "Platzhalter",
+      "noEndorser": "Ein Hotel-Tipp",
+      "roles": {
+        "iris-berndt": "Direktorin des Käthe-Kollwitz-Museums, Kunsthistorikerin",
+        "christiane-fritsch-weith": "Buchhändlerin in dritter Generation, seit 1919",
+        "jennifer-oeser": "Leichtathletin, Olympia-Medaillengewinnerin",
+        "kristiane-kegelmann": "Künstlerin, Bildhauerei",
+        "gita-kurdpoor": "Künstlerin",
+        "katja-morkel": "Schmuckdesignerin"
+      }
+    },
     "needHelp": "Brauchst du Hilfe?",
     "faqsHeading": "Häufig gefragt",
     "allGuestFaqs": "Alle Gäste-FAQs →",
+    "help": {
+      "azCta": "Alle Infos von A bis Z →",
+      "guestCare": {
+        "kicker": "24/7 · neben der Lobby",
+        "title": "Guest Care Center",
+        "extension": "",
+        "body": "Wir lösen alles, was hier nicht steht."
+      }
+    },
     "exploreSection": "Die Nachbarschaft",
+    "localPicks": "Local picks",
+    "localPicksCta": "Zur großen Karte und weiteren Tipps →",
+    "imagePlaceholder": "Fotografie folgt",
+    "recommends": "{name} empfiehlt",
     "openFullMap": "Zur großen Karte →",
     "faqFallback": {
       "checkout": {
@@ -96,10 +212,6 @@
       "afternoon": "Guten Tag",
       "evening": "Guten Abend"
     },
-    "heroFallback": {
-      "thursdayLine1": "Turniernacht im Keller ab 19:00",
-      "thursdayLine2": "KTTK · B2 Keller"
-    },
     "stay": {
       "title": "Aufenthalt",
       "checkout": "Check-out",
@@ -107,7 +219,11 @@
       "wifi": "WLAN",
       "parking": "Parken",
       "luggage": "Gepäck",
-      "faqsCta": "Parken · Gepäck · Hunde · alle FAQs →",
+      "wundermart": "Wundermart",
+      "bettAndBike": "Bett & Bike",
+      "saunaFitness": "Sauna & Fitness",
+      "pets": "Hunde",
+      "faqsCta": "Alle FAQs",
       "eventLabel": "Dein Event"
     },
     "goodToKnow": {
@@ -134,7 +250,7 @@
       },
       "around": {
         "title": "Unterwegs",
-        "taxi": "Taxi · Flughafenshuttle",
+        "taxi": "Taxi",
         "ev": "E-Laden (8× Typ 2)",
         "guide": "Zum Guide → /hier/getting-around"
       }
@@ -179,6 +295,7 @@
       },
       "currentDescription": "Unabhängige Galerie im Hotel — Artists in Residence, wechselnde Ausstellungen, einfach reingehen. Die aktuelle Duo-Show ist im Erdgeschoss.",
       "currentCta": "Galerie entdecken",
+      "programmeCta": "Kunstprogramm →",
       "wallsBadge": "On the Walls",
       "rowAria": "Kunst im Haus"
     },
@@ -187,7 +304,8 @@
         "badge": "B2 · Mo–So",
         "title": "KTTK",
         "line1": "4 JOOLA-Platten · €5 / 30 Min.",
-        "line2": "Schläger an der Lütze-Bar"
+        "line2": "Schläger an der Lütze-Bar",
+        "cta": "Tischtennis-Zeiten →"
       },
       "wallride": {
         "badge": "Dauerhaft",
@@ -204,19 +322,7 @@
       "events": {
         "title": "Was ist los",
         "intro": "Turniere, Ausstellungen und was sonst heute im Haus passiert.",
-        "kttkTitle": "KTTK-Turniernacht",
-        "openPlayTitle": "Open Play",
-        "when": "Wann",
-        "where": "Wo",
-        "price": "Preis",
-        "kttkWhen": "Donnerstags ab 19:00",
-        "kttkWhere": "B2 Keller, gegenüber der Bar",
-        "kttkPrice": "€5 · ohne Buchung, ohne Dresscode",
-        "openPlayWhen": "Walk-in, Platten wenn frei",
-        "openPlayWhere": "B2 · 4 JOOLA-Platten",
-        "openPlayNote": "€5 / 30 Min. · Schläger an der Lütze-Bar",
-        "upcoming": "Als Nächstes",
-        "artCta": "Kunstprogramm →"
+        "empty": "Nichts Datierbares in den nächsten Wochen — Open Play und die aktuelle Ausstellung laufen immer."
       },
       "art": {
         "title": "Kunstprogramm",
@@ -240,29 +346,53 @@
         "where": "Wo",
         "reserve": "Reservierung",
         "kitchenHours": "11:30–15:00 · 17:00–22:30",
-        "barHours": "Ab 10:00 · open end",
+        "barHours": "Ab 10:00 · 01:00",
         "lutzeWhere": "Erdgeschoss, Lützowplatz 17",
         "reserveNote": "An der Bar oder an der Rezeption",
         "breakfastTitle": "Frühstück",
         "hours": "Zeiten",
-        "openEnd": "open end",
+        "openEnd": "Open End",
         "weekdays": "Wochentags",
         "weekends": "Wochenende",
         "breakfastWeek": "06:30 – 10:00",
         "breakfastWeekend": "06:30 – 11:00",
         "breakfastWhere": "Lütze, Erdgeschoss",
         "wundermartTitle": "Wundermart",
-        "wundermartBody": "Shop / Kiosk — Öffnungszeiten und Ort noch mit dem Hotel-Team zu klären.",
+        "wundermartBody": "Grab, Scan & Go — Snacks, Getränke, Adapter, Ladekabel, Schirme. Zahlung per Karte.",
         "gardenTitle": "Lütze-Garten",
-        "gardenBody": "Sommergarten — aktuelle Saison an der Rezeption erfragen."
+        "gardenBody": "Sommergarten — aktuelle Saison an der Rezeption erfragen.",
+        "price": "Preis",
+        "breakfastPrice": "€{adult} / €{child} ab {age} J.",
+        "restaurantCta": "Zur Restaurantseite →"
       },
       "explore": {
-        "title": "Die Nachbarschaft",
-        "intro": "Tiergarten, Kanal, Ku'damm — Tipps in Laufweite.",
-        "nearTitle": "In der Nähe",
-        "tiergarten": "Tiergarten — wenige Minuten zu Fuß",
-        "canal": "Landwehrkanal — Joggen und Abendspaziergänge",
-        "kudamm": "Ku'damm — kurze Fahrt oder längerer Spaziergang"
+        "title": "Alle Empfehlungen",
+        "intro": "Empfehlungen von You, Me & Berlin — stadtweit, nicht nur um die Ecke.",
+        "count": "{count} Empfehlungen",
+        "countOne": "1 Empfehlung",
+        "empty": "Keine Empfehlung passt zu diesen Filtern.",
+        "listAria": "Empfohlene Orte",
+        "categoryFilterAria": "Nach Kategorie filtern",
+        "indoorFilterAria": "Nach drinnen oder draußen filtern",
+        "audienceFilterAria": "Nach Zielgruppe filtern",
+        "allCategories": "Alle",
+        "allAudiences": "Alle Zielgruppen",
+        "indoor": "Indoor",
+        "outdoor": "Outdoor",
+        "indoorOutdoorBoth": "Indoor/Outdoor",
+        "mapAria": "Karte der empfohlenen Orte",
+        "mapUnavailable": "Karte lädt — Mapbox-Token hinterlegen, um die interaktive Karte zu nutzen.",
+        "mapNoscript": "<p><strong>Hotel Berlin, Berlin</strong> — Lützowplatz 17, 10785 Berlin.</p>",
+        "audiences": {
+          "Alle": "Alle",
+          "Familien": "Familien",
+          "Kinder": "Kinder",
+          "Freunde": "Freunde",
+          "Paare": "Paare",
+          "Erwachsene": "Erwachsene",
+          "Business": "Business",
+          "Kunstinteressierte": "Kunstinteressierte"
+        }
       },
       "gettingAround": {
         "title": "So kommst du hin",
@@ -275,7 +405,7 @@
         "address": "Adresse",
         "addressBody": "Lützowplatz 17, 10785 Berlin",
         "airportTitle": "Flughafen",
-        "airportBody": "Flughafenshuttle auf Anfrage an der Rezeption / Guest Care.",
+        "airportBody": "RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — rund 45–55 Minuten.",
         "taxi": "Taxi",
         "taxiBody": "Rezeption ruft eins — Halteplatz am Lützowplatz",
         "parkingTitle": "Parken & Laden",
@@ -343,7 +473,9 @@
     "placeListAria": "Hervorgehobene Orte in der Nachbarschaft",
     "hotelLegend": "Hotel",
     "recommendedBy": "Empfohlen von",
+    "recommendsPrefix": "Empfiehlt",
     "endorserCountLabel": "{count, plural, one {# Empfehlung} other {# Empfehlungen}}",
+    "placeCountLabel": "{count, plural, one {# Ort} other {# Orte}}",
     "paginationAria": "Kartenseiten",
     "pageLabel": "Seite {page}",
     "nextPage": "Nächste Seite",
@@ -642,14 +774,15 @@
     "prevImage": "Vorheriges Bild",
     "nextImage": "Nächstes Bild",
     "hoursHeading": "Öffnungszeiten",
-    "openEnd": "open end",
+    "openEnd": "Open End",
     "segmentBar": "Bar",
     "segmentKitchen": "Küche",
     "menuCta": "Speisekarte",
     "reserveCta": "Tisch reservieren",
     "breakfastHeading": "Frühstück",
     "breakfastHours": "Zeiten",
-    "breakfastWhere": "Ort"
+    "breakfastWhere": "Ort",
+    "breakfastPrice": "Preis"
   },
   "lutze": {
     "name": "Lütze",
@@ -658,7 +791,7 @@
     "heading": "Der Ort zum Essen, Spielen und Verweilen.",
     "body": "Im Herzen des Hotels — offen für Gäste und Berliner. Frühstück an der Theke. Mittagessen auf der Terrasse. Cocktails bis die Stadt schläft. Happy Hour ist kein Zeitfenster. Es ist eine Einstellung.",
     "galleryAria": "Lütze Restaurant und Bar im Hotel Berlin, Berlin",
-    "hoursBar": "10:00 – open end, täglich",
+    "hoursBar": "10:00 – 01:00, täglich",
     "hoursKitchen": "11:30–15:00 & 17:00–22:30",
     "hoursVinyl": "Jeden Montag ab 18:00",
     "hoursKttk": "13:00–23:00 · 4 Tische · 5 €/30 Min.",
@@ -681,7 +814,16 @@
     },
     "openStatus": {
       "open": "Geöffnet",
-      "closed": "Geschlossen"
+      "closed": "Geschlossen",
+      "until": "bis {time}",
+      "from": "ab {time}",
+      "fromTomorrow": "ab morgen {time}",
+      "kitchenOpenUntil": "Küche geöffnet bis {time}",
+      "kitchenOpen": "Küche geöffnet",
+      "kitchenClosingIn": "Küche schließt in {minutes} Min.",
+      "barOpen": "Bar geöffnet",
+      "barOpenKitchen": "Bar geöffnet · Küche {kitchen}",
+      "closedKitchen": "Geschlossen · Küche {kitchen}"
     }
   },
   "relativeTime": {
@@ -694,8 +836,16 @@
     "title": "Du bist im richtigen Teil Berlins",
     "subtitle": "Tiergarten, Kanal, Ku'damm — alles zu Fuß",
     "cta": "Nachbarschaft entdecken",
+    "hereTitle": "Wem die Nachbarschaft gehört",
+    "hereCta": "Die Empfehlenden",
     "walkNote": "Alles innerhalb von 15 Min. zu Fuß",
     "mapUnavailable": "Die Karte braucht einen Mapbox-Access-Token."
+  },
+  "happenings": {
+    "title": "Happenings",
+    "intro": "Was im Hotel Berlin, Berlin läuft — Turniere, Vinyl Nights, Eröffnungen und das, was jede Woche stattfindet.",
+    "listAria": "Kommende Happenings",
+    "empty": "Gerade nichts Datierbares. Das Wochenprogramm füllt sich, sobald Termine stehen."
   },
   "events": {
     "label": "Happenings",
@@ -809,8 +959,8 @@
     "allFaqs": "Alle FAQs",
     "pageTitle": "Häufig gestellte Fragen",
     "pageDescription": "Antworten zu Zimmern, Check-in, Restaurant, Parken und Anreise zum Hotel Berlin, Berlin.",
-    "guestPageTitle": "FAQs für Gäste",
-    "guestPageDescription": "WLAN, Gepäck, Services und Nachbarschaftstipps für deinen Aufenthalt im Hotel Berlin, Berlin.",
+    "guestPageTitle": "Von A bis Z",
+    "guestPageDescription": "Check-in, WLAN, Parken, Essen und der Rest der Basics für deinen Aufenthalt im Hotel Berlin, Berlin.",
     "allCategories": "Alle",
     "categoriesAria": "Nach Kategorie filtern",
     "categories": {
@@ -824,7 +974,13 @@
       "general": "Allgemein",
       "wifiTech": "WLAN & Technik",
       "guestServices": "Gästeservice",
-      "neighbourhoodGuest": "Nachbarschaft"
+      "neighbourhoodGuest": "Nachbarschaft",
+      "arrivalDeparture": "Ankommen & Abreisen",
+      "inRoom": "Im Zimmer",
+      "moneyPayment": "Geld & Bezahlen",
+      "healthEmergency": "Gesundheit & Notfall",
+      "gettingAround": "Unterwegs",
+      "houseRules": "Haus & Regeln"
     }
   },
   "footer": {

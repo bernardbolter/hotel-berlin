@@ -46,30 +46,38 @@ export default async function HereArtPage({ params }: Props) {
         {t('pages.art.onTheWalls')}
       </h2>
       <div className="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-4">
-        <ArtLocationCard
-          floorLabel={t('art.floors.somari.floor')}
-          title={t('art.floors.somari.title')}
-          href="/here/art"
-          image={HERE_IMAGES.muralSomari}
-        />
-        <ArtLocationCard
-          floorLabel={t('art.floors.deerbln.floor')}
-          title={t('art.floors.deerbln.title')}
-          href="/here/art"
-          image={HERE_IMAGES.muralDeer}
-        />
-        <ArtLocationCard
-          floorLabel={t('art.floors.pisa73.floor')}
-          title={t('art.floors.pisa73.title')}
-          href="/here/art"
-          image={HERE_IMAGES.muralPisa}
-        />
-        <ArtLocationCard
-          floorLabel={t('art.floors.wallride.floor')}
-          title={t('art.floors.wallride.title')}
-          href="/here/wallride"
-          image={HERE_IMAGES.wallride}
-        />
+        <div id="somari" className="scroll-mt-28">
+          <ArtLocationCard
+            floorLabel={t('art.floors.somari.floor')}
+            title={t('art.floors.somari.title')}
+            href="/here/art"
+            image={HERE_IMAGES.muralSomari}
+          />
+        </div>
+        <div id="deerbln" className="scroll-mt-28">
+          <ArtLocationCard
+            floorLabel={t('art.floors.deerbln.floor')}
+            title={t('art.floors.deerbln.title')}
+            href="/here/art"
+            image={HERE_IMAGES.muralDeer}
+          />
+        </div>
+        <div id="pisa73" className="scroll-mt-28">
+          <ArtLocationCard
+            floorLabel={t('art.floors.pisa73.floor')}
+            title={t('art.floors.pisa73.title')}
+            href="/here/art"
+            image={HERE_IMAGES.muralPisa}
+          />
+        </div>
+        <div id="wallride" className="scroll-mt-28">
+          <ArtLocationCard
+            floorLabel={t('art.floors.wallride.floor')}
+            title={t('art.floors.wallride.title')}
+            href="/here/wallride"
+            image={HERE_IMAGES.wallride}
+          />
+        </div>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-4">

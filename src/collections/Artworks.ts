@@ -14,6 +14,14 @@ export const Artworks: CollectionConfig = {
     { name: 'year', type: 'number' },
     { name: 'description', type: 'richText', localized: true },
     {
+      name: 'locationInBuilding',
+      type: 'text',
+      admin: {
+        description:
+          'Floor + wing for /here art wall captions, e.g. "Floor 4 · near the lifts". Blank shows Location TBC.',
+      },
+    },
+    {
       name: 'images',
       type: 'array',
       fields: [

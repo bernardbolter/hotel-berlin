@@ -8,9 +8,9 @@ export const HeroSlides: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'adminTitle',
-    defaultColumns: ['adminTitle', 'order', 'enabled', 'updatedAt'],
+    defaultColumns: ['adminTitle', 'context', 'order', 'enabled', 'updatedAt'],
     description:
-      'Homepage hero photo rotation. Unlimited slides — disable to pause without deleting.',
+      'Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.',
   },
   defaultSort: 'order',
   access: {
@@ -62,6 +62,22 @@ export const HeroSlides: CollectionConfig = {
       type: 'text',
       admin: {
         description: 'Photographer/agency credit — feeds ImageObject.creditText.',
+      },
+    },
+    {
+      name: 'context',
+      type: 'select',
+      required: true,
+      defaultValue: 'homepage',
+      index: true,
+      options: [
+        { label: 'Homepage', value: 'homepage' },
+        { label: '/here guest hub', value: 'here' },
+      ],
+      admin: {
+        description:
+          'Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.',
+        position: 'sidebar',
       },
     },
     {

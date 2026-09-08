@@ -72,6 +72,7 @@ export function mapVenueToAeo(venue: Venue): AeoVenue {
         dayOfWeek: h.dayOfWeek ?? undefined,
         opens: h.opens ?? undefined,
         closes: h.closes ?? undefined,
+        isOpenEnded: h.isOpenEnded ?? undefined,
         segment: h.segment ?? undefined,
         note: h.note ?? undefined,
       })) ?? undefined,

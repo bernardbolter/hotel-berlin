@@ -46,7 +46,7 @@ export async function EventsSection() {
         <h2 id="events-heading" className={HEADING_CLASS}>
           {t('label')}
         </h2>
-        <SweepCta href="/here/events" color="ink" edge="right" className="shrink-0">
+        <SweepCta href="/happenings" color="ink" edge="right" className="shrink-0">
           {t('viewAll')}
         </SweepCta>
       </div>

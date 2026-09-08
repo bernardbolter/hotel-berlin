@@ -16,5 +16,5 @@ export function toAppHref(href: string): AppHref {
 
   const pathname = href.slice(0, hashAt)
   const hash = href.slice(hashAt + 1)
-  return { pathname: pathname as AppPathnames, hash } as AppHref
+  return { pathname: pathname as AppPathnames, hash } as unknown as AppHref
 }

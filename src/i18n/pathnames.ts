@@ -53,4 +53,4 @@ export const pathnames = {
   '/accessibility': { en: '/accessibility', de: '/accessibility' },
 } as const satisfies Pathnames<readonly ['de', 'en']>
 
-export type AppPathnames = typeof pathnames
+export type AppPathnames = keyof typeof pathnames

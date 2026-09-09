@@ -38,7 +38,23 @@ const ALLOWED_CATEGORIES = [
   'wifi-tech',
   'guest-services',
   'neighbourhood-guest',
+  'arrival-departure',
+  'in-room',
+  'money-payment',
+  'health-emergency',
+  'getting-around',
+  'house-rules',
 ] as const
+
+async function addEnumValues(
+  client: pg.Client,
+  name: string,
+  labels: readonly string[],
+) {
+  for (const label of labels) {
+    await client.query(`ALTER TYPE ${name} ADD VALUE IF NOT EXISTS '${label}'`)
+  }
+}
 
 async function columnExists(client: pg.Client, table: string, column: string) {
   const { rows } = await client.query(
@@ -89,6 +105,7 @@ async function main() {
     }
 
     await ensureEnum(client, 'enum_faqs_category', ALLOWED_CATEGORIES)
+    await addEnumValues(client, 'enum_faqs_category', ALLOWED_CATEGORIES)
     await ensureEnum(client, 'enum_faqs_context', ['prospect', 'guest'])
 
     // —— category text / old values → enum_faqs_category ——

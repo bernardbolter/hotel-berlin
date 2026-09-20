@@ -7,8 +7,16 @@ const FULL_OPEN = /^(00:00|0:00)$/
 const FULL_CLOSE = /^(24:00|00:00|0:00)$/
 const NOTICE_WINDOW_DAYS = 7
 
-function dateKeyFromField(value: string | null | undefined): string | null {
+function dateKeyFromField(value: string | Date | null | undefined): string | null {
   if (!value) return null
+  if (value instanceof Date) {
+    if (Number.isNaN(value.getTime())) return null
+    return getBerlinParts(value).dateKey
+  }
+  if (/T/.test(value) || /(?:Z|[+-]\d{2}:\d{2})$/.test(value.trim())) {
+    const parsed = new Date(value)
+    if (!Number.isNaN(parsed.getTime())) return getBerlinParts(parsed).dateKey
+  }
   const match = value.match(/^(\d{4}-\d{2}-\d{2})/)
   return match?.[1] ?? null
 }

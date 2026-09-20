@@ -168,7 +168,7 @@ describe('formatAmenityNotice window', () => {
   it('announces a special-hours row covering tomorrow', () => {
     expect(
       formatAmenityNotice({
-        specialHours: [{ validFrom: '2026-09-21', kind: 'closed', note: 'Wartung' }],
+        specialHours: [{ validFrom: '2026-09-21T00:00:00.000+02:00', kind: 'closed', note: 'Wartung' }],
         locale: 'de',
         labels,
         now,

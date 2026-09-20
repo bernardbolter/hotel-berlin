@@ -29,6 +29,7 @@ import { Hotel } from './globals/Hotel'
 import { Homepage } from './globals/Homepage'
 import { Meetings } from './globals/Meetings'
 import { Navigation } from './globals/Navigation'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -76,11 +77,11 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    // Dev pushes unless PAYLOAD_DATABASE_PUSH=false (use that on worktree DBs).
-    // Production/staging: set PAYLOAD_DATABASE_PUSH=true for first boot until migrations exist.
-    push:
-      process.env.PAYLOAD_DATABASE_PUSH === 'true' ||
-      (process.env.NODE_ENV !== 'production' && process.env.PAYLOAD_DATABASE_PUSH !== 'false'),
+    // Schema changes ship as migrations (`npm run migrate:create` then `npm run migrate`).
+    // PAYLOAD_DATABASE_PUSH=true is an emergency hatch only.
+    push: process.env.PAYLOAD_DATABASE_PUSH === 'true',
+    migrationDir: path.resolve(dirname, 'migrations'),
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [],

@@ -69,15 +69,14 @@ DATABASE_URL=postgresql://hotelberlin:YOUR_PASSWORD@127.0.0.1:5432/hotelberlin
 PAYLOAD_SECRET=generate-a-long-random-string
 NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=pk.…
 NEXT_PUBLIC_SITE_URL=https://YOUR_DOMAIN_OR_IP
-# First deploy / after schema changes — then remove or set false
-PAYLOAD_DATABASE_PUSH=true
 NODE_ENV=production
 PORT=3000
 ```
 
-## 5. Build, seed, start
+## 5. Build, migrate, seed, start
 
 ```bash
+npm run migrate
 npm run build
 # Create admin user via /admin on first visit, or seed:
 npm run seed
@@ -93,8 +92,6 @@ pm2 start deploy/netcup/ecosystem.config.cjs
 pm2 save
 pm2 startup   # follow the command it prints
 ```
-
-After the DB schema is stable, remove `PAYLOAD_DATABASE_PUSH` from `.env` (or set it to `false`) and `pm2 restart hotel-berlin`.
 
 Media uploads land under the app’s media storage on this disk — back up that folder with the database.
 

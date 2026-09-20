@@ -24,6 +24,7 @@ export async function HereHubStrip({ locale }: Props) {
         title={t('hubStrip.title')}
         href="/here/events"
         cta={t('hubStrip.cta')}
+        className="hub-serif-heading--strip"
       />
       <EventsRow items={cards} ariaLabel={t('hubStrip.rowAria')} />
     </section>

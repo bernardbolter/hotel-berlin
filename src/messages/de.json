@@ -69,7 +69,7 @@
     "tonight": "Heute Abend",
     "hubStrip": {
       "title": "Was heute läuft",
-      "cta": "Was ist los →",
+      "cta": "Alle Termine →",
       "rowAria": "Was diese Woche im Haus läuft"
     },
     "diningBand": {
@@ -855,6 +855,23 @@
     "rowAria": "Aktuelle Happenings im Hotel Berlin, Berlin",
     "masonryAria": "Alle Happenings",
     "viewAll": "Alle Events",
+    "agenda": {
+      "pageTitle": "Was ist los",
+      "featuredAria": "Diese Woche im Haus",
+      "today": "Heute",
+      "tomorrow": "Morgen",
+      "allDay": "ganztags",
+      "emptyWindow": "Nichts Datierbares in den nächsten 30 Tagen.",
+      "emptyFilter": "Keine Termine in den nächsten 30 Tagen.",
+      "details": "Details",
+      "amenitiesLink": "Zur Ausstattung →",
+      "filtersAria": "Nach Kategorie filtern",
+      "all": "Alle",
+      "music": "Musik",
+      "sport": "Sport",
+      "art": "Kunst",
+      "community": "Community"
+    },
     "cards": {
       "fkkb": {
         "badge": "Dauerhaft",

@@ -69,7 +69,7 @@
     "tonight": "Tonight",
     "hubStrip": {
       "title": "On today",
-      "cta": "What's on →",
+      "cta": "Full programme →",
       "rowAria": "What's on in the building this week"
     },
     "diningBand": {
@@ -855,6 +855,23 @@
     "rowAria": "Current happenings at Hotel Berlin, Berlin",
     "masonryAria": "All happenings",
     "viewAll": "All events",
+    "agenda": {
+      "pageTitle": "What's on",
+      "featuredAria": "This week in the building",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "allDay": "all day",
+      "emptyWindow": "Nothing dated in the next 30 days.",
+      "emptyFilter": "No dates in the next 30 days.",
+      "details": "Details",
+      "amenitiesLink": "See amenities →",
+      "filtersAria": "Filter by category",
+      "all": "All",
+      "music": "Music",
+      "sport": "Sport",
+      "art": "Art",
+      "community": "Community"
+    },
     "cards": {
       "fkkb": {
         "badge": "Permanent",

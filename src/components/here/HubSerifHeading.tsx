@@ -23,6 +23,7 @@ type Props = {
   /** sweep = site CTA; underline = hub card-system link (13px, section colour). */
   ctaStyle?: 'sweep' | 'underline'
   underlineTone?: 'teal' | 'nbhd' | 'ink'
+  className?: string
 }
 
 export function HubSerifHeading({
@@ -33,9 +34,10 @@ export function HubSerifHeading({
   ctaColor = 'ink',
   ctaStyle = 'sweep',
   underlineTone = 'ink',
+  className = '',
 }: Props) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div className={['mb-8 flex flex-wrap items-end justify-between gap-4 hub-serif-heading', className].filter(Boolean).join(' ')}>
       <h2 id={id} className={HEADING_CLASS}>
         {title}
       </h2>

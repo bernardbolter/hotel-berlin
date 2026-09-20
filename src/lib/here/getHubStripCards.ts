@@ -27,10 +27,12 @@ export async function getHubStripCards(options: {
   locale: string
   now?: Date
   framing?: SpotlightFraming
+  limit?: number
 }): Promise<SpotlightCardProps[]> {
   const now = options.now ?? getBerlinNow()
   const locale = options.locale === 'de' ? 'de' : 'en'
   const framing = options.framing ?? 'guest'
+  const limit = options.limit ?? HUB_LIMIT
 
   const fkkb = await getVenueBySlug('fkkb', locale).catch(() => null)
   const exhibition = fkkb
@@ -44,7 +46,7 @@ export async function getHubStripCards(options: {
     includeAlwaysOn: true,
   })
 
-  const slots = pickHubStrip(occurrences, Boolean(exhibition && fkkb), now, HUB_LIMIT)
+  const slots = pickHubStrip(occurrences, Boolean(exhibition && fkkb), now, limit)
   const cards: SpotlightCardProps[] = []
 
   for (const slot of slots) {
@@ -73,7 +75,7 @@ export async function getHubStripCards(options: {
   return cards
 }
 
-function exhibitionAlwaysOnCard(args: {
+export function exhibitionAlwaysOnCard(args: {
   venue: Venue
   exhibition: Exhibition
   locale: string

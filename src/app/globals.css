@@ -11,6 +11,8 @@
   --rooms-highlight: #c16157;
   /* Site content max width — 1440px */
   --site-max: 90rem;
+  /* Sticky header offset for in-page hashes (`useHashOpen`). Matches `scroll-mt-28`. */
+  --site-nav-height: 7rem;
 
   /* Event / card category fills — DESIGN.md + tokens.json → color.category.
      Skate / Wallride has no token yet; do not invent one here. */
@@ -1993,6 +1995,89 @@ body {
 }
 .hbb-map-pin-host button {
   cursor: pointer;
+}
+
+/* CappedRow (R1) — EventsRow breakpoints, CSS container queries, no JS.
+   Gaps match the old gapForRow(width, cols) formula:
+   20 + (width - cols*250 - (cols-1)*20) * 0.28 / (cols-1), capped at 48. */
+.capped-row {
+  container-type: inline-size;
+  container-name: capped;
+  width: 100%;
+}
+
+.capped-row__list {
+  display: grid;
+  align-items: start;
+  width: 100%;
+  grid-template-columns: minmax(250px, 1fr);
+  column-gap: 0;
+}
+
+.capped-row__list > :nth-child(n + 2) {
+  display: none;
+}
+
+/* Amenities: two short cards below 520. Tracks shrink so 390 px still fits two.
+   3/4-column queries follow and win on source order when they match. */
+.capped-row__list[data-min-cols='2']:not([data-count='1']) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(20px, calc(20px + (100cqi - 500px - 20px) * 0.28), 48px);
+}
+
+.capped-row__list[data-min-cols='2']:not([data-count='1']) > :nth-child(-n + 2) {
+  display: block;
+}
+
+.capped-row__list[data-min-cols='2']:not([data-count='1']) > :nth-child(n + 3) {
+  display: none;
+}
+
+@container capped (min-width: 520px) {
+  .capped-row__list:not([data-count='1']) {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    column-gap: clamp(20px, calc(20px + (100cqi - 500px - 20px) * 0.28), 48px);
+  }
+
+  .capped-row__list:not([data-count='1']) > :nth-child(-n + 2) {
+    display: block;
+  }
+
+  .capped-row__list:not([data-count='1']) > :nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@container capped (min-width: 760px) {
+  .capped-row__list:not([data-count='1']):not([data-count='2']) {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    column-gap: clamp(20px, calc(20px + (100cqi - 750px - 40px) * 0.28 / 2), 48px);
+  }
+
+  .capped-row__list:not([data-count='1']):not([data-count='2']) > :nth-child(-n + 3) {
+    display: block;
+  }
+
+  .capped-row__list:not([data-count='1']):not([data-count='2']) > :nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@container capped (min-width: 920px) {
+  .capped-row__list:not([data-count='1']):not([data-count='2']):not([data-count='3']) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(20px, calc(20px + (100cqi - 1000px - 60px) * 0.28 / 3), 48px);
+  }
+
+  .capped-row__list:not([data-count='1']):not([data-count='2']):not([data-count='3'])
+    > :nth-child(-n + 4) {
+    display: block;
+  }
+
+  .capped-row__list:not([data-count='1']):not([data-count='2']):not([data-count='3'])
+    > :nth-child(n + 5) {
+    display: none;
+  }
 }
 
 /* Guest hub §4–§6 — cards, wall, cards */

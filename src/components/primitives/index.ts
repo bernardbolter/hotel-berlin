@@ -1,3 +1,5 @@
+export { CappedRow, CAPPED_MAX, CAPPED_EVENTS_MAX } from './CappedRow'
+export { HashOpen } from './HashOpen'
 export { CtaButton, type CtaButtonProps, type CtaButtonColor, type CtaButtonSize, type CtaButtonVariant } from './CtaButton'
 export { EditorialBand, type EditorialBandRatio, type EditorialBandImageCredit } from './EditorialBand'
 export { LineCta, type LineCtaProps } from './LineCta'

@@ -98,3 +98,11 @@ export function amenitiesListUrl(config: SiteConfig): string {
 export function amenityNodeId(slug: string, config: SiteConfig): string {
   return `${amenitiesListUrl(config)}#${slug}`;
 }
+
+export function artListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.art[config.canonicalLocale]}`;
+}
+
+export function artworkNodeId(slug: string, config: SiteConfig): string {
+  return `${artListUrl(config)}#werk-${slug}`;
+}

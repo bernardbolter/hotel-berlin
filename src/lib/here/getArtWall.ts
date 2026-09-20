@@ -95,7 +95,7 @@ export async function getArtWallData(
     },
     ...MURALS.map((key, index) => ({
       kind: 'mural' as const,
-      href: `/here/art#${key}`,
+      href: `/here/art#werk-${key}`,
       who: copy.floors[key].title,
       where: copy.floors[key].floor || copy.locationTbc,
       image: MURAL_IMAGES[key],

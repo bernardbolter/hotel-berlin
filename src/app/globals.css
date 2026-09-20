@@ -2822,3 +2822,237 @@ body {
     text-underline-offset: 3px;
   }
 }
+
+.art-grid-wrap {
+  margin-top: 1.5rem;
+}
+
+.art-grid__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+.art-grid__chip {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5a5a5a;
+  background: none;
+  border: 0;
+  border-bottom: 1.5px solid transparent;
+  padding: 0 0 2px;
+  cursor: pointer;
+}
+
+.art-grid__chip[aria-pressed='true'] {
+  color: #1f1f1f;
+  border-bottom-color: currentColor;
+}
+
+.art-grid__empty {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 1.05rem;
+  color: #5a5a5a;
+}
+
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+@media (min-width: 700px) {
+  .art-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .art-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.art-grid__tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #1a1a1a;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.art-grid__tile.is-open {
+  outline: 4px solid var(--teal);
+  outline-offset: -4px;
+}
+
+.art-grid__tile.is-open::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--teal);
+  transform: translateX(-50%);
+}
+
+.art-grid__cap {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.art-grid__where {
+  background: rgba(20, 20, 20, 0.72);
+  color: #fff;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+}
+
+.art-grid__where--live {
+  background: var(--teal);
+}
+
+.art-grid__who {
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.art-grid__panel {
+  grid-column: 1 / -1;
+  background: #fff;
+}
+
+.art-grid__panel-inner {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem 0 1.75rem;
+}
+
+@media (min-width: 700px) {
+  .art-grid__panel-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    align-items: start;
+  }
+}
+
+.art-grid__panel-photo {
+  background: #f4f0ea;
+}
+
+.art-grid__panel-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.art-grid__panel-loc {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.art-grid__panel-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.art-grid__artist-link,
+.art-grid__artist-plain {
+  display: inline-block;
+  margin: 0 0 1rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+
+.art-grid__artist-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.art-grid__facts {
+  margin: 1rem 0;
+}
+
+.art-grid__facts > div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--cardline, #e6e1d8);
+}
+
+.art-grid__facts dt {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+}
+
+.art-grid__facts dd {
+  margin: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 14px;
+}
+
+.art-grid__more-by,
+.art-grid__close {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-grid__panel,
+  .art-grid__tile {
+    transition: none;
+  }
+}

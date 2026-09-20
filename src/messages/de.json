@@ -899,6 +899,25 @@
       }
     }
   },
+  "art": {
+    "grid": {
+      "all": "Alle {n}",
+      "lobby": "Lobby",
+      "floors1to4": "1.–4. Etage",
+      "floors5to10": "5.–10. Etage",
+      "basement": "Keller",
+      "by": "von {artist}",
+      "moreBy": "Weitere Werke von {artist} →",
+      "untitled": "Ohne Titel",
+      "close": "Schließen",
+      "emptyState": "Die Werke im Haus werden gerade fotografiert.",
+      "nowUntil": "Jetzt · bis {date}",
+      "year": "Jahr",
+      "technique": "Technik",
+      "size": "Größe",
+      "filtersAria": "Nach Etage filtern"
+    }
+  },
   "neighbourhood": {
     "label": "Nachbarschaft",
     "title": "Rund ums Hotel",

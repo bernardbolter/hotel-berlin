@@ -28,8 +28,13 @@ function openElement(el: HTMLElement): void {
   }
 }
 
-function hashId(): string {
+export function currentHashId(): string {
+  if (typeof window === 'undefined') return ''
   return decodeURIComponent(window.location.hash.replace(/^#/, ''))
+}
+
+function hashId(): string {
+  return currentHashId()
 }
 
 function openFromHash(): void {

@@ -935,6 +935,10 @@ export interface Artist {
   generateSlug?: boolean | null;
   slug: string;
   alias?: string | null;
+  /**
+   * Optional join to a You, Me & Berlin person. The name links out only when this is set and that person has a public page. Dedicated artist routes are still open (O-F3).
+   */
+  person?: (number | null) | Person;
   bio?: {
     root: {
       type: string;
@@ -958,152 +962,6 @@ export interface Artist {
   basedIn?: string | null;
   medium?: string | null;
   tags?: (number | Tag)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "artworks".
- */
-export interface Artwork {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  artist: number | Artist;
-  editionNumber?: string | null;
-  medium?: string | null;
-  dimensions?: string | null;
-  year?: number | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Floor + wing for /here art wall captions, e.g. "Floor 4 · near the lifts". Blank shows Location TBC.
-   */
-  locationInBuilding?: string | null;
-  images?:
-    | {
-        image: number | Media;
-        alt: string;
-        id?: string | null;
-      }[]
-    | null;
-  status?: ('available' | 'sold' | 'not-for-sale') | null;
-  tags?: (number | Tag)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibitions".
- */
-export interface Exhibition {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  subtitle?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  startDate?: string | null;
-  endDate?: string | null;
-  location?: string | null;
-  /**
-   * Hosting venue — required for SpotlightCard venue resolver
-   */
-  venue?: (number | null) | Venue;
-  heroImage?: (number | null) | Media;
-  artists?: (number | Artist)[] | null;
-  artworks?: (number | Artwork)[] | null;
-  status?: ('upcoming' | 'current' | 'permanent' | 'past') | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events".
- */
-export interface Event {
-  id: number;
-  name: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  shortDescription?: string | null;
-  startDate: string;
-  endDate?: string | null;
-  category?: ('Art' | 'Music' | 'Sport' | 'Food' | 'Community' | 'Neighbourhood' | 'Other') | null;
-  venue?: (number | null) | Venue;
-  /**
-   * Show as free entry rather than unpriced. Independent of price = 0.
-   */
-  isFree?: boolean | null;
-  price?: number | null;
-  currency?: 'EUR' | null;
-  bookingRequired?: boolean | null;
-  /**
-   * e.g. "ohne Buchung, ohne Dresscode"
-   */
-  bookingNote?: string | null;
-  ticketUrl?: string | null;
-  heroImage?: (number | null) | Media;
-  tags?: (number | Tag)[] | null;
-  featured?: boolean | null;
-  isRecurring?: boolean | null;
-  /**
-   * iCal RRULE subset, e.g. FREQ=DAILY, FREQ=WEEKLY;BYDAY=TH, FREQ=MONTHLY;BYDAY=-1TH (last Thursday). Used with startDate time for next occurrence.
-   */
-  recurrenceRule?: string | null;
-  recurrenceNote?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1345,6 +1203,181 @@ export interface NeighbourhoodPlace {
    */
   featuredOrder?: number | null;
   status: 'active' | 'inactive';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Works in the building for /hier/art. Drag to reorder. The grid shows live works with an image, murals first. Sale status is separate from publishing.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks".
+ */
+export interface Artwork {
+  id: number;
+  _order?: string | null;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Murals sort first on the hung wall. Editions for sale are a later FKKB question.
+   */
+  artworkType: 'mural' | 'edition' | 'installation';
+  /**
+   * Publishing. Hidden works leave /hier/art. Sale availability is the Status field.
+   */
+  visibility: 'live' | 'hidden';
+  artist: number | Artist;
+  editionNumber?: string | null;
+  /**
+   * Technique shown in the open panel facts, e.g. “Spray paint on plaster”.
+   */
+  medium?: string | null;
+  dimensions?: string | null;
+  year?: number | null;
+  /**
+   * The story in the open panel. Write natively per locale. Do not add a separate story field.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Floor + spot for the grid caption. Blank floor shows Location TBC.
+   */
+  locationInBuilding?: {
+    floor?: ('B2' | 'B1' | 'EG' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'Dach') | null;
+    /**
+     * e.g. „bei den Aufzügen“ / “near the lifts”. Max 40.
+     */
+    spot?: string | null;
+  };
+  /**
+   * Querformat und Hochformat willkommen; für die Übersicht wird 4:5 zugeschnitten – Fokuspunkt setzen.
+   */
+  images?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sale state for FKKB editions. Independent of Visibility.
+   */
+  status?: ('available' | 'sold' | 'not-for-sale') | null;
+  tags?: (number | Tag)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions".
+ */
+export interface Exhibition {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  subtitle?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  location?: string | null;
+  /**
+   * Hosting venue — required for SpotlightCard venue resolver
+   */
+  venue?: (number | null) | Venue;
+  heroImage?: (number | null) | Media;
+  artists?: (number | Artist)[] | null;
+  artworks?: (number | Artwork)[] | null;
+  status?: ('upcoming' | 'current' | 'permanent' | 'past') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  name: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  shortDescription?: string | null;
+  startDate: string;
+  endDate?: string | null;
+  category?: ('Art' | 'Music' | 'Sport' | 'Food' | 'Community' | 'Neighbourhood' | 'Other') | null;
+  venue?: (number | null) | Venue;
+  /**
+   * Show as free entry rather than unpriced. Independent of price = 0.
+   */
+  isFree?: boolean | null;
+  price?: number | null;
+  currency?: 'EUR' | null;
+  bookingRequired?: boolean | null;
+  /**
+   * e.g. "ohne Buchung, ohne Dresscode"
+   */
+  bookingNote?: string | null;
+  ticketUrl?: string | null;
+  heroImage?: (number | null) | Media;
+  tags?: (number | Tag)[] | null;
+  featured?: boolean | null;
+  isRecurring?: boolean | null;
+  /**
+   * iCal RRULE subset, e.g. FREQ=DAILY, FREQ=WEEKLY;BYDAY=TH, FREQ=MONTHLY;BYDAY=-1TH (last Thursday). Used with startDate time for next occurrence.
+   */
+  recurrenceRule?: string | null;
+  recurrenceNote?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1972,6 +2005,7 @@ export interface ArtistsSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   alias?: T;
+  person?: T;
   bio?: T;
   shortBio?: T;
   portrait?: T;
@@ -1989,16 +2023,24 @@ export interface ArtistsSelect<T extends boolean = true> {
  * via the `definition` "artworks_select".
  */
 export interface ArtworksSelect<T extends boolean = true> {
+  _order?: T;
   title?: T;
   generateSlug?: T;
   slug?: T;
+  artworkType?: T;
+  visibility?: T;
   artist?: T;
   editionNumber?: T;
   medium?: T;
   dimensions?: T;
   year?: T;
   description?: T;
-  locationInBuilding?: T;
+  locationInBuilding?:
+    | T
+    | {
+        floor?: T;
+        spot?: T;
+      };
   images?:
     | T
     | {

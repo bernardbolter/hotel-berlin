@@ -899,6 +899,25 @@
       }
     }
   },
+  "art": {
+    "grid": {
+      "all": "All {n}",
+      "lobby": "Lobby",
+      "floors1to4": "Floors 1–4",
+      "floors5to10": "Floors 5–10",
+      "basement": "Basement",
+      "by": "by {artist}",
+      "moreBy": "More works by {artist} →",
+      "untitled": "Untitled",
+      "close": "Close",
+      "emptyState": "We're photographing the works in the building right now.",
+      "nowUntil": "Now · until {date}",
+      "year": "Year",
+      "technique": "Technique",
+      "size": "Size",
+      "filtersAria": "Filter by floor"
+    }
+  },
   "neighbourhood": {
     "label": "Neighbourhood",
     "title": "Around the hotel",

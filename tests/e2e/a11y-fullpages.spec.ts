@@ -8,6 +8,8 @@ const pages = [
   { path: '/en/happenings', rules: ['nested-interactive', 'definition-list', 'dlitem'] },
   { path: '/de/hier/events', rules: ['nested-interactive', 'definition-list', 'dlitem'] },
   { path: '/en/here/events', rules: ['nested-interactive', 'definition-list', 'dlitem'] },
+  { path: '/de/hier/art', rules: ['nested-interactive', 'definition-list', 'dlitem'] },
+  { path: '/en/here/art', rules: ['nested-interactive', 'definition-list', 'dlitem'] },
 ] as const
 
 for (const pageSpec of pages) {

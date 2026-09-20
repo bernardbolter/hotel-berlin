@@ -55,4 +55,23 @@ describe('useHashOpen', () => {
 
     expect((document.getElementById('sauna') as HTMLDetailsElement).open).toBe(false)
   })
+
+  it('unhides an art panel from /hier/art#werk-x', async () => {
+    window.history.replaceState(null, '', '/hier/art#werk-somari')
+
+    await mount(
+      createElement(
+        Fragment,
+        null,
+        createElement(HashOpen),
+        createElement(
+          'section',
+          { id: 'werk-somari', hidden: true },
+          createElement('h2', null, 'Somari'),
+        ),
+      ),
+    )
+
+    expect(document.getElementById('werk-somari')?.hasAttribute('hidden')).toBe(false)
+  })
 })

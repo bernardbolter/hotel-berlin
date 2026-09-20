@@ -31,5 +31,9 @@ export const defaultConfig: SiteConfig = {
       de: '/de/ausstattung',
       en: '/en/amenities',
     },
+    art: {
+      de: '/de/hier/art',
+      en: '/en/here/art',
+    },
   },
 };

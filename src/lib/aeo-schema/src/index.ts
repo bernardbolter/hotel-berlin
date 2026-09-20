@@ -11,3 +11,4 @@ export * from './builders/meetingRoom';
 export * from './builders/venue';
 export * from './builders/graph';
 export * from './builders/faq';
+export * from './builders/amenity';

@@ -76,6 +76,7 @@ export interface Config {
     'meeting-inquiries': MeetingInquiry;
     venues: Venue;
     'hero-slides': HeroSlide;
+    amenities: Amenity;
     faqs: Faq;
     artists: Artist;
     artworks: Artwork;
@@ -105,6 +106,7 @@ export interface Config {
     'meeting-inquiries': MeetingInquiriesSelect<false> | MeetingInquiriesSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
     'hero-slides': HeroSlidesSelect<false> | HeroSlidesSelect<true>;
+    amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     artists: ArtistsSelect<false> | ArtistsSelect<true>;
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
@@ -667,6 +669,176 @@ export interface HeroSlide {
    * Uncheck to pause this slide without deleting it.
    */
   enabled?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Hotel facilities on /hier (Im Haus) and /ausstattung. Drag the list to reorder. Hidden rows leave the site; pending rows show with a dashed border. Switch locale (DE/EN) in the admin bar for titles and copy.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "amenities".
+ */
+export interface Amenity {
+  id: number;
+  _order?: string | null;
+  /**
+   * Im Haus = Anlage (facility). Services = die zweite Gruppe auf /ausstattung. / Facility → Im Haus group; service → Services group.
+   */
+  kind: 'facility' | 'service';
+  /**
+   * Card heading, e.g. “Sauna & Sanarium” / “Gym”.
+   */
+  title: string;
+  /**
+   * Stable id, e.g. sauna, kttk. Do not change after create.
+   */
+  slug: string;
+  /**
+   * Eyebrow on the card, e.g. “B2 Keller” / “In the hotel”. Leave empty for “Ort folgt”.
+   */
+  location?: string | null;
+  /**
+   * Glyph shown when there is no photograph.
+   */
+  lucideIcon?: string | null;
+  /**
+   * Optional photograph. Without one the card shows the icon on a flat block. Alt text lives on the media record.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Weekly hours for the “Wann” line. Leave empty if there are no advertised hours. Do not pick a sauna schedule here until the hotel confirms one.
+   */
+  openingHours?:
+    | {
+        /**
+         * e.g. Mo-Su, Mo-Fr, Sa-Su, or Thursday
+         */
+        dayOfWeek?: string | null;
+        /**
+         * e.g. 10:00
+         */
+        opens?: string | null;
+        /**
+         * Clock time, e.g. 22:30 or 01:00. Required for open/closed status.
+         */
+        closes?: string | null;
+        /**
+         * No advertised close — still store a clock bound in `closes` so status can be derived. The UI renders the i18n “open end” phrase.
+         */
+        isOpenEnded?: boolean | null;
+        /**
+         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen" / "Breakfast". Multiple rows may share a segment.
+         */
+        segment?: string | null;
+        /**
+         * Optional status note, e.g. "Kitchen closes 22:30"
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * One-off closures, holiday hours, or “on request” windows. Regular weekly hours stay in Opening hours.
+   */
+  specialHours?:
+    | {
+        /**
+         * First day this exception applies (Berlin calendar date).
+         */
+        validFrom: string;
+        /**
+         * Last day inclusive. Leave empty to apply on validFrom only.
+         */
+        validThrough?: string | null;
+        /**
+         * Closed = shut that day. Hours = replacement window. On request = no clock times.
+         */
+        kind: 'closed' | 'hours' | 'on-request';
+        /**
+         * e.g. 10:00 — only when kind is “Different hours”.
+         */
+        opens?: string | null;
+        /**
+         * e.g. 18:00 — only when kind is “Different hours”.
+         */
+        closes?: string | null;
+        /**
+         * Optional guest-facing line, e.g. “Feiertag” / “On request, 45 min notice”.
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * If set, shown as Wann instead of formatted opening hours. Use while hours are unconfirmed (e.g. “Zeiten noch zu bestätigen”).
+   */
+  hoursOverride?: string | null;
+  /**
+   * Optional “Preis” spec, e.g. “5 € / 30 Min.”
+   */
+  price?: string | null;
+  /**
+   * Optional “Was” spec, e.g. “8 × Typ 2” or “Permanent”.
+   */
+  what?: string | null;
+  /**
+   * Eine Zeile, max. 90 Zeichen. Fallback auf der Hub-Karte und Unterzeile in der Liste. / One line, max 90. Hub fallback and list sub-line.
+   */
+  summary?: string | null;
+  /**
+   * Nur die geöffnete Zeile auf /ausstattung. / Open-row body on the list page only.
+   */
+  details?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * z. B. „Mit der Zimmerkarte“ / „Anmeldung an der Rezeption“. Steht in den Fakten der offenen Zeile. / e.g. “With the room key”. Open-row facts only.
+   */
+  access?: string | null;
+  /**
+   * Legacy — copied into summary. Do not edit.
+   */
+  subline?: string | null;
+  /**
+   * Optional extra page, e.g. /here/wallride. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link only.
+   */
+  href?: string | null;
+  /**
+   * Nur ändern, wenn du weißt, was es bedeutet. / Only change if you know what it means.
+   */
+  schemaType?: ('none' | 'ExerciseGym' | 'SportsActivityLocation' | 'ParkingFacility') | null;
+  /**
+   * Im-Haus-Reihe auf /hier, max. 6 in Zugreihenfolge. Nur Anlagen (facility). / Hub row, max 6 in drag order. Facilities only.
+   */
+  showInHub?: boolean | null;
+  /**
+   * Dashed border — content still waiting on the hotel. Still shown unless Hidden.
+   */
+  pending?: boolean | null;
+  /**
+   * Omit from Im Haus, /ausstattung, and JSON-LD without deleting the record.
+   */
+  hidden?: boolean | null;
+  /**
+   * Hotel JSON-LD amenityFeature. Turn off for pending or non-facility rows (e.g. Fingerboard).
+   */
+  includeInSchema?: boolean | null;
+  /**
+   * FAQs that state the same fact. Stored for the FAQ view (H.13); not rendered on the amenity card.
+   */
+  relatedFaqs?: (number | Faq)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1359,6 +1531,10 @@ export interface PayloadLockedDocument {
         value: number | HeroSlide;
       } | null)
     | ({
+        relationTo: 'amenities';
+        value: number | Amenity;
+      } | null)
+    | ({
         relationTo: 'faqs';
         value: number | Faq;
       } | null)
@@ -1703,6 +1879,57 @@ export interface HeroSlidesSelect<T extends boolean = true> {
   context?: T;
   order?: T;
   enabled?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "amenities_select".
+ */
+export interface AmenitiesSelect<T extends boolean = true> {
+  _order?: T;
+  kind?: T;
+  title?: T;
+  slug?: T;
+  location?: T;
+  lucideIcon?: T;
+  image?: T;
+  openingHours?:
+    | T
+    | {
+        dayOfWeek?: T;
+        opens?: T;
+        closes?: T;
+        isOpenEnded?: T;
+        segment?: T;
+        note?: T;
+        id?: T;
+      };
+  specialHours?:
+    | T
+    | {
+        validFrom?: T;
+        validThrough?: T;
+        kind?: T;
+        opens?: T;
+        closes?: T;
+        note?: T;
+        id?: T;
+      };
+  hoursOverride?: T;
+  price?: T;
+  what?: T;
+  summary?: T;
+  details?: T;
+  access?: T;
+  subline?: T;
+  href?: T;
+  schemaType?: T;
+  showInHub?: T;
+  pending?: T;
+  hidden?: T;
+  includeInSchema?: T;
+  relatedFaqs?: T;
   updatedAt?: T;
   createdAt?: T;
 }

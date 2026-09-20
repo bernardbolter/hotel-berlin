@@ -200,6 +200,7 @@ export interface SiteConfig {
     rooms: Record<Locale, string>; // { de: '/de/zimmer', en: '/en/rooms' }
     meetings: Record<Locale, string>; // { de: '/de/tagungen', en: '/en/meetings' }
     restaurant: Record<Locale, string>; // { de: '/de/restaurant', en: '/en/restaurant' }
+    amenities: Record<Locale, string>; // { de: '/de/ausstattung', en: '/en/amenities' }
   };
 }
 

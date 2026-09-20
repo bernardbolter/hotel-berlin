@@ -27,5 +27,9 @@ export const defaultConfig: SiteConfig = {
       de: '/de/restaurant',
       en: '/en/restaurant',
     },
+    amenities: {
+      de: '/de/ausstattung',
+      en: '/en/amenities',
+    },
   },
 };

@@ -87,3 +87,11 @@ export function restaurantUrl(config: SiteConfig): string {
 export function venueNodeId(config: SiteConfig): string {
   return `${restaurantUrl(config)}#venue`;
 }
+
+export function amenitiesListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.amenities[config.canonicalLocale]}`;
+}
+
+export function amenityNodeId(slug: string, config: SiteConfig): string {
+  return `${amenitiesListUrl(config)}#${slug}`;
+}

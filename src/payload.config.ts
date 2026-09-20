@@ -5,6 +5,7 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { Amenities } from './collections/Amenities'
 import { Artists } from './collections/Artists'
 import { Artworks } from './collections/Artworks'
 import { Events } from './collections/Events'
@@ -49,6 +50,7 @@ export default buildConfig({
     MeetingInquiries,
     Venues,
     HeroSlides,
+    Amenities,
     FAQs,
     Artists,
     Artworks,

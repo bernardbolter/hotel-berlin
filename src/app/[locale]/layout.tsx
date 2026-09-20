@@ -6,6 +6,7 @@ import React from 'react'
 
 import { routing } from '@/i18n/routing'
 import { laica } from '@/lib/fonts/laica'
+import { buildHotelAmenityJsonLd } from '@/lib/amenities/schema'
 
 import '../globals.css'
 
@@ -31,6 +32,11 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages()
   const tc = await getTranslations('common')
 
+  const { amenityFeature, containsPlace } = await buildHotelAmenityJsonLd(locale).catch(() => ({
+    amenityFeature: [] as Record<string, unknown>[],
+    containsPlace: [] as Record<string, unknown>[],
+  }))
+
   const hotelJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Hotel',
@@ -53,6 +59,8 @@ export default async function LocaleLayout({ children, params }: Props) {
     url: 'https://hotel-berlin.de',
     foundingDate: '1958',
     sameAs: ['https://www.wikidata.org/wiki/Q1630833'],
+    ...(amenityFeature.length > 0 ? { amenityFeature } : {}),
+    ...(containsPlace.length > 0 ? { containsPlace } : {}),
   }
 
   return (

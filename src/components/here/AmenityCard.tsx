@@ -19,7 +19,10 @@ export type AmenityCardImage = {
 export type AmenityCardProps = {
   eyebrow: string
   title: string
-  specs: AmenitySpec[]
+  /** Hub one-liner: when · price, else summary. */
+  line?: string | null
+  specs?: AmenitySpec[]
+  notice?: string | null
   subline?: string | null
   image?: AmenityCardImage | null
   icon: LucideIcon
@@ -34,13 +37,16 @@ export type AmenityCardProps = {
 export function AmenityCard({
   eyebrow,
   title,
-  specs,
+  line,
+  specs = [],
+  notice,
   subline,
   image,
   icon: Icon,
   href,
   pending = false,
 }: AmenityCardProps) {
+  const bodyLine = line ?? subline
   const body = (
     <>
       <div
@@ -51,7 +57,7 @@ export function AmenityCard({
             src={image.src}
             alt={image.alt}
             fill
-            sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
+            sizes="(max-width: 560px) 50vw, (max-width: 900px) 33vw, 20vw"
             className="object-cover"
           />
         ) : (
@@ -65,7 +71,9 @@ export function AmenityCard({
         <h3 className="font-serif text-[17px] font-normal leading-[1.15] text-[#141414]">
           {title}
         </h3>
-        {specs.length > 0 ? (
+        {bodyLine ? (
+          <p className="font-ui text-[11px] leading-[15px] text-[#5a5a5a]">{bodyLine}</p>
+        ) : specs.length > 0 ? (
           <dl className="amenity-card__specs">
             {specs.map((spec) => (
               <div key={spec.label} className="contents">
@@ -75,8 +83,8 @@ export function AmenityCard({
             ))}
           </dl>
         ) : null}
-        {subline ? (
-          <p className="font-ui text-[11px] leading-[15px] text-[#5a5a5a]">{subline}</p>
+        {notice ? (
+          <p className="font-ui text-[11px] leading-[15px] text-hbb-amber-deep">{notice}</p>
         ) : null}
       </div>
     </>

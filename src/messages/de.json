@@ -145,7 +145,9 @@
         "title": "E-Laden",
         "what": "8 × Typ 2",
         "sub": "Ladestationen für Elektroautos"
-      }
+      },
+      "closed": "Geschlossen",
+      "onRequest": "Auf Anfrage"
     },
     "artWall": {
       "nowChip": "Jetzt",
@@ -994,5 +996,30 @@
     "phoneAria": "Hotel Berlin, Berlin anrufen unter {phone}",
     "emailAria": "Hotel Berlin, Berlin per E-Mail erreichen unter {email}",
     "transitAria": "Öffentliche Verkehrsmittel in der Nähe"
+  },
+  "hub": {
+    "inHouse": {
+      "allLink": "Alle Ausstattung →"
+    }
+  },
+  "amenities": {
+    "page": {
+      "title": "Ausstattung & Services",
+      "intro": "Was außer dem Zimmer im Haus ist — Leihräder, Sauna und Fitness, Tischtennis, Laden und praktische Extras."
+    },
+    "list": {
+      "facilities": "Im Haus",
+      "services": "Services",
+      "morePrefix": "Mehr zu",
+      "faqHeading": "Dazu in den FAQs",
+      "pendingText": "Wartet auf Inhalte vom Hotel-Team…",
+      "locationLabel": "Ort",
+      "accessLabel": "Zugang",
+      "checkInOut": "Check-in ab {checkin} · Check-out bis {checkout}",
+      "relatedAria": "Verwandte Seiten",
+      "relatedAccessibility": "Barrierefreiheit",
+      "relatedRooms": "Zimmer & Suiten",
+      "relatedFaq": "Gäste-FAQ"
+    }
   }
 }

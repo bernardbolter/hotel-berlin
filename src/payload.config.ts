@@ -76,11 +76,11 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    // Dev: always push. Production/staging: set PAYLOAD_DATABASE_PUSH=true for first boot
-    // (or after schema changes) until proper migrations exist.
+    // Dev pushes unless PAYLOAD_DATABASE_PUSH=false (use that on worktree DBs).
+    // Production/staging: set PAYLOAD_DATABASE_PUSH=true for first boot until migrations exist.
     push:
-      process.env.NODE_ENV !== 'production' ||
-      process.env.PAYLOAD_DATABASE_PUSH === 'true',
+      process.env.PAYLOAD_DATABASE_PUSH === 'true' ||
+      (process.env.NODE_ENV !== 'production' && process.env.PAYLOAD_DATABASE_PUSH !== 'false'),
   }),
   sharp,
   plugins: [],

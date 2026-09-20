@@ -716,6 +716,26 @@ export const lutzeLocaleDe = {
   tagline: 'Der Ort zum Essen, Spielen und Verweilen.',
   shortDescription:
     'Italienisches Deli-Café, Bar und Garten am Lützowplatz 17. Offen für Gäste und Berliner:innen.',
+  location: 'Erdgeschoss, Lützowplatz 17',
+  spotlightLocation: 'Erdgeschoss',
+}
+
+export const kttkLocaleDe = {
+  location: 'Untergeschoss B2',
+  spotlightLocation: 'Untergeschoss B2',
+}
+
+export const fkkbLocaleDe = {
+  location: 'Hotel Berlin, Berlin — mehrere Etagen',
+}
+
+export const sissiLocaleDe = {
+  location: 'Hotel Berlin, Berlin',
+}
+
+export const wallrideLocaleDe = {
+  location: 'B2 · vor KTTK',
+  spotlightLocation: 'Untergeschoss B2',
 }
 
 export const wundermartSeed = {
@@ -736,6 +756,7 @@ export const wundermartLocaleDe = {
   name: 'Wundermart',
   shortDescription:
     'Grab, Scan & Go — Snacks, Getränke, Adapter, Ladekabel, Schirme. Zahlung per Karte.',
+  location: 'Lobby',
 }
 
 export const venuesSeed = [

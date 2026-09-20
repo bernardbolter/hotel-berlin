@@ -555,11 +555,11 @@ export interface Venue {
   } | null;
   shortDescription?: string | null;
   /**
-   * e.g. "B2 Basement", "Ground Floor", "Lützowplatz 17"
+   * e.g. “Untergeschoss B2” / “B2 Basement”, “Erdgeschoss” / “Ground floor”
    */
   location?: string | null;
   /**
-   * Short in-building location for spotlight/hero secondary meta, e.g. "B2 Basement"
+   * Short in-building pin for spotlight/hero, e.g. “Untergeschoss B2” / “B2 Basement”
    */
   spotlightLocation?: string | null;
   telephone?: string | null;

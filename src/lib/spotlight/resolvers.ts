@@ -2,6 +2,8 @@ import {
   categoryTokenForEventCategory,
   categoryTokenForPersonType,
   categoryTokenForVenueType,
+  localizedEventCategoryLabel,
+  localizedVenueTypeLabel,
   resolveCategoryToken,
 } from '@/lib/spotlight/categoryTokens'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
@@ -209,7 +211,6 @@ export async function resolveEventSpotlight(
   const framing = options.framing ?? 'prospect'
   const venue = eventVenue(event)
   const token = categoryTokenForEventCategory(event.category)
-  const tokenStyle = resolveCategoryToken(token)
 
   const occ =
     options.occurrence ??
@@ -255,7 +256,7 @@ export async function resolveEventSpotlight(
 
   return {
     image,
-    badge: { label: tokenStyle.label, categoryToken: token },
+    badge: { label: localizedEventCategoryLabel(event.category, locale), categoryToken: token },
     identityMark: monogramSrc && venue ? { src: monogramSrc, alt: venue.name } : undefined,
     title: event.name || event.slug,
     venueLabel: venueName,
@@ -314,7 +315,6 @@ export function buildVenueSpotlightFromParts(args: {
   const locale = args.locale ?? 'en'
   const { venue } = args
   const token = categoryTokenForVenueType(venue.venueType)
-  const tokenStyle = resolveCategoryToken(token)
   const monogram = venueMonogram(venue)
 
   if (args.exhibition) {
@@ -336,7 +336,7 @@ export function buildVenueSpotlightFromParts(args: {
 
     return {
       image,
-      badge: { label: tokenStyle.label, categoryToken: token },
+      badge: { label: localizedVenueTypeLabel(venue.venueType, locale), categoryToken: token },
       identityMark: monogram,
       title: ex.title,
       venueLabel: venueLabelFromName(venue.name),
@@ -369,7 +369,7 @@ export function buildVenueSpotlightFromParts(args: {
 
     return {
       image,
-      badge: { label: tokenStyle.label, categoryToken: token },
+      badge: { label: localizedVenueTypeLabel(venue.venueType, locale), categoryToken: token },
       identityMark: monogram,
       title: args.nextEvent.event.name,
       venueLabel: venueLabelFromName(venue.name),

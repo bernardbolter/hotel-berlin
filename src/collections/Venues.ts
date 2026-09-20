@@ -27,14 +27,16 @@ export const Venues: CollectionConfig = {
     {
       name: 'location',
       type: 'text',
-      admin: { description: 'e.g. "B2 Basement", "Ground Floor", "Lützowplatz 17"' },
+      localized: true,
+      admin: { description: 'e.g. “Untergeschoss B2” / “B2 Basement”, “Erdgeschoss” / “Ground floor”' },
     },
     {
       name: 'spotlightLocation',
       type: 'text',
+      localized: true,
       admin: {
         description:
-          'Short in-building location for spotlight/hero secondary meta, e.g. "B2 Basement"',
+          'Short in-building pin for spotlight/hero, e.g. “Untergeschoss B2” / “B2 Basement”',
       },
     },
     { name: 'telephone', type: 'text' },

@@ -118,3 +118,45 @@ export function categoryTokenForPersonType(type: string): CategoryToken {
   const key = type.toLowerCase() as CategoryToken
   return CATEGORY_TOKENS[key] ? key : 'local'
 }
+
+const EVENT_CATEGORY_LABEL: Record<string, { de: string; en: string }> = {
+  Art: { de: 'Kunst', en: 'Art' },
+  Music: { de: 'Musik', en: 'Music' },
+  Sport: { de: 'Sport', en: 'Sport' },
+  Food: { de: 'Essen', en: 'Food' },
+  Community: { de: 'Community', en: 'Community' },
+  Neighbourhood: { de: 'Nachbarschaft', en: 'Neighbourhood' },
+  Partnerships: { de: 'Partnerschaften', en: 'Partnerships' },
+  Other: { de: 'Sonstiges', en: 'Other' },
+}
+
+const VENUE_TYPE_LABEL: Record<string, { de: string; en: string }> = {
+  Restaurant: { de: 'Restaurant', en: 'Restaurant' },
+  Bar: { de: 'Bar', en: 'Bar' },
+  ArtGallery: { de: 'Kunst', en: 'Art' },
+  SportsActivityLocation: { de: 'Sport', en: 'Sport' },
+  EventVenue: { de: 'Event', en: 'Event' },
+  LocalBusiness: { de: 'Ort', en: 'Place' },
+}
+
+export function localizedEventCategoryLabel(
+  category: string | null | undefined,
+  locale: string,
+): string {
+  const de = locale === 'de'
+  if (!category) return de ? 'Sonstiges' : 'Other'
+  const direct = EVENT_CATEGORY_LABEL[category]
+  if (direct) return de ? direct.de : direct.en
+  const titled = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()
+  const fromToken = EVENT_CATEGORY_LABEL[titled]
+  if (fromToken) return de ? fromToken.de : fromToken.en
+  return category
+}
+
+export function localizedVenueTypeLabel(venueType: string | null | undefined, locale: string): string {
+  const de = locale === 'de'
+  if (!venueType) return de ? 'Ort' : 'Place'
+  const row = VENUE_TYPE_LABEL[venueType]
+  if (row) return de ? row.de : row.en
+  return venueType
+}

@@ -322,5 +322,34 @@ describe('resolveEventSpotlight', () => {
     expect(card?.cta.href).toBe('/here/events#zeichenstammtisch')
     expect(card?.cta.href).not.toMatch(/\/here\/events\//)
   })
+
+  it('uses German category and venue location on /de', async () => {
+    const event = {
+      id: 3,
+      name: 'Vinyl Nights',
+      slug: 'vinyl-nights',
+      category: 'Music',
+      shortDescription: 'Local DJs.',
+      isFree: true,
+      startDate: berlinLocalToUtc(2026, 9, 21, 18, 0, 0).toISOString(),
+      heroImage: { id: 12, url: '/media/vinyl.jpg', alt: 'Vinyl' },
+      venue: {
+        ...lutzeVenue,
+        location: 'Erdgeschoss, Lützowplatz 17',
+        spotlightLocation: 'Erdgeschoss',
+      },
+      updatedAt: '',
+      createdAt: '',
+    } as unknown as Event
+
+    const card = await resolveEventSpotlight(event, {
+      now: atBerlin('2026-09-20T12:00:00'),
+      locale: 'de',
+      framing: 'prospect',
+    })
+    expect(card?.badge.label).toBe('Musik')
+    expect(card?.locationLabel).toBe('Erdgeschoss, Lützowplatz 17')
+    expect(card?.cta.label).toBe('Zum Event')
+  })
 })
 

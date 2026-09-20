@@ -9,6 +9,10 @@ import {
   defaultInsideNavSlugs,
   hotelSeed,
   lutzeLocaleDe,
+  kttkLocaleDe,
+  fkkbLocaleDe,
+  sissiLocaleDe,
+  wallrideLocaleDe,
   meetingRoomsSeed,
   pagesSeed,
   tagsSeed,
@@ -210,6 +214,10 @@ async function seed() {
     const venueDe: Record<string, object> = {
       lutze: lutzeLocaleDe,
       wundermart: wundermartLocaleDe,
+      kttk: kttkLocaleDe,
+      fkkb: fkkbLocaleDe,
+      sissi: sissiLocaleDe,
+      wallride: wallrideLocaleDe,
     }
     for (const venue of venuesSeed) {
       const doc = await payload.create({ collection: 'venues', data: venue, locale: 'en' })

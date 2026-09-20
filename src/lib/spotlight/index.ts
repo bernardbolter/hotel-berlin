@@ -3,6 +3,8 @@ export {
   categoryTokenForEventCategory,
   categoryTokenForPersonType,
   categoryTokenForVenueType,
+  localizedEventCategoryLabel,
+  localizedVenueTypeLabel,
   resolveCategoryToken,
 } from './categoryTokens'
 export type { CategoryToken, CategoryTokenStyle, EventCategory } from './categoryTokens'

@@ -110,28 +110,26 @@ export function HereHeroLayout({ slides, copy, stay }: Props) {
                     </span>
                   </dd>
                 </div>
-                <div className="here-hero__facts-grid">
-                  <Fact
-                    label={copy.checkoutLabel}
-                    value={stay.checkout.value}
-                    note={stay.checkout.note}
-                  />
-                  <Fact
-                    label={copy.breakfastLabel}
-                    value={stay.breakfast.value}
-                    note={stay.breakfast.note}
-                  />
-                  <Fact
-                    label={copy.parkingLabel}
-                    value={stay.parking.value}
-                    note={stay.parking.note}
-                  />
-                  <Fact
-                    label={copy.luggageLabel}
-                    value={stay.luggage.value}
-                    note={stay.luggage.note}
-                  />
-                </div>
+                <Fact
+                  label={copy.checkoutLabel}
+                  value={stay.checkout.value}
+                  note={stay.checkout.note}
+                />
+                <Fact
+                  label={copy.breakfastLabel}
+                  value={stay.breakfast.value}
+                  note={stay.breakfast.note}
+                />
+                <Fact
+                  label={copy.parkingLabel}
+                  value={stay.parking.value}
+                  note={stay.parking.note}
+                />
+                <Fact
+                  label={copy.luggageLabel}
+                  value={stay.luggage.value}
+                  note={stay.luggage.note}
+                />
                 <div className="here-hero__facts-wide">
                   <dt className="here-hero__k">{copy.guestCareKicker}</dt>
                   <dd className="here-hero__v">

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { toAppHref } from '@/i18n/toAppHref'
 import { RichTextParagraphs } from '@/components/primitives/RichTextParagraphs'
-import { AmenityListMoreLink } from '@/components/amenities/AmenityListMoreLink'
 import type { AmenityCardImage } from '@/components/here/AmenityCard'
 import type { RelatedFaqLink } from '@/lib/amenities/resolve'
 
@@ -58,9 +57,9 @@ export function AmenityListRow({
   const fact1 = specs[0]
   const fact2 = specs[1]
   const pageLink = pageHref ? (
-    <AmenityListMoreLink href={toAppHref(pageHref)}>
+    <Link href={toAppHref(pageHref)} className="amenity-list-row__more">
       {copy.morePrefix} {title} →
-    </AmenityListMoreLink>
+    </Link>
   ) : null
 
   const summaryGrid = (
@@ -90,7 +89,6 @@ export function AmenityListRow({
           summary
         ) : null}
       </span>
-      <span className="amenity-list-row__page">{pageLink}</span>
       {pending ? null : (
         <svg className="amenity-list-row__chev" viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -130,6 +128,7 @@ export function AmenityListRow({
         ) : null}
         {notice ? <p className="amenity-list-row__notice">{notice}</p> : null}
       </div>
+      <div>
       <dl className="amenity-list-row__facts">
         <div>
           <dt>{copy.locationLabel}</dt>
@@ -153,7 +152,6 @@ export function AmenityListRow({
             <dd>{fact2.value}</dd>
           </div>
         ) : null}
-        {pageLink ? <div className="amenity-list-row__facts-mobile">{pageLink}</div> : null}
         {relatedFaqs.length > 0 ? (
           <div>
             <dt>{copy.faqHeading}</dt>
@@ -171,6 +169,8 @@ export function AmenityListRow({
           </div>
         ) : null}
       </dl>
+      {pageLink ? <p className="amenity-list-row__page">{pageLink}</p> : null}
+      </div>
     </div>
   )
 

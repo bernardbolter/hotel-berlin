@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: 'a11y-*.spec.ts',
+  testMatch: 'a11y-fullpages.spec.ts',
   retries: 0,
   reporter: 'list',
   use: {

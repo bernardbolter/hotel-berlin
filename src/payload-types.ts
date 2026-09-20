@@ -812,9 +812,17 @@ export interface Amenity {
    */
   subline?: string | null;
   /**
-   * Optional extra page, e.g. /here/wallride. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link only.
+   * Legacy extra-page URL. Prefer the link group. Hub cards still go to /ausstattung#{slug}.
    */
   href?: string | null;
+  /**
+   * Optional extra page or venue. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link, and venue links reuse the venue JSON-LD @id.
+   */
+  link?: {
+    type?: ('none' | 'page' | 'venue') | null;
+    page?: ('wallride' | 'art' | 'dining' | 'restaurant' | 'meetings' | 'neighbourhood') | null;
+    venue?: (number | null) | Venue;
+  };
   /**
    * Nur ändern, wenn du weißt, was es bedeutet. / Only change if you know what it means.
    */
@@ -1924,6 +1932,13 @@ export interface AmenitiesSelect<T extends boolean = true> {
   access?: T;
   subline?: T;
   href?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        page?: T;
+        venue?: T;
+      };
   schemaType?: T;
   showInHub?: T;
   pending?: T;

@@ -9,6 +9,11 @@ export type AmenitySeed = {
   showInHub?: boolean
   kind?: 'facility' | 'service'
   schemaType?: 'none' | 'ExerciseGym' | 'SportsActivityLocation' | 'ParkingFacility'
+  link?: {
+    type: 'none' | 'page' | 'venue'
+    page?: 'wallride' | 'art' | 'dining' | 'restaurant' | 'meetings' | 'neighbourhood'
+    venueSlug?: string
+  }
   relatedFaqSlugs?: string[]
   openingHours?: { dayOfWeek: string; opens: string; closes: string }[]
   title: LocalizedSeed
@@ -33,6 +38,7 @@ export const amenitiesSeed: AmenitySeed[] = [
     slug: 'kttk',
     lucideIcon: 'Table2',
     schemaType: 'SportsActivityLocation',
+    link: { type: 'venue', venueSlug: 'kttk' },
     openingHours: [{ dayOfWeek: 'Mo-Su', opens: '13:00', closes: '23:00' }],
     title: { de: 'KTTK', en: 'KTTK' },
     location: { de: 'B2 Keller', en: 'B2 Basement' },
@@ -50,6 +56,7 @@ export const amenitiesSeed: AmenitySeed[] = [
     slug: 'wallride',
     lucideIcon: 'Waves',
     href: '/here/wallride',
+    link: { type: 'page', page: 'wallride' },
     title: { de: 'Wallride', en: 'Wallride' },
     location: { de: 'B2 · vor KTTK', en: 'B2 · outside KTTK' },
     what: { de: 'Permanent', en: 'Permanent' },

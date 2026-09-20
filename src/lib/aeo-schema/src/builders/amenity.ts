@@ -1,9 +1,10 @@
 import type { JsonLdNode, SiteConfig } from '../types'
-import { amenityNodeId, hotelNodeId } from '../lib/ids'
+import { amenityNodeId, hotelNodeId, venueNodeId } from '../lib/ids'
 import { prune } from '../lib/prune'
 
 export type AmenitySchemaType = 'none' | 'ExerciseGym' | 'SportsActivityLocation' | 'ParkingFacility'
 export type AmenityHoursMode = 'always' | 'schedule' | 'onRequest' | 'unknown'
+export type AmenityLinkType = 'none' | 'page' | 'venue'
 
 export type SchemaAmenity = {
   slug: string
@@ -11,6 +12,8 @@ export type SchemaAmenity = {
   description?: string
   image?: string
   schemaType?: AmenitySchemaType | null
+  linkType?: AmenityLinkType | null
+  venueSlug?: string | null
   hoursMode: AmenityHoursMode
   openingHours?: { dayOfWeek?: string | null; opens?: string | null; closes?: string | null }[] | null
 }
@@ -53,7 +56,18 @@ function openingHoursSpecification(amenity: SchemaAmenity): JsonLdNode[] | undef
   }))
 }
 
+function venueLinkedSlug(amenity: SchemaAmenity): string | null {
+  if (amenity.linkType !== 'venue') return null
+  const slug = amenity.venueSlug?.trim()
+  return slug || null
+}
+
 export function buildAmenityNode(amenity: SchemaAmenity, config: SiteConfig): JsonLdNode | null {
+  const venueSlug = venueLinkedSlug(amenity)
+  if (venueSlug) {
+    return { '@id': venueNodeId(config, venueSlug) }
+  }
+
   const schemaType = amenity.schemaType && amenity.schemaType !== 'none' ? amenity.schemaType : null
   const id = amenityNodeId(amenity.slug, config)
 
@@ -88,8 +102,11 @@ export function splitAmenityGraph(
   for (const amenity of amenities) {
     const node = buildAmenityNode(amenity, config)
     if (!node) continue
-    if (amenity.schemaType && amenity.schemaType !== 'none') containsPlace.push(node)
-    else amenityFeature.push(node)
+    if (venueLinkedSlug(amenity) || (amenity.schemaType && amenity.schemaType !== 'none')) {
+      containsPlace.push(node)
+    } else {
+      amenityFeature.push(node)
+    }
   }
   return { amenityFeature, containsPlace }
 }

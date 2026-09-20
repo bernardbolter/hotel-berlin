@@ -1,13 +1,16 @@
-import { createElement, Fragment } from 'react'
+import { createElement, Fragment, act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { HashOpen } from '../../src/components/primitives/HashOpen'
 
-function mount(node: React.ReactNode) {
+async function mount(node: React.ReactNode) {
   const container = document.createElement('div')
   document.body.appendChild(container)
-  createRoot(container).render(node)
+  const root = createRoot(container)
+  await act(async () => {
+    root.render(node)
+  })
   return container
 }
 
@@ -16,10 +19,10 @@ describe('useHashOpen', () => {
     document.body.innerHTML = ''
   })
 
-  it('opens the matching details from the URL hash', () => {
+  it('opens the matching details from the URL hash', async () => {
     window.history.replaceState(null, '', '/amenities#sauna')
 
-    mount(
+    await mount(
       createElement(
         Fragment,
         null,
@@ -38,10 +41,10 @@ describe('useHashOpen', () => {
     expect((document.getElementById('gym') as HTMLDetailsElement).open).toBe(false)
   })
 
-  it('ignores an unknown hash', () => {
+  it('ignores an unknown hash', async () => {
     window.history.replaceState(null, '', '/amenities#missing')
 
-    mount(
+    await mount(
       createElement(
         Fragment,
         null,

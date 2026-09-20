@@ -1,11 +1,11 @@
 import { getBerlinParts } from '@/lib/venue-time/berlin'
-import { isOpenEndedEntry } from '@/lib/venue-time/deriveOpenClosed'
 
 import type { FormatAmenityHoursInput, SpecialHoursEntry } from './types'
 
 const ALWAYS_DAY = /^(mo[–-]so|mo[–-]su|mon[–-]sun|monday[–-]sunday|daily|täglich)$/i
 const FULL_OPEN = /^(00:00|0:00)$/
 const FULL_CLOSE = /^(24:00|00:00|0:00)$/
+const NOTICE_WINDOW_DAYS = 7
 
 function dateKeyFromField(value: string | null | undefined): string | null {
   if (!value) return null
@@ -13,11 +13,21 @@ function dateKeyFromField(value: string | null | undefined): string | null {
   return match?.[1] ?? null
 }
 
-function specialAppliesToday(row: SpecialHoursEntry, today: string): boolean {
+function addDaysToDateKey(dateKey: string, days: number): string {
+  const [year, month, day] = dateKey.split('-').map(Number)
+  const utc = new Date(Date.UTC(year, month - 1, day + days))
+  return utc.toISOString().slice(0, 10)
+}
+
+function specialAppliesOn(row: SpecialHoursEntry, dateKey: string): boolean {
   const from = dateKeyFromField(row.validFrom)
   if (!from) return false
   const through = dateKeyFromField(row.validThrough) ?? from
-  return today >= from && today <= through
+  return dateKey >= from && dateKey <= through
+}
+
+function specialAppliesToday(row: SpecialHoursEntry, today: string): boolean {
+  return specialAppliesOn(row, today)
 }
 
 function formatWindow(
@@ -67,7 +77,6 @@ function formatWeekly(
     if (days && window) return `${days}, ${window}`
     return window || days
   })
-
   const unique = parts.filter((part, index) => part && parts.indexOf(part) === index)
   return unique.length > 0 ? unique.join(' · ') : null
 }
@@ -88,6 +97,71 @@ function formatSpecial(
   return note || labels.closed
 }
 
+function formatNoticeDate(dateKey: string, locale: 'de' | 'en'): string {
+  const [year, month, day] = dateKey.split('-').map(Number)
+  const date = new Date(Date.UTC(year, month - 1, day, 12))
+  if (locale === 'de') {
+    const weekday = new Intl.DateTimeFormat('de-DE', { weekday: 'short', timeZone: 'UTC' })
+      .format(date)
+      .replace(/\.$/, '')
+    return `${weekday}, ${day}.${month}.`
+  }
+  const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'short', timeZone: 'UTC' }).format(date)
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${weekday}, ${day} ${months[month - 1]}`
+}
+
+function nextSpecialInWindow(
+  specialHours: SpecialHoursEntry[] | null | undefined,
+  now: Date,
+  windowDays = NOTICE_WINDOW_DAYS,
+): { row: SpecialHoursEntry; dateKey: string; offset: number } | null {
+  const today = getBerlinParts(now).dateKey
+  for (let offset = 0; offset <= windowDays; offset += 1) {
+    const dateKey = addDaysToDateKey(today, offset)
+    const matches = (specialHours ?? []).filter((row) => specialAppliesOn(row, dateKey))
+    const row = matches[matches.length - 1]
+    if (row) return { row, dateKey, offset }
+  }
+  return null
+}
+
+function formatNoticeLine(
+  row: SpecialHoursEntry,
+  dateKey: string,
+  offset: number,
+  locale: 'de' | 'en',
+  labels: FormatAmenityHoursInput['labels'],
+): string | null {
+  const note = row.note?.trim()
+  const window = formatWindow(row.opens, row.closes)
+  const today = offset === 0
+
+  if (today) {
+    if (row.kind === 'closed') {
+      if (locale === 'de') return note ? `Heute geschlossen – ${note}` : 'Heute geschlossen'
+      return note ? `Closed today – ${note}` : 'Closed today'
+    }
+    if (row.kind === 'hours' && window) {
+      return locale === 'de' ? `Heute ${window}` : `Today ${window}`
+    }
+    return formatSpecial(row, labels)
+  }
+
+  const date = formatNoticeDate(dateKey, locale)
+  if (row.kind === 'closed') {
+    return locale === 'de' ? `Geschlossen am ${date}` : `Closed ${date}`
+  }
+  if (row.kind === 'hours' && window) {
+    return locale === 'de' ? `Am ${date}: ${window}` : `${date}: ${window}`
+  }
+  if (row.kind === 'on-request') {
+    const label = note || labels.onRequest
+    return locale === 'de' ? `Am ${date}: ${label}` : `${date}: ${label}`
+  }
+  return locale === 'de' ? `Am ${date}: ${formatSpecial(row, labels)}` : `${date}: ${formatSpecial(row, labels)}`
+}
+
 /**
  * Guest-facing “Wann” string. Special hours win when today (Berlin) is inside
  * a row’s window. hoursOverride wins over weekly openingHours. Empty → omit.
@@ -104,11 +178,11 @@ export function formatAmenityHours(input: FormatAmenityHoursInput): string | nul
   return formatWeekly(input.openingHours ?? [], input.locale)
 }
 
-/** Guest-facing notice from today's special hours — not a CMS field (R2). */
+/** Guest-facing notice from special hours today or within the next 7 Berlin days (R2). */
 export function formatAmenityNotice(input: FormatAmenityHoursInput): string | null {
-  const active = specialHoursForToday(input.specialHours, input.now)
-  if (!active) return null
-  return formatSpecial(active, input.labels)
+  const found = nextSpecialInWindow(input.specialHours, input.now ?? new Date())
+  if (!found) return null
+  return formatNoticeLine(found.row, found.dateKey, found.offset, input.locale, input.labels)
 }
 
 export type AmenityHoursMode = 'always' | 'schedule' | 'onRequest' | 'unknown'

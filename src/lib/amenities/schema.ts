@@ -25,6 +25,9 @@ function toSchemaAmenity(doc: Amenity, locale: 'de' | 'en'): SchemaAmenity {
     description: doc.summary?.trim() || lexicalToPlain(doc.details) || undefined,
     image: image || undefined,
     schemaType: doc.schemaType ?? 'none',
+    linkType: doc.link?.type ?? 'none',
+    venueSlug:
+      typeof doc.link?.venue === 'object' && doc.link.venue ? doc.link.venue.slug : undefined,
     hoursMode: amenityHoursMode({
       openingHours: doc.openingHours,
       specialHours: doc.specialHours,

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 
 import { buildAmenityNode, splitAmenityGraph, type SchemaAmenity } from '../src/builders/amenity'
 import { defaultConfig } from '../src/lib/config'
+import { venueNodeId } from '../src/lib/ids'
 
 const gym: SchemaAmenity = {
   slug: 'gym',
@@ -76,4 +77,24 @@ test('splitAmenityGraph parks typed nodes on containsPlace', () => {
   assert.equal(containsPlace.length, 2)
   assert.equal(amenityFeature.length, 1)
   assert.equal(amenityFeature[0]?.name, 'Sauna')
+})
+
+test('venue-linked amenity reuses the venue @id and emits no new node', () => {
+  const linked: SchemaAmenity = {
+    ...kttk,
+    linkType: 'venue',
+    venueSlug: 'kttk',
+  }
+  const venueId = venueNodeId(defaultConfig, 'kttk')
+  const node = buildAmenityNode(linked, defaultConfig)
+  assert.equal(node?.['@id'], venueId)
+  assert.equal(node?.['@type'], undefined)
+  assert.equal(node?.name, undefined)
+  assert.notEqual(node?.['@id'], 'https://hotel-berlin.de/de/ausstattung#kttk')
+
+  const { containsPlace, amenityFeature } = splitAmenityGraph([linked, sauna], defaultConfig)
+  assert.equal(containsPlace.length, 1)
+  assert.deepEqual(containsPlace[0], { '@id': venueId })
+  assert.equal(amenityFeature.length, 1)
+  assert.equal(amenityFeature[0]?.['@type'], 'LocationFeatureSpecification')
 })

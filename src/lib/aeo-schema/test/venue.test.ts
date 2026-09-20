@@ -82,6 +82,7 @@ test('buildVenueNode emits Restaurant for Lütze with cuisine, menu, reservation
 test('buildVenueNode omits servesCuisine for non-dining venueTypes', () => {
   const node = buildVenueNode(kttk, defaultConfig)
   assert.equal(node['@type'], 'SportsActivityLocation')
+  assert.equal(node['@id'], 'https://hotel-berlin.de/#venue-kttk')
   assert.equal(node.servesCuisine, undefined)
   assert.equal(node.menu, undefined)
   assert.equal(node.acceptsReservations, false)

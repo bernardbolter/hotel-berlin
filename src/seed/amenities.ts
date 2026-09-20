@@ -17,6 +17,18 @@ import { plainRichText } from './richText'
 const forceFromArgv =
   process.argv.includes('--force') || process.env.AMENITIES_SEED_FORCE === '1'
 
+async function venueIdBySlug(payload: Payload, slug: string | undefined): Promise<number | null> {
+  if (!slug) return null
+  const { docs } = await payload.find({
+    collection: 'venues',
+    where: { slug: { equals: slug } },
+    limit: 1,
+    depth: 0,
+  })
+  const id = docs[0]?.id
+  return typeof id === 'number' ? id : null
+}
+
 async function faqIdsBySlug(payload: Payload, slugs: string[]): Promise<number[]> {
   if (slugs.length === 0) return []
   const { docs } = await payload.find({
@@ -42,6 +54,13 @@ export async function upsertAmenities(payload: Payload, force = false) {
     })
 
     const relatedFaqs = await faqIdsBySlug(payload, row.relatedFaqSlugs ?? [])
+    const venueId = await venueIdBySlug(payload, row.link?.venueSlug)
+    const link =
+      row.link?.type === 'venue' && venueId
+        ? { type: 'venue' as const, venue: venueId, page: null }
+        : row.link?.type === 'page' && row.link.page
+          ? { type: 'page' as const, page: row.link.page, venue: null }
+          : { type: 'none' as const, page: null, venue: null }
 
     const dataEn = {
       slug: row.slug,
@@ -49,6 +68,7 @@ export async function upsertAmenities(payload: Payload, force = false) {
       location: row.location.en,
       lucideIcon: row.lucideIcon,
       href: row.href ?? null,
+      link,
       pending: Boolean(row.pending),
       hidden: false,
       includeInSchema: row.includeInSchema !== false,

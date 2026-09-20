@@ -208,7 +208,7 @@ export interface SiteConfig {
 // typing (that's a much bigger dependency); just enough structure to keep
 // the builders honest.
 export interface JsonLdNode {
-  '@type': string;
+  '@type'?: string;
   '@id'?: string;
   [key: string]: unknown;
 }

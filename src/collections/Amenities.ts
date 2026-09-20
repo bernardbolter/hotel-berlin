@@ -158,9 +158,52 @@ export const Amenities: CollectionConfig = {
       name: 'href',
       type: 'text',
       admin: {
-        description:
-          'Optional extra page, e.g. /here/wallride. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link only.',
+        hidden: true,
+        description: 'Legacy extra-page URL. Prefer the link group. Hub cards still go to /ausstattung#{slug}.',
       },
+    },
+    {
+      name: 'link',
+      type: 'group',
+      admin: {
+        description:
+          'Optional extra page or venue. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link, and venue links reuse the venue JSON-LD @id.',
+      },
+      fields: [
+        {
+          name: 'type',
+          type: 'select',
+          defaultValue: 'none',
+          options: [
+            { label: 'None', value: 'none' },
+            { label: 'Page', value: 'page' },
+            { label: 'Venue', value: 'venue' },
+          ],
+        },
+        {
+          name: 'page',
+          type: 'select',
+          options: [
+            { label: 'Wallride', value: 'wallride' },
+            { label: 'Art', value: 'art' },
+            { label: 'Dining', value: 'dining' },
+            { label: 'Restaurant', value: 'restaurant' },
+            { label: 'Meetings', value: 'meetings' },
+            { label: 'Neighbourhood', value: 'neighbourhood' },
+          ],
+          admin: {
+            condition: (_, siblingData) => siblingData?.type === 'page',
+          },
+        },
+        {
+          name: 'venue',
+          type: 'relationship',
+          relationTo: 'venues',
+          admin: {
+            condition: (_, siblingData) => siblingData?.type === 'venue',
+          },
+        },
+      ],
     },
     {
       name: 'schemaType',

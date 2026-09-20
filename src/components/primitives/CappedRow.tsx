@@ -6,7 +6,7 @@ export const CAPPED_EVENTS_MAX = 4
 type MinCols = 1 | 2
 
 type Props = {
-  children: ReactNode
+  children?: ReactNode
   ariaLabel: string
   className?: string
   /** Server-rendered cap. Default 6. */

@@ -10,6 +10,7 @@ import {
   type AmenityHoursMode,
 } from './formatHours'
 import { resolveLucideIcon } from './lucide'
+import { amenityPageHref } from './link'
 import type { AmenityHoursLabels } from './types'
 
 export type AmenitySpecCopy = {
@@ -120,7 +121,7 @@ export function amenityToCard(doc: Amenity, locale: 'de' | 'en', copy: AmenitySp
     image: photoFromMedia(doc.image, doc.title),
     icon: resolveLucideIcon(doc.lucideIcon),
     href: `/amenities#${doc.slug}`,
-    pageHref: doc.href?.trim() || null,
+    pageHref: amenityPageHref(doc),
     pending: Boolean(doc.pending),
     access: doc.access?.trim() || null,
     details: doc.details,

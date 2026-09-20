@@ -89,7 +89,7 @@ export function toSchemaDays(dayOfWeek?: string): string | string[] | undefined 
 export function buildVenueRef(venue: Venue, config: SiteConfig): JsonLdNode {
   return prune({
     '@type': venueTypeToSchemaType(venue.venueType),
-    '@id': venueNodeId(config),
+    '@id': venueNodeId(config, venue.slug),
     name: venue.name,
   })
 }
@@ -99,7 +99,7 @@ export function buildVenueNode(venue: Venue, config: SiteConfig): JsonLdNode {
 
   return prune({
     '@type': venueTypeToSchemaType(venue.venueType),
-    '@id': venueNodeId(config),
+    '@id': venueNodeId(config, venue.slug),
     name: venue.name,
     description: venue.description,
     url: restaurantUrl(config),

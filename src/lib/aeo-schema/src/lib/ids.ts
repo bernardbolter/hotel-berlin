@@ -77,15 +77,18 @@ export function meetingRoomNodeId(slug: string, config: SiteConfig): string {
 
 /**
  * Public Lütze page — one venue on this URL, so no [slug] segment.
- * Other venues (KTTK, Sissi) reuse `buildVenueNode` but will need their own
- * path registered here when they get public pages.
+ * Other venues (KTTK, Sissi) share the hotel graph as `#venue-{slug}` until
+ * they get their own public path.
  */
 export function restaurantUrl(config: SiteConfig): string {
   return `${config.baseUrl}${config.paths.restaurant[config.canonicalLocale]}`;
 }
 
-export function venueNodeId(config: SiteConfig): string {
-  return `${restaurantUrl(config)}#venue`;
+export function venueNodeId(config: SiteConfig, slug?: string): string {
+  if (!slug || slug === 'lutze') {
+    return `${restaurantUrl(config)}#venue`;
+  }
+  return `${config.baseUrl}/#venue-${slug}`;
 }
 
 export function amenitiesListUrl(config: SiteConfig): string {

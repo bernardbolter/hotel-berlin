@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { amenitiesToAmenityFeature } from '../../src/lib/amenities/schema'
 import { amenityHoursMode, formatAmenityHours, formatAmenityNotice, specialHoursForToday } from '../../src/lib/amenities/formatHours'
+import { amenityPageHref } from '../../src/lib/amenities/link'
 import { resolveLucideIcon } from '../../src/lib/amenities/lucide'
 import { berlinLocalToUtc } from '../../src/lib/venue-time/berlin'
 
@@ -134,7 +135,7 @@ describe('formatAmenityHours', () => {
         labels,
         now: day,
       }),
-    ).toBe('Feiertag')
+    ).toBe('Heute geschlossen – Feiertag')
     expect(
       amenityHoursMode({
         openingHours: [{ dayOfWeek: 'Mo-Su', opens: '00:00', closes: '24:00' }],
@@ -158,6 +159,66 @@ describe('formatAmenityHours', () => {
         now: day,
       }),
     ).toBe('onRequest')
+  })
+})
+
+describe('formatAmenityNotice window', () => {
+  const now = berlinLocalToUtc(2026, 9, 20, 12, 0, 0)
+
+  it('announces a special-hours row covering tomorrow', () => {
+    expect(
+      formatAmenityNotice({
+        specialHours: [{ validFrom: '2026-09-21', kind: 'closed', note: 'Wartung' }],
+        locale: 'de',
+        labels,
+        now,
+      }),
+    ).toBe('Geschlossen am Mo, 21.9.')
+    expect(
+      formatAmenityNotice({
+        specialHours: [{ validFrom: '2026-09-21', kind: 'hours', opens: '10:00', closes: '12:00' }],
+        locale: 'en',
+        labels,
+        now,
+      }),
+    ).toBe('Mon, 21 Sep: 10:00–12:00')
+  })
+
+  it('announces a row three days out and ignores one eight days out', () => {
+    expect(
+      formatAmenityNotice({
+        specialHours: [{ validFrom: '2026-09-23', kind: 'closed' }],
+        locale: 'de',
+        labels,
+        now,
+      }),
+    ).toBe('Geschlossen am Mi, 23.9.')
+    expect(
+      formatAmenityNotice({
+        specialHours: [{ validFrom: '2026-09-28', kind: 'closed' }],
+        locale: 'de',
+        labels,
+        now,
+      }),
+    ).toBeNull()
+  })
+})
+
+describe('amenityPageHref', () => {
+  it('resolves venue and page links, and falls back to href', () => {
+    expect(
+      amenityPageHref({
+        href: null,
+        link: { type: 'venue', venue: { slug: 'kttk' } as never },
+      }),
+    ).toBe('/here')
+    expect(
+      amenityPageHref({
+        href: '/here/wallride',
+        link: { type: 'page', page: 'wallride' },
+      }),
+    ).toBe('/here/wallride')
+    expect(amenityPageHref({ href: '/here/wallride', link: { type: 'none' } })).toBe('/here/wallride')
   })
 })
 

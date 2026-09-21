@@ -1,0 +1,194 @@
+{
+  "slug": "disclaimer",
+  "locale": "en",
+  "title": "Copyright & Disclaimer",
+  "updated": null,
+  "blocks": [
+    {
+      "type": "h3",
+      "text": "AGREEMENT BETWEEN THE USER",
+      "id": "agreement-between-the-user"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "AND Pandox Berlin GmbH, c/o Hotel Berlin, Berlin"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This website is made available to you, the user, subject to your unconditional agreement to the following terms of use. By using this web offering, you agree to be bound by these terms."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Restriction private, non-commercial usage",
+      "id": "restriction-private-non-commercial-usage"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This web offer is intended exclusively for your private and non-commercial use. You may not modify, reproduce, distribute, transmit, display, perform, reproduce, publish, license, or create derivative works from, transfer, or sell any information, software, products, or services found on or obtained from this website."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Copyright and Trademarks",
+      "id": "copyright-and-trademarks"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "All contents of this website are copyright © 2021 by Pandox Berlin GmbH, c/o Hotel Berlin, Berlin. All rights reserved."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH, c/o Hotel Berlin, Berlin is a trade name of the subsidiaries of Pandox AB, which operates worldwide as a hotel real estate company. Trademarks of Pandox Berlin GmbH, c/o Hotel Berlin, Berlin may not be used or displayed publicly without the prior written consent of Pandox Berlin GmbH, c/o Hotel Berlin, Berlin, except as otherwise provided on this website for downloaded logos and photographs."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Disclaimer",
+      "id": "disclaimer"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The information on this website is provided \"as is\" without warranties, conditions, representations, warranties of any kind, express or implied, statutory or otherwise, including but not limited to warranties of merchantability, non-infringement of intellectual property or fitness for a particular purpose. To the extent that any particular jurisdiction prohibits the exclusion of the foregoing warranties, the above exclusions may not apply to you. Further, Pandox Berlin GmbH c/o Hotel Berlin, Berlin does not warrant the accuracy or completeness of the information, text, graphics, links or other items contained on the site. Pandox Berlin GmbH c/o Hotel Berlin, Berlin is permitted to make changes in the statements, programs, policies or other information contained in the statements at any time without notice. Pandox Berlin GmbH c/o Hotel Berlin, Berlin makes no commitment to update the information."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "In no event will Pandox Berlin GmbH c/o Hotel Berlin, Berlin and / or its affiliates be liable for any direct, indirect, consequential or other damages, including loss of profits or data, whether in an action of contract, tort or otherwise, arising out of or in connection with the use or performance of this site. This also applies if Pandox Berlin GmbH c/o Hotel Berlin, Berlin has been notified of the possibility of such damages. Because individual jurisdictions prohibit the exclusion or limitation of liability for consequential or incidental damages, the above limitation may not apply to you."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "No unlawful or illegal use",
+      "id": "no-unlawful-or-illegal-use"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "As a condition of your use of our website, you warrant to Pandox Berlin GmbH c/o Hotel Berlin, Berlin that you will not use this website for any purpose that is unlawful or prohibited by these Terms of Use."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Hyperlinks",
+      "id": "hyperlinks"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This website may contain \"hyperlinks\" to websites operated by parties other than Pandox Berlin GmbH c/o Hotel Berlin, Berlin. Such \"hyperlinks\" are provided for reference purposes only. Pandox Berlin GmbH c/o Hotel Berlin, Berlin neither controls these websites nor is it responsible for their content. The inclusion of \"hyperlinks\" to such websites does not imply any endorsement of the information on such websites nor does it imply any association with their operators."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Modification of the agreement",
+      "id": "modification-of-the-agreement"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin may, in its sole discretion, change the terms and conditions of access to this offer at any time. Your continued use of this website following any such change will constitute your acceptance of the change."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "General",
+      "id": "general"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Any claim based on this Agreement or the Information shall be governed by the laws of Germany, Europe, excluding its choice of law rules. This Agreement constitutes the entire agreement of the parties with respect to the subject matter hereof and supersedes all prior oral or written agreements. Any failure or delay by Pandox Berlin GmbH c/o Hotel Berlin, Berlin to exercise any rights or remedies hereunder or to enforce any of the terms and conditions of this Agreement shall not constitute a waiver thereof. If any part of this Agreement or any provision hereof is held to be invalid, unenforceable or void, the validity of the remaining provisions hereof shall not be affected thereby. Headings are for convenience only and are not intended to be used in interpreting this Agreement."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You agree that no joint venture, partnership, agency, or representative relationship is created between you and Pandox Berlin GmbH c/o Hotel Berlin, Berlin as a result of this agreement or use of this website."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Fictitious designations of companies, products, persons, characters, and/or data mentioned herein are not intended to represent a real person or event nor a real company or product."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "All rights, unless expressly granted, are reserved."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Use of Web offer",
+      "id": "use-of-web-offer"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The reservation feature of this website for Pandox Berlin GmbH c/o Hotel Berlin, Berlin is provided solely to assist customers in determining the availability of travel-related goods and services and to make lawful reservations; no other purpose is intended. You represent and warrant that you are at least 18 years of age and have the right to enter into this Agreement and use this Web Site in accordance with these Terms and Conditions. You hereby agree to be financially liable for any use of this Website (including use of your account by others, including but not limited to minors living in your household). You also agree to control the use of this website by minors under your name or account. You further warrant that all information provided by you or members of your household when using this website is accurate, correct, and unrestricted, and does not constitute false or fraudulent reservations. You further agree that the reservation facilities of this website are for the sole purpose of making lawful reservations or purchases for you or for other persons for whom you are duly authorized. Also, you understand that excessive use or misuse of the reservation facilities of this web offer may result in your being denied access to such facilities."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "For reservations and other services for which charges may apply, you agree to abide by the terms and conditions associated with the purchase, including, but not limited to, paying all amounts due and agreeing to abide by all rules and restrictions regarding the availability of the rates, products or services. You are liable for all costs, fees, charges, taxes, and assessments resulting from your use of this web service."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Currency Exchange",
+      "id": "currency-exchange"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Foreign exchange rates are based on publicly available sources and should be used as a guide only. Room rates are guaranteed only in the hotel's local currency. Currency rates are not updated on a daily basis. The currency information provided in this web offer is believed to be accurate; however, Pandox Berlin GmbH c/o Hotel Berlin, Berlin and / or group company does not guarantee its accuracy."
+        }
+      ]
+    }
+  ]
+}

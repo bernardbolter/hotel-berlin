@@ -47,10 +47,11 @@ export const pathnames = {
   '/offers': { en: '/offers', de: '/offers' },
   '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed
   '/faqs': { en: '/faqs', de: '/faqs' }, // legacy alias — prefer /faq
-  '/imprint': { en: '/imprint', de: '/imprint' },
-  '/privacy': { en: '/privacy', de: '/privacy' },
-  '/terms': { en: '/terms', de: '/terms' },
+  '/imprint': { en: '/imprint', de: '/impressum' },
+  '/privacy': { en: '/privacy', de: '/datenschutz' },
+  '/terms': { en: '/terms', de: '/agb' },
   '/cookies': { en: '/cookies', de: '/cookies' },
+  '/disclaimer': { en: '/disclaimer', de: '/haftungsausschluss' },
   '/accessibility': { en: '/accessibility', de: '/accessibility' },
   '/amenities': { en: '/amenities', de: '/ausstattung' },
 } as const satisfies Pathnames<readonly ['de', 'en']>

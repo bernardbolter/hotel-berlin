@@ -86,6 +86,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlace;
     places: Place;
     pages: Page;
+    'legal-documents': LegalDocument;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -116,6 +117,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlacesSelect<false> | NeighbourhoodPlacesSelect<true>;
     places: PlacesSelect<false> | PlacesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    'legal-documents': LegalDocumentsSelect<false> | LegalDocumentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -1518,6 +1520,51 @@ export interface Place {
   createdAt: string;
 }
 /**
+ * Imprint, privacy, terms, cookies, and disclaimer. Switch locale (DE/EN) in the admin bar to edit each language. The slug maps to a fixed URL and should not be changed.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents".
+ */
+export interface LegalDocument {
+  id: number;
+  /**
+   * Locks this document to a site URL (e.g. imprint → /imprint, /de/impressum). Do not change after create.
+   */
+  slug: 'imprint' | 'privacy' | 'terms' | 'cookies' | 'disclaimer';
+  /**
+   * Page heading, e.g. “Privacy Policy” / “Datenschutzerklärung”.
+   */
+  title: string;
+  /**
+   * Optional date line shown under the heading, e.g. “24th April 2026”. Leave empty to hide.
+   */
+  updatedLabel?: string | null;
+  /**
+   * Optional intro under the heading (used on privacy). Not shown on Terms.
+   */
+  lede?: string | null;
+  /**
+   * Full legal text. Use headings (H2/H3), numbered or bullet lists, and links. Edit German and English separately with the locale switcher.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1616,6 +1663,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'legal-documents';
+        value: number | LegalDocument;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2291,6 +2342,19 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   context?: T;
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents_select".
+ */
+export interface LegalDocumentsSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  updatedLabel?: T;
+  lede?: T;
+  body?: T;
   updatedAt?: T;
   createdAt?: T;
 }

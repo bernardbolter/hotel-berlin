@@ -239,6 +239,12 @@ async function seed() {
     await upsertFaqs(payload)
   }
 
+  if (!(await isSeeded('legal-documents'))) {
+    console.log('Seeding legal pages...')
+    const { upsertLegalDocuments } = await import('./legal')
+    await upsertLegalDocuments(payload)
+  }
+
   const pageIds = new Map<string, number>()
 
   console.log('Seeding pages (skeleton)...')

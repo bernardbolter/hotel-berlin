@@ -1067,6 +1067,18 @@
     "emailAria": "Email Hotel Berlin, Berlin at {email}",
     "transitAria": "Public transport nearby"
   },
+  "legal": {
+    "updated": "Updated {date}",
+    "relatedAria": "Other legal pages",
+    "onThisPage": "On this page",
+    "pages": {
+      "imprint": "Imprint",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies",
+      "disclaimer": "Disclaimer"
+    }
+  },
   "hub": {
     "inHouse": {
       "allLink": "All amenities →"

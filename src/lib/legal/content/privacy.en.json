@@ -1,0 +1,608 @@
+{
+  "slug": "privacy",
+  "locale": "en",
+  "title": "Privacy Policy",
+  "updated": "24th April 2026",
+  "blocks": [
+    {
+      "type": "h4",
+      "text": "of Pandox Berlin GmbH c/o Hotel Berlin, Berlin, Lützowplatz 17, 10785 Berlin",
+      "id": "of-pandox-berlin-gmbh-c-o-hotel-berlin-berlin-luetzowplatz-17-10785-berlin"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We appreciate your interest in our company and our services and want you to feel secure when visiting our website, also with regard to the protection of your personal data."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We take the protection of personal data very seriously. Therefore, compliance with the provisions of the EU General Data Protection Regulation (GDPR) and other relevant data protection laws is a matter of course for us. We want you to know when we collect which data and how we use it. We have taken technical and organizational measures to ensure that the data protection regulations are observed both by us and by external service providers."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Who is responsible?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin\n\nLützowplatz 17\n\n10785 Berlin"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Commercial register number. HRB 96069"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Tel: +49 30 2605 0\n\nemail: "
+        },
+        {
+          "text": "info@hotel-berlin.de",
+          "href": "mailto:info@hotel-berlin.de"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Who is our Data Protection Officer?",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "text": "\n\n\n\nCranium Belgium BV\n\nExcelsiorlaan 43/3\n\n1930 Zaventem\n\nBelgium"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Email: "
+        },
+        {
+          "text": "info@agor-ag.com",
+          "href": "mailto:info@agor-ag.com"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "What personal data do we collect and for what purpose?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "1. the following data is collected by us when you make an online booking:",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Your first and last name and, if applicable, title,\n\n- Your address and e-mail address,\n\n- Your order transactions (date and content of the order, value of goods),\n\n- Your credit card details."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You can provide the following additional data voluntarily:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Your telephone number."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This data will be deleted by us when you delete your profile."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The legal basis for data processing is Art. 6 para. 1 lit. b EU GDPR (processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "It is not necessary to create an account to use our online services. You can also place orders and send us inquiries as a guest. In this case, you must enter your data again for each new transaction."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "2. data processing through the use of cookies",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Our website uses cookies. These are text files that are stored on your computer in order to track visitor preferences and optimize our website accordingly."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "On the one hand, we use transient cookies. These are automatically deleted when you close the browser. These include session cookies in particular. They store a so-called session ID, with which various requests from your browser can be assigned to the joint session. This allows your computer to be recognized when you return to the website. The session cookies are deleted when you log out or close the browser."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We also use persistent cookies. These are valid for one year and can be deleted at any time via your browser."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "To prevent cookies from being saved, \"Do not accept cookies\" must be selected in the browser settings. If cookies are not accepted by the browser, the functionality of the website may be limited."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This stored information is stored separately from any other data you may have provided to us. In particular, the cookie data is not linked to your other data."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The legal basis for data processing is Art. 6 para. 1 lit. f EU GDPR (processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "3. data processing when using our general contact form",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "If you contact us via our website, we will process the following information in order to respond appropriately to your request:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Date and time of the request,\n\n- Your first and last name and, if applicable, title,\n\n- Your e-mail address and telephone number,\n\n- Request text,"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We cannot process your request without this data."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You can provide the following additional data voluntarily:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": " - Your telephone number and address."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The data will be deleted as soon as it is no longer required for processing your request."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The legal basis for data processing is Art. 6 para. 1 lit. f EU GDPR (processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data), insofar as your request is processed for the purpose of explaining our services and our company."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "If your request is made in preparation for the conclusion of a contract, the legal basis is Art. 6 para. 1 lit. b EU GDPR (processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "4. DialogShift chat application on our website",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Our website uses the chat application of DialogShift GmbH, Rheinsberger Str. 76/77, 10115 Berlin. This application processes and stores data for the purpose of web analysis, operating the chat application and responding to inquiries.\n\nTo operate the chat function, the chat texts are saved and a cookie with a unique ID is set - this is used to recognize you as a customer.\n\n\n\nA cookie is a small text file that is stored locally in the cache on your device. With the help of this cookie, our application recognizes the device and can call up past chat logs. This cookie is stored for 90 days since it was last used.  You can deactivate the storage of cookies in your browser settings. However, the chat function cannot be executed without the use of cookies.\n\n\n\nThe possible disclosure of e.g. name, e-mail address or a telephone number is voluntary and with the consent to temporarily use and store this data for the purpose of establishing contact until the end of the contact. This personal data will be deleted after 90 days.\n\nThe legal basis for data processing is Art. 6 para. 1 lit. a GDPR on the basis of your consent in the consent banner. This helps us to provide effective customer support, statistically analyze user behavior and optimize our offers.\n\n\n\nDialogShift offers further information on the collection and use of data as well as your rights and options for protecting your privacy at "
+        },
+        {
+          "text": "https://www.dialogshift.com/datenschutz",
+          "href": "https://www.dialogshift.com/datenschutz"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "5. data processing for online applications via third-party providers",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You can send your applications for our job advertisements or unsolicited applications via our Connectoor application contact form. We process the following data for this purpose:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Date and time of the request,\n\n- Your first and last name and, if applicable, title,\n\n- Your e-mail address and telephone number,\n\n- Request text,\n\n- Your profession/education and year of graduation, possible starting date."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We cannot process your request without this data."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You can provide the following additional data voluntarily:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- your address,\n\n- your date of birth,\n\n- your salary expectations,\n\n- attachments (e.g. application documents)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "If this is necessary for our decision-making and for contacting you, we will ask you separately. The data will be processed to check your application prospects and to select an applicant."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The legal basis for data processing is Art. 6 para. 1 lit. b EU GDPR (processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We will automatically delete your data after three months from the date of the decision on the award of the position, unless you assert a claim under the AGG on the basis of the decision (in this case, the deletion will take place after the conclusion of the proceedings on your claim)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Should you be considered for a subsequent job offer, we will only delete your data after two years from the date of sending if you give us your consent to do so. You can revoke this consent at a later date with effect for the future. The consequence of such a revocation is that you will have to resubmit your data for the subsequent call for applications if you wish to apply again. You will not suffer any other disadvantages (in particular in the selection of the applicant) as a result of this withdrawal."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "What anonymous data do we collect and for what purpose?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "When you visit our website, our web servers automatically store the data that your browser transmits to enable you to visit the website and to inform you about our range of services and our company. These are"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- the name of your internet service provider,\n\n- the website from which you visit us, as well as the date and time of your visit,\n\n- the amount of data transferred in each case,\n\n- your browser, the language and version of the browser software, as well as your IP address."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "operating system and its interface."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We evaluate this technical data anonymously and solely for statistical purposes in order to optimize our website and make our internet offers even more attractive. This anonymous data is stored separately from personal information on secure systems and does not allow any conclusions to be drawn about an individual person."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "What generally applies to all cases of data processing?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Data will not be transferred to third parties. We would like to point out that we can only delete your data after the expiry of a statutory retention obligation, if such an obligation exists. This applies accordingly to any retention obligation arising from a contract with you."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "How do we back up your data?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We have implemented technical and organizational security measures to protect your data processed by us against accidental or intentional manipulation, loss, destruction or access by unauthorized persons. Our security measures are continuously improved in line with technological developments."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Our employees and any third parties processing data are obliged to maintain confidentiality."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Right to information and right of withdrawal",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "In accordance with the EU GDPR, you have the right to request information from us at any time as to whether personal data relating to you is stored by us. You also have the following rights in relation to this stored data:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- the right of access to stored data (Art. 15 EU GDPR),\n\n- the right to rectification of inaccurate data (Art. 16 EU GDPR),\n\n- the right to erasure of data (Art. 17 EU GDPR),\n\n- the right to restriction of processing of data (Art. 18 EU GDPR),\n\n- the right to object to unreasonable data processing (Art. 21 EU GDPR) and\n\n- the right to data portability (Art. 20 EU GDPR)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "If you have given your consent to the use of data, you can revoke this at any time with effect for the future."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Please send all requests for information, information requests or objections to data processing by e-mail to "
+        },
+        {
+          "text": "info@hotel-berlin.de",
+          "href": "mailto:info@hotel-berlin.de"
+        },
+        {
+          "text": ", to the postal address stated in the imprint or via our contact form under the \"Data protection\" button."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "You also have the right to lodge a complaint with a supervisory authority, in particular in the Member State of your habitual residence, place of work or place of the alleged infringement if you consider that the processing of personal data relating to you infringes the EU GDPR (Art. 77 EU GDPR)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Children and young people",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Persons under the age of 18 may not transmit any personal data to us without the consent of their parents or legal guardians. We do not request personal data from children and young people, do not collect it and do not pass it on to third parties."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Further information",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Information pursuant to Art. 13 para. 2 lit. e EU GDPR:  The provision of personal data is neither legally nor contractually required or necessary for the conclusion of a contract. You are not obliged to provide personal data. Please refer to the section \"What personal data do we collect and for what purpose?\" for the possible consequences of not providing personal data for the respective data processing operation."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Changes to our privacy policy",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We reserve the right to change our data protection measures if this becomes necessary due to technical developments or changes in legislation or case law. In such cases, we will also adapt our privacy policy accordingly. Please therefore note the current version of our privacy policy."
+        }
+      ]
+    }
+  ]
+}

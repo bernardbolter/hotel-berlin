@@ -1,0 +1,610 @@
+{
+  "slug": "privacy",
+  "locale": "de",
+  "title": "Datenschutzerklärung",
+  "updated": "24. April 2026",
+  "blocks": [
+    {
+      "type": "h4",
+      "text": "der Pandox Berlin GmbH c/o Hotel Berlin, Berlin, Lützowplatz 17, 10785 Berlin",
+      "id": "der-pandox-berlin-gmbh-c-o-hotel-berlin-berlin-luetzowplatz-17-10785-berlin"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir freuen uns über Ihr Interesse an unserem Unternehmen und unseren Dienstleistungen und möchten, dass Sie sich beim Besuch unserer Internetseiten auch hinsichtlich des Schutzes Ihrer personenbezogenen Daten sicher fühlen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir nehmen den Schutz von personenbezogenen Daten sehr ernst. Daher ist die Beachtung der Bestimmungen der EU-Datenschutz-Grundverordnung (EU-DSGVO) sowie der weiteren einschlägigen Datenschutzgesetze für uns eine Selbstverständlichkeit. Wir möchten, dass Sie wissen, wann wir welche Daten erheben und wie wir sie verwenden. Wir haben technische und organisatorische Maßnahmen getroffen, die sicherstellen, dass die Vorschriften über den Datenschutz sowohl von uns als auch von externen Dienstleistern beachtet werden."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wer ist Verantwortlicher?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin\n\nLützowplatz 17\n\n10785 Berlin"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Handelsregisternummer. HRB 96069"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Tel: +49 30 2605 0\n\nemail: "
+        },
+        {
+          "text": "info@hotel-berlin.de",
+          "href": "mailto:info@hotel-berlin.de"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wer ist unser Datenschutzbeauftragter?",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "text": "\n\n\n\nCranium Belgium BV \n\nExcelsiorlaan 43/3\n\n1930 Zaventem\n\nBelgien"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Email: "
+        },
+        {
+          "text": "info@agor-ag.com",
+          "href": "mailto:info@agor-ag.com"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Welche personenbezogenen Daten erheben wir und zu welchem Zweck?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "1. Folgende Daten werden bei einer Online Buchung von uns erhoben:",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Ihr Vor- und Nachname sowie ggf. Titel,\n\n- Ihre Adresse und Ihre E-Mail\n\n- Ihre Bestellvorgänge (Datum und Inhalt der Bestellung, Warenwert),\n\n- Ihre Kreditkartendaten."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Folgende weiteren Daten können Sie freiwillig angeben:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Ihre Telefonnummer."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Diese Daten werden bei Löschung Ihres Profils von uns gelöscht."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Rechtsgrundlage der Datenverarbeitung ist Art. 6 Abs. 1 lit. b EU-DSGVO."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Die Verarbeitung ist für die Erfüllung eines Vertrags, dessen Vertragspartei die betroffene Person ist, oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, die auf Anfrage der betroffenen Person erfolgen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Für die Nutzung unserer Online-Dienste ist es nicht erforderlich, einen Account anzulegen. Sie können auch als Gast Bestellungen abgeben und Anfragen an uns richten. In diesem Fall müssen Sie bei jedem neuen Vorgang Ihre Daten erneut angeben."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "2. Datenverarbeitung durch Verwendung von Cookies",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Unsere Webseite verwendet Cookies. Das sind Textdateien, die auf Ihrem Computer gespeichert werden, um Präferenzen der Besucher zu verfolgen und unser Internetangebot entsprechend optimal gestalten zu können."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir nutzen zum einen transiente Cookies. Diese werden automatisiert gelöscht, wenn Sie den Browser schließen. Dazu zählen insbesondere Session-Cookies. Sie speichern eine sog. Session-ID, mit welcher sich verschiedene Anfragen Ihres Browsers der gemeinsamen Sitzung zuordnen lassen. Dadurch kann Ihr Rechner wiedererkannt werden, wenn Sie auf die Website zurückkehren. Die Session-Cookies werden gelöscht, wenn Sie sich ausloggen oder Sie den Browser schließen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Darüber hinaus nutzen wir persistente Cookies. Diese sind für ein Jahr gültig und können jederzeit über Ihren Browser gelöscht werden."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Um das Speichern von Cookies zu verhindern, muss in den Browser-Einstellungen “keine Cookies akzeptieren” ausgewählt werden. Wenn keine Cookies vom Browser akzeptiert werden, kann der Funktionsumfang der Website eingeschränkt sein."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Diese gespeicherten Informationen werden getrennt von eventuell weiter bei uns angegeben Daten gespeichert. Insbesondere werden die Daten der Cookies nicht mit Ihren weiteren Daten verknüpft."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Rechtsgrundlage der Datenverarbeitung ist Art. 6 Abs. 1 lit. f EU-DSGVO.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "text": "\n\n(Die Verarbeitung ist zur Wahrung der berechtigten Interessen des Verantwortlichen oder eines Dritten erforderlich, sofern nicht die Interessen oder Grundrechte und Grundfreiheiten der betroffenen Person, die den Schutz personenbezogener Daten erfordern, überwiegen)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "3. Datenverarbeitung bei Nutzung unseres allgemeinen Kontaktformulars",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wenn Sie uns über unsere Internetseite kontaktieren, werden wir die folgenden Informationen verarbeiten, um auf Ihre Anfrage angemessen reagieren zu können:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Datum und Uhrzeit der Anfrage,\n\n- Ihr Vor- und Nachname sowie ggf. Titel,\n\n- Ihre E-Mail-Adresse und Telefonnummer,\n\n- Anfragetext,"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Ohne Angabe dieser Daten können wir Ihre Anfrage nicht bearbeiten."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Folgende weiteren Daten können Sie freiwillig angeben:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": " - Ihre Telefonnummer und Anschrift."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Die Daten werden gelöscht, sobald sie für die Bearbeitung Ihrer Anfrage nicht mehr erforderlich sind."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Rechtsgrundlage der Datenverarbeitung ist Art. 6 Abs. 1 lit. f EU-DSGVO (Die Verarbeitung ist zur Wahrung der berechtigten Interessen des Verantwortlichen oder eines Dritten erforderlich, sofern nicht die Interessen oder Grundrechte und Grundfreiheiten der betroffenen Person, die den Schutz personenbezogener Daten erfordern, überwiegen), soweit die Bearbeitung Ihrer Anfrage zur Erläuterung unserer Leistungen und unseres Unternehmens erfolgt. Sollte Ihre Anfrage in Vorbereitung eines Vertragsabschlusses erfolgen, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b EU-DSGVO. (die Verarbeitung ist für die Erfüllung eines Vertrags, dessen Vertragspartei die betroffene Person ist, oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, die auf Anfrage der betroffenen Person erfolgen)"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "4. DialogShift Chat-Anwendung auf unserer Website",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Unsere Website nutzt die Chat-Anwendung der DialogShift GmbH, Rheinsberger Str. 76/77, 10115 Berlin. Diese Anwendung verarbeitet und speichert Daten zum Zweck der Webanalyse, zum Betreiben der Chat-Anwendung und zur Beantwortung von Anfragen. \n\nFür den Betrieb der Chat-Funktion werden die Chat-Texte gespeichert und es wird ein Cookie mit einer eindeutigen ID gesetzt – dieser dient dazu, Sie als Kunden wiederzuerkennen. \n\n\n\nEin Cookie ist eine kleine Textdatei, die lokal im Zwischenspeicher auf Ihrem Gerät gespeichert wird. Mithilfe dieses Cookies erkennt unsere Anwendung das Gerät wieder und kann vergangene Chat-Protokolle aufrufen. Dieses Cookie wird 90 Tage, seit letzter Verwendung, gespeichert.  Sie können die Speicherung von Cookies in Ihren Browsereinstellungen deaktivieren. Jedoch kann ohne die Verwendung von Cookies die Chat-Funktion nicht ausgeführt werden.\n\n\n\nDie mögliche Bekanntgabe von z.B. Namen, E-Mail-Adresse oder einer Telefonnummer erfolgt freiwillig und mit dem Einverständnis, diese Daten zum Zwecke der Kontaktaufnahme bis zum Ende des Kontaktes vorübergehend zu nutzen und zu speichern. Diese personenbezogenen Daten werden nach 90 Tagen gelöscht.  \n\nDie Rechtsgrundlage der Datenverarbeitung erfolgt nach Art. 6 Abs. 1 lit. a DSGVO auf Basis Ihres Einverständnis im Rahmen des Consent Banners. Damit helfen Sie uns eine effektive Kundenbetreuung, eine statistische Analyse des Nutzungsverhaltens und unsere Angebote zu optimieren.\n\n\n\nDialogShift bietet unter "
+        },
+        {
+          "text": "https://www.dialogshift.com/datenschutz ",
+          "href": "https://www.dialogshift.com/datenschutz"
+        },
+        {
+          "text": "weitere Informationen zur Erhebung und Nutzung der Daten sowie zu Ihren Rechten und Möglichkeiten zum Schutz Ihrer Privatsphäre an."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "5. Datenverarbeitung bei einer Online Bewerbung über Drittanbieter",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Sie können Ihre Bewerbungen auf unsere Stellenausschreibungen oder auch Initiativbewerbungen über unser Bewerber-Kontaktformular Connectoor versenden. Hierbei verarbeiten wir die folgenden Daten:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Datum und Uhrzeit der Anfrage,\n\n- Ihr Vor- und Nachname sowie ggf. Titel,\n\n- Ihre E-Mail-Adresse und Telefonnummer,\n\n- Anfragetext,\n\n- Ihr Beruf/ Ausbildung und Abschlussjahr, möglicher Eintrittstermin."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Ohne Angabe dieser Daten können wir Ihre Anfrage nicht bearbeiten."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Folgende weiteren Daten können Sie freiwillig angeben:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- Ihre Adresse,\n\n- Ihr Geburtsdatum,\n\n- Ihre Gehaltsvorstellung,\n\n- Anhänge (z.B. Bewerbungsunterlagen)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Soweit Letztere für unsere Entscheidungsfindung und die Kontaktaufname mit Ihnen erforderlich sind, werden wir dies separat anfordern.\n\nDie Daten werden zur Prüfung Ihrer Bewerbungsaussichten und die Auswahl eines Bewerbers verarbeitet."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Rechtsgrundlage der Datenverarbeitung ist Art. 6 Abs. 1 lit. b EU-DSGVO. (die Verarbeitung ist für die Erfüllung eines Vertrags, dessen Vertragspartei die betroffene Person ist, oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, die auf Anfrage der betroffenen Person erfolgen)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir werden Ihre Daten nach drei Monaten ab Entscheidung über die Stellenvergabe automatisch löschen, soweit Ihrerseits kein Anspruch gemäß AGG aufgrund der Entscheidung geltend gemacht wird (in diesem Fall erfolgt die Löschung nach Abschluss des Verfahrens über Ihren Anspruch)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Sollten Sie für uns gegebenenfalls für eine spätere Stellenvergabe in Frage kommen, werden wir Ihre Daten erst nach zwei Jahren ab Zusendung löschen, wenn Sie uns hierfür Ihre Einwilligung erteilen. Diese Einwilligung können Sie später mit Wirkung für die Zukunft widerrufen. Ein solcher Widerruf hat zur Folge, dass Sie Ihre Daten für die spätere Ausschreibung erneut einsenden müssen, sofern Sie sich erneut bewerben wollen. Sonstige Nachteile (insb. bei der Auswahl des Bewerbers) ergehen Ihnen aus diesem Widerruf nicht."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Welche anonymen Daten erheben wir und zu welchem Zweck?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wenn Sie unsere Internetseiten besuchen, speichern unsere Webserver automatisch die Daten, die Ihr Browser übermittelt, um Ihnen den Besuch der Internetseiten zu ermöglichen und Sie so auf unser Leistungsangebot und auf unser Unternehmen hinweisen zu können. Dies sind:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- der Name Ihres Internet Service Providers,\n\n- die Internetseite, von der aus Sie uns besuchen, sowie das Datum und die Uhrzeit Ihres Besuchs,\n\n- die jeweils übertragene Datenmenge,\n\n- Ihr Browser, die Sprache und Version der Browsersoftware sowie Ihr"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Betriebssystem und dessen Oberfläche."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir werten diese technischen Daten anonym und lediglich zu statistischen Zwecken aus, um unseren Internetauftritt zu optimieren und unsere Internetangebote noch attraktiver gestalten zu können. Diese anonymen Daten werden getrennt von personenbezogenen Informationen auf gesicherten Systemen gespeichert und lassen keine Rückschlüsse auf eine individuelle Person zu."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Was gilt allgemein für alle Fälle der Datenverarbeitung?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Eine Datenübermittlung an Dritte erfolgt nicht. Wir weisen darauf hin, dass wir Ihre Daten erst nach Ablauf einer gesetzlichen Aufbewahrungspflicht löschen können, soweit eine solche besteht. Dies gilt entsprechend für eine etwaige Aufbewahrungspflicht aus einem Vertrag mit Ihnen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wie sichern wir Ihre Daten?",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir haben technische und organisatorische Sicherheitsmaßnahmen eingeführt, um Ihre durch uns verarbeiteten Daten gegen zufällige oder vorsätzliche Manipulationen, Verluste, Zerstörung oder gegen den Zugriff unberechtigter Personen zu schützen. Unsere Sicherheitsmaßnahmen werden entsprechend der technologischen Entwicklung fortlaufend verbessert."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Unsere Mitarbeiter und ggf. datenverarbeitende Dritte sind von uns zur Vertraulichkeit verpflichtet."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Auskunfts- und Widerrufsrecht",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Sie haben das Recht, von uns gemäß EU-DSGVO jederzeit Auskunft darüber zu verlangen, ob personenbezogene Daten über Sie bei uns gespeichert sind. Des Weiteren stehen Ihnen in Bezug auf diese gespeicherten Daten folgende Rechte zu:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "- das Recht auf Auskunft über gespeicherte Daten (Art. 15 EU-DSGVO),\n\n- das Recht auf Berichtigung unzutreffender Daten (Art. 16 EU-DSGVO),\n\n- das Recht auf Löschung von Daten (Art. 17 EU-DSGVO),\n\n- das Recht auf Einschränkung der Verarbeitung von Daten (Art. 18 EU- DSGVO),\n\n- das Recht auf Widerspruch gegen unzumutbare Datenverarbeitung (Art. 21 EU-DSGVO) und\n\n- das Recht auf Datenübertragbarkeit (Art. 20 EU-DSGVO)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wenn Sie eine Einwilligung zur Nutzung von Daten erteilt haben, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Alle Informationswünsche, Auskunftsanfragen oder Widersprüche zur Datenverarbeitung richten Sie bitte per E-Mail an info@hotel-berlin.de, an die im Impressum genannte Post-Adresse oder über unser Kontaktformular unter dem Button \"Datenschutz\"."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Sie haben zudem das Recht auf Beschwerde bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat Ihres Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes, wenn Sie der Ansicht sind, dass die Verarbeitung der Sie betreffenden personenbezogenen Daten gegen die EU-DSGVO verstößt (Art. 77 EU-DSGVO)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Kinder und Jugendliche",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Personen unter 18 Jahren dürfen ohne Zustimmung der Eltern oder Erziehungsberechtigten keine personenbezogenen Daten an uns übermitteln. Wir fordern keine personenbezogenen Daten von Kindern und Jugendlichen an, sammeln diese nicht und geben sie nicht an Dritte weiter."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Weitere Informationen",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Information nach Art. 13 Abs. 2 lit. e EU-DSGVO:  Die Bereitstellung der personenbezogenen Daten ist weder gesetzlich noch vertraglich vorgeschrieben oder für einen Vertragsabschluss erforderlich. Sie sind nicht verpflichtet, personenbezogene Daten bereitzustellen. Die etwaigen Folgen einer Nichtbereitstellung entnehmen Sie bitte für den jeweiligen Datenverarbeitungsvorgang dem Absatz \"Welche personenbezogenen Daten erheben wir und zu welchem Zweck?\"."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Änderung unserer Datenschutzerklärung",
+          "marks": [
+            "strong"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir behalten uns das Recht vor, unsere Datenschutzmaßnahmen zu verändern, soweit dies wegen der technischen Entwicklung oder aufgrund geänderter Gesetzgebung oder Rechtsprechung erforderlich wird. In diesen Fällen werden wir auch unsere Datenschutzerklärung entsprechend anpassen. Bitte beachten Sie daher die jeweils aktuelle Version unserer Datenschutzerklärung."
+        }
+      ]
+    }
+  ]
+}

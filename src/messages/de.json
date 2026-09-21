@@ -1067,6 +1067,18 @@
     "emailAria": "Hotel Berlin, Berlin per E-Mail erreichen unter {email}",
     "transitAria": "Öffentliche Verkehrsmittel in der Nähe"
   },
+  "legal": {
+    "updated": "Stand {date}",
+    "relatedAria": "Weitere rechtliche Seiten",
+    "onThisPage": "Auf dieser Seite",
+    "pages": {
+      "imprint": "Impressum",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "cookies": "Cookies",
+      "disclaimer": "Haftungsausschluss"
+    }
+  },
   "hub": {
     "inHouse": {
       "allLink": "Alle Ausstattung →"

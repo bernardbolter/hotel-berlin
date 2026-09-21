@@ -39,6 +39,7 @@
     "seed:neighbourhood-v2": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/neighbourhood-v2.ts",
     "seed:homepage-featured": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/homepage-featured-places.ts",
     "apply:faq-schema": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/apply-faq-schema.ts",
+    "seed:legal": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/legal.ts",
     "seed:amenities": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/amenities.ts",
     "seed:faqs": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/faqs.ts",
     "geocode:neighbourhood": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/geocode-neighbourhood-places.ts",

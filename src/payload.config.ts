@@ -13,6 +13,7 @@ import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
 import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
+import { LegalDocuments } from './collections/LegalDocuments'
 import { Media } from './collections/Media'
 import { MeetingDocuments } from './collections/MeetingDocuments'
 import { MeetingInquiries } from './collections/MeetingInquiries'
@@ -61,6 +62,7 @@ export default buildConfig({
     NeighbourhoodPlaces,
     Places,
     Pages,
+    LegalDocuments,
   ],
   globals: [Hotel, Homepage, Navigation, Footer, Meetings],
   editor: lexicalEditor(),

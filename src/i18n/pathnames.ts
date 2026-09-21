@@ -40,11 +40,15 @@ export const pathnames = {
     en: '/meetings/request',
     de: '/tagungen/anfrage',
   },
+  '/meetings/hybrid': {
+    en: '/meetings/hybrid',
+    de: '/tagungen/hybrid',
+  },
   '/restaurant': { en: '/restaurant', de: '/restaurant' },
   // Placeholder — NOT final, do not let these reach production before sign-off:
   '/happenings': { en: '/happenings', de: '/happenings' },
   '/happenings/[slug]': { en: '/happenings/[slug]', de: '/happenings/[slug]' },
-  '/offers': { en: '/offers', de: '/offers' },
+  '/offers': { en: '/offers', de: '/angebote' },
   '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed
   '/faqs': { en: '/faqs', de: '/faqs' }, // legacy alias — prefer /faq
   '/imprint': { en: '/imprint', de: '/impressum' },
@@ -52,8 +56,25 @@ export const pathnames = {
   '/terms': { en: '/terms', de: '/agb' },
   '/cookies': { en: '/cookies', de: '/cookies' },
   '/disclaimer': { en: '/disclaimer', de: '/haftungsausschluss' },
-  '/accessibility': { en: '/accessibility', de: '/accessibility' },
+  '/about': { en: '/about', de: '/ueber-uns' },
+  '/people': { en: '/people', de: '/menschen' },
+  '/on-the-walls': { en: '/on-the-walls', de: '/on-the-walls' },
+  '/accessibility': { en: '/accessibility', de: '/barrierefreiheit' },
+  '/sustainability': { en: '/sustainability', de: '/nachhaltigkeit' },
+  '/contact': { en: '/contact', de: '/kontakt' },
   '/amenities': { en: '/amenities', de: '/ausstattung' },
+  '/awards': { en: '/awards', de: '/auszeichnungen' },
+  '/policies/cancellation': {
+    en: '/policies/cancellation',
+    de: '/richtlinien/stornierung',
+  },
+  '/policies/check-in': {
+    en: '/policies/check-in',
+    de: '/richtlinien/check-in',
+  },
+  '/policies/pets': { en: '/policies/pets', de: '/richtlinien/haustiere' },
+  '/policies/fees': { en: '/policies/fees', de: '/richtlinien/parken' },
+  '/policies/payment': { en: '/policies/payment', de: '/richtlinien/zahlung' },
 } as const satisfies Pathnames<readonly ['de', 'en']>
 
 export type AppPathnames = keyof typeof pathnames

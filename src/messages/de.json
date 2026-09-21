@@ -1135,5 +1135,85 @@
       "relatedRooms": "Zimmer & Suiten",
       "relatedFaq": "Gäste-FAQ"
     }
+  },
+  "scaffolds": {
+    "kicker": "In Arbeit",
+    "relatedAria": "Verwandte Seiten",
+    "directions": "Anfahrt",
+    "existing": {
+      "rooms": "Zimmer & Suiten",
+      "meetings": "Tagungen",
+      "meetingsRequest": "Tagungsanfrage",
+      "restaurant": "Lütze",
+      "faq": "FAQs",
+      "hereFaq": "Gäste-FAQ",
+      "hereArt": "Kunstprogramm",
+      "hereWallride": "Wallride",
+      "hereDining": "Essen & Trinken",
+      "ymb": "You, Me & Berlin",
+      "terms": "AGB"
+    },
+    "pages": {
+      "about": {
+        "title": "Über Hotel Berlin, Berlin",
+        "intro": "Das Haus am Lützowplatz öffnete 1958 und ist noch immer ein Berliner Original. Hier erzählen wir, was geblieben ist, was sich geändert hat — und warum es sich nach dieser Stadt anfühlt."
+      },
+      "people": {
+        "title": "Menschen",
+        "intro": "Die Künstlerinnen, Insider und das Team hinter dem Hotel. Profile folgen hier; You, Me & Berlin ist bis dahin die live Sammlung."
+      },
+      "on-the-walls": {
+        "title": "On the Walls",
+        "intro": "Kunst im Haus — die Sammlung, das Programm und was gerade hängt. Hinweise für Gäste stehen schon auf den Seiten Kunstprogramm und Wallride."
+      },
+      "accessibility": {
+        "title": "Barrierefreiheit",
+        "intro": "Informationen zur Barrierefreiheit für Übernachtung, Restaurant und Tagungen. Details zu Zimmern, öffentlichen Bereichen und Events folgen hier."
+      },
+      "sustainability": {
+        "title": "Nachhaltigkeit",
+        "intro": "Wie das Haus arbeitet — Energie, Wasser, Abfall und Tagungen. Zertifikate stehen schon im Footer; die ganze Geschichte kommt hier."
+      },
+      "contact": {
+        "title": "Kontakt & Anfahrt",
+        "intro": "Hotel Berlin, Berlin liegt am Lützowplatz 17 in Tiergarten. Telefon, E-Mail und Anfahrt stehen unten; das Tagungsteam hat ein eigenes Anfrageformular."
+      },
+      "amenities": {
+        "title": "Ausstattung & Services",
+        "intro": "Was außer dem Zimmer im Haus ist — Leihräder, Sauna und Fitness, Tischtennis, Laden und praktische Extras."
+      },
+      "awards": {
+        "title": "Auszeichnungen & Anerkennung",
+        "intro": "Green Key, BREEAM und Tagungspreise stehen schon im Footer. Diese Seite sammelt die Nachweise und was sie für den Aufenthalt bedeuten."
+      },
+      "offers": {
+        "title": "Angebote",
+        "intro": "Saisonale Raten und Packages erscheinen hier. Bis dahin sind Zimmer und Tagungen der beste Start — oder ruf im Hotel an."
+      },
+      "meetings-hybrid": {
+        "title": "Hybride Veranstaltungen",
+        "intro": "Hybride und gestreamte Events im Haus. Raumdaten und das Anfrageformular stehen schon unter Tagungen."
+      },
+      "policies-cancellation": {
+        "title": "Stornierungsbedingungen",
+        "intro": "Stornobedingungen für Hotelaufenthalte. Der rechtliche Wortlaut steht in den AGB; diese Seite fasst zusammen, was Gäste bei der Buchung brauchen."
+      },
+      "policies-check-in": {
+        "title": "Check-in & Check-out",
+        "intro": "An- und Abreisezeiten, früher Check-in und später Check-out. Die Gäste-FAQ deckt die Basics schon ab."
+      },
+      "policies-pets": {
+        "title": "Haustierregelung",
+        "intro": "Ob und wie Haustiere mitreisen können. Die Kurzfassung steht in den Gäste-FAQ, bis diese Seite geschrieben ist."
+      },
+      "policies-fees": {
+        "title": "Parken & Gebühren",
+        "intro": "Parken, Zustellbetten und weitere Gebühren. Die Zahlen folgen, sobald sie feststehen."
+      },
+      "policies-payment": {
+        "title": "Zahlungsbedingungen",
+        "intro": "Zahlung, Anzahlung und Rechnung. Bis diese Zusammenfassung steht, gelten die AGB."
+      }
+    }
   }
 }

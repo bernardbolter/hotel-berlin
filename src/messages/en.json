@@ -1135,5 +1135,85 @@
       "relatedRooms": "Rooms & Suites",
       "relatedFaq": "Guest FAQ"
     }
+  },
+  "scaffolds": {
+    "kicker": "In progress",
+    "relatedAria": "Related pages",
+    "directions": "Get directions",
+    "existing": {
+      "rooms": "Rooms & Suites",
+      "meetings": "Meetings",
+      "meetingsRequest": "Meeting enquiry",
+      "restaurant": "Lütze",
+      "faq": "FAQs",
+      "hereFaq": "Guest FAQs",
+      "hereArt": "Art programme",
+      "hereWallride": "Wallride",
+      "hereDining": "Dining",
+      "ymb": "You, Me & Berlin",
+      "terms": "Terms"
+    },
+    "pages": {
+      "about": {
+        "title": "About Hotel Berlin, Berlin",
+        "intro": "The house on Lützowplatz opened in 1958 and is still a Berlin original. This page will tell what has stayed, what has changed, and why it still feels like this city."
+      },
+      "people": {
+        "title": "People",
+        "intro": "The artists, insiders, and team behind the hotel. Profiles will land here; You, Me & Berlin is the live collection in the meantime."
+      },
+      "on-the-walls": {
+        "title": "On the Walls",
+        "intro": "Art in the building — the collection, the programme, and what is up now. Guest notes already live on the art and Wallride pages."
+      },
+      "accessibility": {
+        "title": "Accessibility",
+        "intro": "Access information for staying, dining, and meeting at Hotel Berlin, Berlin. Detailed notes for rooms, public areas, and events will be published here."
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "intro": "How the house works — energy, water, waste, and meetings. Certifications already sit in the footer; the full story comes here."
+      },
+      "contact": {
+        "title": "Contact & location",
+        "intro": "Hotel Berlin, Berlin is at Lützowplatz 17 in Tiergarten. Phone, email, and directions are below; the meetings team has a separate enquiry form."
+      },
+      "amenities": {
+        "title": "Amenities & services",
+        "intro": "What is in the house besides the room — bike hire, sauna and fitness, table tennis, charging, and practical extras."
+      },
+      "awards": {
+        "title": "Awards & recognition",
+        "intro": "Green Key, BREEAM, and meeting awards already sit in the footer. This page will collect the citations and what they mean for a stay."
+      },
+      "offers": {
+        "title": "Offers",
+        "intro": "Seasonal rates and packages will appear here. Until then, rooms and meetings are the best place to start — or call the hotel."
+      },
+      "meetings-hybrid": {
+        "title": "Hybrid events",
+        "intro": "Hybrid and streamed events in the house. Room specs and the enquiry form are already on Meetings."
+      },
+      "policies-cancellation": {
+        "title": "Cancellation policy",
+        "intro": "Cancellation terms for hotel stays. The full legal wording is in the Terms; this page will summarise what guests need at booking."
+      },
+      "policies-check-in": {
+        "title": "Check-in & check-out",
+        "intro": "Arrival and departure times, early check-in, and late checkout. Guest FAQs already cover the basics."
+      },
+      "policies-pets": {
+        "title": "Pet policy",
+        "intro": "Whether and how pets can stay. Guest FAQs have the short version until this page is written."
+      },
+      "policies-fees": {
+        "title": "Parking & fees",
+        "intro": "Parking, extra beds, and other charges. Figures will be published here once confirmed."
+      },
+      "policies-payment": {
+        "title": "Payment policy",
+        "intro": "How to pay, deposits, and invoices. Terms remain the legal source until this summary is written."
+      }
+    }
   }
 }

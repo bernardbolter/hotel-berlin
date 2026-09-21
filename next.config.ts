@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import { buildLegalRedirects } from './src/lib/legal/redirects'
 import { buildMeetingRedirects } from './src/lib/meetings/redirects'
 import { buildRoomRedirects } from './src/lib/rooms/redirects'
+import { buildScaffoldRedirects } from './src/lib/scaffolds/redirects'
 
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
@@ -18,6 +19,7 @@ const nextConfig: NextConfig = {
     ...buildRoomRedirects(),
     ...buildMeetingRedirects(),
     ...buildLegalRedirects(),
+    ...buildScaffoldRedirects(),
   ],
   images: {
     localPatterns: [

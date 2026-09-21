@@ -1,6 +1,7 @@
 import { getLocale } from 'next-intl/server'
 
 import { resolveBridgeNav } from '@/lib/nav/bridge'
+import { berlinTodayIso } from '@/lib/booking'
 import { getHotel } from '@/lib/payload/hotel'
 import { getSecondaryNavLinks } from '@/lib/payload/navigation'
 
@@ -22,6 +23,7 @@ export async function SiteNavWithData({ context = 'outside' }: Props) {
       context={context}
       hereLinks={hereLinks}
       bridge={resolveBridgeNav(hotel?.bridgeNav, locale)}
+      todayIso={berlinTodayIso()}
     />
   )
 }

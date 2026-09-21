@@ -6,8 +6,10 @@ import { useEffect, useRef, useState, type ComponentProps } from 'react'
 import { Link, usePathname } from '@/i18n/routing'
 import { useNavScroll } from '@/hooks/useNavScroll'
 
+import { BookNowButton, BookingPanel } from '@/components/booking/BookingMenu'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import { NavSecondary } from '@/components/layout/NavSecondary'
+import { OPEN_BOOKING_EVENT } from '@/lib/booking'
 
 import type { BridgeLabelParts } from '@/lib/nav/bridge'
 import type { SecondaryNavLink } from '@/lib/nav/types'
@@ -22,6 +24,8 @@ export interface SiteNavProps {
     toHere: BridgeLabelParts
     toStay: BridgeLabelParts
   }
+  /** Berlin calendar date at render time — keeps the booking mask hydration-stable. */
+  todayIso: string
 }
 
 const outsideLinkKeys = [
@@ -44,14 +48,30 @@ const outsideLinkKeys = [
  *     Row 1 wordmark + lang + CTA | Row 2 primary | Row 3 bridge
  * - ≥1100: desktop two-row — primary beside wordmark; bridge below
  */
-export function SiteNav({ context = 'outside', hereLinks, bridge }: SiteNavProps) {
+export function SiteNav({ context = 'outside', hereLinks, bridge, todayIso }: SiteNavProps) {
   const t = useTranslations('nav')
   const tc = useTranslations('common')
   const pathname = usePathname()
   const { headerRef: navScrollRef, navState } = useNavScroll()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [bookingOpen, setBookingOpen] = useState(false)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
+  const bookingPanelId = 'site-booking-panel'
+
+  const toggleBooking = () => {
+    setBookingOpen((open) => !open)
+    setMobileOpen(false)
+  }
+
+  useEffect(() => {
+    const onOpen = () => {
+      setBookingOpen(true)
+      setMobileOpen(false)
+    }
+    window.addEventListener(OPEN_BOOKING_EVENT, onOpen)
+    return () => window.removeEventListener(OPEN_BOOKING_EVENT, onOpen)
+  }, [])
 
   const isInside = context === 'inside'
   const ctaLabel = isInside ? t('planNextStay') : t('bookNow')
@@ -216,11 +236,12 @@ export function SiteNav({ context = 'outside', hereLinks, bridge }: SiteNavProps
         <div className="flex shrink-0 items-center gap-2 sm:gap-3 min-[1100px]:gap-5">
           <div className="hidden md:contents">
             <LanguageSwitcher size="md" colors={langSwitcherColors} />
-            {/* F5 — Komm wieder still points at /book pending destination decision */}
-            <a href="/book" className="inline-flex book-now-btn">
-              <span className="book-now-btn__text">{ctaLabel}</span>
-              <span className="book-now-btn__line" aria-hidden="true" />
-            </a>
+            <BookNowButton
+              open={bookingOpen}
+              label={ctaLabel}
+              controlsId={bookingPanelId}
+              onToggle={toggleBooking}
+            />
           </div>
 
           <button
@@ -245,10 +266,12 @@ export function SiteNav({ context = 'outside', hereLinks, bridge }: SiteNavProps
       <div className="w-full bg-hbb-nav-bg md:hidden">
         <div className="site-shell flex items-center justify-between gap-3 px-4 py-2">
           <LanguageSwitcher align="start" size="md" colors={langSwitcherColors} />
-          <a href="/book" className="inline-flex book-now-btn">
-            <span className="book-now-btn__text">{ctaLabel}</span>
-            <span className="book-now-btn__line" aria-hidden="true" />
-          </a>
+          <BookNowButton
+            open={bookingOpen}
+            label={ctaLabel}
+            controlsId={bookingPanelId}
+            onToggle={toggleBooking}
+          />
         </div>
       </div>
 
@@ -295,6 +318,13 @@ export function SiteNav({ context = 'outside', hereLinks, bridge }: SiteNavProps
           </div>
         </div>
       </div>
+
+      <BookingPanel
+        open={bookingOpen}
+        panelId={bookingPanelId}
+        todayIso={todayIso}
+        onClose={() => setBookingOpen(false)}
+      />
     </header>
   )
 }

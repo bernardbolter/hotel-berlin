@@ -11,6 +11,8 @@ import {
   staffWritableGlobal,
   userRole,
 } from '@/access'
+import { Users } from '@/collections/Users'
+import { Hotel } from '@/globals/Hotel'
 
 const admin = { id: 1, role: 'admin' as const }
 const editor = { id: 2, role: 'editor' as const }
@@ -47,5 +49,19 @@ describe('staff roles', () => {
     expect(staffWritableGlobal.update(args(editor))).toBe(true)
     expect(adminWritableGlobal.update(args(editor))).toBe(false)
     expect(adminWritableGlobal.update(args(admin))).toBe(true)
+  })
+
+  it('defaults new users to editor; editors can open admin but not Users or Hotel', () => {
+    const roleField = Users.fields.find((field) => 'name' in field && field.name === 'role')
+    expect(roleField && 'defaultValue' in roleField ? roleField.defaultValue : undefined).toBe(
+      'editor',
+    )
+    expect(Users.access.admin?.(args(editor))).toBe(true)
+    expect(Users.access.admin?.(args(admin))).toBe(true)
+    expect(Users.access.admin?.(args(null))).toBe(false)
+    expect(Users.admin?.hidden?.({ user: editor } as never)).toBe(true)
+    expect(Users.admin?.hidden?.({ user: admin } as never)).toBe(false)
+    expect(Hotel.admin?.hidden?.({ user: editor } as never)).toBe(true)
+    expect(Hotel.admin?.hidden?.({ user: admin } as never)).toBe(false)
   })
 })

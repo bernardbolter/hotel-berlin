@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { adminsOrSelf, isAdmin, isAdminField, isAdminUser } from '@/access'
+import { adminsOrSelf, isAdmin, isAdminField, isAdminUser, isStaff } from '@/access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -12,7 +12,7 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    admin: ({ req: { user } }) => isAdminUser(user),
+    admin: isStaff,
     create: isAdmin,
     delete: isAdmin,
     read: adminsOrSelf,
@@ -24,7 +24,7 @@ export const Users: CollectionConfig = {
       name: 'role',
       type: 'select',
       required: true,
-      defaultValue: 'admin',
+      defaultValue: 'editor',
       saveToJWT: true,
       options: [
         { label: 'Admin', value: 'admin' },

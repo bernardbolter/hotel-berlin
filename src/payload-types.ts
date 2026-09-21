@@ -608,6 +608,38 @@ export interface Venue {
       }[]
     | null;
   /**
+   * One-off closures, holiday hours, or “on request” windows. Regular weekly hours stay in Opening hours.
+   */
+  specialHours?:
+    | {
+        /**
+         * First day this exception applies (Berlin calendar date).
+         */
+        validFrom: string;
+        /**
+         * Last day inclusive. Leave empty to apply on validFrom only.
+         */
+        validThrough?: string | null;
+        /**
+         * Closed = shut that day. Hours = replacement window. On request = no clock times.
+         */
+        kind: 'closed' | 'hours' | 'on-request';
+        /**
+         * e.g. 10:00 — only when kind is “Different hours”.
+         */
+        opens?: string | null;
+        /**
+         * e.g. 18:00 — only when kind is “Different hours”.
+         */
+        closes?: string | null;
+        /**
+         * Optional guest-facing line, e.g. “Feiertag” / “On request, 45 min notice”.
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Restaurant only. e.g. Italian, International
    */
   servesCuisine?: string | null;
@@ -1935,6 +1967,17 @@ export interface VenuesSelect<T extends boolean = true> {
         closes?: T;
         isOpenEnded?: T;
         segment?: T;
+        note?: T;
+        id?: T;
+      };
+  specialHours?:
+    | T
+    | {
+        validFrom?: T;
+        validThrough?: T;
+        kind?: T;
+        opens?: T;
+        closes?: T;
         note?: T;
         id?: T;
       };

@@ -7,6 +7,7 @@ import {
   buildRadissonBookingUrl,
   buildRadissonBookingUrlTemplate,
   buildReserveAction,
+  footerBookingHref,
   isoToVendorDate,
   MEETINGPACKAGE_VENUE_URL,
 } from '../../src/lib/booking'
@@ -65,6 +66,29 @@ describe('buildRadissonBookingUrl', () => {
       ga: 'GA1.1.123.456',
     })
     expect(url).toContain('_ga=GA1.1.123.456')
+  })
+})
+
+describe('footerBookingHref', () => {
+  it('maps /book to a locale-aware Radisson URL so the footer works without JS', () => {
+    expect(footerBookingHref('/book', 'de', '2026-09-21')).toBe(
+      buildRadissonBookingUrl({
+        checkin: '2026-09-21',
+        checkout: '2026-09-22',
+        adults: 1,
+        rooms: 1,
+        locale: 'de',
+      }),
+    )
+    expect(footerBookingHref('/book', 'en', '2026-09-21')).toContain(
+      '/en-gb/hotels/radisson-individuals-berlin',
+    )
+  })
+
+  it('leaves a custom CMS URL unchanged', () => {
+    expect(footerBookingHref('https://example.com/stay', 'de', '2026-09-21')).toBe(
+      'https://example.com/stay',
+    )
   })
 })
 

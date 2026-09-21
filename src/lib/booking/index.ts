@@ -15,6 +15,7 @@ export {
   type MeetingLength,
   type MeetingPackageParams,
 } from './meetings'
+export { footerBookingHref, isInternalBookCta } from './footerCta'
 export {
   buildRadissonBookingUrl,
   buildRadissonBookingUrlTemplate,

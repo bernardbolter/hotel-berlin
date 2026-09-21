@@ -5,6 +5,7 @@
  * Usage: npx tsx src/seed/fix-room-teasers.ts
  */
 import 'dotenv/config'
+import './guard'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'

@@ -7,6 +7,7 @@
  *   npm run geocode:neighbourhood -- --slug=koenig-galerie
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import { enrichNeighbourhoodPlace } from '../lib/geocode'

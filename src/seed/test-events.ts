@@ -11,6 +11,7 @@
  *   npm run seed:test-events -- --force   # update existing by slug
  */
 import 'dotenv/config'
+import './guard'
 
 import { getPayload, type Payload } from 'payload'
 

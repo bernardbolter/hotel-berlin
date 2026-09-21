@@ -1,83 +1,19 @@
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'
 
-import amenityTagsSeed from './data/amenity-tags.json'
 import roomsSeed from './data/rooms.json'
+import { upsertAmenityTags } from './amenity-tags'
 import { plainRichText } from './richText'
-import type { AmenityTagSeed, RoomSeedRecord } from './types'
+import type { RoomSeedRecord } from './types'
 
-const amenityTags = amenityTagsSeed as AmenityTagSeed[]
 const rooms = roomsSeed as RoomSeedRecord[]
-
-async function seedAmenityTags(
-  payload: Awaited<ReturnType<typeof getPayload>>,
-): Promise<Map<string, number>> {
-  console.log('Seeding amenity tags from src/seed/data/amenity-tags.json...')
-
-  for (const tag of amenityTags) {
-    const existing = await payload.find({
-      collection: 'tags',
-      where: { slug: { equals: tag.slug } },
-      limit: 1,
-    })
-
-    const dataEn = {
-      name: tag.name,
-      slug: tag.slug,
-      type: 'amenity' as const,
-      lucideIcon: tag.lucideIcon,
-      description: tag.description.en,
-    }
-
-    const dataDe = {
-      name: tag.name,
-      description: tag.description.de,
-    }
-
-    if (existing.docs[0]) {
-      await payload.update({
-        collection: 'tags',
-        id: existing.docs[0].id,
-        data: dataEn,
-        locale: 'en',
-      })
-      await payload.update({
-        collection: 'tags',
-        id: existing.docs[0].id,
-        data: dataDe,
-        locale: 'de',
-      })
-      console.log(`  Updated tag: ${tag.slug}`)
-    } else {
-      const created = await payload.create({
-        collection: 'tags',
-        data: dataEn,
-        locale: 'en',
-      })
-      await payload.update({
-        collection: 'tags',
-        id: created.id,
-        data: dataDe,
-        locale: 'de',
-      })
-      console.log(`  Created tag: ${tag.slug}`)
-    }
-  }
-
-  const { docs: tagDocs } = await payload.find({
-    collection: 'tags',
-    where: { type: { equals: 'amenity' } },
-    limit: 300,
-  })
-
-  return new Map(tagDocs.map((tag) => [tag.slug, tag.id as number]))
-}
 
 async function seedRooms() {
   const payload = await getPayload({ config })
-  const tagIdBySlug = await seedAmenityTags(payload)
+  const tagIdBySlug = await upsertAmenityTags(payload)
 
   console.log('Seeding rooms from src/seed/data/rooms.json...')
 

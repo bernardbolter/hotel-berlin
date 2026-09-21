@@ -1,12 +1,40 @@
 import type {
   Authority,
   AuthorityIdentifier,
+  HotelEvent,
   NeighbourhoodPlace as AeoPlace,
   Person as AeoPerson,
   PlaceCategory,
   PlaceSchemaType,
 } from '@/lib/aeo-schema/src/types'
-import type { NeighbourhoodPlace as PayloadPlace, Person as PayloadPerson } from '@/payload-types'
+import { lexicalToPlain } from '@/lib/richText/lexicalToPlain'
+import type { Event as PayloadEvent, NeighbourhoodPlace as PayloadPlace, Person as PayloadPerson } from '@/payload-types'
+
+export function toAeoEvent(doc: PayloadEvent): HotelEvent {
+  const venue = typeof doc.venue === 'object' && doc.venue ? doc.venue : null
+  return {
+    id: String(doc.id),
+    slug: doc.slug,
+    name: doc.name,
+    description: lexicalToPlain(doc.description) || doc.shortDescription || undefined,
+    startDate: doc.startDate,
+    endDate: doc.endDate ?? undefined,
+    isRecurring: Boolean(doc.isRecurring),
+    recurrenceRule: doc.recurrenceRule,
+    isFree: Boolean(doc.isFree),
+    price: doc.price ?? undefined,
+    priceCurrency: doc.currency ?? 'EUR',
+    bookingNote: doc.bookingNote ?? undefined,
+    venue: venue
+      ? {
+          slug: venue.slug,
+          name: venue.name,
+          spotlightLocation: venue.spotlightLocation ?? undefined,
+          location: venue.location ?? undefined,
+        }
+      : undefined,
+  }
+}
 
 function mapAuthority(
   authority:
@@ -54,6 +82,9 @@ export function toAeoPerson(doc: PayloadPerson): AeoPerson {
     roomNumber: doc.roomNumber ?? undefined,
     basedIn: doc.basedIn ?? undefined,
     type: doc.type ?? undefined,
+    tags: doc.tags
+      ?.map((tag) => (typeof tag === 'object' && tag ? tag.name : null))
+      .filter((name): name is string => Boolean(name)),
     authority: mapAuthority(doc.authority),
     status: doc.status,
   }

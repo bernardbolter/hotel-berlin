@@ -26,7 +26,7 @@ export type RoomSeedRecord = {
 }
 
 export type AmenityTagSeed = {
-  name: string
+  name: LocalizedSeed
   slug: string
   type: 'amenity'
   lucideIcon: string

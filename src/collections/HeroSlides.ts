@@ -1,7 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const HeroSlides: CollectionConfig = {
   slug: 'hero-slides',
+  ...collectionCacheHooks('hero-slides'),
   labels: {
     singular: 'Hero slide',
     plural: 'Hero slides',
@@ -13,9 +17,7 @@ export const HeroSlides: CollectionConfig = {
       'Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.',
   },
   defaultSort: 'order',
-  access: {
-    read: () => true,
-  },
+  access: publicReadStaffWrite,
   fields: [
     {
       name: 'adminTitle',

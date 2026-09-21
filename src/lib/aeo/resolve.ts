@@ -1,11 +1,13 @@
 import { getPayloadClient } from '@/lib/payload/client'
 import { picksFromPersonDoc, toAeoPerson, toAeoPlace } from '@/lib/aeo/mapToSchema'
 import type { NeighbourhoodPlace as AeoPlace, Person as AeoPerson } from '@/lib/aeo-schema/src/types'
+import { districtFromPostalCode } from '@/lib/places/district'
 import type { NeighbourhoodPlace as PayloadPlace, Person as PayloadPerson } from '@/payload-types'
 
 export type ResolvedPlace = {
   payload: PayloadPlace
   aeo: AeoPlace
+  district: string | null
 }
 
 export type ResolvedPerson = {
@@ -37,7 +39,11 @@ export async function getResolvedPlace(
   const doc = result.docs[0]
   if (!doc) return null
 
-  return { payload: doc, aeo: toAeoPlace(doc) }
+  const district = districtFromPostalCode(doc.address?.postalCode)
+  const aeo = toAeoPlace(doc)
+  if (district) aeo.district = district
+
+  return { payload: doc, aeo, district }
 }
 
 /**

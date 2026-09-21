@@ -1,16 +1,18 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const People: CollectionConfig = {
   slug: 'people',
+  ...collectionCacheHooks('people'),
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'type', 'status', 'updatedAt'],
     group: 'Neighbourhood',
   },
-  access: {
-    read: () => true,
-  },
+  access: publicReadStaffWrite,
   fields: [
     { name: 'name', type: 'text', required: true },
     slugField({ name: 'slug', useAsSlug: 'name' }),

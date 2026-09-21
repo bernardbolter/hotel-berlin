@@ -23,6 +23,14 @@
     "gallerySlides": "Galerie-Folien",
     "slideAnnouncement": "Bild {current} von {total}"
   },
+  "errors": {
+    "notFoundTitle": "Seite nicht gefunden",
+    "notFoundBody": "Diese Seite gibt es auf hotel-berlin.de nicht. Die Startseite ist ein guter Anfang.",
+    "homeCta": "Zur Startseite",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Bitte versuchen Sie es erneut. Wenn das Problem bleibt, rufen Sie das Hotel an.",
+    "retry": "Erneut versuchen"
+  },
   "nav": {
     "rooms": "Zimmer",
     "meetings": "Meetings",
@@ -98,9 +106,11 @@
       "specWhen": "Wann",
       "specPrice": "Preis",
       "specWhat": "Was",
-      "hoursToConfirm": "Zeiten noch zu bestätigen",
-      "askReception": "An der Rezeption erfragen",
-      "locationTbc": "Ort folgt",
+    "hoursToConfirm": "Zeiten noch zu bestätigen",
+    "askReception": "An der Rezeption erfragen",
+    "locationTbc": "Ort folgt",
+    "closed": "Geschlossen",
+    "onRequest": "Auf Anfrage",
       "kttk": {
         "eyebrow": "B2 Keller",
         "title": "KTTK",
@@ -895,6 +905,7 @@
     "indoorFilterAria": "Nach drinnen oder draußen filtern",
     "indoor": "Drinnen",
     "outdoor": "Draußen",
+    "indoorOutdoorBoth": "Drinnen & draußen",
     "distanceFilterAria": "Nach Entfernung filtern",
     "showFurtherOut": "Weiter entfernte Orte zeigen",
     "hideFurtherOut": "Nur fußläufig",
@@ -927,6 +938,30 @@
     "transitLabel": "ÖPNV",
     "backToList": "Alle Orte in der Nachbarschaft"
   },
+  "entity": {
+    "hours": "Öffnungszeiten",
+    "website": "Website",
+    "setting": "Lage",
+    "price": "Preis",
+    "audience": "Für wen",
+    "alsoListedAs": "Auch verzeichnet als",
+    "alsoRecommends": "{name} empfiehlt außerdem",
+    "moreInDistrict": "Mehr in {district}",
+    "recommendsPlaces": "Empfiehlt {count, plural, one {# Ort} other {# Orte}}",
+    "toProfile": "Zum Profil",
+    "letterHeading": "Der Brief",
+    "instagram": "Instagram",
+    "similarLook": "Andere mit ähnlichem Blick",
+    "schedule": "Termine",
+    "unpriced": "Preis auf Anfrage",
+    "toVenue": "Zum Ort",
+    "address": "Adresse",
+    "organiser": "Veranstalter",
+    "duration": "Dauer",
+    "thisWeek": "Diese Woche im Haus",
+    "whatNext": "Was als Nächstes läuft",
+    "toGuestHub": "Hier, im Haus"
+  },
   "youMeBerlin": {
     "label": "You, Me & Berlin",
     "title": "You, Me & Berlin",
@@ -938,6 +973,7 @@
     "tagFilterAria": "Nach Interesse filtern",
     "allTags": "Alle",
     "room": "Zimmer",
+    "letterInRoom": "Brief in Zimmer {room}",
     "empty": "Keine Personen passen zu diesen Filtern.",
     "paginationAria": "Seitennummerierung",
     "previous": "Zurück",
@@ -982,6 +1018,149 @@
       "gettingAround": "Unterwegs",
       "houseRules": "Haus & Regeln"
     }
+  },
+  "legal": {
+    "updated": "Stand {date}",
+    "relatedAria": "Weitere rechtliche Seiten",
+    "onThisPage": "Auf dieser Seite",
+    "pages": {
+      "imprint": "Impressum",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "cookies": "Cookies",
+      "disclaimer": "Haftungsausschluss"
+    }
+  },
+  "hub": {
+    "inHouse": {
+      "allLink": "Alle Ausstattung →"
+    }
+  },
+  "amenities": {
+    "list": {
+      "facilities": "Im Haus",
+      "services": "Services",
+      "openRow": "Zeile öffnen",
+      "closeRow": "Zeile schließen",
+      "morePrefix": "Mehr zu",
+      "faqHeading": "Dazu in den FAQs",
+      "pendingText": "Wartet auf Inhalte vom Hotel-Team…",
+      "locationLabel": "Ort",
+      "accessLabel": "Zugang",
+      "checkInOut": "Check-in ab {checkin} · Check-out bis {checkout}"
+    }
+  },
+  "scaffolds": {
+    "kicker": "In Arbeit",
+    "relatedAria": "Verwandte Seiten",
+    "directions": "Anfahrt",
+    "existing": {
+      "rooms": "Zimmer & Suiten",
+      "meetings": "Tagungen",
+      "meetingsRequest": "Tagungsanfrage",
+      "restaurant": "Lütze",
+      "faq": "FAQs",
+      "hereFaq": "Gäste-FAQ",
+      "hereArt": "Kunstprogramm",
+      "hereWallride": "Wallride",
+      "hereDining": "Essen & Trinken",
+      "ymb": "You, Me & Berlin",
+      "terms": "AGB"
+    },
+    "pages": {
+      "about": {
+        "title": "Über Hotel Berlin, Berlin",
+        "intro": "Das Haus am Lützowplatz öffnete 1958 und ist noch immer ein Berliner Original. Hier erzählen wir, was geblieben ist, was sich geändert hat — und warum es sich nach dieser Stadt anfühlt."
+      },
+      "people": {
+        "title": "Menschen",
+        "intro": "Die Künstlerinnen, Insider und das Team hinter dem Hotel. Profile folgen hier; You, Me & Berlin ist bis dahin die live Sammlung."
+      },
+      "on-the-walls": {
+        "title": "On the Walls",
+        "intro": "Kunst im Haus — die Sammlung, das Programm und was gerade hängt. Hinweise für Gäste stehen schon auf den Seiten Kunstprogramm und Wallride."
+      },
+      "accessibility": {
+        "title": "Barrierefreiheit",
+        "intro": "Informationen zur Barrierefreiheit für Übernachtung, Restaurant und Tagungen. Details zu Zimmern, öffentlichen Bereichen und Events folgen hier."
+      },
+      "sustainability": {
+        "title": "Nachhaltigkeit",
+        "intro": "Wie das Haus arbeitet — Energie, Wasser, Abfall und Tagungen. Zertifikate stehen schon im Footer; die ganze Geschichte kommt hier."
+      },
+      "contact": {
+        "title": "Kontakt & Anfahrt",
+        "intro": "Hotel Berlin, Berlin liegt am Lützowplatz 17 in Tiergarten. Telefon, E-Mail und Anfahrt stehen unten; das Tagungsteam hat ein eigenes Anfrageformular."
+      },
+      "amenities": {
+        "title": "Ausstattung & Services",
+        "intro": "Was außer dem Zimmer im Haus ist — Leihräder, Sauna und Fitness, Tischtennis, Laden und praktische Extras."
+      },
+      "awards": {
+        "title": "Auszeichnungen & Anerkennung",
+        "intro": "Green Key, BREEAM und Tagungspreise stehen schon im Footer. Diese Seite sammelt die Nachweise und was sie für den Aufenthalt bedeuten."
+      },
+      "offers": {
+        "title": "Angebote",
+        "intro": "Saisonale Raten und Packages erscheinen hier. Bis dahin sind Zimmer und Tagungen der beste Start — oder ruf im Hotel an."
+      },
+      "meetings-hybrid": {
+        "title": "Hybride Veranstaltungen",
+        "intro": "Hybride und gestreamte Events im Haus. Raumdaten und das Anfrageformular stehen schon unter Tagungen."
+      },
+      "policies-cancellation": {
+        "title": "Stornierungsbedingungen",
+        "intro": "Stornobedingungen für Hotelaufenthalte. Der rechtliche Wortlaut steht in den AGB; diese Seite fasst zusammen, was Gäste bei der Buchung brauchen."
+      },
+      "policies-check-in": {
+        "title": "Check-in & Check-out",
+        "intro": "An- und Abreisezeiten, früher Check-in und später Check-out. Die Gäste-FAQ deckt die Basics schon ab."
+      },
+      "policies-pets": {
+        "title": "Haustierregelung",
+        "intro": "Ob und wie Haustiere mitreisen können. Die Kurzfassung steht in den Gäste-FAQ, bis diese Seite geschrieben ist."
+      },
+      "policies-fees": {
+        "title": "Parken & Gebühren",
+        "intro": "Parken, Zustellbetten und weitere Gebühren. Die Zahlen folgen, sobald sie feststehen."
+      },
+      "policies-payment": {
+        "title": "Zahlungsbedingungen",
+        "intro": "Zahlung, Anzahlung und Rechnung. Bis diese Zusammenfassung steht, gelten die AGB."
+      }
+    }
+  },
+  "booking": {
+    "bookNowAria": "Jetzt buchen im Hotel Berlin, Berlin",
+    "close": "Buchung schließen",
+    "tabsAria": "Buchungsart",
+    "roomsTab": "Zimmer",
+    "eventsTab": "Tagungen",
+    "roomsHeading": "Buch dir dein Zimmer — Berlin wartet.",
+    "eventsHeading": "Meetingraum oder Package buchen.",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "adults": "Erwachsene",
+    "children": "Kinder",
+    "rooms": "Zimmer",
+    "adultsOption": "{count, plural, one {# Erwachsener} other {# Erwachsene}}",
+    "childrenOption": "{count, plural, one {# Kind} other {# Kinder}}",
+    "roomsOption": "{count} Zimmer",
+    "submitRooms": "Jetzt buchen",
+    "opensNewTab": "Öffnet in einem neuen Tab",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "meetingLength": "Dauer",
+    "delegates": "Teilnehmer",
+    "delegatesPlaceholder": "z. B. 10",
+    "hours": "{count} Std.",
+    "overnight": "Übernachtung",
+    "twoDays": "Zwei Tage",
+    "submitEvents": "Suchen",
+    "eventsDateRequired": "Wähl ein Datum, um Verfügbarkeit zu prüfen.",
+    "delegatesRequired": "Gib die Zahl der Teilnehmer an.",
+    "inquiryHint": "Angebot, Zimmerkontingent oder mehrtägig?",
+    "inquiryLink": "Stattdessen Anfrage senden"
   },
   "footer": {
     "navAriaSuffix": "Navigation",

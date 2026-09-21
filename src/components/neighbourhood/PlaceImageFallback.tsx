@@ -1,26 +1,28 @@
-import { Landmark } from 'lucide-react'
-
-import { CATEGORY_LUCIDE_ICON } from '@/lib/neighbourhood/categoryIcons'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
+import { pinColorForCategory } from '@/lib/neighbourhood/categories'
 
 type Props = {
   category: PlaceCategory
+  name?: string
   className?: string
 }
 
 /**
- * Empty media well — same gray box rooms/venues use when photography is missing.
- * Category glyph is a label, not a stock photo.
+ * Empty media well — name set in Archivo on a quiet ground, category-token left border.
+ * Nobody mistakes a grey block for a mistake; they do mistake a random landscape.
  */
-export function PlaceImageFallback({ category, className = '' }: Props) {
-  const Icon = CATEGORY_LUCIDE_ICON[category] ?? Landmark
+export function PlaceImageFallback({ category, name, className = '' }: Props) {
+  const color = pinColorForCategory(category)
 
   return (
     <div
-      className={`flex items-center justify-center bg-gray-100 text-gray-300 ${className}`}
-      aria-hidden="true"
+      className={`flex h-full w-full items-end border-l-4 bg-[var(--bg-subtle)] px-4 py-4 ${className}`}
+      style={{ borderLeftColor: color }}
+      aria-hidden={name ? undefined : true}
     >
-      <Icon size={32} strokeWidth={1.5} />
+      {name ? (
+        <p className="font-ui text-ui-md font-medium leading-snug text-[var(--dim)]">{name}</p>
+      ) : null}
     </div>
   )
 }

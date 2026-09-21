@@ -31,7 +31,13 @@ export function buildPersonNode(person: Person, config: SiteConfig): JsonLdNode 
   // array), but schema.org has no dedicated Instagram property — it's a
   // `sameAs` URL like any other verified profile. Merge it in here rather
   // than asking editors to duplicate it into the authority.sameAs array.
-  const sameAs = mergeUnique(authoritySameAs, person.instagram ? [person.instagram] : undefined);
+  const sameAs = mergeUnique(
+    authoritySameAs,
+    [
+      ...(person.instagram ? [person.instagram] : []),
+      ...(person.website ? [person.website] : []),
+    ],
+  );
 
   return prune({
     '@type': 'Person',
@@ -43,6 +49,15 @@ export function buildPersonNode(person: Person, config: SiteConfig): JsonLdNode 
     sameAs,
     identifier,
     affiliation: { '@id': hotelNodeId(config) },
+    memberOf: {
+      '@type': 'Organization',
+      name: 'You, Me & Berlin',
+      parentOrganization: { '@id': hotelNodeId(config) },
+    },
+    knowsAbout: person.tags,
+    homeLocation: person.basedIn
+      ? { '@type': 'Place', name: person.basedIn }
+      : undefined,
   });
 }
 

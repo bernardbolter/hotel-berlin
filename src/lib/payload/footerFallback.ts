@@ -29,9 +29,9 @@ function columnsFor(locale: Locale): FooterColumnData[] {
           ext('/rooms', 'Comfort'),
           ext('/rooms', 'Suiten'),
           ext('/rooms', 'Studio 45'),
-          ext('/faq', 'Check-in / Check-out', { dividerBefore: true }),
-          ext('/faq', 'Stornierungen'),
-          ext('/faq', 'Haustiere'),
+          ext('/policies/check-in', 'Check-in / Check-out', { dividerBefore: true }),
+          ext('/policies/cancellation', 'Stornierungen'),
+          ext('/policies/pets', 'Haustiere'),
         ],
       },
       {
@@ -43,7 +43,7 @@ function columnsFor(locale: Locale): FooterColumnData[] {
           ext('/here/dining', 'Restaurant & Bar'),
           ext('/meetings', 'Meetings'),
           ext('/meetings', 'Tagungsräume'),
-          ext('/here/art', 'On the Walls', { dividerBefore: true }),
+          ext('/on-the-walls', 'On the Walls', { dividerBefore: true }),
           ext('https://fkkb.de', 'FKKB', { showArrow: true }),
           ext('/here/explore', 'KTTK', { showArrow: true }),
           ext('/neighbourhood', 'Nachbarschaft'),
@@ -55,13 +55,13 @@ function columnsFor(locale: Locale): FooterColumnData[] {
         icon: 'CircleHelp',
         links: [
           ext('/faq', 'FAQs'),
-          ext('mailto:info@hotel-berlin.de', 'Kontakt'),
+          ext('/contact', 'Kontakt'),
           ext('/faq', 'Fundsachen'),
           ext('/accessibility', 'Barrierefreiheit'),
           ext('/about', 'Über uns'),
           ext('/sustainability', 'Nachhaltigkeit'),
           ext('https://careers.radissonhotels.com', 'Karriere'),
-          ext('/parking', 'Parken'),
+          ext('/policies/fees', 'Parken'),
         ],
       },
     ]
@@ -78,9 +78,9 @@ function columnsFor(locale: Locale): FooterColumnData[] {
         ext('/rooms', 'Comfort'),
         ext('/rooms', 'Suites'),
         ext('/rooms', 'Studio 45'),
-        ext('/faq', 'Check-in / Check-out', { dividerBefore: true }),
-        ext('/faq', 'Cancellations'),
-        ext('/faq', 'Pets'),
+        ext('/policies/check-in', 'Check-in / Check-out', { dividerBefore: true }),
+        ext('/policies/cancellation', 'Cancellations'),
+        ext('/policies/pets', 'Pets'),
       ],
     },
     {
@@ -92,7 +92,7 @@ function columnsFor(locale: Locale): FooterColumnData[] {
         ext('/here/dining', 'Restaurant & Bar'),
         ext('/meetings', 'Meetings'),
         ext('/meetings', 'Meeting Rooms'),
-        ext('/here/art', 'On the Walls', { dividerBefore: true }),
+        ext('/on-the-walls', 'On the Walls', { dividerBefore: true }),
         ext('https://fkkb.de', 'FKKB', { showArrow: true }),
         ext('/here/explore', 'KTTK', { showArrow: true }),
         ext('/neighbourhood', 'Neighbourhood'),
@@ -104,13 +104,13 @@ function columnsFor(locale: Locale): FooterColumnData[] {
       icon: 'CircleHelp',
       links: [
         ext('/faq', 'FAQs'),
-        ext('mailto:info@hotel-berlin.de', 'Contact'),
+        ext('/contact', 'Contact'),
         ext('/faq', 'Lost & Found'),
         ext('/accessibility', 'Accessibility'),
         ext('/about', 'About'),
         ext('/sustainability', 'Sustainability'),
         ext('https://careers.radissonhotels.com', 'Careers'),
-        ext('/parking', 'Parking'),
+        ext('/policies/fees', 'Parking'),
       ],
     },
   ]
@@ -203,6 +203,7 @@ function legalLinksFor(locale: Locale): FooterBarLink[] {
       { id: 'privacy', label: 'Datenschutz', href: '/privacy' },
       { id: 'terms', label: 'AGB', href: '/terms' },
       { id: 'cookies', label: 'Cookies', href: '/cookies' },
+      { id: 'disclaimer', label: 'Haftungsausschluss', href: '/disclaimer' },
       { id: 'accessibility', label: 'Barrierefreiheit', href: '/accessibility' },
     ]
   }
@@ -212,6 +213,7 @@ function legalLinksFor(locale: Locale): FooterBarLink[] {
     { id: 'privacy', label: 'Privacy', href: '/privacy' },
     { id: 'terms', label: 'Terms', href: '/terms' },
     { id: 'cookies', label: 'Cookies', href: '/cookies' },
+    { id: 'disclaimer', label: 'Disclaimer', href: '/disclaimer' },
     { id: 'accessibility', label: 'Accessibility', href: '/accessibility' },
   ]
 }

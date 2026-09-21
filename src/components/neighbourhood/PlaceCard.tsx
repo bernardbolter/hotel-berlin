@@ -37,6 +37,7 @@ export function PlaceCard({
   endorsements = [],
 }: PlaceCardProps) {
   const Icon = CATEGORY_LUCIDE_ICON[category] ?? Landmark
+  const src = imageUrl && !imageUrl.includes('picsum.photos') ? imageUrl : null
 
   return (
     <article className="flex flex-col motion-safe:transition-opacity motion-reduce:transition-none">
@@ -44,16 +45,16 @@ export function PlaceCard({
         href={{ pathname: '/neighbourhood/[slug]', params: { slug } }}
         className="relative mb-4 aspect-4/3 overflow-hidden bg-gray-100"
       >
-        {imageUrl ? (
+        {src ? (
           <Image
-            src={imageUrl}
+            src={src}
             alt={imageAlt}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
           />
         ) : (
-          <PlaceImageFallback category={category} className="h-full w-full" />
+          <PlaceImageFallback category={category} name={name} className="h-full w-full" />
         )}
       </Link>
 

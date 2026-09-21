@@ -1,7 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Rooms: CollectionConfig = {
   slug: 'rooms',
+  ...collectionCacheHooks('rooms'),
+  access: publicReadStaffWrite,
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'fromPrice', 'floorSizeM2', 'bathroomLabel', 'featured', 'displayOrder'],

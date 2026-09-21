@@ -1,7 +1,12 @@
 import type { CollectionConfig, TextField } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Tags: CollectionConfig = {
   slug: 'tags',
+  ...collectionCacheHooks('tags'),
+  access: publicReadStaffWrite,
   admin: { useAsTitle: 'name' },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
@@ -24,7 +29,7 @@ export const Tags: CollectionConfig = {
         components: {
           Field: '/components/admin/LucideIconPicker#LucideIconPicker',
         },
-        description: 'Pick a Lucide icon. Leave blank for no icon.',
+        description: 'Pick a Lucide icon. Blank or unknown names show a circle on the site.',
         condition: (data) => data.type === 'amenity',
       },
     } satisfies TextField,

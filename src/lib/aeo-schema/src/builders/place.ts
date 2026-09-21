@@ -1,7 +1,8 @@
 import type { JsonLdNode, NeighbourhoodPlace, SiteConfig } from '../types';
-import { placeNodeId, reviewNodeId } from '../lib/ids';
+import { placeNodeId, placeUrl, reviewNodeId } from '../lib/ids';
 import { buildAuthorityProps } from '../lib/authority';
 import { prune } from '../lib/prune';
+import { toSchemaDays } from './venue';
 
 export function buildPlaceRef(place: NeighbourhoodPlace, config: SiteConfig): JsonLdNode {
   return prune({
@@ -38,6 +39,26 @@ function buildAdditionalProperty(place: NeighbourhoodPlace) {
   }
 
   return props.length > 0 ? props : undefined;
+}
+
+function openingHoursSpecification(openingHours?: string) {
+  if (!openingHours?.trim()) return undefined
+  const raw = openingHours.trim()
+  const timed = /^(.+?)\s+(\d{1,2}:\d{2})\s*[-–]\s*(\d{1,2}:\d{2})/.exec(raw)
+  if (timed) {
+    return prune({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: toSchemaDays(timed[1]),
+      opens: timed[2],
+      closes: timed[3],
+    })
+  }
+  const days = toSchemaDays(raw)
+  if (!days) return undefined
+  return prune({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: days,
+  })
 }
 
 /**
@@ -81,6 +102,14 @@ export function buildPlaceNode(place: NeighbourhoodPlace, config: SiteConfig): J
     openingHours: place.openingHours,
     priceRange: place.priceRange,
     additionalProperty: buildAdditionalProperty(place),
+    containedInPlace: place.district
+      ? { '@type': 'Place', name: `${place.district}, Berlin` }
+      : undefined,
+    openingHoursSpecification: openingHoursSpecification(place.openingHours),
+    audience: place.targetAudience?.map((audienceType) => ({
+      '@type': 'Audience',
+      audienceType,
+    })),
     review,
     sameAs,
     identifier,

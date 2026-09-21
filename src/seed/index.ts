@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import type { Config } from '@/payload-types'
@@ -58,7 +59,7 @@ async function seed() {
         const created = await payload.create({
           collection: 'tags',
           data: {
-            name: amenity.name,
+            name: amenity.name.en,
             slug: amenity.slug,
             type: 'amenity',
             lucideIcon: amenity.lucideIcon,
@@ -70,7 +71,7 @@ async function seed() {
           collection: 'tags',
           id: created.id,
           data: {
-            name: amenity.name,
+            name: amenity.name.de,
             description: amenity.description.de,
           },
           locale: 'de',
@@ -228,6 +229,18 @@ async function seed() {
   if (!(await isSeeded('faqs'))) {
     console.log('Seeding FAQs...')
     await upsertFaqs(payload)
+  }
+
+  if (!(await isSeeded('legal-documents'))) {
+    console.log('Seeding legal pages...')
+    const { upsertLegalDocuments } = await import('./legal')
+    await upsertLegalDocuments(payload)
+  }
+
+  if (!(await isSeeded('amenities'))) {
+    console.log('Seeding amenities...')
+    const { upsertAmenities } = await import('./amenities')
+    await upsertAmenities(payload)
   }
 
   const pageIds = new Map<string, number>()

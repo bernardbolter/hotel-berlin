@@ -1,6 +1,9 @@
 [
   {
-    "name": "Free WiFi",
+    "name": {
+      "en": "Free WiFi",
+      "de": "Kostenloses WLAN"
+    },
     "slug": "free-wifi",
     "type": "amenity",
     "lucideIcon": "Wifi",
@@ -10,7 +13,10 @@
     }
   },
   {
-    "name": "King bed",
+    "name": {
+      "en": "King bed",
+      "de": "Kingsize-Bett"
+    },
     "slug": "king-bed",
     "type": "amenity",
     "lucideIcon": "BedDouble",
@@ -20,7 +26,10 @@
     }
   },
   {
-    "name": "King bed freestanding",
+    "name": {
+      "en": "King bed freestanding",
+      "de": "Freistehendes Kingsize-Bett"
+    },
     "slug": "king-bed-freestanding",
     "type": "amenity",
     "lucideIcon": "BedDouble",
@@ -30,7 +39,10 @@
     }
   },
   {
-    "name": "Queen bed",
+    "name": {
+      "en": "Queen bed",
+      "de": "Queensize-Bett"
+    },
     "slug": "queen-bed",
     "type": "amenity",
     "lucideIcon": "BedDouble",
@@ -40,7 +52,10 @@
     }
   },
   {
-    "name": "Twin beds",
+    "name": {
+      "en": "Twin beds",
+      "de": "Twin-Betten"
+    },
     "slug": "twin-beds",
     "type": "amenity",
     "lucideIcon": "Bed",
@@ -50,7 +65,10 @@
     }
   },
   {
-    "name": "Double bed",
+    "name": {
+      "en": "Double bed",
+      "de": "Doppelbett"
+    },
     "slug": "double-bed",
     "type": "amenity",
     "lucideIcon": "Bed",
@@ -60,7 +78,10 @@
     }
   },
   {
-    "name": "Bunk beds",
+    "name": {
+      "en": "Bunk beds",
+      "de": "Etagenbetten"
+    },
     "slug": "bunk-beds",
     "type": "amenity",
     "lucideIcon": "BedSingle",
@@ -70,7 +91,10 @@
     }
   },
   {
-    "name": "Shower",
+    "name": {
+      "en": "Shower",
+      "de": "Dusche"
+    },
     "slug": "shower",
     "type": "amenity",
     "lucideIcon": "ShowerHead",
@@ -80,7 +104,10 @@
     }
   },
   {
-    "name": "Rain shower",
+    "name": {
+      "en": "Rain shower",
+      "de": "Regendusche"
+    },
     "slug": "rain-shower",
     "type": "amenity",
     "lucideIcon": "ShowerHead",
@@ -90,7 +117,10 @@
     }
   },
   {
-    "name": "Bath & shower",
+    "name": {
+      "en": "Bath & shower",
+      "de": "Wanne & Dusche"
+    },
     "slug": "bath-shower",
     "type": "amenity",
     "lucideIcon": "Bath",
@@ -100,7 +130,10 @@
     }
   },
   {
-    "name": "Spa bathroom",
+    "name": {
+      "en": "Spa bathroom",
+      "de": "Spa-Bad"
+    },
     "slug": "spa-bathroom",
     "type": "amenity",
     "lucideIcon": "Bath",
@@ -110,7 +143,10 @@
     }
   },
   {
-    "name": "Separate guest WC",
+    "name": {
+      "en": "Separate guest WC",
+      "de": "Separates Gäste-WC"
+    },
     "slug": "separate-wc",
     "type": "amenity",
     "lucideIcon": "Toilet",
@@ -120,7 +156,10 @@
     }
   },
   {
-    "name": "Hair dryer",
+    "name": {
+      "en": "Hair dryer",
+      "de": "Haartrockner"
+    },
     "slug": "hair-dryer",
     "type": "amenity",
     "lucideIcon": "Wind",
@@ -130,7 +169,10 @@
     }
   },
   {
-    "name": "Air conditioning",
+    "name": {
+      "en": "Air conditioning",
+      "de": "Klimaanlage"
+    },
     "slug": "air-conditioning",
     "type": "amenity",
     "lucideIcon": "AirVent",
@@ -140,7 +182,10 @@
     }
   },
   {
-    "name": "Adjustable AC",
+    "name": {
+      "en": "Adjustable AC",
+      "de": "Regelbare Klimaanlage"
+    },
     "slug": "adjustable-ac",
     "type": "amenity",
     "lucideIcon": "Thermometer",
@@ -150,7 +195,10 @@
     }
   },
   {
-    "name": "Sound-proof windows",
+    "name": {
+      "en": "Sound-proof windows",
+      "de": "Schalldichte Fenster"
+    },
     "slug": "soundproof-windows",
     "type": "amenity",
     "lucideIcon": "VolumeOff",
@@ -160,7 +208,10 @@
     }
   },
   {
-    "name": "42\" TV",
+    "name": {
+      "en": "42\" TV",
+      "de": "42\"-TV"
+    },
     "slug": "tv-42",
     "type": "amenity",
     "lucideIcon": "Tv",
@@ -170,7 +221,10 @@
     }
   },
   {
-    "name": "49\" TV",
+    "name": {
+      "en": "49\" TV",
+      "de": "49\"-TV"
+    },
     "slug": "tv-49",
     "type": "amenity",
     "lucideIcon": "Tv",
@@ -180,7 +234,10 @@
     }
   },
   {
-    "name": "55\" TV",
+    "name": {
+      "en": "55\" TV",
+      "de": "55\"-TV"
+    },
     "slug": "tv-55",
     "type": "amenity",
     "lucideIcon": "Tv",
@@ -190,7 +247,10 @@
     }
   },
   {
-    "name": "2× TVs",
+    "name": {
+      "en": "2× TVs",
+      "de": "2× TVs"
+    },
     "slug": "tv-dual",
     "type": "amenity",
     "lucideIcon": "Tv2",
@@ -200,7 +260,10 @@
     }
   },
   {
-    "name": "Teufel sound system",
+    "name": {
+      "en": "Teufel sound system",
+      "de": "Teufel-Soundsystem"
+    },
     "slug": "teufel-sound",
     "type": "amenity",
     "lucideIcon": "Speaker",
@@ -210,7 +273,10 @@
     }
   },
   {
-    "name": "DJ deck",
+    "name": {
+      "en": "DJ deck",
+      "de": "DJ-Deck"
+    },
     "slug": "dj-deck",
     "type": "amenity",
     "lucideIcon": "Disc3",
@@ -220,7 +286,10 @@
     }
   },
   {
-    "name": "High-end sound system",
+    "name": {
+      "en": "High-end sound system",
+      "de": "High-End-Soundsystem"
+    },
     "slug": "hifi-sound",
     "type": "amenity",
     "lucideIcon": "AudioLines",
@@ -230,7 +299,10 @@
     }
   },
   {
-    "name": "Instruments",
+    "name": {
+      "en": "Instruments",
+      "de": "Instrumente"
+    },
     "slug": "instruments",
     "type": "amenity",
     "lucideIcon": "Music",
@@ -240,7 +312,10 @@
     }
   },
   {
-    "name": "200 records",
+    "name": {
+      "en": "200 records",
+      "de": "200 Schallplatten"
+    },
     "slug": "vinyl-collection",
     "type": "amenity",
     "lucideIcon": "Disc3",
@@ -250,7 +325,10 @@
     }
   },
   {
-    "name": "Nespresso machine",
+    "name": {
+      "en": "Nespresso machine",
+      "de": "Nespresso-Maschine"
+    },
     "slug": "nespresso",
     "type": "amenity",
     "lucideIcon": "Coffee",
@@ -260,7 +338,10 @@
     }
   },
   {
-    "name": "Tea facilities",
+    "name": {
+      "en": "Tea facilities",
+      "de": "Teezubereitung"
+    },
     "slug": "tea",
     "type": "amenity",
     "lucideIcon": "Coffee",
@@ -270,7 +351,10 @@
     }
   },
   {
-    "name": "Room safe",
+    "name": {
+      "en": "Room safe",
+      "de": "Zimmersafe"
+    },
     "slug": "room-safe",
     "type": "amenity",
     "lucideIcon": "LockKeyhole",
@@ -280,7 +364,10 @@
     }
   },
   {
-    "name": "Refrigerator",
+    "name": {
+      "en": "Refrigerator",
+      "de": "Kühlschrank"
+    },
     "slug": "refrigerator",
     "type": "amenity",
     "lucideIcon": "Refrigerator",
@@ -290,7 +377,10 @@
     }
   },
   {
-    "name": "Minibar",
+    "name": {
+      "en": "Minibar",
+      "de": "Minibar"
+    },
     "slug": "minibar",
     "type": "amenity",
     "lucideIcon": "Wine",
@@ -300,7 +390,10 @@
     }
   },
   {
-    "name": "Desk",
+    "name": {
+      "en": "Desk",
+      "de": "Schreibtisch"
+    },
     "slug": "desk",
     "type": "amenity",
     "lucideIcon": "Laptop",
@@ -310,7 +403,10 @@
     }
   },
   {
-    "name": "Work & dining area",
+    "name": {
+      "en": "Work & dining area",
+      "de": "Arbeits- & Essbereich"
+    },
     "slug": "work-dining",
     "type": "amenity",
     "lucideIcon": "UtensilsCrossed",
@@ -320,7 +416,10 @@
     }
   },
   {
-    "name": "Seating area",
+    "name": {
+      "en": "Seating area",
+      "de": "Sitzbereich"
+    },
     "slug": "seating-area",
     "type": "amenity",
     "lucideIcon": "Sofa",
@@ -330,7 +429,10 @@
     }
   },
   {
-    "name": "Foldout sofa",
+    "name": {
+      "en": "Foldout sofa",
+      "de": "Ausziehsofa"
+    },
     "slug": "foldout-sofa",
     "type": "amenity",
     "lucideIcon": "Sofa",
@@ -340,7 +442,10 @@
     }
   },
   {
-    "name": "Separate living area",
+    "name": {
+      "en": "Separate living area",
+      "de": "Separater Wohnbereich"
+    },
     "slug": "separate-living",
     "type": "amenity",
     "lucideIcon": "LayoutPanelLeft",
@@ -350,7 +455,10 @@
     }
   },
   {
-    "name": "Floor-to-ceiling windows",
+    "name": {
+      "en": "Floor-to-ceiling windows",
+      "de": "Bodentiefe Fenster"
+    },
     "slug": "ftc-windows",
     "type": "amenity",
     "lucideIcon": "Maximize",
@@ -360,7 +468,10 @@
     }
   },
   {
-    "name": "Parquet flooring",
+    "name": {
+      "en": "Parquet flooring",
+      "de": "Parkett"
+    },
     "slug": "parquet",
     "type": "amenity",
     "lucideIcon": "Grid2x2",
@@ -370,7 +481,10 @@
     }
   },
   {
-    "name": "Dimmable lighting",
+    "name": {
+      "en": "Dimmable lighting",
+      "de": "Dimmbares Licht"
+    },
     "slug": "dimmable-lighting",
     "type": "amenity",
     "lucideIcon": "Lightbulb",
@@ -380,7 +494,10 @@
     }
   },
   {
-    "name": "Balcony",
+    "name": {
+      "en": "Balcony",
+      "de": "Balkon"
+    },
     "slug": "balcony",
     "type": "amenity",
     "lucideIcon": "Flower2",
@@ -390,7 +507,10 @@
     }
   },
   {
-    "name": "Private sauna",
+    "name": {
+      "en": "Private sauna",
+      "de": "Private Sauna"
+    },
     "slug": "private-sauna",
     "type": "amenity",
     "lucideIcon": "Flame",
@@ -400,7 +520,10 @@
     }
   },
   {
-    "name": "Non-smoking",
+    "name": {
+      "en": "Non-smoking",
+      "de": "Nichtraucher"
+    },
     "slug": "non-smoking",
     "type": "amenity",
     "lucideIcon": "CigaretteOff",
@@ -410,7 +533,10 @@
     }
   },
   {
-    "name": "Adjoining rooms",
+    "name": {
+      "en": "Adjoining rooms",
+      "de": "Verbindungstüren"
+    },
     "slug": "adjoining-rooms",
     "type": "amenity",
     "lucideIcon": "DoorOpen",
@@ -420,7 +546,10 @@
     }
   },
   {
-    "name": "Wheelchair accessible",
+    "name": {
+      "en": "Wheelchair accessible",
+      "de": "Rollstuhlgerecht"
+    },
     "slug": "accessible",
     "type": "amenity",
     "lucideIcon": "Accessibility",
@@ -430,7 +559,10 @@
     }
   },
   {
-    "name": "Pet friendly",
+    "name": {
+      "en": "Pet friendly",
+      "de": "Haustierfreundlich"
+    },
     "slug": "pet-friendly",
     "type": "amenity",
     "lucideIcon": "PawPrint",
@@ -440,7 +572,10 @@
     }
   },
   {
-    "name": "Berlin door headboards",
+    "name": {
+      "en": "Berlin door headboards",
+      "de": "Berliner Tür-Kopfteile"
+    },
     "slug": "berlin-doors",
     "type": "amenity",
     "lucideIcon": "DoorClosed",
@@ -450,7 +585,10 @@
     }
   },
   {
-    "name": "You, Me & Berlin map",
+    "name": {
+      "en": "You, Me & Berlin map",
+      "de": "You, Me & Berlin-Karte"
+    },
     "slug": "ymb-map",
     "type": "amenity",
     "lucideIcon": "MapPin",
@@ -460,7 +598,10 @@
     }
   },
   {
-    "name": "Books",
+    "name": {
+      "en": "Books",
+      "de": "Bücher"
+    },
     "slug": "books",
     "type": "amenity",
     "lucideIcon": "BookOpen",
@@ -470,7 +611,10 @@
     }
   },
   {
-    "name": "Garden view",
+    "name": {
+      "en": "Garden view",
+      "de": "Gartenblick"
+    },
     "slug": "garden-view",
     "type": "amenity",
     "lucideIcon": "Trees",
@@ -480,13 +624,29 @@
     }
   },
   {
-    "name": "Lützowplatz view",
+    "name": {
+      "en": "Lützowplatz view",
+      "de": "Blick zum Lützowplatz"
+    },
     "slug": "luetzowplatz-view",
     "type": "amenity",
     "lucideIcon": "Building2",
     "description": {
       "en": "A view toward Lützowplatz.",
       "de": "Blick zum Lützowplatz."
+    }
+  },
+  {
+    "name": {
+      "en": "Wellness Bathroom",
+      "de": "Wellness-Bad"
+    },
+    "slug": "wellness-bathroom",
+    "type": "amenity",
+    "lucideIcon": "Bath",
+    "description": {
+      "en": "A wellness bathroom.",
+      "de": "Wellness-Bad."
     }
   }
 ]

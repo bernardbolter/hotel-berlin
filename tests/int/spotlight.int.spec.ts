@@ -287,7 +287,7 @@ describe('resolveEventSpotlight', () => {
     expect(card?.venueLabel).toBe('Lütze')
     expect(card?.locationLabel).toBe('Ground Floor')
     expect(card?.secondaryMeta).toBeUndefined()
-    expect(card?.cta.href).toBe('/happenings#zeichenstammtisch')
+    expect(card?.cta.href).toBe('/happenings/zeichenstammtisch')
     expect(card?.framing).toBe('prospect')
     expect(card?.primaryMeta).toMatch(/19:00/)
     expect(card?.description).toBe('Open drawing table.')

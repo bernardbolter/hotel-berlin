@@ -31,6 +31,7 @@ export interface Person {
   roomNumber?: string;
   basedIn?: string;
   type?: PersonType;
+  tags?: string[];
   authority?: Authority;
   status: 'draft' | 'published';
 }
@@ -93,6 +94,7 @@ export interface NeighbourhoodPlace {
   priceRange?: string;
   authority?: Authority;
   associatedRoom?: string;
+  district?: string;
   status: 'active' | 'inactive';
 }
 
@@ -191,6 +193,29 @@ export interface Venue {
   sameAs?: string[];
 }
 
+export interface HotelEventVenue {
+  slug: string;
+  name: string;
+  spotlightLocation?: string;
+  location?: string;
+}
+
+export interface HotelEvent {
+  id: string;
+  slug: string;
+  name: string;
+  description?: string;
+  startDate: string;
+  endDate?: string;
+  isRecurring?: boolean;
+  recurrenceRule?: string | null;
+  isFree?: boolean;
+  price?: number;
+  priceCurrency?: string;
+  bookingNote?: string;
+  venue?: HotelEventVenue;
+}
+
 export interface SiteConfig {
   baseUrl: string; // e.g. "https://hotel-berlin.de"
   canonicalLocale: Locale; // 'de' — the site is German-first, bare domain redirects to /de
@@ -200,6 +225,8 @@ export interface SiteConfig {
     rooms: Record<Locale, string>; // { de: '/de/zimmer', en: '/en/rooms' }
     meetings: Record<Locale, string>; // { de: '/de/tagungen', en: '/en/meetings' }
     restaurant: Record<Locale, string>; // { de: '/de/restaurant', en: '/en/restaurant' }
+    happenings: Record<Locale, string>; // { de: '/de/happenings', en: '/en/happenings' }
+    amenities: Record<Locale, string>; // { de: '/de/ausstattung', en: '/en/amenities' }
   };
 }
 

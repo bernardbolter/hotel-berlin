@@ -1,8 +1,13 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Events: CollectionConfig = {
   slug: 'events',
+  ...collectionCacheHooks('events'),
+  access: publicReadStaffWrite,
   admin: { useAsTitle: 'name' },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },

@@ -23,13 +23,14 @@ test('buildPlacePageGraph has exactly one @context and includes place + person s
   assert.ok(types.includes('TouristAttraction'));
   assert.ok(types.includes('Person'));
   assert.ok(types.includes('Review'));
-  assert.equal(graph['@graph'].length, 3);
+  assert.ok(types.includes('WebPage'));
+  assert.equal(graph['@graph'].length, 4);
 });
 
 test('buildPlacePageGraph for an unattributed place has no Person/Review nodes', () => {
   const graph = buildPlacePageGraph(hamburgerBahnhof, defaultConfig);
   const types = graph['@graph'].map((n) => n['@type']);
-  assert.deepEqual(types, ['Museum']);
+  assert.deepEqual(types, ['Museum', 'WebPage']);
 });
 
 test('buildPlacePageGraph for the many-to-many place includes two Person stubs and two Reviews', () => {
@@ -48,8 +49,10 @@ test('buildPersonPageGraph includes the full person node, place stub(s), and rev
   );
   const types = graph['@graph'].map((n) => n['@type']);
   assert.ok(types.includes('Person'));
-  assert.ok(types.includes('TouristAttraction'));
+  assert.ok(types.includes('ProfilePage'));
+  assert.ok(types.includes('ItemList'));
   assert.ok(types.includes('Review'));
+  assert.equal(types.includes('TouristAttraction'), false);
 });
 
 test('CONSISTENCY: the Review node built from the place-page path matches the one built from the person-page path', () => {

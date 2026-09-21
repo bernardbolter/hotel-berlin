@@ -30,6 +30,10 @@ import {
   meetingsListUrl,
   neighbourhoodListUrl,
   peopleListUrl,
+  personNodeId,
+  personUrl,
+  placeNodeId,
+  placeUrl,
   roomsListUrl,
 } from '../lib/ids';
 
@@ -72,8 +76,15 @@ export function buildPlacePageGraph(place: NeighbourhoodPlace, config: SiteConfi
   const placeNode = buildPlaceNode(place, config);
   const personStubs = (place.endorsements ?? []).map((e) => buildPersonRef(e.person, config));
   const reviews = buildReviewNodesForPlace(place, config);
+  const page: JsonLdNode = {
+    '@type': 'WebPage',
+    '@id': placeUrl(place.slug, config),
+    url: placeUrl(place.slug, config),
+    name: place.name,
+    mainEntity: { '@id': placeNodeId(place.slug, config) },
+  };
 
-  return wrap([placeNode, ...personStubs, ...reviews]);
+  return wrap([placeNode, page, ...personStubs, ...reviews]);
 }
 
 /**
@@ -90,8 +101,6 @@ export function buildPersonPageGraph(
   config: SiteConfig,
 ): JsonLdGraph {
   const personNode = buildPersonNode(person, config);
-  const placeStubs = picks.map((p) => buildPlaceRef(p.place, config));
-
   const reviews = picks.map((p) =>
     buildReviewNodesForPlace(
       { ...p.place, endorsements: [{ person, quote: p.quote }] },
@@ -99,7 +108,28 @@ export function buildPersonPageGraph(
     ),
   ).flat();
 
-  return wrap([personNode, ...placeStubs, ...reviews]);
+  const picksList: JsonLdNode | undefined =
+    picks.length > 0
+      ? {
+          '@type': 'ItemList',
+          '@id': `${personUrl(person.slug, config)}#picks`,
+          itemListElement: picks.map((p, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: { '@id': placeNodeId(p.place.slug, config) },
+          })),
+        }
+      : undefined;
+
+  const page: JsonLdNode = {
+    '@type': 'ProfilePage',
+    '@id': personUrl(person.slug, config),
+    url: personUrl(person.slug, config),
+    name: person.name,
+    mainEntity: { '@id': personNodeId(person.slug, config) },
+  };
+
+  return wrap([personNode, page, ...(picksList ? [picksList] : []), ...reviews]);
 }
 
 /**

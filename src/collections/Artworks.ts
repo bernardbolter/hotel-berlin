@@ -1,8 +1,13 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Artworks: CollectionConfig = {
   slug: 'artworks',
+  ...collectionCacheHooks('artworks'),
+  access: publicReadStaffWrite,
   admin: { useAsTitle: 'title' },
   fields: [
     { name: 'title', type: 'text', required: true },

@@ -3,6 +3,7 @@
  * Run: npx tsx src/seed/smoke-aeo-schema.ts
  */
 import 'dotenv/config'
+import './guard'
 
 import {
   buildNeighbourhoodListGraph,

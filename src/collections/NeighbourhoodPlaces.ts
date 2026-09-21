@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
 import { geocodeNeighbourhoodPlaceBeforeChange } from './hooks/geocodeNeighbourhoodPlace'
+
+const { hooks: neighbourhoodCache } = collectionCacheHooks('neighbourhood')
 
 export const NeighbourhoodPlaces: CollectionConfig = {
   slug: 'neighbourhood-places',
@@ -9,25 +13,11 @@ export const NeighbourhoodPlaces: CollectionConfig = {
     defaultColumns: ['name', 'category', 'featuredOrder', 'distanceTier', 'status', 'updatedAt'],
     group: 'Neighbourhood',
   },
-  access: {
-    read: () => true,
-  },
+  access: publicReadStaffWrite,
   hooks: {
     beforeChange: [geocodeNeighbourhoodPlaceBeforeChange],
-    afterChange: [
-      async () => {
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hotel-berlin.de'
-        const secret = process.env.REVALIDATE_SECRET
-
-        if (!secret) return
-
-        await fetch(`${baseUrl}/api/revalidate?path=/neighbourhood&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/you-me-berlin&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/en&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/de&secret=${secret}`)
-      },
-    ],
+    afterChange: neighbourhoodCache.afterChange,
+    afterDelete: neighbourhoodCache.afterDelete,
   },
   fields: [
     { name: 'name', type: 'text', required: true },

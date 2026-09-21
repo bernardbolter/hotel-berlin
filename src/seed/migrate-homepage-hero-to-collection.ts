@@ -5,6 +5,7 @@
  * Usage: npx tsx src/seed/migrate-homepage-hero-to-collection.ts
  */
 import 'dotenv/config'
+import './guard'
 
 import { getPayload } from 'payload'
 

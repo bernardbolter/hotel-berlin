@@ -1,10 +1,12 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { Amenities } from './collections/Amenities'
 import { Artists } from './collections/Artists'
 import { Artworks } from './collections/Artworks'
 import { Events } from './collections/Events'
@@ -12,6 +14,7 @@ import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
 import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
+import { LegalDocuments } from './collections/LegalDocuments'
 import { Media } from './collections/Media'
 import { MeetingDocuments } from './collections/MeetingDocuments'
 import { MeetingInquiries } from './collections/MeetingInquiries'
@@ -48,6 +51,7 @@ export default buildConfig({
     MeetingDocuments,
     MeetingInquiries,
     Venues,
+    Amenities,
     HeroSlides,
     FAQs,
     Artists,
@@ -58,6 +62,7 @@ export default buildConfig({
     NeighbourhoodPlaces,
     Places,
     Pages,
+    LegalDocuments,
   ],
   globals: [Hotel, Homepage, Navigation, Footer, Meetings],
   editor: lexicalEditor(),
@@ -74,12 +79,21 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    // Dev: always push. Production/staging: set PAYLOAD_DATABASE_PUSH=true for first boot
-    // (or after schema changes) until proper migrations exist.
-    push:
-      process.env.NODE_ENV !== 'production' ||
-      process.env.PAYLOAD_DATABASE_PUSH === 'true',
+    // Local `next dev` only: Drizzle push. Tests, build, and production use migrations.
+    // Off unless PAYLOAD_DATABASE_PUSH=true (see doc/dev/DATABASE.md).
+    push: process.env.PAYLOAD_DATABASE_PUSH === 'true',
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    vercelBlobStorage({
+      // Unset token keeps files on local disk (dev). Production must set BLOB_READ_WRITE_TOKEN.
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+      clientUploads: true,
+    }),
+  ],
 })

@@ -75,6 +75,7 @@ export interface Config {
     'meeting-documents': MeetingDocument;
     'meeting-inquiries': MeetingInquiry;
     venues: Venue;
+    amenities: Amenity;
     'hero-slides': HeroSlide;
     faqs: Faq;
     artists: Artist;
@@ -85,6 +86,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlace;
     places: Place;
     pages: Page;
+    'legal-documents': LegalDocument;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -104,6 +106,7 @@ export interface Config {
     'meeting-documents': MeetingDocumentsSelect<false> | MeetingDocumentsSelect<true>;
     'meeting-inquiries': MeetingInquiriesSelect<false> | MeetingInquiriesSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
+    amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
     'hero-slides': HeroSlidesSelect<false> | HeroSlidesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     artists: ArtistsSelect<false> | ArtistsSelect<true>;
@@ -114,6 +117,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlacesSelect<false> | NeighbourhoodPlacesSelect<true>;
     places: PlacesSelect<false> | PlacesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    'legal-documents': LegalDocumentsSelect<false> | LegalDocumentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -166,11 +170,17 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * CMS logins. Only admins can create users or change roles. Hotel staff accounts should be Editor.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  /**
+   * Admins manage users and the Hotel global. Editors manage collections and the other globals. Set hotel accounts to Editor.
+   */
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -196,6 +206,9 @@ export interface User {
  */
 export interface Media {
   id: number;
+  /**
+   * Describe the image for screen readers. Set German and English with the locale toggle.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -208,6 +221,40 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    hero?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    portrait?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    og?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -222,7 +269,7 @@ export interface Tag {
    */
   description?: string | null;
   /**
-   * Pick a Lucide icon. Leave blank for no icon.
+   * Pick a Lucide icon. Blank or unknown names show a circle on the site.
    */
   lucideIcon?: string | null;
   type: 'category' | 'medium' | 'theme' | 'amenity' | 'neighbourhood';
@@ -598,6 +645,38 @@ export interface Venue {
       }[]
     | null;
   /**
+   * One-off closures, holiday hours, or “on request” windows. Regular weekly hours stay in Opening hours.
+   */
+  specialHours?:
+    | {
+        /**
+         * First day this exception applies (Berlin calendar date).
+         */
+        validFrom: string;
+        /**
+         * Last day inclusive. Leave empty to apply on validFrom only.
+         */
+        validThrough?: string | null;
+        /**
+         * Closed = shut that day. Hours = replacement window. On request = no clock times.
+         */
+        kind: 'closed' | 'hours' | 'on-request';
+        /**
+         * e.g. 10:00 — only when kind is “Different hours”.
+         */
+        opens?: string | null;
+        /**
+         * e.g. 18:00 — only when kind is “Different hours”.
+         */
+        closes?: string | null;
+        /**
+         * Optional guest-facing line, e.g. “Feiertag” / “On request, 45 min notice”.
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Restaurant only. e.g. Italian, International
    */
   servesCuisine?: string | null;
@@ -627,46 +706,172 @@ export interface Venue {
   createdAt: string;
 }
 /**
- * Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.
+ * Hotel facilities on /hier (Im Haus) and /ausstattung. Drag the list to reorder. Hidden rows leave the site; pending rows show with a dashed border. Switch locale (DE/EN) in the admin bar for titles and copy.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hero-slides".
+ * via the `definition` "amenities".
  */
-export interface HeroSlide {
+export interface Amenity {
   id: number;
+  _order?: string | null;
   /**
-   * Internal label for the admin list (not shown on the site).
+   * Im Haus = Anlage (facility). Services = die zweite Gruppe auf /ausstattung. / Facility → Im Haus group; service → Services group.
    */
-  adminTitle?: string | null;
-  image: number | Media;
+  kind: 'facility' | 'service';
   /**
-   * Descriptive alt text — required for both DE and EN.
+   * Card heading, e.g. “Sauna & Sanarium” / “Gym”.
    */
-  altText: string;
+  title: string;
   /**
-   * Optional. When set, caption is derived from venue name + floor/location.
+   * Stable id, e.g. sauna, kttk. Do not change after create.
    */
-  venue?: (number | null) | Venue;
+  slug: string;
   /**
-   * Optional. Used when the slide is not tied to a venue, or needs custom wording.
+   * Eyebrow on the card, e.g. “B2 Keller” / “In the hotel”. Leave empty for “Ort folgt”.
    */
-  captionOverride?: string | null;
+  location?: string | null;
   /**
-   * Photographer/agency credit — feeds ImageObject.creditText.
+   * Glyph shown when there is no photograph.
    */
-  credit?: string | null;
+  lucideIcon?: string | null;
   /**
-   * Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.
+   * Optional photograph. Without one the card shows the icon on a flat block. Alt text lives on the media record.
    */
-  context: 'homepage' | 'here';
+  image?: (number | null) | Media;
   /**
-   * Controls rotation sequence (lower first).
+   * Weekly hours for the “Wann” line. Leave empty if there are no advertised hours. Do not pick a sauna schedule here until the hotel confirms one.
    */
-  order: number;
+  openingHours?:
+    | {
+        /**
+         * e.g. Mo-Su, Mo-Fr, Sa-Su, or Thursday
+         */
+        dayOfWeek?: string | null;
+        /**
+         * e.g. 10:00
+         */
+        opens?: string | null;
+        /**
+         * Clock time, e.g. 22:30 or 01:00. Required for open/closed status.
+         */
+        closes?: string | null;
+        /**
+         * No advertised close — still store a clock bound in `closes` so status can be derived. The UI renders the i18n “open end” phrase.
+         */
+        isOpenEnded?: boolean | null;
+        /**
+         * Grouping label for open/closed status, e.g. "Bar" / "Kitchen" / "Breakfast". Multiple rows may share a segment.
+         */
+        segment?: string | null;
+        /**
+         * Optional status note, e.g. "Kitchen closes 22:30"
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
-   * Uncheck to pause this slide without deleting it.
+   * One-off closures, holiday hours, or “on request” windows. Regular weekly hours stay in Opening hours.
    */
-  enabled?: boolean | null;
+  specialHours?:
+    | {
+        /**
+         * First day this exception applies (Berlin calendar date).
+         */
+        validFrom: string;
+        /**
+         * Last day inclusive. Leave empty to apply on validFrom only.
+         */
+        validThrough?: string | null;
+        /**
+         * Closed = shut that day. Hours = replacement window. On request = no clock times.
+         */
+        kind: 'closed' | 'hours' | 'on-request';
+        /**
+         * e.g. 10:00 — only when kind is “Different hours”.
+         */
+        opens?: string | null;
+        /**
+         * e.g. 18:00 — only when kind is “Different hours”.
+         */
+        closes?: string | null;
+        /**
+         * Optional guest-facing line, e.g. “Feiertag” / “On request, 45 min notice”.
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * If set, shown as Wann instead of formatted opening hours. Use while hours are unconfirmed (e.g. “Zeiten noch zu bestätigen”).
+   */
+  hoursOverride?: string | null;
+  /**
+   * Optional “Preis” spec, e.g. “5 € / 30 Min.”
+   */
+  price?: string | null;
+  /**
+   * Optional “Was” spec, e.g. “8 × Typ 2” or “Permanent”.
+   */
+  what?: string | null;
+  /**
+   * Eine Zeile, max. 90 Zeichen. Fallback auf der Hub-Karte und Unterzeile in der Liste. / One line, max 90. Hub fallback and list sub-line.
+   */
+  summary?: string | null;
+  /**
+   * Nur die geöffnete Zeile auf /ausstattung. / Open-row body on the list page only.
+   */
+  details?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * z. B. „Mit der Zimmerkarte“ / „Anmeldung an der Rezeption“. Steht in den Fakten der offenen Zeile. / e.g. “With the room key”. Open-row facts only.
+   */
+  access?: string | null;
+  /**
+   * Legacy — copied into summary. Do not edit.
+   */
+  subline?: string | null;
+  /**
+   * Optional extra page, e.g. /here/wallride. Hub cards always go to /ausstattung#{slug}. This is the list’s “Mehr zu …” link only.
+   */
+  href?: string | null;
+  /**
+   * Nur ändern, wenn du weißt, was es bedeutet. / Only change if you know what it means.
+   */
+  schemaType?: ('none' | 'ExerciseGym' | 'SportsActivityLocation' | 'ParkingFacility') | null;
+  /**
+   * Im-Haus-Reihe auf /hier, max. 6 in Zugreihenfolge. Nur Anlagen (facility). / Hub row, max 6 in drag order. Facilities only.
+   */
+  showInHub?: boolean | null;
+  /**
+   * Dashed border — content still waiting on the hotel. Still shown unless Hidden.
+   */
+  pending?: boolean | null;
+  /**
+   * Omit from Im Haus, /ausstattung, and JSON-LD without deleting the record.
+   */
+  hidden?: boolean | null;
+  /**
+   * Hotel JSON-LD amenityFeature. Turn off for pending or non-facility rows (e.g. Fingerboard).
+   */
+  includeInSchema?: boolean | null;
+  /**
+   * FAQs that state the same fact. Stored for the FAQ view (H.13); not rendered on the amenity card.
+   */
+  relatedFaqs?: (number | Faq)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -739,6 +944,50 @@ export interface Page {
   slug: string;
   context: 'outside' | 'inside' | 'both' | 'policy';
   status?: ('skeleton' | 'in-progress' | 'live') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-slides".
+ */
+export interface HeroSlide {
+  id: number;
+  /**
+   * Internal label for the admin list (not shown on the site).
+   */
+  adminTitle?: string | null;
+  image: number | Media;
+  /**
+   * Descriptive alt text — required for both DE and EN.
+   */
+  altText: string;
+  /**
+   * Optional. When set, caption is derived from venue name + floor/location.
+   */
+  venue?: (number | null) | Venue;
+  /**
+   * Optional. Used when the slide is not tied to a venue, or needs custom wording.
+   */
+  captionOverride?: string | null;
+  /**
+   * Photographer/agency credit — feeds ImageObject.creditText.
+   */
+  credit?: string | null;
+  /**
+   * Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.
+   */
+  context: 'homepage' | 'here';
+  /**
+   * Controls rotation sequence (lower first).
+   */
+  order: number;
+  /**
+   * Uncheck to pause this slide without deleting it.
+   */
+  enabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1299,6 +1548,51 @@ export interface Place {
   createdAt: string;
 }
 /**
+ * Imprint, privacy, terms, cookies, and disclaimer. Switch locale (DE/EN) in the admin bar to edit each language. The slug maps to a fixed URL and should not be changed.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents".
+ */
+export interface LegalDocument {
+  id: number;
+  /**
+   * Locks this document to a site URL (e.g. imprint → /imprint, /de/impressum). Do not change after create.
+   */
+  slug: 'imprint' | 'privacy' | 'terms' | 'cookies' | 'disclaimer';
+  /**
+   * Page heading, e.g. “Privacy Policy” / “Datenschutzerklärung”.
+   */
+  title: string;
+  /**
+   * Optional date line shown under the heading, e.g. “24th April 2026”. Leave empty to hide.
+   */
+  updatedLabel?: string | null;
+  /**
+   * Optional intro under the heading (used on privacy). Not shown on Terms.
+   */
+  lede?: string | null;
+  /**
+   * Full legal text. Use headings (H2/H3), numbered or bullet lists, and links. Edit German and English separately with the locale switcher.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1355,6 +1649,10 @@ export interface PayloadLockedDocument {
         value: number | Venue;
       } | null)
     | ({
+        relationTo: 'amenities';
+        value: number | Amenity;
+      } | null)
+    | ({
         relationTo: 'hero-slides';
         value: number | HeroSlide;
       } | null)
@@ -1393,6 +1691,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'legal-documents';
+        value: number | LegalDocument;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1441,6 +1743,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1475,6 +1778,50 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        hero?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        portrait?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1663,6 +2010,17 @@ export interface VenuesSelect<T extends boolean = true> {
         note?: T;
         id?: T;
       };
+  specialHours?:
+    | T
+    | {
+        validFrom?: T;
+        validThrough?: T;
+        kind?: T;
+        opens?: T;
+        closes?: T;
+        note?: T;
+        id?: T;
+      };
   servesCuisine?: T;
   reservationUrl?: T;
   menuUrl?: T;
@@ -1686,6 +2044,57 @@ export interface VenuesSelect<T extends boolean = true> {
       };
   featured?: T;
   displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "amenities_select".
+ */
+export interface AmenitiesSelect<T extends boolean = true> {
+  _order?: T;
+  kind?: T;
+  title?: T;
+  slug?: T;
+  location?: T;
+  lucideIcon?: T;
+  image?: T;
+  openingHours?:
+    | T
+    | {
+        dayOfWeek?: T;
+        opens?: T;
+        closes?: T;
+        isOpenEnded?: T;
+        segment?: T;
+        note?: T;
+        id?: T;
+      };
+  specialHours?:
+    | T
+    | {
+        validFrom?: T;
+        validThrough?: T;
+        kind?: T;
+        opens?: T;
+        closes?: T;
+        note?: T;
+        id?: T;
+      };
+  hoursOverride?: T;
+  price?: T;
+  what?: T;
+  summary?: T;
+  details?: T;
+  access?: T;
+  subline?: T;
+  href?: T;
+  schemaType?: T;
+  showInHub?: T;
+  pending?: T;
+  hidden?: T;
+  includeInSchema?: T;
+  relatedFaqs?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2005,6 +2414,19 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents_select".
+ */
+export interface LegalDocumentsSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  updatedLabel?: T;
+  lede?: T;
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -2044,6 +2466,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Hotel identity, address, and guest-stay facts (including WiFi). Admin only — editors cannot change this global.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel".
  */

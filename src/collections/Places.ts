@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Places: CollectionConfig = {
   slug: 'places',
   admin: {
@@ -7,22 +10,8 @@ export const Places: CollectionConfig = {
     defaultColumns: ['name', 'context', 'type', 'category', 'walkingMinutes'],
     group: 'Neighbourhood',
   },
-  access: {
-    read: () => true,
-  },
-  hooks: {
-    afterChange: [
-      async () => {
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hotel-berlin.de'
-        const secret = process.env.REVALIDATE_SECRET
-
-        if (!secret) return
-
-        await fetch(`${baseUrl}/api/revalidate?path=/neighbourhood&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/here/explore&secret=${secret}`)
-      },
-    ],
-  },
+  access: publicReadStaffWrite,
+  ...collectionCacheHooks('places'),
   fields: [
     {
       name: 'name',

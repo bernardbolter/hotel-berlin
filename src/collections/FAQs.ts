@@ -1,15 +1,17 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const FAQs: CollectionConfig = {
   slug: 'faqs',
+  ...collectionCacheHooks('faqs'),
   admin: {
     useAsTitle: 'question',
     defaultColumns: ['question', 'context', 'category', 'order'],
     group: 'Content',
   },
-  access: {
-    read: () => true,
-  },
+  access: publicReadStaffWrite,
   fields: [
     {
       name: 'question',

@@ -1,5 +1,6 @@
 import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
 
+import { isStaff } from '@/access'
 import { sendMeetingInquiryEmails } from '@/lib/meetings/inquiryEmails'
 
 const afterChange: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
@@ -23,9 +24,9 @@ export const MeetingInquiries: CollectionConfig = {
   },
   access: {
     create: () => true,
-    read: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    read: isStaff,
+    update: isStaff,
+    delete: isStaff,
   },
   fields: [
     { name: 'company', type: 'text' },

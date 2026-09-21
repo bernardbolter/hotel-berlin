@@ -1,0 +1,114 @@
+{
+  "slug": "cookies",
+  "locale": "de",
+  "title": "Cookies",
+  "updated": "24. April 2026",
+  "blocks": [
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Hotel Berlin, Berlin verwendet Cookies auf dieser Website. Diese Seite fasst die Cookie-Hinweise aus unserer Datenschutzerklärung zusammen. Die vollständige Erklärung finden Sie unter "
+        },
+        {
+          "text": "Datenschutz",
+          "href": "/privacy"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "2. Datenverarbeitung durch Verwendung von Cookies",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Unsere Webseite verwendet Cookies. Das sind Textdateien, die auf Ihrem Computer gespeichert werden, um Präferenzen der Besucher zu verfolgen und unser Internetangebot entsprechend optimal gestalten zu können."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Wir nutzen zum einen transiente Cookies. Diese werden automatisiert gelöscht, wenn Sie den Browser schließen. Dazu zählen insbesondere Session-Cookies. Sie speichern eine sog. Session-ID, mit welcher sich verschiedene Anfragen Ihres Browsers der gemeinsamen Sitzung zuordnen lassen. Dadurch kann Ihr Rechner wiedererkannt werden, wenn Sie auf die Website zurückkehren. Die Session-Cookies werden gelöscht, wenn Sie sich ausloggen oder Sie den Browser schließen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Darüber hinaus nutzen wir persistente Cookies. Diese sind für ein Jahr gültig und können jederzeit über Ihren Browser gelöscht werden."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Um das Speichern von Cookies zu verhindern, muss in den Browser-Einstellungen “keine Cookies akzeptieren” ausgewählt werden. Wenn keine Cookies vom Browser akzeptiert werden, kann der Funktionsumfang der Website eingeschränkt sein."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Diese gespeicherten Informationen werden getrennt von eventuell weiter bei uns angegeben Daten gespeichert. Insbesondere werden die Daten der Cookies nicht mit Ihren weiteren Daten verknüpft."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Rechtsgrundlage der Datenverarbeitung ist Art. 6 Abs. 1 lit. f EU-DSGVO.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "text": "\n\n(Die Verarbeitung ist zur Wahrung der berechtigten Interessen des Verantwortlichen oder eines Dritten erforderlich, sofern nicht die Interessen oder Grundrechte und Grundfreiheiten der betroffenen Person, die den Schutz personenbezogener Daten erfordern, überwiegen)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "4. DialogShift Chat-Anwendung auf unserer Website",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Unsere Website nutzt die Chat-Anwendung der DialogShift GmbH, Rheinsberger Str. 76/77, 10115 Berlin. Diese Anwendung verarbeitet und speichert Daten zum Zweck der Webanalyse, zum Betreiben der Chat-Anwendung und zur Beantwortung von Anfragen. \n\nFür den Betrieb der Chat-Funktion werden die Chat-Texte gespeichert und es wird ein Cookie mit einer eindeutigen ID gesetzt – dieser dient dazu, Sie als Kunden wiederzuerkennen. \n\n\n\nEin Cookie ist eine kleine Textdatei, die lokal im Zwischenspeicher auf Ihrem Gerät gespeichert wird. Mithilfe dieses Cookies erkennt unsere Anwendung das Gerät wieder und kann vergangene Chat-Protokolle aufrufen. Dieses Cookie wird 90 Tage, seit letzter Verwendung, gespeichert.  Sie können die Speicherung von Cookies in Ihren Browsereinstellungen deaktivieren. Jedoch kann ohne die Verwendung von Cookies die Chat-Funktion nicht ausgeführt werden.\n\n\n\nDie mögliche Bekanntgabe von z.B. Namen, E-Mail-Adresse oder einer Telefonnummer erfolgt freiwillig und mit dem Einverständnis, diese Daten zum Zwecke der Kontaktaufnahme bis zum Ende des Kontaktes vorübergehend zu nutzen und zu speichern. Diese personenbezogenen Daten werden nach 90 Tagen gelöscht.  \n\nDie Rechtsgrundlage der Datenverarbeitung erfolgt nach Art. 6 Abs. 1 lit. a DSGVO auf Basis Ihres Einverständnis im Rahmen des Consent Banners. Damit helfen Sie uns eine effektive Kundenbetreuung, eine statistische Analyse des Nutzungsverhaltens und unsere Angebote zu optimieren.\n\n\n\nDialogShift bietet unter "
+        },
+        {
+          "text": "https://www.dialogshift.com/datenschutz ",
+          "href": "https://www.dialogshift.com/datenschutz"
+        },
+        {
+          "text": "weitere Informationen zur Erhebung und Nutzung der Daten sowie zu Ihren Rechten und Möglichkeiten zum Schutz Ihrer Privatsphäre an."
+        }
+      ]
+    }
+  ]
+}

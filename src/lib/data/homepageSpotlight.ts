@@ -40,7 +40,6 @@ export async function getHomepageSpotlightCards(
         cards.push({
           ...venueCard,
           framing: 'prospect',
-          cta: { ...venueCard.cta, href: '/happenings' },
         })
       }
     }

@@ -1,0 +1,1134 @@
+{
+  "slug": "terms",
+  "locale": "en",
+  "title": "Terms & Conditions",
+  "updated": null,
+  "lede": "More information about our hotel & event space",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Hotel accommodation",
+      "id": "hotel-accommodation"
+    },
+    {
+      "type": "h3",
+      "text": "I. Scope of application",
+      "id": "i-scope-of-application"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "These Standard Terms and Conditions shall apply to contracts on the rental of hotel rooms and to contracts on accommodation, as well as to any ancillary services and supplies (hereinafter: “Services”) provided by the hotel business Pandox Berlin GmbH (hereinafter “Hotel”), as agreed between the Hotel and the Customer (hereinafter: “Customer”; the Hotel and the Customer shall hereinafter also jointly be referred to as the “Parties”)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer’s standard terms and conditions shall only apply if expressly agreed by the Parties in writing and in advance."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "II. Conclusion of contract, contracting partners",
+      "id": "ii-conclusion-of-contract-contracting-partners"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel's offers are subject to confirmation. The Hotel shall not be required to confirm the booking of a room in writing."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sub-letting or re-letting of the rented hotel rooms requires prior approval by the Hotel in text form (sec. 126 b Civil Code, BGB). Sec. 540 (1) 2 BGB shall not apply to transactions with businesses. In any event, the Customer shall be obligated to impose upon any third party to whom he/she makes the rooms available the general obligations provided for in these Standard Terms and Conditions, and shall make such third parties aware of the general duties of care under rental contracts, in particular with regard to the careful handling of the rented property."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If a third party places the order on behalf of the Customer, such third party shall be liable to the Hotel together with the Customer as joint-and-several debtors for all obligations under the hotel accommodation contract, provided that the Hotel was provided with a corresponding declaration by such third party."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "III. Room availability, handover and return",
+      "id": "iii-room-availability-handover-and-return"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Customer shall not have a right to request that specific rooms be made available, except if the Hotel has confirmed in writing that a specific room will be made available."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Except if agreed otherwise with the Customer, hotel rooms shall be available from 3 p.m. on the arrival date (check-in time). The Customer does not have a right to request that the rooms be made available earlier."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "On the agreed departure date, the rooms must be vacated no later than by 12 noon (check-out time). If the rooms are not vacated in good time, the Hotel shall have the right to invoice one half of the room price as per the price list for the additional use of the room until 6 p.m., and 90 % of the room price as per the price list for use after 6 p.m. This does not result in any contractual claims between the Hotel and the Customer. The Customer shall be free to provide proof that the Hotel has not incurred any damage, or that the damage incurred was substantially lower."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IV. Services, prices, payments, set-off, right of lien",
+      "id": "iv-services-prices-payments-set-off-right-of-lien"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel agrees to make available the hotel rooms booked by the Customer, and to provide the agreed Services."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In consideration of the provision of the Services, the Customer shall be obligated to pay the Hotel’s prices as applicable and/or agreed. The above shall also apply to Services and supplies (including ancillary services such as food and beverages, telephone calls etc.) which are used by the persons accommodated in the Hotel on the basis of this agreement and/or in connection with the contractual accommodation of such persons’ guests, visitors etc."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The agreed prices include VAT at the applicable rate. With regard to contracts with Customers who are not private individuals, the Hotel reserves the right to specify or agree net prices. Should the period between the conclusion of the contract and the performance of the contract be more than four months, and should the statutory VAT rate change during this time, the prices shall be adjusted accordingly."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should the period between the conclusion of the contract and the planned arrival date exceed four (4) months, and should the price usually invoiced by the Hotel for the contractual Services increase after the conclusion of the contract, the contractually agreed price may be increased adequately, however, by no more than 5%. For each additional year beyond the four-month period between the conclusion of the contract and the performance of the contract, the limit increases by a further 5%. For this purpose, price adjustments in accordance with no. 3 shall not be taken into account."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Billing shall be in the Euro currency. In the event of payment in foreign currencies, any exchange rate differences and bank charges shall be borne by the Party that is owes the relevant amount."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall have the right to change prices if the Customer retroactively requests changes to the number of booked rooms, the Hotel’s Services or the duration of the guests’ stay, and if the Hotel approves such changes in writing."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Invoices issued by the Hotel shall - in the absence of a deviating agreement - be due and payable immediately upon receipt of the invoice, without deductions. Invoices shall be deemed to have been received by the Customer at the latest 3 days after mailing, except if the Hotel can prove that the invoice was received earlier, or if the Customer can prove that it was received later. In the event of delayed payment, the Hotel shall have the right to request payment of the applicable statutory default interest. The Hotel shall be free to provide proof that the damage incurred was higher; the Customer shall be free to provide proof that the damage incurred was lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "For each reminder that is sent after default occurs, the Customer shall reimburse the Hotel for the costs of such reminder amounting to € 5,00. The Customer shall be free to provide proof that the Hotel has not incurred any costs, or that the costs incurred for such reminder were substantially lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel has the right to request adequate advance payments or security deposits at any time, for instance in the form of a credit card guarantee. For advance payments or security deposits for package holidays, the statutory provisions shall remain unaffected."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Set-offs by the Customer against the Hotel’s claims are only permitted if the Customer’s claims are uncontested or have been finally and bindingly determined."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "With regard to its claims, the Hotel shall have a right of lien pursuant to sec. 704 BGB in all objects which the Customer has brought to the Hotel."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "V. No-show, withdrawal, cancellation by the Customer",
+      "id": "v-no-show-withdrawal-cancellation-by-the-customer"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Any withdrawal by the Customer from the contract concluded with the Hotel requires the Hotel’s approval in text form (sec. 126b BGB), subject to no. 4 below."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "For rented Hotel rooms, the agreed remuneration has to be paid, subject to no. 4, even if approval pursuant to no. 1 is not granted, if the Customer cancels the booking or in the event of a no-show. The Hotel agrees to accept that the Customer set off any saved expenses and any other benefits obtained by letting the rooms to other guests. In the event of a withdrawal, the Customer shall, subject to no. 4, pay 90% of the contractually agreed price for accommodation with or without breakfast arrangements. The Customer shall be free to provide proof that the Hotel has not incurred any damage, or that the damage incurred was substantially lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If the Hotel and the Customer have agreed in writing that the Customer may withdraw from the contract free of charge until a specific date, the Customer may withdraw from the contract up until such time without triggering claims for payments or damages for the Hotel. The Customer’s withdrawal rights shall expire if he/she fails to exercise his/her right of withdrawal in text form (sec. 126b BGB) to the Hotel by the agreed date, except in the cases provided for in no. 4."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The above paragraphs shall not apply if the Hotel breaches the obligation to take into consideration the Customer’s rights, claims and legal interests, if the Customer cannot reasonably be expected to adhere to the contract, or if the Customer has other statutory or contractual withdrawal rights."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VI. Withdrawal by the Hotel",
+      "id": "vi-withdrawal-by-the-hotel"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "If a free right of withdrawal for the Customer for a specific time period was agreed in writing, the Hotel shall in turn have the right to also withdraw from the contract during this period if other customers submit inquiries regarding the contractually booked rooms and the Customer does not waive its right of withdrawal upon a corresponding request by the Hotel. The same shall apply if an option right has been granted, and other inquiries have been received and the Customer is not prepared to place a fixed booking in spite of a corresponding query by the Hotel."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If and in as far as advance payments have been agreed with the Customer and the Customer fails to effect such advance payments during an adequate period of grace set by the Hotel, including the threat to refuse acceptance after that, the Hotel shall have the right to withdraw from the contract, or to request payment of damages in lieu of performance. Clause V. 2 shall apply mutatis mutandis to the calculation of such damages."
+            }
+          ],
+          "children": [
+            {
+              "type": "ul",
+              "items": [
+                {
+                  "spans": [
+                    {
+                      "text": "    if force majeure or other circumstances for which the Hotel is not responsible render performance of the contract impossible (such as strikes or power failures);"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "    if misleading or incorrect information on essential facts, e.g. regarding the guest’s identity or the purpose of such rental, is provided when rooms are booked;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "    if the Hotel has justified reason to believe that the use of the Hotel Services may endanger the smooth operation of business, security or the Hotel’s public reputation, without this originating from the Hotel’s sphere of control or organisation;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "    if the purpose or occasion of the stay is unlawful;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "    if the Customer sub-lets or re-lets the rented rooms, or uses them for purposes other than accommodation purposes, without the Hotel’s prior consent."
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "    in the event of a breach of clause II. no. 2."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall furthermore have the right to withdraw from the contract for objectively justified reasons, for instance in the following cases:\n\t"
+            },
+            {
+              "text": "\n\t\t"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "A withdrawal shall not affect the Hotel’s right to claim payment of damages."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer shall not have a claim to damages if the Hotel withdraws from the contract for justified reasons."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VII. Liability, defects, statute of limitations",
+      "id": "vii-liability-defects-statute-of-limitations"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel’s liability for its own fault and fault on the part of its vicarious agents – irrespective of their cause in law, however, subject to no. 2 above – shall be limited to wilful acts and gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "This limitation of liability shall not apply to product liability claims, claims under a voluntary warranty assumed by the Hotel, or to claims due to the death of an individual, bodily injuries or adverse health effects, or breaches of so-called cardinal obligations, i.e. obligations, compliance with which is indispensable in order to achieve the purpose of the contract, and in compliance with which the Customer has a right to trust. However, in the latter case, liability shall be limited to compensation for the typical, foreseeable average damage."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should disruptions or defects exist with regard to the Hotel’s Services, the Hotel shall, provided that it has knowledge thereof or the Customer has promptly given notice of such disruptions or defect, endeavour to provide a remedy. The Customer shall be obligated to make all reasonable contributions in order to eliminate the disruption and to minimise the potential damage. Furthermore, the Customer shall notify the Hotel in good time of the risk that unusually high damage may occur."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Any objects that the Customer brings to the property shall be in the Hotel at the Customer’s risk. The Hotel does not assume any liability for loss, destruction or damage, except in the event of wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The statutory liability under sec. 701 et seq. BGB shall remain unaffected by the provision in no. 4 above. The Hotel’s liability to the Customer for objects brought to the Hotel shall be governed by the statutory provisions, i.e. shall be limited to 100-times the room price and a maximum of  € 3.500.00, and for money, security papers and valuables to a maximum of € 800.00. Money, security papers and valuables may be stored in the room safe, up to the maximum insurance value agreed for the Hotel, i.e. € 800.00. The Hotel advises the Customer to use this option. The Hotel’s liability shall end if the Customer fails to immediately notify the Hotel after obtaining knowledge of a loss, destruction or damage, sec. 703 BGB."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In as far as the Customer is granted the right to use a space in the Hotel garage or parking lot – whether free of charge or against payment of a fee –, this does not result in a safekeeping contract within the meaning of sec. 688 et seq. BGB. The Hotel shall not be liable for any loss or damage to a vehicle or its contents, except in the event of wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall handle wake-up calls with utmost diligence. Claims for damages shall be excluded, except if they are due to wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall handle messages, mail and deliveries of goods for the Customer with due care. The Hotel shall only deliver, store or forward mail at the Customer’s request, risk and costs. Claims for damages shall be excluded, except if they are due to wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In as far as the Hotel makes available internet access, connections and networks, the Customer hereby indemnifies the Hotel from and against any third-party claims that result from an unlawful use of such internet connection."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "As a matter of principle, the Customer’s claims shall become time-barred in accordance with the statutory provisions. Deviating from sec. 195 BGB, the limitation period for all of the Customer’s claims shall be one year. Deviating from sec. 199 (3) no. 1 and (4) BGB, claims for damages and other claims, irrespective of whether the relevant party had knowledge of such claims, or should have had knowledge had it acted without gross negligence, shall become time-barred after expiry of five years from the time such claims originate. The above exceptions shall not apply to claims for damages due to the death of an individual, bodily injuries, adverse health effects or deprivation of freedom, or if the Hotel acted wilfully or with gross negligence."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VIII. Lost property",
+      "id": "viii-lost-property"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Objects that are left behind will only be forwarded at the Customer’s request, risk and costs. The Hotel shall store objects that are left behind for six months. After this time, the finder acquires ownership in the object if the owner has not become known and has not claimed his/her rights."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IX. Information pursuant to sec. 36 Act on Alternative Dispute Resolution in Consumer Matters (VSBG)",
+      "id": "ix-information-pursuant-to-sec-36-act-on-alternative-dispute-resolution-in-consu"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "As a matter of principle, Pandox Berlin GmbH is neither prepared nor obligated to participate in alternative dispute resolution procedures before a consumer conciliation body."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "X. Final Provisions",
+      "id": "x-final-provisions"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Modifications of, and amendments to the contract or to these Standard Terms and Conditions must be set out in written form in order to be valid. If one of the parties is a consumer, text form (sec. 126b BGB) shall suffice for the consumer’s declarations to be valid."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The place of performance and payment shall be the Hotel’s registered place of business."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The exclusive place of jurisdiction – also for disputes relating to cheques and bills of exchange – in transactions with businesses shall be the Hotel’s registered place of business. If a Customer meets the requirements in sec. 38 (2) Civil Procedure Code (ZPO), and does not have a general place of jurisdiction in the Federal Republic of Germany, the applicable place of jurisdiction shall be the Hotel’s registered place of business."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The law of the Federal Republic of Germany shall apply exclusively. The application of the United Nations Convention on Contracts for the International Sale of Goods (CISG) and of the conflict of laws provisions shall be excluded."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should individual provisions contained in these Standard Terms and Conditions be invalid or void, this shall not affect the validity of the remaining provisions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Events",
+      "id": "events"
+    },
+    {
+      "type": "h3",
+      "text": "I. Scope of application",
+      "id": "i-scope-of-application-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "These Standard Terms and Conditions shall apply to contracts on the rental of conference, banquet and function rooms (hereinafter: “Rooms”) as well as to any ancillary services and supplies (hereinafter: “Services”) provided by the hotel business Pandox Berlin GmbH (hereinafter “Hotel”) between the Hotel and the customer (hereinafter: “Customer”; Hotel and Customer shall hereinafter also be referred to as the “Parties”)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer’s standard terms and conditions shall only apply if expressly agreed by the Parties in writing and in advance."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "II. Conclusion of contract, contracting partners",
+      "id": "ii-conclusion-of-contract-contracting-partners-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel's offers are subject to confirmation. The contract is concluded by the Hotel accepting the Customer’s application. The Hotel shall not be required to confirm the booking in writing."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If a third party places the order on behalf of the Customer, such third party shall be liable to the Hotel together with the Customer as joint-and-several debtors for all obligations under the event contract, provided that the Hotel was furnished with a corresponding declaration by such third party."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "III. Subletting, types of use",
+      "id": "iii-subletting-types-of-use-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Subletting or further rental of the Rooms, premises or display cases, as well as invitations to job interviews, sales events or other similar events require prior approval by the Hotel in text form (sec. 126b of the German Civil Code, BGB). Sec. 540 (1) 2 BGB shall not apply to transactions with businesses. In all cases, the event organiser shall be obligated to impose upon any third party to whom he/she makes the Rooms available the general obligations provided for in these Standard Terms and Conditions, and shall make such third parties aware of the general duties of care under rental contracts, in particular with regard to the diligent handling of the rented property."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer agrees to inform the Hotel without undue delay and without a prior request, however, no later than upon the conclusion of the contract, of whether the provision of the services and/or the event, due to its political, religious or other character, may cause public interest or may be detrimental to the Hotel’s interests. Newspaper adverts and other promotional activities or publications referring to the Hotel and/or containing, for example, invitations to job interviews and/or sales events, require the Hotel’s written consent. Should the Customer fail to comply with this information obligation, or should a publication be made without the Hotel’s consent, the Hotel shall have the right to cancel the event. In such cases, the Customer shall pay the agreed price for the event, less any expenses which the Hotel may have saved."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Meetings or events with extreme right-wing, racist, anti-Semitic or violent content are not permitted in the Hotel. Any breach of this prohibition shall give the Hotel the right to cancel the meeting and/or event. In such cases, the last sentence of clause III. 2. shall apply."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IV. Services, prices, payments, set-off, right of lien",
+      "id": "iv-services-prices-payments-set-off-right-of-lien-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel agrees to have available the Rooms booked by the Customer, and to provide the agreed Services. The Hotel reserves the right to change the Rooms, provided that this is reasonable for the contracting partner, taking into account the Hotel’s interests."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In consideration of the provision of the Services, the Customer shall be obligated to pay the Hotel’s prices as applicable and/or agreed. This shall also apply to services and expenditures provided by the Hotel to a third party upon the Customer’s request, including claims by performance rights organisations. For services provided after midnight, the Hotel may impose adequate surcharges for each hour or part thereof for making available staff at the event and/or restaurant area."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The agreed prices include applicable statutory value added tax as well as any local taxes and duties, such as accommodation tax, if any, provided that the Customer uses the Rooms and other Hotel services as part of his/her private life and to satisfy his/her personal needs. Local charges owed by the guest personally under municipal law, such as visitors’ taxes, are not included in the agreed prices. With regard to contracts with Customers who are not private individuals, the Hotel reserves the right to specify or agree net prices."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If a minimum sales amount has been agreed and is not reached, the Hotel may charge 60% of the difference as lost profit, except if the Customer provides proof of lower damage, or if the Hotel provides proof of higher damage."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If a conference package price has been agreed, this price shall apply per conference day and participant, except if agreed otherwise."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should the period between the conclusion of the contract and the event exceed four months, and should the price usually invoiced by the Hotel for the such services increase, the contractually agreed price may be increased adequately, however, by no more than 5%. For each additional year beyond the four-month period between the conclusion of the contract and the performance of the contract, the limit increases by a further 5%. For this purpose, price adjustments in accordance with no. 3 shall not be taken into account."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Billing shall be in the Euro currency. In the event of payment in foreign currencies, any exchange rate differences and bank charges shall be borne by the Party that owes the relevant amount."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall have the right to change prices if the Customer retroactively requests changes to the number of booked Rooms, the Hotel’s Services or the duration of the guests’ stay, and if the Hotel approves such changes."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Invoices issued by the Hotel shall - in the absence of a deviating agreement - be due and payable immediately upon receipt of the invoice, without deductions. Invoices shall be deemed to have been received by the Customer at the latest 3 days after mailing, except if the Hotel can prove that the invoice was received earlier, or if the Customer can prove that it was received later. In the event of delayed payment, the Hotel shall have the right to request payment of the applicable statutory default interest. The Hotel shall be free to provide proof that the damage incurred was higher; the Customer shall be free to provide proof that the damage incurred was lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "For each reminder that is sent after default occurs, the Customer shall reimburse the Hotel for the costs of such reminder amounting to € 5.00. The Customer shall be free to provide proof that the Hotel has not incurred any costs, or that the costs incurred for such reminder were substantially lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Changes of the VAT rate shall not lead to price changes. Compensation among the Parties for higher or lower VAT burdens is excluded."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel has the right to request adequate advance payments or security deposits at any time, for instance in the form of a credit card guarantee."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Set-offs by the Customer against the Hotel’s claims are only permitted if the Customer’s claims are uncontested or have been finally and bindingly determined."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "With regard to its claims, the Hotel shall have a right of lien pursuant to sec. 704 BGB in all objects which the Customer has brought to the Hotel."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "V. No-show, withdrawal, cancellation by the Customer",
+      "id": "v-no-show-withdrawal-cancellation-by-the-customer-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Any withdrawal by the Customer from the contract concluded with the Hotel requires the Hotel’s approval in text form (sec. 126b BGB), subject to no. 5 below."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "For rented Rooms, the agreed remuneration has to be paid, subject to no. 5, even if the Hotel’s approval pursuant to no. 1 is not granted, if the Customer cancels the booking or in the event of a no-show. Should the Customer cancel the rental of Rooms as late as between the 8th and the 4th weeks prior to the date of the event, the Hotel may additionally charge 35% of the lost sales of food; if the booking is cancelled after that, 70% of the lost sales for food may be charged. Sales for food shall be calculated using the formula “set meal price x number of participants\". If a price for the set menu had not yet been agreed, the cheapest 3-course menu from the applicable event offer shall be used as a basis. The Customer shall be free to provide proof that the Hotel has not incurred any damage, or that the damage incurred was substantially lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If a conference package fee per participant has been agreed, the Hotel may, subject to no. 5, charge 60% of the sum calculated using the formula “conference package fee x agreed number of participants” if the event is cancelled between the 8th and 4th week prior to the event date; if the event is cancelled after that, 85% of this sum may be charged. The Customer shall be free to provide proof that the Hotel has not incurred any damage, or that the damage incurred was substantially lower."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If the Hotel and the Customer have agreed in writing that the Customer may withdraw from the contract free of charge before a specific date, the Customer may withdraw from the contract up until such time without triggering claims for payments or damages for the Hotel. The Customer’s withdrawal rights shall expire if he/she fails to exercise his/her right of withdrawal in writing to the Hotel by the agreed date, except in the cases provided for in no. 5."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The above paragraphs shall not apply if the Hotel breaches the obligation to take into consideration the Customer’s rights, claims and legal interests, if the Customer cannot reasonably be expected to adhere to the contract, or if the Customer has other statutory or contractual withdrawal rights."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VI. Withdrawal by the Hotel",
+      "id": "vi-withdrawal-by-the-hotel-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "If a free right of withdrawal for the Customer for a specific time period was agreed in writing, the Hotel shall in turn have the right to also withdraw from the contract during this period if other customers submit inquiries regarding the contractually booked function rooms and the Customer does not waive its right of withdrawal upon a corresponding request by the Hotel. The same shall apply if an option right has been granted, and other inquiries have been received and the Customer is not prepared to place a fixed booking in spite of a corresponding query by the Hotel."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If and in as far as advance payments have been agreed with the Customer and the Customer fails to effect such advance payments during an adequate period of grace set by the Hotel, including the threat to refuse acceptance after that, the Hotel shall have the right to withdraw from the contract."
+            }
+          ],
+          "children": [
+            {
+              "type": "ul",
+              "items": [
+                {
+                  "spans": [
+                    {
+                      "text": "if force majeure or other circumstances for which the Hotel is not responsible render performance of the contract impossible (such as power failures);"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "if misleading or incorrect information on essential facts, e.g. regarding the guest’s identity or the purpose of such rental, is provided when an event is booked;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "if the Hotel has justified reason to believe that the use of the Hotel’s Services may endanger the smooth operation of business, security or the Hotel’s public reputation, without this originating from the Hotel’s sphere of control or organisation;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "if the purpose or occasion of the stay is unlawful;"
+                    }
+                  ]
+                },
+                {
+                  "spans": [
+                    {
+                      "text": "a breach of clause III no. 1 has occurred."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall furthermore have the right to withdraw from the contract for objectively justified reasons, for instance in the following cases:\n\t"
+            },
+            {
+              "text": "\n\t\t"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "A withdrawal shall not affect the Hotel’s right to claim payment of damages."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer shall not have a claim to damages if the Hotel withdraws from the contract for justified reasons."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VII. Number of participants; billing during event",
+      "id": "vii-number-of-participants-billing-during-event-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Customer shall inform the Hotel upon the conclusion of the contract of the anticipated number of participants of the planned event. The Hotel must be notified in text form (sec. 126b BGB) of any changes of the number of participants by more than 5 % no later than ten business days prior to the beginning of the event; such changes require written approval by the Hotel."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "When billing services which the Hotel provides on the basis of the number of registered persons (for instance food and beverages), the actual number of persons will be billed if the actual number of participants exceeds the number of registered and contractually agreed participants."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should the times agreed for the beginning and/or end of the event be changed without the Hotel’s prior written consent, the Hotel may charge additional costs for the provision of the Services, unless the Hotel is responsible for such changes."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If events last until after 11 p.m., the Hotel shall have the right to bill personnel expenses on the basis of individual receipts from such time onwards, except if the agreed consideration already covers time beyond 11 p.m. Furthermore, the Hotel shall have the right to charge any travel costs incurred by the staff members, on the basis of individual receipts, if staff has to embark on the journey home after the public transport system has closed down for the night."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VIII. Bringing food and beverages to events",
+      "id": "viii-bringing-food-and-beverages-to-events-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Customer shall not bring food and/or beverages to the events. Exceptions require an agreement in text form. In such cases, a fee yet to be agreed shall apply. The Hotel shall not be liable for damage caused by food or beverages brought to the premises, except if the Hotel acted wilfully or in a grossly negligent manner."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall not assume any liability for damage caused by food or beverages taken from the premises by a Customer or a third party after an event, except if the Hotel acted wilfully or in a grossly negligent manner."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IX. Technical facilities and connections for events",
+      "id": "ix-technical-facilities-and-connections-for-events-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "In as far as the Hotel procures technical and other facilities from third parties for the Customer upon the Customer’s request, the Hotel shall act on behalf of, by proxy of, and for the account of the Customer. The Customer shall be responsible for ensuring that such facilities are handled with due care and are properly returned. The Customer shall indemnify and hold harmless the Hotel from and against any third-party claims based on the procurement and letting of such facilities."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If technical structures and equipment are installed, the Hotel shall have the right to request that such structures or equipment be approved by TÜV or a comparable testing company, and that the Customer provide the Hotel without undue delay and without a request with the technical test certificate."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Use of the Customer’s own electrical equipment utilising the Hotel’s power supply system requires the Hotel’s written consent; such consent may be made subject to the fee-based provision of a Hotel technician. The Customer shall be liable for any malfunction or damage to the Hotel’s technical equipment caused by the use of the Customer’s devices, except if the Hotel is responsible for such malfunction or damage. If third-party property or a third individual suffers any damage, the Customer shall be solely liable for such damage and shall indemnify and hold harmless the Hotel from and against any such claims by third parties."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "With the Hotel’s approval, the Customer may use its own telephone, telefax and data transmission equipment; the Hotel may request payment of a connection fee. If suitable connections provided by the Hotel remain unused due to the connection of the Customer’s own equipment, the Hotel may request a fee for such unused connections."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall endeavour to immediately rectify any malfunctions that occur in the technical or other equipment provided by the Hotel. Payments may not be retained or reduced in as far as the Hotel is not responsible for such malfunctions."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In as far as the Hotel makes available internet access, connections and networks, the Customer hereby indemnifies the Hotel from and against any third-party claims that result from an unlawful use of such internet connection. The Hotel shall furthermore not be liable for any damage to property caused through the Customer’s use of the internet or the networks. The provision in clause X. no. 2 shall apply mutatis mutandis."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "If the Customer arranges for the performance of music, the Customer shall be responsible for filing the required notifications and billing information with GEMA. Insofar, the Customer shall indemnify the Hotel from any claims by performance rights organisations."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer shall obtain in good time and at its own expense any official permits required for an event."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "X. Liability; decoration materials; exhibition objects at events",
+      "id": "x-liability-decoration-materials-exhibition-objects-at-events-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Delivery of materials for an event must be notified to the Hotel 10 business days prior to delivery in order to ensure acceptance and due storage."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Decoration material brought to the premises must comply with the requirements of fire protection. The Hotel shall have the right to request official proof for this. If official proof is not provided in such cases, the Hotel shall have the right to remove any material already introduced by the Customer, at the Customer’s cost. In order to prevent potential damage, the installation and mounting of objects in the Hotel must first be coordinated with the Hotel."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "After the end of the event, the Customer shall promptly remove any exhibition objects or other items brought to the premises. Should the Customer fail to comply with this duty, the Hotel may remove and store such objects or items at the Customer’s expense, or request payment of an adequate rent for the period during which such objects or items remain on the premises. The Customer shall be free to provide proof that the claim specified above did not originate, or did not originate in the amount requested."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Customer itself shall dispose of any packaging materials (cardboard, boxes, plastic, etc.) delivered by the Customer, or shall take such materials back. Should the Customer fail to comply with this obligation, the Hotel may itself or through a third party dispose of such packaging material at the Customer’s cost."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The above provisions shall also apply to objects rented from third companies and brought to the Hotel premises at the Customer’s request."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XI. Customer’s liability for damage",
+      "id": "xi-customer-s-liability-for-damage-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Customer shall be liable for any damage to the Hotel building or fixtures caused by the Customer, participants or visitors of the event, employees or other third parties."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel may request that the Customer provide adequate security (e.g. insurances, deposits, guarantees, etc.)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XII. Hotel’s general liability; defects; limitation periods",
+      "id": "xii-hotel-s-general-liability-defects-limitation-periods-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "The Hotel’s liability for its own fault and fault on the part of its vicarious agents – irrespective of their cause in law, however, subject to no. 2 below – shall be limited to wilful acts and gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "This limitation of liability shall not apply to product liability claims, claims under a voluntary warranty assumed by the Hotel, or to claims due to the death of an individual, bodily injuries or adverse health effects, or breaches of so-called cardinal obligations, i.e. obligations, compliance with which is indispensable in order to achieve the purpose of the contract, and in compliance with which the Customer has a right to trust. However, in the latter case, liability shall be limited to compensation for the typical, foreseeable average damage."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should disruptions or defects exist with regard to the Hotel’s Services, the Hotel shall, provided that it has knowledge thereof or the Customer has promptly given notice of such disruptions or defects, endeavour to provide a remedy. The Customer shall be obligated to make all reasonable contributions in order to eliminate the disruption and to minimise the potential damage. Furthermore, the Customer shall notify the Hotel in good time of the risk that unusually high damage may occur."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Any objects that the Customer brings to the property shall be in the Hotel at the Customer’s risk. The Hotel does not assume any liability for loss, destruction or damage, except in the event of wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The statutory liability under sec. 701 et seq. BGB shall remain unaffected by the provision in no. 4 above. The Hotel’s liability to the Customer for objects brought to the Hotel shall be governed by the statutory provisions, i.e. shall be limited to 100-times the room price and a maximum of  € 3.500.00, and for money, security papers and valuables to a maximum of € 800.00. Money, security papers and valuables may be stored in the room safe, up to the maximum insurance value agreed for the Hotel, i.e. € 800.00. The Hotel advises the Customer to use this option. The Hotel’s liability shall cease if the Customer fails to immediately notify the Hotel after obtaining knowledge of a loss, destruction or damage, sec. 703 BGB."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "In as far as the Customer is granted the right to use a space in the Hotel garage or parking lot – whether free of charge or against payment of a fee –, this does not result in a safekeeping contract within the meaning of sec. 688 et seq. BGB. The Hotel shall not be liable for any loss or damage to a vehicle or its contents, except in the event of wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The Hotel shall handle messages, mail and deliveries of goods for the Customer with due care. The Hotel shall only deliver, store or forward mail at the Customer’s request, risk and costs. Claims for damages shall be excluded, except if they are due to wilful acts or gross negligence."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "As a matter of principle, the Customer’s claims shall become time-barred in accordance with the statutory provisions. Deviating from sec. 195 BGB, the limitation period for all of the Customer’s claims shall be one year. Deviating from sec. 199 (3) no. 1 and (4) BGB, claims for damages and other claims, irrespective of whether the relevant party had knowledge of such claims or should have had knowledge had it acted without gross negligence, shall become time-barred after expiry of five years from the time such claims originate. The above exceptions shall not apply to claims for damages due to the death of an individual, bodily injuries, adverse health effects or deprivation of freedom, or if the Hotel acted wilfully or with gross negligence."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XIII. Lost property",
+      "id": "xiii-lost-property-events"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Objects that are left behind will only be forwarded at the Customer’s request, risk and costs. The Hotel shall store objects that are left behind for six months. After this time, the finder acquires ownership in the object if the owner has not become known and has not claimed his/her rights."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XIV. Information pursuant to sec. 36 Act on Alternative Dispute Resolution in Consumer Matters (VSBG)",
+      "id": "xiv-information-pursuant-to-sec-36-act-on-alternative-dispute-resolution-in-cons"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "As a matter of principle, Pandox Berlin GmbH is neither prepared nor obligated to participate in alternative dispute resolution procedures before a consumer conciliation body."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XV. Final Provisions",
+      "id": "xv-final-provisions-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Modifications of, and amendments to the contract or to these Standard Terms and Conditions must be set out in written form in order to be valid. If one of the parties is a consumer, text form (sec. 126b BGB) shall suffice for the consumer’s declarations to be valid."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The place of performance and payment shall be the Hotel’s registered place of business."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The exclusive place of jurisdiction – also for disputes relating to cheques and bills of exchange – in transactions with businesses shall be the Hotel’s registered place of business. If a Customer meets the requirements in sec. 38 (2) Civil Procedure Code (ZPO), and does not have a general place of jurisdiction in the Federal Republic of Germany, the applicable place of jurisdiction shall be the Hotel’s registered place of business."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "The law of the Federal Republic of Germany shall apply exclusively. The application of the United Nations Convention on Contracts for the International Sale of Goods (CISG) and of the conflict of laws provisions shall be excluded."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Should individual provisions contained in these Standard Terms and Conditions be invalid or void, this shall not affect the validity of the remaining provisions."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

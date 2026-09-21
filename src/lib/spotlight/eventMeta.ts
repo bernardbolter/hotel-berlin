@@ -72,7 +72,7 @@ export function formatPracticalLine(
 }
 
 export function eventListHref(framing: SpotlightFraming, slug: string): string {
-  return framing === 'guest' ? `/here/events#${slug}` : `/happenings#${slug}`
+  return framing === 'guest' ? `/here/events#${slug}` : `/happenings/${slug}`
 }
 
 function weekdayShort(date: Date, locale: string): string {

@@ -1,3 +1,9 @@
+# SUPERSEDED — 19 September 2026
+
+**Do not follow this document for new deploys.** Production hosting is Vercel Pro + Neon (Frankfurt) + Vercel Blob, owned by the hotel. See `docs/audit/HotelBerlin_Production_Infrastructure.md` and checklist item 1.6. This folder is kept as a historical record of the Netcup VPS plan.
+
+---
+
 # Netcup deploy — Hotel Berlin
 
 Run the full Next.js + Payload app on the VPS so Postgres and media stay on the same machine.

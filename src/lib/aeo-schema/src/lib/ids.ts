@@ -87,3 +87,23 @@ export function restaurantUrl(config: SiteConfig): string {
 export function venueNodeId(config: SiteConfig): string {
   return `${restaurantUrl(config)}#venue`;
 }
+
+export function eventUrl(slug: string, config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.happenings[config.canonicalLocale]}/${slug}`;
+}
+
+export function happeningsListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.happenings[config.canonicalLocale]}`;
+}
+
+export function eventNodeId(slug: string, config: SiteConfig): string {
+  return `${eventUrl(slug, config)}#event`;
+}
+
+export function amenitiesListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.amenities[config.canonicalLocale]}`;
+}
+
+export function amenityNodeId(slug: string, config: SiteConfig): string {
+  return `${amenitiesListUrl(config)}#${slug}`;
+}

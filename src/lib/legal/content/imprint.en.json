@@ -1,0 +1,62 @@
+{
+  "slug": "imprint",
+  "locale": "en",
+  "title": "Imprint",
+  "updated": null,
+  "blocks": [
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin\n\nLützowplatz 17\n\n10785 Berlin, Germany"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Phone: +49(30)2605-0\n\nFax: +49 (30)2605-39-2716"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Company Directors: Jan Henningsen, Karl Magnus Christian Melkersson and Anneli Elisabet Lindblom\n\nUst.Id.No.: DE 240700200\n\nCourt of Trade Registration: Amtsgericht Charlottenburg\n\nRegistration Number: HRB 96069"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Mandatory information according to the Regulation (EU) No 524/2013 of the European Parliament and of the Council:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Follow this link to the website of the European Commission’s entity for online dispute resolution for consumer disputes: "
+        },
+        {
+          "text": "https://ec.europa.eu/consumers/odr/",
+          "href": "https://ec.europa.eu/consumers/odr/"
+        },
+        {
+          "text": ". Should you have any initial questions concerning a potential dispute resolution, please email us at "
+        },
+        {
+          "text": "info@hotel-berlin.de",
+          "href": "mailto:info@hotel-berlin.de"
+        },
+        {
+          "text": "."
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  ...collectionCacheHooks('pages'),
+  access: publicReadStaffWrite,
   labels: {
     singular: 'Page',
     plural: 'Pages',

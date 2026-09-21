@@ -7,6 +7,7 @@
  *   npm run dev
  */
 import 'dotenv/config'
+import './guard'
 import pg from 'pg'
 
 const { Client } = pg

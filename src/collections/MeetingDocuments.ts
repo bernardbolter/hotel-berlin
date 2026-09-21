@@ -1,8 +1,12 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
+
 export const MeetingDocuments: CollectionConfig = {
   slug: 'meeting-documents',
+  ...collectionCacheHooks('meeting-documents'),
   labels: {
     singular: 'Meeting document',
     plural: 'Meeting documents',
@@ -13,12 +17,7 @@ export const MeetingDocuments: CollectionConfig = {
     description:
       'PDF library on /meetings. Switch locale (DE/EN) in the admin bar to set title + file per language. Add and delete documents freely — the site lists whatever is published here.',
   },
-  access: {
-    read: () => true,
-    create: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
-  },
+  access: publicReadStaffWrite,
   fields: [
     {
       name: 'title',

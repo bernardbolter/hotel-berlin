@@ -1,6 +1,8 @@
 import type { Field, GlobalConfig } from 'payload'
 
+import { adminWritableGlobal, isAdminUser } from '@/access'
 import { openingHoursArrayField } from '../fields/openingHours'
+import { globalCacheHooks } from '@/lib/payload/revalidate'
 
 type LocalePairDefaults = {
   valueDE?: string
@@ -25,6 +27,13 @@ function localePair(name: string, label: string, defaults: LocalePairDefaults = 
 
 export const Hotel: GlobalConfig = {
   slug: 'hotel',
+  ...globalCacheHooks('hotel'),
+  access: adminWritableGlobal,
+  admin: {
+    hidden: ({ user }) => !isAdminUser(user),
+    description:
+      'Hotel identity, address, and guest-stay facts (including WiFi). Admin only — editors cannot change this global.',
+  },
   fields: [
     { name: 'name', type: 'text', required: true },
     { name: 'legalName', type: 'text' },

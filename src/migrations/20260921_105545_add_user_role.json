@@ -106,7 +106,7 @@
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "default": "'admin'"
+          "default": "'editor'"
         },
         "updated_at": {
           "name": "updated_at",

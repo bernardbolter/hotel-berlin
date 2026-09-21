@@ -43,6 +43,7 @@ export const pathnames = {
   '/restaurant': { en: '/restaurant', de: '/restaurant' },
   // Placeholder — NOT final, do not let these reach production before sign-off:
   '/happenings': { en: '/happenings', de: '/happenings' },
+  '/happenings/[slug]': { en: '/happenings/[slug]', de: '/happenings/[slug]' },
   '/offers': { en: '/offers', de: '/offers' },
   '/faq': { en: '/faq', de: '/faq' }, // PLACEHOLDER — German slug not yet confirmed
   '/faqs': { en: '/faqs', de: '/faqs' }, // legacy alias — prefer /faq

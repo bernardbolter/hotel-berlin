@@ -1,6 +1,19 @@
 export { getPayloadClient } from './client'
 export { getSecondaryNavLinks } from './navigation'
-export { getEvents, getEventBySlug } from './events'
+export { getEvents, getEventBySlug, getEventSlugs } from './events'
+export {
+  getPlacesByPerson,
+  getPlacesInDistrict,
+  getPeopleSharingTags,
+  getEventsInWindow,
+} from './borrow'
+export type { PlaceCardData, PersonCardData, EventCardData } from './borrow'
+export {
+  getResolvedPlace,
+  getResolvedPerson,
+  getPlaceSlugs,
+  getPublishedPersonSlugs,
+} from './entities'
 export { getEventOccurrences } from './getEventOccurrences'
 export type { EventOccurrence } from './getEventOccurrences'
 export { getFAQs } from './faqs'

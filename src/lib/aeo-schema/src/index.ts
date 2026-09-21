@@ -13,3 +13,4 @@ export * from './builders/graph';
 export * from './builders/faq';
 export * from './builders/amenity';
 export * from './builders/artwork';
+export * from './builders/event';

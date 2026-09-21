@@ -25,12 +25,53 @@ export async function getEvents({ featured, limit = 20, locale }: EventQuery = {
   return docs
 }
 
-export async function getEventBySlug(slug: string) {
+export async function getEventBySlug(
+  slug: string,
+  locale: 'de' | 'en' = 'en',
+) {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'events',
     where: { slug: { equals: slug } },
+    locale,
+    fallbackLocale: 'en',
+    depth: 2,
     limit: 1,
   })
   return docs[0] ?? null
+}
+
+export async function getEventSlugs(): Promise<string[]> {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'events',
+    depth: 0,
+    limit: 200,
+    select: { slug: true },
+  })
+  return docs.map((doc) => doc.slug).filter(Boolean)
+}
+
+export async function getPlaceSlugs(): Promise<string[]> {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'neighbourhood-places',
+    where: { status: { equals: 'active' } },
+    depth: 0,
+    limit: 500,
+    select: { slug: true },
+  })
+  return docs.map((doc) => doc.slug).filter(Boolean)
+}
+
+export async function getPublishedPersonSlugs(): Promise<string[]> {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'people',
+    where: { status: { equals: 'published' } },
+    depth: 0,
+    limit: 500,
+    select: { slug: true },
+  })
+  return docs.map((doc) => doc.slug).filter(Boolean)
 }

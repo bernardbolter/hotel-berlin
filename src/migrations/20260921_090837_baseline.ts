@@ -1,6 +1,7 @@
 /**
  * Baseline schema after merging fullpages (CappedRow, amenities list,
- * events agenda, art grid). Empty databases: `npm run migrate`.
+ * events agenda, art grid). Generated 21 Sep 2026 against an empty
+ * database. Empty databases: `npm run migrate`.
  */
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 

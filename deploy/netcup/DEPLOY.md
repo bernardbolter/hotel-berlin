@@ -69,6 +69,7 @@ DATABASE_URL=postgresql://hotelberlin:YOUR_PASSWORD@127.0.0.1:5432/hotelberlin
 PAYLOAD_SECRET=generate-a-long-random-string
 NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=pk.…
 NEXT_PUBLIC_SITE_URL=https://YOUR_DOMAIN_OR_IP
+PAYLOAD_DATABASE_PUSH=false
 NODE_ENV=production
 PORT=3000
 ```

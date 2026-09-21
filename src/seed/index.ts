@@ -226,7 +226,7 @@ async function seed() {
         await payload.update({
           collection: 'venues',
           id: doc.id,
-          data: de,
+          data: { name: venue.name, ...de },
           locale: 'de',
         })
       }

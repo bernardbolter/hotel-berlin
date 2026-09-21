@@ -78,8 +78,10 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
     // Schema changes ship as migrations (`npm run migrate:create` then `npm run migrate`).
-    // PAYLOAD_DATABASE_PUSH=true is an emergency hatch only.
-    push: process.env.PAYLOAD_DATABASE_PUSH === 'true',
+    // Push is hard-off in production. Elsewhere it stays off unless PAYLOAD_DATABASE_PUSH=true.
+    push:
+      process.env.NODE_ENV !== 'production' &&
+      process.env.PAYLOAD_DATABASE_PUSH === 'true',
     migrationDir: path.resolve(dirname, 'migrations'),
     prodMigrations: migrations,
   }),

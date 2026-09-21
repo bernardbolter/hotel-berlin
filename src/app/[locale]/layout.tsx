@@ -2,11 +2,13 @@ import { Archivo } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import React from 'react'
 
 import { routing } from '@/i18n/routing'
 import { laica } from '@/lib/fonts/laica'
 import { buildHotelAmenityJsonLd } from '@/lib/amenities/schema'
+import { softLaunchMetadata } from '@/lib/launch/softLaunch'
 
 import '../globals.css'
 
@@ -20,6 +22,10 @@ const archivo = Archivo({
 type Props = {
   children: React.ReactNode
   params: Promise<{ locale: string }>
+}
+
+export function generateMetadata(): Metadata {
+  return softLaunchMetadata()
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

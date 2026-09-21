@@ -7,6 +7,7 @@
  * after `npm run geocode:neighbourhood -- --write` (or left empty for a later pass).
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'

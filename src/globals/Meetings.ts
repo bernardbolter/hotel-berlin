@@ -1,7 +1,12 @@
 import type { GlobalConfig } from 'payload'
 
+import { staffWritableGlobal } from '@/access'
+import { globalCacheHooks } from '@/lib/payload/revalidate'
+
 export const Meetings: GlobalConfig = {
   slug: 'meetings',
+  ...globalCacheHooks('meetings'),
+  access: staffWritableGlobal,
   label: 'Meetings page',
   admin: {
     description:

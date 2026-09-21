@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import type { Config } from '@/payload-types'

@@ -168,11 +168,17 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * CMS logins. Only admins can create users or change roles. Hotel staff accounts should be Editor.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  /**
+   * Admins manage users and the Hotel global. Editors manage collections and the other globals. Set hotel accounts to Editor.
+   */
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -1658,6 +1664,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -2328,6 +2335,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Hotel identity, address, and guest-stay facts (including WiFi). Admin only — editors cannot change this global.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel".
  */

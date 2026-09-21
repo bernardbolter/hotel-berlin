@@ -5,6 +5,7 @@
  * Usage: npm run seed:here-amenities
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'

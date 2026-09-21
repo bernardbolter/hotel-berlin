@@ -23,6 +23,14 @@
     "gallerySlides": "Gallery slides",
     "slideAnnouncement": "Image {current} of {total}"
   },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "This page isn't on hotel-berlin.de. The hotel home is a good place to start.",
+    "homeCta": "To the hotel home",
+    "errorTitle": "Something went wrong",
+    "errorBody": "Please try again. If it keeps happening, call the hotel.",
+    "retry": "Try again"
+  },
   "nav": {
     "rooms": "Rooms",
     "meetings": "Meetings",

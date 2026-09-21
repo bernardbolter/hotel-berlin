@@ -23,6 +23,14 @@
     "gallerySlides": "Galerie-Folien",
     "slideAnnouncement": "Bild {current} von {total}"
   },
+  "errors": {
+    "notFoundTitle": "Seite nicht gefunden",
+    "notFoundBody": "Diese Seite gibt es auf hotel-berlin.de nicht. Die Startseite ist ein guter Anfang.",
+    "homeCta": "Zur Startseite",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Bitte versuchen Sie es erneut. Wenn das Problem bleibt, rufen Sie das Hotel an.",
+    "retry": "Erneut versuchen"
+  },
   "nav": {
     "rooms": "Zimmer",
     "meetings": "Meetings",

@@ -6,6 +6,7 @@
  *        npm run seed:test-events:images -- --force
  */
 import 'dotenv/config'
+import './guard'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'

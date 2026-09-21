@@ -1,8 +1,14 @@
 import type { GlobalConfig } from 'payload'
 
+import { staffWritableGlobal } from '@/access'
+import { globalCacheHooks } from '@/lib/payload/revalidate'
+
+const navCache = globalCacheHooks('navigation')
+
 export const Navigation: GlobalConfig = {
   slug: 'navigation',
   label: 'Inside Navigation',
+  access: staffWritableGlobal,
   admin: {
     description:
       'Choose and reorder up to 5 inside (/here) pages for the primary nav on /here. Outside primary links stay fixed in code.',
@@ -28,16 +34,7 @@ export const Navigation: GlobalConfig = {
         }
       },
     ],
-    afterChange: [
-      async () => {
-        try {
-          const { revalidatePath } = await import('next/cache')
-          revalidatePath('/', 'layout')
-        } catch {
-          // No-op outside Next.js request context (e.g. seed scripts)
-        }
-      },
-    ],
+    afterChange: navCache.hooks.afterChange,
   },
   fields: [
     {

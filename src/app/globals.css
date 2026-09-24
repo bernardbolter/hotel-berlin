@@ -956,6 +956,12 @@ body {
   }
 }
 
+/* Text-only letter (Direction C person page — no empty image frame) */
+.editorial-band--text {
+  grid-template-columns: 1fr;
+  max-width: 42rem;
+}
+
 /* /here hero — reuses .home-hero geometry; amber panel, ink type, clock badge */
 
 .rooms-photo-mask .hero-photo-img {
@@ -3576,5 +3582,303 @@ body {
   font-size: clamp(1.05rem, 1.4vw, 1.1875rem);
   line-height: 1.35;
   color: #141414;
+}
+
+/* —— Direction C person page —— */
+.person-c-crumb {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.person-c-crumb a:hover {
+  text-decoration: underline;
+}
+
+.person-c-crumb__sep {
+  color: #b0a9a0;
+  margin-inline: 0.4em;
+  font-style: normal;
+}
+
+.person-c-top {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1.75rem;
+  align-items: start;
+}
+
+.person-c-top--solo {
+  max-width: 760px;
+}
+
+@media (min-width: 900px) {
+  .person-c-top:not(.person-c-top--solo) {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+  }
+}
+
+.person-c-hero__quote {
+  margin: 0;
+  max-width: 560px;
+  font-family: var(--font-laica), Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2rem, 3.6vw, 3.25rem); /* 32 → 52 */
+  line-height: 1.3;
+  color: #141414;
+}
+
+.person-c-hero__quote p {
+  margin: 0;
+}
+
+.person-c-hero__on-place {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  color: #6b6b6b;
+}
+
+.person-c-hero__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.625rem;
+}
+
+.person-c-hero__identity--with-portrait {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.person-c-hero__portrait {
+  flex: none;
+  width: 112px;
+  height: 112px;
+  overflow: hidden;
+  border-top-left-radius: 28px;
+  background: #e9ebe7;
+}
+
+.person-c-hero__portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-c-hero__name {
+  margin: 0;
+  font-family: var(--font-laica), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.1vw, 1.875rem); /* 24 → 30 */
+  line-height: 1.1;
+  color: #141414;
+}
+
+.person-c-hero__name--lead {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+}
+
+.person-c-hero__sub {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.55rem 0 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12.5px;
+  color: #5a5a5a;
+}
+
+.person-c-hero__ring {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px dashed;
+}
+
+.person-c-hero__ring > span {
+  display: block;
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+}
+
+.person-c-hero__links {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12px;
+  color: #5a5a5a;
+}
+
+.person-c-walk__heading {
+  margin: 0;
+  font-family: var(--font-laica), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.15;
+  color: #141414;
+}
+
+.person-c-walk__sub {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  color: #6b6b6b;
+}
+
+.person-c-walk__list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0 0 0 28px;
+  margin-left: 12px;
+  border-left: 2px dashed #141414;
+}
+
+.person-c-walk__stop {
+  position: relative;
+  padding: 0 0 1.75rem;
+}
+
+.person-c-walk__stop:last-of-type {
+  padding-bottom: 0.5rem;
+}
+
+.person-c-walk__pin {
+  position: absolute;
+  left: -38px;
+  top: 0.15rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50% 50% 0 50%;
+  transform: rotate(-45deg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.person-c-walk__stop--hotel .person-c-walk__pin {
+  top: 0;
+}
+
+.person-c-walk__leg {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12px;
+  color: #141414;
+}
+
+.person-c-walk__leg span[aria-hidden='true'] {
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.person-c-walk__kicker {
+  margin: 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.person-c-walk__stop-title {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-laica), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.3125rem, 1.9vw, 1.625rem); /* 21 → 26 */
+  line-height: 1.15;
+}
+
+.person-c-walk__quote {
+  margin: 0.65rem 0 0;
+  max-width: 480px;
+  font-family: var(--font-laica), Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.person-c-walk__quote p {
+  margin: 0;
+}
+
+.person-c-walk__return {
+  margin: 0.75rem 0 0 12px;
+  padding-left: 28px;
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #141414;
+}
+
+.person-c-also {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e3ded6;
+}
+
+.person-c-also--solo {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.person-c-also__heading {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.person-c-also__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.person-c-also__row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.person-c-also__num {
+  flex: none;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #6b6b6b;
+}
+
+.person-c-also__name {
+  font-family: var(--font-laica), Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #141414;
+  text-decoration: none;
+}
+
+.person-c-also__meta {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11px;
+  color: #6b6b6b;
 }
 

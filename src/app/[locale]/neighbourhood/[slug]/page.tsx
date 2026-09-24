@@ -2,28 +2,42 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
-import { BorrowedRow } from '@/components/entity/BorrowedRow'
 import { EntityBand } from '@/components/entity/EntityBand'
 import { EntityFacts } from '@/components/entity/EntityFacts'
-import { EntityIdentity } from '@/components/entity/EntityIdentity'
+import { PlaceEntityMap } from '@/components/entity/PlaceEntityMap'
+import { PlaceNote } from '@/components/entity/PlaceNote'
+import { PlaceRelatedStrip } from '@/components/entity/PlaceRelatedStrip'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
-import { PlacesMapView } from '@/components/map/PlacesMapView'
-import { PlaceCard } from '@/components/neighbourhood/PlaceCard'
-import { InitialsAvatar } from '@/components/people/InitialsAvatar'
 import { LineCta } from '@/components/primitives/LineCta'
 import { SweepCta } from '@/components/primitives/SweepCta'
+import { Link } from '@/i18n/routing'
 import { getResolvedPlace } from '@/lib/aeo/resolve'
 import { buildPlacePageGraph, defaultConfig } from '@/lib/aeo-schema/src/index'
 import { entityMetadata, resolveLocale } from '@/lib/entity/canonical'
-import { getMapSettings } from '@/lib/map/settings'
-import { mapPlaceLabels, mediaFileUrl, toMapViewPlace } from '@/lib/map/toMapPlace'
+import {
+  entityMapAvailable,
+  formatDistance,
+  formatStationValue,
+  getTrip,
+  nearestStation,
+  stationRowLabel,
+} from '@/lib/entity/computed'
+import { DEFAULT_HOTEL_COORDS } from '@/lib/map/config'
+import { mapboxAttributionUrl } from '@/lib/map/mapbox'
+import { mediaFileAlt, mediaFileUrl } from '@/lib/map/toMapPlace'
+import { safeMediaUrl } from '@/lib/entity/mediaUrl'
 import { pinColorForCategory } from '@/lib/neighbourhood/categories'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 import { getPlaceSlugs } from '@/lib/payload/entities'
-import { getPlacesByPerson, getPlacesInDistrict } from '@/lib/payload/borrow'
-import { personInitials } from '@/lib/people/initials'
-import type { NeighbourhoodPlaceDoc } from '@/lib/queries/neighbourhoodPlaces'
+import {
+  countPlacesByPerson,
+  getRelatedPlacesBand,
+} from '@/lib/entity/relatedBand'
+import {
+  categoryTokenForPersonType,
+  resolveCategoryToken,
+} from '@/lib/spotlight/categoryTokens'
 import type { Person } from '@/payload-types'
 
 type Props = {
@@ -55,20 +69,35 @@ export async function generateMetadata({ params }: Props) {
 }
 
 function formatAddress(place: {
-  address?: { streetAddress?: string | null; postalCode?: string | null; addressLocality?: string | null }
+  address?: {
+    streetAddress?: string | null
+    postalCode?: string | null
+    addressLocality?: string | null
+  }
 }): string | null {
   const street = place.address?.streetAddress?.trim()
   const postal = place.address?.postalCode?.trim()
-  const city = place.address?.addressLocality?.trim()
+  const city = place.address?.addressLocality?.trim() || 'Berlin'
   const parts = [street, [postal, city].filter(Boolean).join(' ')].filter(Boolean)
   return parts.length > 0 ? parts.join(', ') : null
 }
 
-function indoorLabel(value: string | null | undefined, t: (key: string) => string): string | null {
+function indoorLabel(
+  value: string | null | undefined,
+  t: (key: string) => string,
+): string | null {
   if (value === 'indoor') return t('indoor')
   if (value === 'outdoor') return t('outdoor')
   if (value === 'both') return t('indoorOutdoorBoth')
   return null
+}
+
+function hostOnly(url: string): string {
+  try {
+    return new URL(url).host.replace(/^www\./, '')
+  } catch {
+    return url.replace(/^https?:\/\//, '').replace(/^www\./, '')
+  }
 }
 
 export default async function NeighbourhoodPlacePage({ params }: Props) {
@@ -76,274 +105,311 @@ export default async function NeighbourhoodPlacePage({ params }: Props) {
   const locale = resolveLocale(localeParam)
   const t = await getTranslations('neighbourhood')
   const te = await getTranslations('entity')
-  const [resolved, mapSettings] = await Promise.all([
-    getResolvedPlace(slug, locale),
-    getMapSettings(),
-  ])
 
+  const resolved = await getResolvedPlace(slug, locale)
   if (!resolved) notFound()
 
   const { payload: place, aeo, district } = resolved
   const graph = buildPlacePageGraph(aeo, defaultConfig)
   const category = place.category as PlaceCategory
-  const walkingLabel =
-    place.walkingMinutes != null ? t('walkingMinutes', { minutes: place.walkingMinutes }) : null
-  const transit = place.transit
-  const transitLabel =
-    transit?.minutes != null && transit.station && transit.line
-      ? t('transitLine', {
-          minutes: transit.minutes,
-          line: transit.line,
-          station: transit.station,
-        })
-      : null
+  const categoryLabel = t(`categories.${category}`)
 
   const endorsements =
     place.endorsements
       ?.map((entry) => {
         const person = entry.person
-        if (!person || typeof person !== 'object' || typeof person.slug !== 'string') return null
-        return { quote: entry.quote, person }
+        if (!person || typeof person !== 'object' || typeof person.slug !== 'string') {
+          return null
+        }
+        return {
+          quote: entry.quote?.trim() ? entry.quote.trim() : null,
+          person: person as Person,
+        }
       })
       .filter((e): e is NonNullable<typeof e> => e != null) ?? []
 
-  const leadPerson = endorsements[0]?.person
-  const [alsoByPerson, moreInDistrict] = await Promise.all([
-    leadPerson ? getPlacesByPerson(leadPerson.id, slug, locale) : Promise.resolve([]),
-    district ? getPlacesInDistrict(district, slug, locale) : Promise.resolve([]),
+  const leadPerson = endorsements[0]?.person ?? null
+
+  const hotel = {
+    lng: DEFAULT_HOTEL_COORDS.lng,
+    lat: DEFAULT_HOTEL_COORDS.lat,
+  }
+  const placeGeo =
+    place.geo?.latitude != null && place.geo?.longitude != null
+      ? { lat: Number(place.geo.latitude), lng: Number(place.geo.longitude) }
+      : null
+
+  const [trip, relatedBand, leadPickCount] = await Promise.all([
+    placeGeo
+      ? getTrip(hotel, placeGeo, { storedMinutes: place.walkingMinutes })
+      : Promise.resolve(null),
+    getRelatedPlacesBand({
+      excludeSlug: slug,
+      category,
+      district,
+      leadEndorser: leadPerson,
+      locale,
+      hotel,
+    }),
+    leadPerson ? countPlacesByPerson(leadPerson.id, locale) : Promise.resolve(0),
   ])
 
-  const mapPlace = toMapViewPlace(
-    place as unknown as NeighbourhoodPlaceDoc,
-    mapPlaceLabels(place as unknown as NeighbourhoodPlaceDoc, {
-      category: (value) => t(`categories.${value}`),
-      walking: (minutes) => t('walkingMinutes', { minutes }),
-      transit: (args) => t('transitLine', args),
-    }),
-  )
+  const station = placeGeo ? nearestStation(placeGeo) : null
+  const showBasemap = Boolean(placeGeo && entityMapAvailable())
 
+  const stripItems = relatedBand
+    ? await Promise.all(
+        relatedBand.items.map(async (item) => {
+          let itemTrip
+          if (item.geo) {
+            itemTrip = await getTrip(hotel, item.geo, {
+              storedMinutes: item.walkingMinutes,
+            })
+          } else {
+            const minutes = Math.max(1, item.walkingMinutes ?? 1)
+            itemTrip = {
+              minutes,
+              meters: 0,
+              geometry: null as null,
+              source: item.walkingMinutes != null ? ('stored' as const) : ('estimate' as const),
+              mode: minutes > 30 ? ('far' as const) : ('walk' as const),
+            }
+          }
+          return {
+            ...item,
+            trip: itemTrip,
+            categoryLabel: t(`categories.${item.category}`),
+          }
+        }),
+      )
+    : []
   const address = formatAddress(place)
   const website = place.website?.trim()
   const indoor = indoorLabel(place.indoorOutdoor, t)
-  const audience = place.targetAudience
-    ?.map((row) => row.label)
-    .filter((label): label is string => Boolean(label))
-  const identifiers = place.authority?.identifier?.filter((id) => id.propertyID && id.value) ?? []
+  const imageUrl = safeMediaUrl(mediaFileUrl(place.image))
+  const imageAlt = mediaFileAlt(place.image, place.name)
 
-  const meta = [
-    { chip: t(`categories.${category}`), color: pinColorForCategory(category) },
-    district,
-    walkingLabel,
-    indoor,
-  ].filter((item): item is NonNullable<typeof item> => Boolean(item))
+  const walkSentence = (() => {
+    if (!trip) return null
+    if (trip.mode === 'far') {
+      const dist = formatDistance(trip.meters, locale)
+      const approx = trip.source === 'estimate' ? (locale === 'de' ? `Ca. ${dist}` : `About ${dist}`) : dist
+      return locale === 'de'
+        ? `${approx} vom Hotel.`
+        : `${approx} from the hotel.`
+    }
+    return trip.source === 'estimate'
+      ? te('walkSentenceApprox', { minutes: trip.minutes })
+      : te('walkSentence', { minutes: trip.minutes })
+  })()
 
-  const mapCaption = [walkingLabel, transitLabel].filter(Boolean).join(' · ')
+  const mapAlt =
+    trip && placeGeo
+      ? trip.mode === 'walk'
+        ? te('mapAltWalk', {
+            name: place.name,
+            minutes: trip.minutes,
+            distance: formatDistance(trip.meters, locale),
+          })
+        : te('mapAltFar', {
+            name: place.name,
+            distance: formatDistance(trip.meters, locale),
+          })
+      : ''
+
+  const districtValue = [district, indoor].filter(Boolean).join(' · ') || null
+
+  let bandHeading: string | null = null
+  let bandHref: string | null = null
+  let bandCta: string | null = null
+  let personTokenFill: string | undefined
+  if (relatedBand) {
+    if (relatedBand.source === 'endorser' && relatedBand.endorser) {
+      bandHeading = te('whereElseGoes', { name: relatedBand.endorser.firstName })
+      bandHref = `/you-me-and-berlin/${relatedBand.endorser.slug}`
+      bandCta = te('toProfile')
+      personTokenFill = resolveCategoryToken(
+        categoryTokenForPersonType(leadPerson?.type ?? 'local'),
+      ).fill
+    } else if (relatedBand.source === 'district' && relatedBand.district) {
+      bandHeading = te('moreInDistrict', { district: relatedBand.district })
+      bandHref = '/neighbourhood'
+      bandCta = te('allPlaces')
+    } else {
+      bandHeading = te('moreInNeighbourhood')
+      bandHref = '/neighbourhood'
+      bandCta = te('allPlaces')
+    }
+  }
+
+  const crumbDistrict = district
 
   return (
     <>
       <JsonLdScript graph={graph} />
       <SiteNavWithData context="outside" />
-      <main id="main-content" className="bg-hbb-page pb-section-y">
+      <main id="main-content" className="place-c-page bg-hbb-page pb-section-y">
         <div className="pt-section-y">
-          <EntityIdentity
-            breadcrumb={{ label: t('label'), href: '/neighbourhood' }}
-            title={place.name}
-            meta={meta}
-          />
+          <nav className="place-c-crumb px-section-sm md:px-section-x" aria-label="Breadcrumb">
+            <Link href="/neighbourhood">{t('label')}</Link>
+            {crumbDistrict ? (
+              <>
+                <span className="place-c-crumb__sep" aria-hidden="true">
+                  /
+                </span>
+                <span>{crumbDistrict}</span>
+              </>
+            ) : null}
+            <span className="place-c-crumb__sep" aria-hidden="true">
+              /
+            </span>
+            <span>{place.name}</span>
+          </nav>
         </div>
 
-        {endorsements.length > 0 ? (
-          <EntityBand className="mt-12">
-            <div className="flex max-w-2xl flex-col gap-12">
-              {endorsements.map((entry) => (
-                <EndorsementLead
-                  key={entry.person.slug}
-                  person={entry.person}
-                  quote={entry.quote}
-                  recommendsLabel={te('recommendsPlaces', { count: alsoByPerson.length + 1 })}
-                  profileLabel={te('toProfile')}
-                />
-              ))}
-            </div>
-          </EntityBand>
-        ) : null}
-
-        {mapSettings.accessToken && mapPlace ? (
-          <section className="mt-12" aria-labelledby="place-map-heading">
-            <h2 id="place-map-heading" className="sr-only">
-              {t('mapAria')}
-            </h2>
-            <PlacesMapView
-              accessToken={mapSettings.accessToken}
-              bounds={mapSettings.bounds}
-              center={{ lat: mapPlace.latitude, lng: mapPlace.longitude }}
-              places={[mapPlace]}
-              hotelName={mapSettings.hotelName}
-              ariaLabel={t('mapAria')}
-              noscriptHtml={t.raw('mapNoscript') as string}
-              pinVariant="category"
-              cardEmphasis="place"
-              showCard={false}
-              compact
-              autoSelectFirst
-            />
-            {mapCaption ? (
-              <p className="px-section-sm pt-3 font-ui text-ui-sm text-[var(--dim)] md:px-section-x">
-                {mapCaption}
-              </p>
-            ) : null}
-          </section>
-        ) : null}
-
-        <EntityBand className="mt-12">
-          <EntityFacts
-            rows={[
-              address ? { term: t('addressLabel'), value: address } : null,
-              place.openingHours ? { term: te('hours'), value: place.openingHours } : null,
-              website
-                ? {
-                    term: te('website'),
-                    value: (
-                      <a href={website} className="underline-offset-2 hover:underline" rel="noopener noreferrer">
-                        {website.replace(/^https?:\/\//, '')}
-                      </a>
-                    ),
-                  }
-                : null,
-              indoor ? { term: te('setting'), value: indoor } : null,
-              place.priceRange ? { term: te('price'), value: place.priceRange } : null,
-              audience && audience.length > 0
-                ? { term: te('audience'), value: audience.join(' · ') }
-                : null,
-            ]}
+        <div className="place-c-top px-section-sm md:px-section-x">
+          <PlaceNote
+            locale={locale}
+            placeName={place.name}
+            category={category}
+            categoryLabel={categoryLabel}
+            endorsements={endorsements}
+            leadPickCount={leadPickCount || endorsements.length}
+            walkSentence={walkSentence}
+            description={place.description}
+            labels={{
+              recommends: te('recommends'),
+              fromHotel: te('fromHotel'),
+              alsoRecommendedBy: te('alsoRecommendedBy'),
+              andMore: (n) => te('andMore', { count: n }),
+              recommendsPlaces: (count) => te('recommendsPlaces', { count }),
+            }}
           />
-        </EntityBand>
 
-        {identifiers.length > 0 ? (
-          <EntityBand label={te('alsoListedAs')} className="mt-10">
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {identifiers.map((id) => (
-                <li
-                  key={`${id.propertyID}-${id.value}`}
-                  className="border border-[var(--cardline)] bg-white px-2 py-1 font-mono text-[11px] text-[var(--dim)]"
-                >
-                  {id.propertyID} {id.value}
-                </li>
-              ))}
-            </ul>
-          </EntityBand>
-        ) : null}
+          <div className="place-map-card">
+            {placeGeo && trip ? (
+              <PlaceEntityMap
+                slug={slug}
+                placeName={place.name}
+                hotel={hotel}
+                place={placeGeo}
+                trip={trip}
+                placePinColor={pinColorForCategory(category)}
+                station={station}
+                locale={locale}
+                showBasemap={showBasemap}
+                alt={mapAlt}
+                imageUrl={imageUrl}
+                imageAlt={imageAlt}
+              />
+            ) : null}
 
-        {alsoByPerson.length === 3 && leadPerson ? (
+            <div
+              className={`place-map-card__body ${!placeGeo || !trip ? 'border-t border-[#E3DED6]' : ''}`}
+            >
+              <EntityFacts
+                rows={[
+                  address ? { term: t('addressLabel'), value: address } : null,
+                  station
+                    ? {
+                        term: stationRowLabel(station.mode, locale) === 'U-Bahn'
+                          ? te('ubahn')
+                          : te('sbahn'),
+                        value: formatStationValue(station),
+                      }
+                    : null,
+                  districtValue
+                    ? { term: te('district'), value: districtValue }
+                    : null,
+                  place.openingHours
+                    ? { term: te('hours'), value: place.openingHours }
+                    : null,
+                  website
+                    ? {
+                        term: te('website'),
+                        value: (
+                          <a
+                            href={website}
+                            className="underline-offset-2 hover:underline"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {hostOnly(website)}
+                          </a>
+                        ),
+                      }
+                    : null,
+                  place.priceRange
+                    ? { term: te('price'), value: place.priceRange }
+                    : null,
+                ]}
+              />
+
+              {placeGeo ? (
+                <div className="place-map-card__cta">
+                  <LineCta
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${placeGeo.lat},${placeGeo.lng}&travelmode=walking`}
+                    external
+                    className="text-ui-sm"
+                  >
+                    {te('directions')} ↗
+                    <span className="sr-only"> {te('opensNewTab')}</span>
+                  </LineCta>
+                </div>
+              ) : null}
+
+              {placeGeo && showBasemap ? (
+                <p className="place-map-card__attr">
+                  <a
+                    href={mapboxAttributionUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {te('mapAttribution')}
+                  </a>
+                </p>
+              ) : placeGeo && !showBasemap ? (
+                <p className="place-map-card__attr">
+                  <a
+                    href="https://www.openstreetmap.org/copyright"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    © OpenStreetMap
+                  </a>
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        {relatedBand && bandHeading && stripItems.length === 3 ? (
           <EntityBand
-            heading={te('alsoRecommends', { name: leadPerson.name })}
-            href={`/you-me-and-berlin/${leadPerson.slug}`}
-            ctaLabel={te('toProfile')}
+            heading={bandHeading}
+            href={bandHref ?? undefined}
+            ctaLabel={bandCta ?? undefined}
             className="mt-16"
-            id="also-by"
+            id="related"
           >
-            <BorrowedRow
-              items={alsoByPerson}
-              render={(item) => (
-                <PlaceCard
-                  name={item.name}
-                  slug={item.slug}
-                  category={item.category}
-                  categoryLabel={t(`categories.${item.category}`)}
-                  walkingMinutes={item.walkingMinutes}
-                  walkingLabel={
-                    item.walkingMinutes != null
-                      ? t('walkingMinutes', { minutes: item.walkingMinutes })
-                      : undefined
-                  }
-                  description={item.description}
-                  imageUrl={item.imageUrl}
-                  imageAlt={item.imageAlt}
-                  endorsements={item.endorsements}
-                />
-              )}
-            />
-          </EntityBand>
-        ) : null}
-
-        {moreInDistrict.length === 3 && district ? (
-          <EntityBand heading={te('moreInDistrict', { district })} className="mt-16" id="more-in">
-            <BorrowedRow
-              items={moreInDistrict}
-              render={(item) => (
-                <PlaceCard
-                  name={item.name}
-                  slug={item.slug}
-                  category={item.category}
-                  categoryLabel={t(`categories.${item.category}`)}
-                  walkingMinutes={item.walkingMinutes}
-                  walkingLabel={
-                    item.walkingMinutes != null
-                      ? t('walkingMinutes', { minutes: item.walkingMinutes })
-                      : undefined
-                  }
-                  description={item.description}
-                  imageUrl={item.imageUrl}
-                  imageAlt={item.imageAlt}
-                  endorsements={item.endorsements}
-                />
-              )}
+            <PlaceRelatedStrip
+              items={stripItems}
+              source={relatedBand.source}
+              locale={locale}
+              personTokenFill={personTokenFill}
             />
           </EntityBand>
         ) : null}
 
         <div className="px-section-sm pt-16 md:px-section-x">
-          <SweepCta href="/neighbourhood" color="ctx">
-            {t('backToList')}
-          </SweepCta>
+          <div className="place-c-onward">
+            <p className="place-c-onward__line">{te('onwardHasEndorsers')}</p>
+            <SweepCta href="/neighbourhood" color="ctx" edge="right">
+              {t('label')}
+            </SweepCta>
+          </div>
         </div>
       </main>
       <SiteFooter />
     </>
-  )
-}
-
-function EndorsementLead({
-  person,
-  quote,
-  recommendsLabel,
-  profileLabel,
-}: {
-  person: Person
-  quote: string
-  recommendsLabel: string
-  profileLabel: string
-}) {
-  const portraitUrl = mediaFileUrl(person.portrait)
-
-  return (
-    <figure className="flex gap-5">
-      <div className="shrink-0">
-        <InitialsAvatar
-          name={person.name}
-          initials={personInitials(person.name)}
-          portraitUrl={portraitUrl}
-          portraitAlt={person.name}
-          size="lg"
-        />
-      </div>
-      <div className="min-w-0">
-        <blockquote className="entity-pullquote">
-          <p>{quote}</p>
-        </blockquote>
-        <figcaption className="mt-4">
-          <cite className="not-italic">
-            <span className="font-ui text-ui-sm font-medium text-hbb-black">{person.name}</span>
-            {person.jobTitle ? (
-              <span className="font-ui text-ui-sm text-[var(--dim)]"> · {person.jobTitle}</span>
-            ) : null}
-          </cite>
-          <p className="mt-1 font-ui text-ui-xs text-[var(--dim)]">{recommendsLabel}</p>
-          <LineCta href={`/you-me-and-berlin/${person.slug}`} className="mt-3 text-ui-sm">
-            {profileLabel}
-          </LineCta>
-        </figcaption>
-      </div>
-    </figure>
   )
 }

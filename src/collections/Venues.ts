@@ -1,9 +1,14 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
+import { collectionCacheHooks } from '@/lib/payload/revalidate'
 import { openingHoursArrayField } from '../fields/openingHours'
+import { specialHoursArrayField } from '../fields/specialHours'
 
 export const Venues: CollectionConfig = {
   slug: 'venues',
+  ...collectionCacheHooks('venues'),
+  access: publicReadStaffWrite,
   admin: { useAsTitle: 'name' },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
@@ -50,6 +55,7 @@ export const Venues: CollectionConfig = {
       admin: { description: 'Optional SVG/logo mark for SpotlightCard identity row' },
     },
     openingHoursArrayField(),
+    specialHoursArrayField(),
     {
       name: 'servesCuisine',
       type: 'text',

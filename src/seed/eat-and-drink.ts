@@ -5,6 +5,7 @@
  *        npm run seed:eat-and-drink -- --force
  */
 import 'dotenv/config'
+import './guard'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'

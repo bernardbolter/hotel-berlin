@@ -4,6 +4,7 @@
  * Usage: npm run seed:faqs
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 import type { Payload } from 'payload'
 

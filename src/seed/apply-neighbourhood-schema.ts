@@ -4,6 +4,7 @@
  * PAYLOAD_DATABASE_PUSH is false.
  */
 import 'dotenv/config'
+import './guard'
 import pg from 'pg'
 
 const sql = `

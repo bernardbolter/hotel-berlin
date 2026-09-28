@@ -6,6 +6,7 @@
  * Usage: pnpm exec tsx src/seed/here-hero-slides.ts
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'

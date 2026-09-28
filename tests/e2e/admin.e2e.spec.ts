@@ -6,7 +6,7 @@ test.describe('Admin Panel', () => {
   let page: Page
 
   test.beforeAll(async ({ browser }, testInfo) => {
-    await seedTestUser()
+    await seedTestUser('admin')
 
     const context = await browser.newContext()
     page = await context.newPage()

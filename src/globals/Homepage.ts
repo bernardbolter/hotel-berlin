@@ -1,23 +1,16 @@
 import type { GlobalConfig } from 'payload'
 
+import { staffWritableGlobal } from '@/access'
+import { globalCacheHooks } from '@/lib/payload/revalidate'
+
 export const Homepage: GlobalConfig = {
   slug: 'homepage',
+  ...globalCacheHooks('homepage'),
+  access: staffWritableGlobal,
   label: 'Homepage',
   admin: {
     description:
       'Homepage settings. Hero photos live in the Hero slides collection.',
-  },
-  hooks: {
-    afterChange: [
-      async () => {
-        try {
-          const { revalidatePath } = await import('next/cache')
-          revalidatePath('/', 'layout')
-        } catch {
-          // No-op outside Next.js request context (e.g. seed scripts)
-        }
-      },
-    ],
   },
   fields: [
     {

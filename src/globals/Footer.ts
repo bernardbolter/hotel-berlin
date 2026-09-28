@@ -1,26 +1,18 @@
 import type { GlobalConfig } from 'payload'
 
+import { staffWritableGlobal } from '@/access'
+import { globalCacheHooks } from '@/lib/payload/revalidate'
 import { linkField } from '../fields/linkField'
 import { lucideIconField } from '../fields/lucideIconField'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
+  ...globalCacheHooks('footer'),
+  access: staffWritableGlobal,
   label: 'Footer',
   admin: {
     description:
       'Public site footer: book-direct strip, contact, link columns, awards, partners, copyright.',
-  },
-  hooks: {
-    afterChange: [
-      async () => {
-        try {
-          const { revalidatePath } = await import('next/cache')
-          revalidatePath('/', 'layout')
-        } catch {
-          // No-op outside Next.js request context (e.g. seed scripts)
-        }
-      },
-    ],
   },
   fields: [
     {

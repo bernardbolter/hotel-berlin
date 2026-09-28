@@ -3,6 +3,7 @@
  * without re-running people seed or live geocoding APIs.
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'

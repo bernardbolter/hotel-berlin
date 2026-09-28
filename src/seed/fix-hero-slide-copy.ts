@@ -3,6 +3,7 @@
  * Usage: npx tsx src/seed/fix-hero-slide-copy.ts
  */
 import 'dotenv/config'
+import './guard'
 
 import { getPayload } from 'payload'
 

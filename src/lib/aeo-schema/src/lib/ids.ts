@@ -91,6 +91,18 @@ export function venueNodeId(config: SiteConfig, slug?: string): string {
   return `${config.baseUrl}/#venue-${slug}`;
 }
 
+export function eventUrl(slug: string, config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.happenings[config.canonicalLocale]}/${slug}`;
+}
+
+export function happeningsListUrl(config: SiteConfig): string {
+  return `${config.baseUrl}${config.paths.happenings[config.canonicalLocale]}`;
+}
+
+export function eventNodeId(slug: string, config: SiteConfig): string {
+  return `${eventUrl(slug, config)}#event`;
+}
+
 export function amenitiesListUrl(config: SiteConfig): string {
   return `${config.baseUrl}${config.paths.amenities[config.canonicalLocale]}`;
 }

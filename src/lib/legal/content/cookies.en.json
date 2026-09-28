@@ -1,0 +1,105 @@
+{
+  "slug": "cookies",
+  "locale": "en",
+  "title": "Cookies",
+  "updated": "24th April 2026",
+  "blocks": [
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Hotel Berlin, Berlin uses cookies on this website. This page explains the cookies described in our privacy policy. The full data-protection notice is on the "
+        },
+        {
+          "text": "privacy page",
+          "href": "/privacy"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "2. data processing through the use of cookies",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Our website uses cookies. These are text files that are stored on your computer in order to track visitor preferences and optimize our website accordingly."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "On the one hand, we use transient cookies. These are automatically deleted when you close the browser. These include session cookies in particular. They store a so-called session ID, with which various requests from your browser can be assigned to the joint session. This allows your computer to be recognized when you return to the website. The session cookies are deleted when you log out or close the browser."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "We also use persistent cookies. These are valid for one year and can be deleted at any time via your browser."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "To prevent cookies from being saved, \"Do not accept cookies\" must be selected in the browser settings. If cookies are not accepted by the browser, the functionality of the website may be limited."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "This stored information is stored separately from any other data you may have provided to us. In particular, the cookie data is not linked to your other data."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "The legal basis for data processing is Art. 6 para. 1 lit. f EU GDPR (processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data)."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "4. DialogShift chat application on our website",
+          "marks": [
+            "underline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Our website uses the chat application of DialogShift GmbH, Rheinsberger Str. 76/77, 10115 Berlin. This application processes and stores data for the purpose of web analysis, operating the chat application and responding to inquiries.\n\nTo operate the chat function, the chat texts are saved and a cookie with a unique ID is set - this is used to recognize you as a customer.\n\n\n\nA cookie is a small text file that is stored locally in the cache on your device. With the help of this cookie, our application recognizes the device and can call up past chat logs. This cookie is stored for 90 days since it was last used.  You can deactivate the storage of cookies in your browser settings. However, the chat function cannot be executed without the use of cookies.\n\n\n\nThe possible disclosure of e.g. name, e-mail address or a telephone number is voluntary and with the consent to temporarily use and store this data for the purpose of establishing contact until the end of the contact. This personal data will be deleted after 90 days.\n\nThe legal basis for data processing is Art. 6 para. 1 lit. a GDPR on the basis of your consent in the consent banner. This helps us to provide effective customer support, statistically analyze user behavior and optimize our offers.\n\n\n\nDialogShift offers further information on the collection and use of data as well as your rights and options for protecting your privacy at "
+        },
+        {
+          "text": "https://www.dialogshift.com/datenschutz",
+          "href": "https://www.dialogshift.com/datenschutz"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,7 @@
  * Usage: npm run seed:test-events:verify
  */
 import 'dotenv/config'
+import './guard'
 
 import { getPayload } from 'payload'
 

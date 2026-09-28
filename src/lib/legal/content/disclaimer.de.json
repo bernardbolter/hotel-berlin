@@ -1,0 +1,194 @@
+{
+  "slug": "disclaimer",
+  "locale": "de",
+  "title": "Copyright & Haftungsausschluss",
+  "updated": null,
+  "blocks": [
+    {
+      "type": "h3",
+      "text": "VEREINBARUNG ZWISCHEN DEM NUTZER",
+      "id": "vereinbarung-zwischen-dem-nutzer"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "UND Pandox Berlin GmbH c/o Hotel Berlin, Berlin"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Dieses Webangebot wird Ihnen als Benutzer vorbehaltlich ihres uneingeschränkten Einverständnisses mit den folgenden Nutzungsbedingungen zur Verfügung gestellt. Durch Benutzung dieses Webangebots erklären Sie sich mit diesen Bedingungen einverstanden."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "BESCHRÄNKUNG PRIVATE UND NICHT GEWERBLICHE NUTZUNG",
+      "id": "beschraenkung-private-und-nicht-gewerbliche-nutzung"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Dieses Webangebot ist ausschließlich für Ihren privaten und nicht gewerblichen Gebrauch bestimmt. Es ist nicht gestattet, Informationen, Software, Produkte oder Dienstleistungen, die Sie in diesem Webangebot finden oder von diesem erhalten, zu verändern, zu vervielfältigen, zu vertreiben, zu übertragen, darzustellen, vorzutragen, wiederzugeben, zu veröffentlichen, zu lizenzieren, oder abgeleitete Bearbeitungen hiervon zu erstellen, zu übermitteln oder zu verkaufen."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "COPYRIGHTS UND WARENZEICHEN",
+      "id": "copyrights-und-warenzeichen"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Alle Inhalte dieses Webangebots unterliegen dem Copyright © 2021 der Pandox Berlin GmbH c/o Hotel Berlin, Berlin. Alle Rechte bleiben vorbehalten."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin ist eine Handelsbezeichnung der Tochtergesellschaften der Pandox AB, die weltweit als Hotelimmobiliengesellschaft tätig ist. Warenzeichen der Pandox Berlin GmbH c/o Hotel Berlin, Berlin dürfen ohne vorherige schriftliche Einwilligung der Pandox Berlin GmbH c/o Hotel Berlin, Berlin öffentlich nicht benutzt oder dargestellt werden, außer soweit dies anderweitig auf diesem Webangebot für heruntergeladene Logos und Photographien vorgesehen ist."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "HAFTUNGSAUSSCHLUSS",
+      "id": "haftungsausschluss"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Die Angaben in diesem Webangebot werden ohne jegliche, ausdrücklich oder stillschweigend enthaltene, gesetzlich oder anderweitig festgelegte Gewährleistungen, Zusicherungen, Voraussetzungen, Verpflichtungen, Bedingungen, einschließlich aber ohne Beschränkung auf die Zusicherung einer allgemeinen Gebrauchstauglichkeit, der Nichtverletzung geistigen Eigentums oder einer besonderen Gebrauchstauglichkeit zur Verfügung gestellt. Soweit einzelne Rechtsordnungen den Ausschluss der genannten Garantien untersagen, können die obigen Ausschlüsse für Sie nicht anwendbar sein. Des Weiteren gewährleistet Pandox Berlin GmbH c/o Hotel Berlin, Berlin nicht die Richtigkeit oder Vollständigkeit der Informationen, Texte, Grafiken, Verknüpfungen oder anderer Elemente der Angaben. Pandox Berlin GmbH c/o Hotel Berlin, Berlin ist es jederzeit ohne Ankündigung erlaubt, Änderungen in den Angaben, Programmen, Richtlinien oder anderen Informationen, die in den Angaben enthalten sind, zu machen. Pandox Berlin GmbH c/o Hotel Berlin, Berlin übernimmt keine Verpflichtung, die Angaben zu aktualisieren."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Keinesfalls wird Pandox Berlin GmbH c/o Hotel Berlin, Berlin und / oder ihre Konzerngesellschaft für unmittelbare oder mittelbare Schäden, Folgeschäden oder sonstige Schäden, einschließlich für Gewinnausfälle oder Datenverluste, weder aus einem vertraglichen Anspruch noch aus einen Anspruch aus unerlaubter Handlung haften, der durch die Benutzung oder den Betrieb des Webangebots entsteht. Dies gilt auch dann, wenn Pandox Berlin GmbH c/o Hotel Berlin, Berlin von der Möglichkeit solcher Schäden verständigt worden ist. Da einzelne Gerichtsbarkeiten den Ausschluss oder die Beschränkung der Haftung für Folge- oder Zufallsschäden untersagen, kann die obige Beschränkung für Sie nicht anwendbar sein."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "KEIN UNRECHTMÄßIGER ODER VERBOTENER GEBRAUCH",
+      "id": "kein-unrechtmaessiger-oder-verbotener-gebrauch"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Als Voraussetzung des Gebrauchs unseres Webangebots sichern Sie Pandox Berlin GmbH c/o Hotel Berlin, Berlin zu, dass Sie dieses Webangebot nicht für Zwecke verwenden, die rechtswidrig oder durch diese Nutzungsbedingungen untersagt sind."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "LINKS AUF WEBANGEBOTE VON DRITTEN",
+      "id": "links-auf-webangebote-von-dritten"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Dieses Webangebot kann \"Hyperlinks\" auf Websites enthalten, die von anderer Seite als von Pandox Berlin GmbH c/o Hotel Berlin, Berlin betrieben werden. Solche \"Hyperlinks\" werden lediglich als Verweisung zur Verfügung gestellt. Pandox Berlin GmbH c/o Hotel Berlin, Berlin kontrolliert weder diese Webangebote noch ist sie verantwortlich für deren Inhalt. Die Einbeziehung von \"Hyperlinks\" in solche Webangebote beinhaltet weder eine Bestätigung der Angaben auf diesen Websites noch schließt diese eine Verbindung mit deren Betreibern ein."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "ÄNDERUNGEN DIESER VEREINBARUNG",
+      "id": "aenderungen-dieser-vereinbarung"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH c/o Hotel Berlin, Berlin können jederzeit nach ihrem alleinigen Ermessen die Zugriffsbedingungen zu diesem Angebot verändern. Ihre fortgesetzte Benutzung dieses Webangebots nach einer solchen Änderung gilt als Genehmigung der Änderung."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "ALLGEMEINES",
+      "id": "allgemeines"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Jegliche Ansprüche aufgrund dieser Vereinbarung oder der Angaben unterliegen dem Recht des Staates Deutschland, Europa, unter Ausschluss seiner Rechtswahlnormen. Diese Vereinbarung begründet die vollständige Übereinkunft der Parteien im Hinblick auf den hiervon betroffenen Gegenstand und verdrängt alle früheren mündlichen oder schriftlichen Absprachen. Eine Unterlassung oder Verzögerung der Ausübung von Rechten, der hierunter fallenden Rechtsmittel oder der Geltendmachung der Geschäftsbedingungen dieser Vereinbarung durch die Pandox Berlin GmbH c/o Hotel Berlin, Berlin begründet keinen Verzicht auf diese. Sollte ein Teil dieser Vereinbarung oder eine Bestimmung derselben unwirksam, nicht durchsetzbar oder nichtig sein, so lässt dies die Wirksamkeit der Bestimmungen im Übrigen unberührt. Überschriften dienen lediglich der Annehmlichkeit und sind nicht für eine Auslegung dieser Vereinbarung bestimmt."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Sie stimmen zu, dass als Ergebnis dieser Vereinbarung oder der Benutzung dieses Webangebots kein Joint-Venture, keine Gesellschaft, kein Vertretungsverhältnis und kein Vertretungsverhältnis zwischen Ihnen und der Pandox Berlin GmbH c/o Hotel Berlin, Berlin entsteht."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Fiktive Bezeichnungen von hier erwähnten Unternehmen, Produkten, Personen, Charakteren, und / oder Daten beabsichtigten, weder eine reale Person oder Veranstaltung noch ein wirkliches Unternehmen oder Produkt darzustellen."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Alle Rechte, soweit nicht ausdrücklich gewährt, bleiben vorbehalten."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "BENUTZUNG DES WEBANGEBOTS",
+      "id": "benutzung-des-webangebots"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Die Reservierungsfunktion dieses Webangebots für die Pandox Berlin GmbH c/o Hotel Berlin, Berlin wird lediglich zur Unterstützung der Kunden bereitgestellt, um die Verfügbarkeit der mit Reisen im Zusammenhang stehenden Waren und Dienstleistungen zu ermitteln und um rechtmäßige Reservierungen vorzunehmen; andere Zwecke sind nicht vorgesehen. Sie sichern zu, dass Sie mindestens 18 Jahre alt sind und das Recht besitzen, diese Vereinbarung zu schließen und dieses Webangebot in Übereinstimmung mit den hier vorliegenden Geschäftsbedingungen zu benutzen. Hiermit erklären Sie sich bereit, finanziell für jegliche Benutzung dieses Webangebots zu haften (dies gilt auch für die Benutzung Ihres Accounts durch Andere, insbesondere auch durch in Ihrem Haushalt lebende Minderjährige). Außerdem erklären Sie sich einverstanden, die Benutzung dieses Webangebots durch Minderjährige unter Ihrem Namen oder Account zu kontrollieren. Sie gewährleisten ferner, dass alle Informationen, die durch Sie oder Mitglieder Ihres Haushalts bei der Benutzung dieses Webangebots mitgeteilt werden, richtig, korrekt und ohne Einschränkungen sind sowie ferner keine falschen oder betrügerischen Reservierungen darstellen. Des Weiteren willigen Sie ein, dass die Reservierungsmöglichkeiten dieses Webangebots nur dazu dienen, rechtmäßige Reservierungen oder Käufe für Sie oder für andere Personen zu tätigen, für die Sie rechtsgültig bevollmächtigt sind. Auch haben Sie Verständnis dafür, dass der übermäßige Gebrauch oder Missbrauch der Reservierungsmöglichkeiten dieses Webangebots dazu führen kann, dass Ihnen der Zugriff zu solchen Einrichtungen verweigert wird."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Für Reservierungen und andere Dienstleistungen, für die Kosten entstehen können, erklären Sie sich einverstanden, sich an die mit dem Kauf verbundenen Geschäftsbedingungen zu halten, einschließlich der - aber nicht beschränkt auf die - Bezahlung aller fälligen Beträge und des Einverständnisses mit allen Regeln und Beschränkungen hinsichtlich der Verfügbarkeit der Tarife, Produkte oder Dienstleistungen. Sie sind haftbar für alle Kosten, Gebühren, Abgaben, Steuern und Festsetzungen, die sich aufgrund der Benutzung dieses Webangebots ergeben."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "WÄHRUNGSUMRECHNUNG",
+      "id": "waehrungsumrechnung"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Devisenkurse beruhen auf öffentlich verfügbaren Quellen und sollten lediglich als Richtlinie verwendet werden. Zimmerpreise werden nur in der jeweiligen Landeswährung des Hotels garantiert. Eine tägliche Aktualisierung der Währungskurse erfolgt nicht. Die in diesem Webangebot zur Verfügung gestellten Währungsinformationen werden für richtig gehalten; die Pandox Berlin GmbH c/o Hotel Berlin, Berlin und / oder Konzerngesellschaft garantiert für deren Richtigkeit jedoch nicht."
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,12 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+
+import { publicMediaUrl, r2Configured, r2Endpoint } from './lib/media/r2'
 
 import { Amenities } from './collections/Amenities'
 import { Artists } from './collections/Artists'
@@ -13,6 +16,7 @@ import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
 import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
+import { LegalDocuments } from './collections/LegalDocuments'
 import { Media } from './collections/Media'
 import { MeetingDocuments } from './collections/MeetingDocuments'
 import { MeetingInquiries } from './collections/MeetingInquiries'
@@ -61,6 +65,7 @@ export default buildConfig({
     NeighbourhoodPlaces,
     Places,
     Pages,
+    LegalDocuments,
   ],
   globals: [Hotel, Homepage, Navigation, Footer, Meetings],
   editor: lexicalEditor(),
@@ -86,5 +91,26 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    s3Storage({
+      // Unset R2 credentials keep files on local disk (dev).
+      enabled: r2Configured(),
+      collections: {
+        media: {
+          generateFileURL: ({ filename, prefix }) => publicMediaUrl(filename, prefix) || '',
+        },
+      },
+      bucket: process.env.R2_BUCKET || '',
+      clientUploads: true,
+      config: {
+        credentials: {
+          accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+        },
+        region: 'auto',
+        endpoint: r2Endpoint(),
+        forcePathStyle: true,
+      },
+    }),
+  ],
 })

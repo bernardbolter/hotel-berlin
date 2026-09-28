@@ -1,0 +1,1072 @@
+{
+  "slug": "terms",
+  "locale": "de",
+  "title": "AGB & Nutzungsbedingungen",
+  "updated": null,
+  "lede": "Alles über unser Hotel und unseren Veranstaltungsbereich",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Hotelaufenthalt",
+      "id": "hotelaufenthalt"
+    },
+    {
+      "type": "h3",
+      "text": "I. Geltungsbereich",
+      "id": "i-geltungsbereich"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Diese Allgemeinen Geschäftsbedingungen gelten für Verträge über die mietweise Überlassung von Hotelzimmern sowie zur Beherbung sowie für alle damit verbundenen weiteren Leistungen und Lieferungen (nachfolgend „Leistungserbringung“) des Hotelbetriebs Pandox Berlin GmbH (nachfolgend „Hotel“) und dem Kunden (nachfolgend „Kunde“; Hotel und Kunde werden nachfolgend zusammen auch als „Parteien“ bezeichnet)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Allgemeine Geschäftsbedingungen des Kunden finden nur Anwendung, wenn die Parteien dies vorher ausdrücklich schriftlich vereinbart haben."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "II. Vertragsschluss, -partner",
+      "id": "ii-vertragsschluss-partner"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Angebote des Hotels sind freibleibend. Das Hotel ist nicht verpflichtet, die Zimmerbuchung schriftlich zu bestätigen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Unter- oder Weitervermietung der überlassenen Hotelzimmer bedürfen der vorherigen Zustimmung des Hotels in Textform (§ 126b BGB). § 540 Abs. 1 S. 2 BGB findet im geschäftlichen Verkehr keine Anwendung. In jedem Fall ist der Kunde verpflichtet, im Vertrag bzw. in diesen Allgemeinen Geschäftsbedingungen enthaltene allgemeine Pflichten etwaigen Dritten aufzuerlegen, denen er die Zimmer überlässt, und diese Dritte auf im Rahmen eines Mietverhältnisses allgemein bestehende Sorgfaltspflichten, insbesondere zur schonenden Behandlung der Mietsache hinzuweisen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Hat ein Dritter für den Kunden bestellt, haftet er dem Hotel gegenüber zusammen mit dem Kunden als Gesamtschuldner für alle Verpflichtungen aus dem Beherbungsvertrag, sofern dem Hotel eine entsprechende Erklärung des Dritten vorliegt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "III. Zimmerbereitstellung, -übergabe und –rückgabe",
+      "id": "iii-zimmerbereitstellung-uebergabe-und-rueckgabe"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Der Kunde erwirbt keinen Anspruch auf die Bereitstellung bestimmter Zimmer, es sei denn, das Hotel hat die Bereitstellung eines bestimmten Zimmers schriftlich bestätigt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Soweit nichts anderes mit dem Kunden vereinbart ist, stehen Hotelzimmer am Anreisetag ab 15 Uhr zur Verfügung (Check-In Zeit). Der Kunde hat keinen Anspruch auf frühere Bereitstellung."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Am Abreisetag sind die Zimmer bis spätestens 12 Uhr zu räumen (Check-Out Zeit). Werden die Zimmer nicht rechtzeitig geräumt, kann das Hotel für die zusätzliche Nutzung des Zimmers bis 18 Uhr den halben Zimmerpreis gemäß Preisliste in Rechnung stellen, ab 18 Uhr 90 % des Zimmerpreises gemäß Preisliste. Vertragliche Ansprüche zwischen dem Hotel und dem Kunden werden hierdurch nicht begründet. Dem Kunden steht der Nachweis frei, dass dem Hotel kein oder ein wesentlich geringerer Schaden entstanden ist."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IV. Leistungen, Preise, Zahlung; Aufrechnung; Pfandrecht",
+      "id": "iv-leistungen-preise-zahlung-aufrechnung-pfandrecht"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Das Hotel ist verpflichtet, die vom Kunden gebuchten Hotelzimmer bereitzuhalten und die vereinbarten Leistungen zu erbringen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist verpflichtet, die für die Leistungserbringung geltenden bzw. vereinbarten Preise des Hotels zu zahlen. Dies gilt auch für Leistungen und Lieferungen (einschließlich Nebenleistungen wie Verzehr, Telefonate usw.), die von den auf der Grundlage dieses Vertrages im Hotel Beherbergten und/oder im Zusammenhang mit der vertragsgegenständlichen Beherbung von Gästen, Besuchern usw. der Beherbergten in Anspruch genommen werden."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die vereinbarten Preise schließen die jeweils geltende gesetzliche Mehrwertsteuer mit ein. Im Hinblick auf Verträge mit nichtprivaten Kunden behält sich das Hotel vor, Nettopreise anzugeben oder zu vereinbaren. Liegen zwischen Vertragsschluss und Vertragserfüllung mehr als vier Monate und ändert sich die gesetzliche Mehrwertsteuer in diesem Zeitraum, so werden die Preise entsprechend angepasst"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "V. Nichterscheinen / Rücktritt / Stornierung des Kunden",
+      "id": "v-nichterscheinen-ruecktritt-stornierung-des-kunden"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Ein Rücktritt des Kunden von dem mit dem Hotel geschlossenen Vertrag bedarf vorbehaltlich Nr. 4 der Zustimmung des Hotels in Textform (§ 126b BGB)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Für gemietete Hotelzimmer ist vorbehaltlich Nr. 4 das vereinbarte Entgelt auch dann zu zahlen, wenn die Zustimmung gem. Nr. 1 nicht erfolgt, die Buchung vom Kunden storniert wird oder der Kunde nicht erscheint. Das Hotel muss sich den Wert der ersparten Aufwendungen sowie derjenigen Vorteile anrechnen lassen, die es aus einer anderweitigen Vermietung erlangt. Der Kunde ist im Fall des Rücktritts vorbehaltlich Nr. 4 verpflichtet, 90 % des vertraglich vereinbarten Preises für die Übernachtung mit oder ohne Frühstück zu entrichten. Dem Kunden steht der Nachweis frei, dass dem Hotel kein oder ein wesentlich geringerer Schaden entstanden ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sofern zwischen dem Hotel und dem Kunden ein Termin zum kostenfreien Rücktritt vom Vertrag schriftlich vereinbart wurde, kann der Kunde bis dahin vom Vertrag zurücktreten, ohne Zahlungs- oder Schadensersatzansprüche des Hotels auszulösen. Das Rücktrittsrecht des Kunden erlischt, wenn er nicht bis zum vereinbarten Termin sein Recht zum Rücktritt in Textform (§ 126b BGB) gegenüber dem Hotel ausübt, sofern nicht ein Fall gemäß Nummer 4 vorliegt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Vorstehende Ziffern gelten nicht bei der Verletzung der Verpflichtung des Hotels zur Rücksichtnahme auf Rechte, Rechtsgüter und Interessen des Kunden, wenn diesem ein Festhalten am Vertrag nicht mehr zuzumuten ist oder ihm ein sonstiges gesetzliches oder vertragliches Rücktrittsrecht zusteht."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VI. Rücktritt des Hotels",
+      "id": "vi-ruecktritt-des-hotels"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Sofern ein kostenfreies Rücktrittsrecht des Kunden innerhalb einer bestimmten Frist schriftlich vereinbart wurde, ist das Hotel in diesem Zeitraum seinerseits berechtigt, vom Vertrag zurückzutreten, wenn Anfragen anderer Kunden nach den vertraglich gebuchten Zimmern vorliegen und der Kunde auf Rückfrage des Hotels auf sein Recht zum Rücktritt nicht verzichtet. Dies gilt entsprechend bei Einräumung einer Option, wenn andere Anfragen vorliegen und der Kunde auf Rückfrage des Hotels nicht zur festen Buchung bereit ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Falls und soweit mit dem Kunden die Leistung von Vorauszahlungen vereinbart ist und der Kunde diese auch innerhalb einer vom Hotel gesetzten angemessenen Nachfrist mit Ablehnungsandrohung nicht leistet, ist das Hotel berechtigt, vom Vertrag zurückzutreten oder Schadensersatz wegen Nichterfüllung zu verlangen. Für die Bemessung des Schadensersatzes gilt Ziff. V. 2. Entsprechend."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ferner ist das Hotel berechtigt, aus sachlich gerechtfertigtem Grund vom Vertrag zurückzutreten, beispielsweise falls"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "  höhere Gewalt oder andere vom Hotel nicht zu vertretende Umstände die Erfüllung des Vertrages unmöglich machen (wie beispielsweise Streik oder Stromausfall);"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    Zimmer unter irreführender oder falscher Angabe wesentlicher Tatsachen, z. B. bezüglich der Person des Gastes oder des Zwecks gebucht werden;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    das Hotel bergründet Anlass zu der Annahme hat, dass die Inanspruchnahme der Hotelleistungen den reibungslosen Geschäftsbetrieb, die Sicherheit oder das Ansehen des Hotels in der Öffentlichkeit gefährden kann, ohne dass dies dem Herrschafts- bzw. Organisationsbereich des Hotels zuzurechnen ist;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    der Zweck bzw. der Anlass des Aufenthaltes gesetzeswidrig ist;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    der Kunde eine Unter- oder Weitervermietung der überlassenen Zimmer sowie deren Nutzung zu anderen als Beherbergungszwecken ohne die vorherige Zustimmung des Hotels vornimmt;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    ein Verstoß gegen Ziff. II. Nr. 2 vorliegt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "       4. Das Recht des Hotels Schadensersatz zu verlangen, wird durch den Rücktritt nicht berührt."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "       5. Bei berechtigtem Rücktritt des Hotels entsteht kein Anspruch des Kunden auf Schadensersatz."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VII. Haftung, Mängel, Verjährung",
+      "id": "vii-haftung-maengel-verjaehrung"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Die Haftung des Hotels für eigenes Verschulden und das Verschulden seiner Erfüllungsgehilfen ist – gleich aus welchem Rechtsgrund, allerdings vorbehaltlich Nr. 2 – auf Vorsatz und grobe Fahrlässigkeit beschränkt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Diese Haftungsbeschränkung gilt nicht für Ansprüche aus Produkthaftung, einer vom Hotel übernommenen Garantie und solche Ansprüche aufgrund einer Verletzung des Lebens, des Körpers oder der Gesundheit und einer Verletzung von sogenannten Kardinalspflichten, also solchen Pflichten, deren Einhaltung zur Erreichung des Vertragszwecks unabdingbar ist und auf deren Einhaltung der Kunde vertrauen kann. Im letzten Fall ist die Haftung jedoch auf den Ersatz der typischen, vorhersehbaren Durchschnittsschäden beschränkt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sollten Störungen oder Mängel an den Leistungen des Hotels auftreten, wird das Hotel bei Kenntnis oder auf unverzügliche Rüge des Kunden bemüht sein, für Abhilfe zu sorgen. Der Kunde ist verpflichtet, das ihm Zumutbare beizutragen, um die Störung zu beheben und einen möglichen Schaden gering zu halten. Im Übrigen ist der Kunde verpflichtet, das Hotel rechtzeitig auf die Möglichkeit der Entstehung eines außergewöhnlich hohen Schadens hinzuweisen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Mitgeführte Gegenstände des Kunden befinden sich auf Gefahr des Kunden im Hotel. Das Hotel übernimmt für Verlust, Untergang oder Beschädigung keine Haftung außer bei Vorsatz oder grober Fahrlässigkeit."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die gesetzliche Haftung nach §§ 701 ff. BGB bleibt von Nr. 4 unberührt. Das Hotel haftet dem Kunden für eingebrachte Sachen nach den gesetzlichen Bestimmungen, also bis zum 100fachen des Zimmerpreises, höchstens 3,500,00 €, sowie für Geld, Wertpapiere und Kostbarkeiten bis zu 800,00 €. Geld, Wertpapiere und Kostbarkeiten können bis zu einem Höchstwert der für das Hotel vorgesehenen Versicherungssumme von 800,00 € im Zimmersafe aufbewahrt werden. Das Hotel empfiehlt dem Kunden, von dieser Möglichkeit Gebrauch zu machen. Die Haftungsansprüche erlöschen, wenn der Kunde nicht unverzüglich nach Erlangen der Kenntnis von Verlust, Untergang oder Beschädigung dem Hotel Anzeige macht, § 703 BGB."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Soweit dem Kunden ein Stellplatz in der Hotelgarage oder auf einem Hotelparkplatz – gleich ob unentgeltlich oder gegen Entgelt – zur Verfügung gestellt wird, kommt dadurch kein Verwahrungsvertrag im Sinne von §§ 688 ff. BGB zustande. Das Hotel haftet nicht für Abhandenkommen oder Beschädigungen des Fahrzeugs sowie von dessen Inhalt, außer bei Vorsatz oder grober Fahrlässigkeit."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Das Hotel führt Weckaufträge mit größter Sorgfalt aus. Schadensersatzansprüche, die nicht auf Vorsatz oder grober Fahrlässigkeit beruhen, sind ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Nachrichten, Post und Warensendungen für den Kunden werden mit Sorgfalt behandelt. Das Hotel übernimmt die Zustellung, Aufbewahrung und die Nachsendung nur auf Anfrage, Risiko und Kosten des Kunden. Schadensersatzansprüche, die nicht auf Vorsatz oder grober Fahrlässigkeit beruhen, sind ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Soweit das Hotel Internet-Anschlüsse, Verbindungen und Netzwerke bereitstellt, stellt der Kunde das Hotel von etwaigen Ansprüchen Dritter frei, die aus einer rechtswidrigen Nutzung der Internetverbindung folgen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Verjährung von Ansprüchen des Kunden richtet sich grundsätzlich nach den gesetzlichen Bestimmungen. In Abweichung von § 195 BGB beträgt die Verjährungsfrist für alle Ansprüche des Kunden ein Jahr. Abweichend von § 199 Abs. 3 Nr. 1 und Abs. 4 BGB verjähren Schadensersatzansprüche und andere Ansprüche ohne Rücksicht auf die Kenntnis oder grob fahrlässige Unkenntnis in fünf Jahren von ihrer Entstehung an. Vorstehende Ausnahmen gelten nicht für Schadensersatzansprüche wegen der Verletzung des Lebens, des Körpers, der Gesundheit oder Freiheit oder wenn dem Hotel Vorsatz oder grobe Fahrlässigkeit zur Last fällt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VIII. Fundsachen",
+      "id": "viii-fundsachen"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Zurückgelassene Sachen werden nur auf Anfrage, Risiko und Kosten des Kunden nachgesandt. Das Hotel bewahrt zurückgelassene Gegenstände sechs Monate auf. Nach diesem Zeitpunkt erwirbt der Finder Eigentum an dem Gegenstand, wenn der Berechtigte weder bekannt geworden ist noch der Berechtigte sein Recht angemeldet hat."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IX. Information nach § 36 Verbraucherstreitbeilegungsgesetz",
+      "id": "ix-information-nach-36-verbraucherstreitbeilegungsgesetz"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH ist grundsätzlich nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "X. Schlussbestimmungen",
+      "id": "x-schlussbestimmungen"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Änderungen oder Ergänzungen des Vertrages oder dieser Allgemeinen Geschäftsbedingungen bedürfen zur ihrer Wirksamkeit der Schriftform. Ist ein Verbraucher Vertragspartei, genügt die Textform (§ 126b BGB) für die Wirksamkeit der Erklärungen des Verbrauchers."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Erfüllungs- und Zahlungsort ist der Sitz des Hotels."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ausschließlicher Gerichtsstand – auch für Scheck- und Wechselangelegenheiten – ist im kaufmännischen Verkehr der Sitz des Hotels. Sofern ein Kunde die Voraussetzungen des § 38 Abs. 2 ZPO erfüllt und keinen allgemeinen Gerichtsstand in der Bundesrepublik Deutschland hat, gilt als Gerichtsstand der Sitz des Hotels."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Es gilt ausschließlich das Recht der Bundesrepublik Deutschland. Die Geltung des UN-Kaufrechts (CISG) und des Kollisionsrechts ist ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sollten einzelne Bestimmungen dieser Allgemeinen Geschäftsbedingungen unwirksam oder nichtig sein, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Veranstaltungsbereich",
+      "id": "veranstaltungsbereich"
+    },
+    {
+      "type": "h3",
+      "text": "I. Geltungsbereich",
+      "id": "i-geltungsbereich-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Diese Allgemeinen Geschäftsbedingungen gelten für Verträge über die mietweise Überlassung von Konferenz-, Bankett- und Veranstaltungsräumen (nachfolgend „Räumlichkeiten“) sowie für alle damit verbundenen weiteren Leistungen und Lieferungen (nachfolgend „Leistungserbringung“) des Hotelbetriebs Pandox Berlin GmbH nachfolgend „Hotel“) und dem Kunden (nachfolgend „Kunde“; Hotel und Kunde werden nachfolgend zusammen auch als „Parteien“ bezeichnet)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Allgemeine Geschäftsbedingungen des Kunden finden nur Anwendung, wenn die Parteien dies vorher ausdrücklich schriftlich vereinbart haben."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "II. Vertragsschluss, -partner",
+      "id": "ii-vertragsschluss-partner-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Angebote des Hotels sind freibleibend. Der Vertrag kommt durch die Annahme des Antrags des Kunden durch das Hotel zustande. Das Hotel ist nicht verpflichtet, die Buchung schriftlich zu bestätigen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Hat ein Dritter für den Kunden bestellt, haftet er dem Hotel gegenüber zusammen mit dem Kunden als Gesamtschuldner für alle Verpflichtungen aus dem Veranstaltungsvertrag, sofern dem Hotel eine entsprechende Erklärung des Dritten vorliegt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "III. Untervermietung, Nutzungsart",
+      "id": "iii-untervermietung-nutzungsart-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Die Unter- oder Weitervermietung der überlassenen Räumlichkeiten, Flächen oder Vitrinen sowie die Einladung zu Vorstellungsgesprächen, Verkaufs- oder ähnlichen Veranstaltungen bedürfen der vorherigen Zustimmung des Hotels in Textform (§ 126b BGB). § 540 Abs. 1 S. 2 BGB findet im geschäftlichen Verkehr keine Anwendung. In jedem Fall ist der Veranstalter verpflichtet, im Vertrag bzw. in diesen Allgemeinen Geschäftsbedingungen enthaltene allgemeine Pflichten etwaigen Dritten aufzuerlegen, denen er die Räume überlässt, und diese Dritte auf im Rahmen eines Mietverhältnisses allgemein bestehende Sorgfaltspflichten, insbesondere zur schonenden Behandlung der Mietsache hinzuweisen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist verpflichtet, das Hotel unverzüglich und unaufgefordert, spätestens jedoch bei Vertragsschluss darüber aufzuklären, ob die Leistungserbringung und/oder die Veranstaltung, sei es aufgrund ihres politischen, religiösen oder sonstigen Charakters, geeignet ist, öffentliches Interesse hervorzurufen oder Belange des Hotels zu beeinträchtigen. Zeitungsanzeigen, sonstige Werbemaßnahmen oder Veröffentlichungen, die einen Bezug zum Hotel aufweisen und/oder die beispielsweise Einladungen zu Vorstellungsgesprächen bzw. Verkaufsveranstaltungen enthalten, bedürfen der schriftlichen Einwilligung des Hotels. Verletzt der Kunde diese Aufklärungspflicht oder erfolgt eine Veröffentlichung ohne eine solche Einwilligung des Hotels, hat das Hotel das Recht, die Veranstaltung abzusagen. In diesem Fall muss der Kunde den vereinbarten Preis für die Veranstaltung abzüglich der ersparten Aufwendungen des Hotels zahlen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Versammlungen oder Veranstaltungen mit rechtsextremen, rassistischen, antisemitischen oder gewaltverherrlichenden Inhalten sind im Hotel nicht gestattet. Ein Verstoß gegen dieses Verbot begründet für das Hotel das Recht, die Versammlung bzw. Veranstaltung abzusagen. Es gilt in diesem Fall III. 2. letzter Satz."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IV. Leistungen, Preise, Zahlung; Aufrechnung; Pfandrecht",
+      "id": "iv-leistungen-preise-zahlung-aufrechnung-pfandrecht-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Das Hotel ist verpflichtet, die vom Kunden gebuchten Räumlichkeiten bereitzuhalten und die vereinbarten Leistungen zu erbringen. Raumänderungen bleiben vorbehalten, soweit diese unter Berücksichtigung der Interessen des Hotels für den Vertragspartner zumutbar sind."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist verpflichtet, die für die Leistungserbringung geltenden bzw. vereinbarten Preise des Hotels zu zahlen. Dies gilt auch für vom Kunden veranlasste Leistungen und Auslagen des Hotels an Dritte, insbesondere auch für Forderungen von Urheberrechteverwertungsgesellschaften. Für Dienstleistungen nach 24 Uhr ist das Hotel berechtigt, für die Bereitstellung von Mitarbeitern im Veranstaltungs- bzw. Restaurantbereich angemessene Zuschläge pro angefangene Stunde zu veranschlagen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die vereinbarten Preise schließen die jeweils geltende gesetzliche Mehrwertsteuer sowie etwaige lokale Steuern oder Abgaben, z. B. Übernachtungssteuer, ein, sofern der Kunde die Räumlichkeiten und sonstigen Leistungen des Hotels zur privaten Lebensführung und persönlichen Bedarfsdeckung verwendet. Lokale Abgaben, die nach dem Kommunalrecht vom Gast persönlich geschuldet sind, z. B. Kurtaxe, sind in den vereinbarten Preisen nicht enthalten. Im Hinblick auf Verträge mit nichtprivaten Kunden behält sich das Hotel vor, Nettopreise anzugeben oder zu vereinbaren."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ist ein Mindestumsatz vereinbart worden und wird dieser nicht erreicht, kann das Hotel 60% des Differenzbetrages als entgangenen Gewinn verlangen, sofern nicht der Kunde einen niedrigeren oder das Hotel einen höheren Schaden nachweist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ist eine Tagungspauschale vereinbart, gilt diese pro Veranstaltungstag und Teilnehmer, sofern keine andere Vereinbarung getroffen wurde."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Überschreitet der Zeitraum zwischen Vertragsabschluss und Veranstaltung vier Monate und erhöht sich der von dem Hotel allgemein für derartige Leistungen berechnete Preis, so kann der vertraglich vereinbarte Preis angemessen, höchstens jedoch um 5% erhöht werden. Für jedes weitere Jahr zwischen Vertragsabschluss und Vertragserfüllung über die vier Monate hinaus erhöht sich die Obergrenze um weitere 5 %. Preisänderungen nach Nummer 3 bleiben dabei unberücksichtigt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Abrechnung erfolgt in der Währung EURO. Im Falle der Zahlung mit ausländischen Zahlungsmitteln gehen die Kursdifferenzen und Bankspesen zu Lasten des zur Zahlung Verpflichteten."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Preise können vom Hotel geändert werden, wenn der Kunde nachträglich Änderungen der Anzahl der gebuchten Räumlichkeiten, der Leistung des Hotels oder der Aufenthaltsdauer der Gäste wünscht und das Hotel dem zustimmt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Rechnungen des Hotels sind - sofern nichts anderes vereinbart ist - sofort ab Zugang der Rechnung ohne Abzug fällig und zahlbar. Eine Rechnung gilt spätestens 3 Tage nach Versendung als beim Kunden zugegangen, sofern kein früherer Zugang durch das Hotel oder späterer Zugang durch den Kunden nachgewiesen werden kann. Bei Zahlungsverzug ist das Hotel berechtigt, die jeweils geltenden gesetzlichen Verzugszinsen zu verlangen. Dem Hotel bleibt der Nachweis eines höheren Schadens, dem Kunden der Nachweis eines niedrigeren Schadens vorbehalten."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Für jede Mahnung nach Verzugseintritt hat der Kunde Mahnkosten in Höhe von € 5,- an das Hotel zu erstatten. Dem Kunden steht der Nachweis frei, dass dem Hotel keine oder wesentlich geringere Kosten für die Mahnung entstanden sind."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Veränderungen des Umsatzsteuersatzes führen nicht zu einer Veränderung der Preise. Ein Ausgleich der umsatzsteuerlichen Mehr- oder Minderbelastung der Parteien untereinander ist ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Das Hotel ist berechtigt, jederzeit angemessene Vorauszahlungen oder Sicherheitsleistung zu verlangen, zum Beispiel in Form einer Kreditkartengarantie."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde kann gegenüber Forderungen des Hotels nur mit unbestrittenen oder rechtskräftig festgestellten Forderungen aufrechnen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "An allen vom Kunden in das Hotel eingebrachten Gegenständen hat das Hotel für seine Forderungen ein Pfandrecht, § 704 BGB."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "V. Nichterscheinen / Rücktritt / Stornierung des Kunden",
+      "id": "v-nichterscheinen-ruecktritt-stornierung-des-kunden-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Ein Rücktritt des Kunden von dem mit dem Hotel geschlossenen Vertrag bedarf vorbehaltlich Nr. 5 der Zustimmung des Hotels in Textform (§ 126b BGB)."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Für gemietete Räumlichkeiten ist das vereinbarte Entgelt vorbehaltlich Nr. 5 auch dann zu zahlen, wenn die Zustimmung des Hotels gem. Nr. 1 nicht erfolgt, die Buchung vom Kunden storniert wird oder der Kunde nicht erscheint. Storniert der Kunde im Fall der Miete von Räumlichkeiten erst zwischen der 8. und 4. Woche vor dem Veranstaltungstermin ist das Hotel berechtigt, zusätzlich zum vereinbarten Preis 35 % des entgangenen Speisenumsatzes in Rechnung zu stellen, bei jedem späteren Rücktritt 70% des entgangenen Speisenumsatzes. Die Berechnung des Speisenumsatzes erfolgt nach der Formel „Menüpreis x Teilnehmerzahl“. War für das Menü noch kein Preis vereinbart, wird das preiswerteste 3-Gang-Menü des jeweils gültigen Veranstaltungsangebotes zu Grunde gelegt. Dem Kunden steht der Nachweis frei, dass dem Hotel kein oder ein wesentlich geringerer Schaden entstanden ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Wurde eine Tagungspauschale je Teilnehmer vereinbart, so ist das Hotel vorbehaltlich Nr. 5 berechtigt, bei einer Stornierung zwischen der 8. und 4. Woche vor dem Veranstaltungstermin 60 %, bei einem späteren Rücktritt 85 % nach der Formel „Tagungspauschale x vereinbarte Teilnehmeranzahl“ in Rechnung zu stellen. Dem Kunden steht der Nachweis frei, dass dem Hotel kein oder ein wesentlich geringerer Schaden entstanden ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sofern zwischen dem Hotel und dem Kunden ein Termin zum kostenfreien Rücktritt vom Vertrag schriftlich vereinbart wurde, kann der Kunde bis dahin vom Vertrag zurücktreten, ohne Zahlungs- oder Schadensersatzansprüche des Hotels auszulösen. Das Rücktrittsrecht des Kunden erlischt, wenn er nicht bis zum vereinbarten Termin sein Recht zum Rücktritt schriftlich gegenüber dem Hotel ausübt, sofern nicht ein Fall gemäß Nummer 5 vorliegt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Vorstehende Ziffern gelten nicht bei der Verletzung der Verpflichtung des Hotels zur Rücksichtnahme auf Rechte, Rechtsgüter und Interessen des Kunden, wenn diesem ein Festhalten am Vertrag nicht mehr zuzumuten ist oder ihm ein sonstiges gesetzliches oder vertragliches Rücktrittsrecht zusteht."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VI. Rücktritt des Hotels",
+      "id": "vi-ruecktritt-des-hotels-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Sofern ein kostenfreies Rücktrittsrecht des Kunden innerhalb einer bestimmten Frist schriftlich vereinbart wurde, ist das Hotel in diesem Zeitraum seinerseits berechtigt, vom Vertrag zurückzutreten, wenn Anfragen anderer Kunden nach den vertraglich gebuchten Veranstaltungsräumen vorliegen und der Kunde auf Rückfrage des Hotels auf sein Recht zum Rücktritt nicht verzichtet. Dies gilt entsprechend bei Einräumung einer Option, wenn andere Anfragen vorliegen und der Kunde auf Rückfrage des Hotels nicht zur festen Buchung bereit ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Falls und soweit mit dem Kunden die Leistung von Vorauszahlungen vereinbart ist und der Kunde diese auch innerhalb einer vom Hotel gesetzten angemessenen Nachfrist mit Ablehnungsandrohung nicht leistet, ist das Hotel berechtigt, vom Vertrag zurückzutreten."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ferner ist das Hotel berechtigt, aus sachlich gerechtfertigtem Grund vom Vertrag zurückzutreten, beispielsweise falls"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "    höhere Gewalt oder andere vom Hotel nicht zu vertretende Umstände die Erfüllung des Vertrages unmöglich machen (wie beispielsweise Stromausfall);"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    Veranstaltungen unter irreführender oder falscher Angabe wesentlicher Tatsachen, z. B. bezüglich der Person des Gastes oder des Zwecks gebucht werden;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    das Hotel bergründet Anlass zu der Annahme hat, dass die Inanspruchnahme der Hotelleistungen den reibungslosen Geschäftsbetrieb, die Sicherheit oder das Ansehen des Hotels in der Öffentlichkeit gefährden kann, ohne dass dies dem Herrschafts- bzw. Organisationsbereich des Hotels zuzurechnen ist;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    der Zweck bzw. der Anlass des Aufenthaltes gesetzeswidrig ist;"
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "    ein Verstoß gegen Ziff. III Nr. 1 vorliegt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "     4. Das Recht des Hotels Schadensersatz zu verlangen, wird durch den Rücktritt nicht berührt."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "     5. Bei berechtigtem Rücktritt des Hotels entsteht kein Anspruch des Kunden auf Schadensersatz."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VII. Teilnehmeranzahl; Abrechnung bei Veranstaltung",
+      "id": "vii-teilnehmeranzahl-abrechnung-bei-veranstaltung-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist verpflichtet, dem Hotel gegenüber bei Vertragsschluss die voraussichtliche Teilnehmeranzahl der geplanten Veranstaltung anzugeben. Eine Änderung der Teilnehmeranzahl um mehr als 5 %  muss dem Hotel spätestens zehn Werktage vor Veranstaltungsbeginn in Textform (§ 126b BGB) mitgeteilt werden; sie bedarf der schriftlichen Zustimmung des Hotels."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Bei der Berechnung von Leistungen, die das Hotel nach den Anzahl der gemeldeten Personen vornimmt (z. B. Speisen, Getränke, etc.) wird bei einer Erhöhung der gemeldeten und vertraglich vereinbarten Teilnehmeranzahl die tatsächliche Zahl der Personen berechnet."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Verschieben sich ohne vorherige schriftliche Zustimmung des Hotels die vereinbarte Anfangs- und/oder Schlusszeit der Veranstaltung, so kann das Hotel zusätzliche Kosten für die Leistungserbringung in Rechnung stellen, es sei denn, das Hotel hat die Verschiebung zu vertreten."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Bei Veranstaltungen, die über 23 Uhr hinausgehen, kann das Hotel von diesem Zeitpunkt an den Personalaufwand aufgrund eines Einzelnachweises abrechnen, soweit das vereinbarte Entgelt nicht bereits eine Zeitdauer von über 23 Uhr hinaus berücksichtigt. Ferner kann das Hotel aufgrund des Einzelnachweises weiterhin Fahrtkosten der Mitarbeiter berechnen, wenn diese nach Betriebsschluss der öffentlichen Verkehrsmittel den Heimweg antreten müssen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "VIII. Mitnahme von Speisen und Getränken zu Veranstaltungen",
+      "id": "viii-mitnahme-von-speisen-und-getraenken-zu-veranstaltungen-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Der Kunde darf Speisen und/oder Getränke zu den Veranstaltungen nicht mitbringen. Ausnahmen bedürfen einer Vereinbarung in Textform. In diesem Fall fällt ein zu vereinbarendes Entgelt an. Das Hotel haftet nicht für Schäden, die durch mitgebrachte Speise oder Getränke verursacht werden, es sei denn, dem Hotel fällt Vorsatz oder grobe Fahrlässigkeit zur Last."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Das Hotel übernimmt keine Haftung für Schäden verursacht durch Speisen oder Getränke, die nach einer Veranstaltung vom Kunden oder Dritten mitgenommen werden, es sei denn, dem Hotel fällt Vorsatz oder grobe Fahrlässigkeit zur Last."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "IX. Technische Einrichtungen und Anschlüsse für Veranstaltungen",
+      "id": "ix-technische-einrichtungen-und-anschluesse-fuer-veranstaltungen-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Soweit das Hotel für den Kunden auf dessen Veranlassung hin technische oder sonstige Einrichtung von Dritten beschafft, handelt es im Namen, in Vollmacht und auf Rechnung des Kunden. Der Kunde haftet für die pflegliche Behandlung und die ordnungsgemäße Rückgabe. Er stellt das Hotel von allen Ansprüchen Dritter aus der Beschaffung und Überlassung dieser Einrichtung frei."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Bei Installation von technischen Aufbauten und Anlagen kann das Hotel verlangen, dass diese vom TÜV oder einem vergleichbaren Prüfungsunternehmen abgenommen werden und dass der Kunde dem Hotel unverzüglich und unaufgefordert das technische Prüfzeugnis vorlegt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Verwendung von eigenen elektrischen Anlagen des Kunden unter Nutzung des Stromnetzes des Hotels bedarf der schriftlichen Einwilligung des Hotels; diese kann von der kostenpflichtigen Beistellung eines Hoteltechnikers abhängig gemacht werden. Der Kunde haftet für durch die Verwendung seiner Geräte auftretende Störungen oder Beschädigungen an den technischen Anlagen des Hotels, soweit das Hotel diese nicht zu vertreten hat. Treten Beschädigungen an Sachen Dritter oder gegenüber Dritten auf, so haftet hierfür allein der Kunde und der Kunde stellt das Hotel von allen Ansprüchen Dritter frei."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist mit Einwilligung des Hotels berechtigt, eigene Telefon-, Telefax- und Datenübertragungseinrichtungen zu benutzen; dafür kann das Hotel eine Anschlussgebühr verlangen. Bleiben durch den Anschluss eigener Anlagen des Kunden geeignete Anschlüsse des Hotels ungenutzt, kann das Hotel eine Ausfallvergütung verlangen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Störungen an vom Hotel zur Verfügung gestellten technischen oder sonstigen Einrichtungen wird das Hotel nach Möglichkeit sofort beseitigen. Zahlungen können nicht zurückbehalten oder gemindert werden, soweit das Hotel diese Störung nicht zu vertreten hat."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Soweit das Hotel Internet-Anschlüsse, Verbindungen und Netzwerke bereitstellt, stellt der Kunde das Hotel von etwaigen Ansprüchen Dritter frei, die aus einer rechtswidrigen Nutzung der Internetverbindung folgen. Das Hotel haftet ferner nicht für etwaige Sachschäden, die aufgrund der Nutzung des Internets oder der Netzwerke durch den Kunden entstehen. Die Regelung in X. Nr. 2 gilt entsprechend."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Der Kunde ist verpflichtet, im Fall der von ihm arrangierten Musikdarbietung die entsprechende Meldungen und Abrechnungen mit der GEMA vorzunehmen. Der Kunde stellt das Hotel insofern von allen etwaigen Ansprüchen von Verwertungsgesellschaften frei."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die für eine Veranstaltung notwendigen behördlichen Erlaubnisse hat sich der Kunde rechtzeitig und auf eigene Kosten zu beschaffen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "X. Haftung; Dekorationsmaterial; Ausstellungsgegenstände bei Veranstaltungen",
+      "id": "x-haftung-dekorationsmaterial-ausstellungsgegenstaende-bei-veranstaltungen-event"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Anlieferungen von Material für eine Veranstaltung sind dem Hotel 10 Werktage vor Anlieferung mitzuteilen, um eine Annahme und entsprechende Lagerung zu gewährleisten."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Mitgeführtes Dekorationsmaterial hat den brandschutztechnischen Anforderungen zu entsprechen. Das Hotel ist berechtigt, dafür einen behördlichen Nachweis zu verlangen. Erfolgt in diesem Falle die Vorlage eines behördlichen Nachweises nicht, ist das Hotel berechtigt, bereits eingebrachtes Material auf Kosten des Kunden zu entfernen. Wegen möglicher Beschädigungen sind die Aufstellung und das Anbringen von Gegenständen im Hotel vorher mit dem Hotel abzustimmen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die mitgeführten Ausstellungs- oder sonstige Gegenstände hat der Kunde nach Ende der Veranstaltung unverzüglich zu entfernen. Im Fall einer Verletzung dieser Pflicht, ist das Hotel berechtigt, die Entfernung und Lagerung zu Lasten des Kunden vorzunehmen oder für die Dauer des Verbleibs der Gegenstände eine angemessene Raummiete zu verlangen. Dem Kunden steht der Nachweis frei, dass der oben genannte Anspruch nicht oder nicht in der geforderten Höhe entstanden ist."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Verpackungsmaterial (Kartonagen, Kisten, Plastik, etc.), das vom Kunden angeliefert wird, muss vom Kunden nach der Veranstaltung selbst entsorgt oder wieder mitgenommen werden. Sollte der Kunde dem nicht nachkommen, kann das Hotel das Verpackungsmaterial auf Kosten des Kunden entsorgen bzw. entsorgen lassen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die vorstehenden Bestimmungen gelten auch für Gegenstände, die von Fremdfirmen gemietet und im Auftrag des Kunden in die Räume des Hotels gebracht worden sind."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XI. Haftung des Kunden für Schäden",
+      "id": "xi-haftung-des-kunden-fuer-schaeden-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Der Kunde haftet für alle Schäden am Gebäude oder Inventar des Hotels, die durch ihn, durch Veranstaltungsteilnehmer bzw. - besucher, Mitarbeiter oder sonstige Dritte verursacht werden."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Das Hotel kann vom Kunden die Stellung einer angemessenen Sicherheit (z.B. Versicherungen, Kautionen, Bürgschaften, etc.) verlangen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XII. Generelle Haftung des Hotels; Mängel; Verjährung",
+      "id": "xii-generelle-haftung-des-hotels-maengel-verjaehrung-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Die Haftung des Hotels für eigenes Verschulden und das Verschulden seiner Erfüllungsgehilfen ist – gleich aus welchem Rechtsgrund, allerdings vorbehaltlich Nr. 2 – auf Vorsatz und grobe Fahrlässigkeit beschränkt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Diese Haftungsbeschränkung gilt nicht für Ansprüche aus Produkthaftung, einer vom Hotel übernommenen Garantie und solche Ansprüche aufgrund einer Verletzung des Lebens, des Körpers oder der Gesundheit und einer Verletzung von sogenannten Kardinalspflichten, also solchen Pflichten, deren Einhaltung zur Erreichung des Vertragszwecks unabdingbar ist und auf deren Einhaltung der Kunde vertrauen kann. Im letzten Fall ist die Haftung jedoch auf den Ersatz der typischen, vorhersehbaren Durchschnittsschäden beschränkt."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sollten Störungen oder Mängel an den Leistungen des Hotels auftreten, wird das Hotel bei Kenntnis oder auf unverzügliche Rüge des Kunden bemüht sein, für Abhilfe zu sorgen. Der Kunde ist verpflichtet, das ihm Zumutbare beizutragen, um die Störung zu beheben und einen möglichen Schaden gering zu halten. Im Übrigen ist der Kunde verpflichtet, das Hotel rechtzeitig auf die Möglichkeit der Entstehung eines außergewöhnlich hohen Schadens hinzuweisen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Mitgeführte Gegenstände des Kunden befinden sich auf Gefahr des Kunden im Hotel. Das Hotel übernimmt für Verlust, Untergang oder Beschädigung keine Haftung außer bei Vorsatz oder grober Fahrlässigkeit."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die gesetzliche Haftung nach §§ 701 ff. BGB bleibt von Nr. 4 unberührt. Das Hotel haftet dem Kunden für eingebrachte Sachen nach den gesetzlichen Bestimmungen, also bis zum 100fachen des Zimmerpreises, höchstens 3,500,00 €, sowie für Geld, Wertpapiere und Kostbarkeiten bis zu 800,00 €. Geld, Wertpapiere und Kostbarkeiten können bis zu einem Höchstwert der für das Hotel vorgesehenen Versicherungssumme von 800,00 € im Zimmersafe aufbewahrt werden. Das Hotel empfiehlt dem Kunden, von dieser Möglichkeit Gebrauch zu machen. Die Haftungsansprüche erlöschen, wenn der Kunde nicht unverzüglich nach Erlangen der Kenntnis von Verlust, Untergang oder Beschädigung dem Hotel Anzeige macht, § 703 BGB."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Soweit dem Kunden ein Stellplatz in der Hotelgarage oder auf einem Hotelparkplatz – gleich ob unentgeltlich oder gegen Entgelt – zur Verfügung gestellt wird, kommt dadurch kein Verwahrungsvertrag im Sinne von §§ 688 ff. BGB zustande. Das Hotel haftet nicht für Abhandenkommen oder Beschädigungen des Fahrzeugs sowie von dessen Inhalt, außer bei Vorsatz oder grober Fahrlässigkeit."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Nachrichten, Post und Warensendungen für den Kunden werden mit Sorgfalt behandelt. Das Hotel übernimmt die Zustellung, Aufbewahrung und die Nachsendung nur auf Anfrage, Risiko und Kosten des Kunden. Schadensersatzansprüche, die nicht auf Vorsatz oder grober Fahrlässigkeit beruhen, sind ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Die Verjährung von Ansprüchen des Kunden richtet sich grundsätzlich nach den gesetzlichen Bestimmungen. In Abweichung von § 195 BGB beträgt die Verjährungsfrist für alle Ansprüche des Kunden ein Jahr. Abweichend von § 199 Abs. 3 Nr. 1 und Abs. 4 BGB verjähren Schadensersatzansprüche und andere Ansprüche ohne Rücksicht auf die Kenntnis oder grob fahrlässige Unkenntnis in fünf Jahren von ihrer Entstehung an. Vorstehende Ausnahmen gelten nicht für Schadensersatzansprüche wegen der Verletzung des Lebens, des Körpers, der Gesundheit oder Freiheit oder wenn dem Hotel Vorsatz oder grobe Fahrlässigkeit zur Last fällt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XIII. Fundsachen",
+      "id": "xiii-fundsachen-events"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Zurückgelassene Sachen werden nur auf Anfrage, Risiko und Kosten des Kunden nachgesandt. Das Hotel bewahrt zurückgelassene Gegenstände sechs Monate auf. Nach diesem Zeitpunkt erwirbt der Finder Eigentum an dem Gegenstand, wenn der Berechtigte weder bekannt geworden ist noch der Berechtigte sein Recht angemeldet hat."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XIV. Information nach § 36 Verbraucherstreitbeilegungsgesetz",
+      "id": "xiv-information-nach-36-verbraucherstreitbeilegungsgesetz-events"
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH ist grundsätzlich nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+        }
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "XV. Schlussbestimmungen",
+      "id": "xv-schlussbestimmungen-events"
+    },
+    {
+      "type": "ol",
+      "items": [
+        {
+          "spans": [
+            {
+              "text": "Änderungen oder Ergänzungen des Vertrages oder dieser Allgemeinen Geschäftsbedingungen bedürfen zur ihrer Wirksamkeit der Schriftform. Ist ein Verbraucher Vertragspartei, genügt die Textform (§ 126b BGB) für die Wirksamkeit der Erklärungen des Verbrauchers."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Erfüllungs- und Zahlungsort ist der Sitz des Hotels."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Ausschließlicher Gerichtsstand – auch für Scheck- und Wechselangelegenheiten – ist im kaufmännischen Verkehr der Sitz des Hotels. Sofern ein Kunde die Voraussetzungen des § 38 Abs. 2 ZPO erfüllt und keinen allgemeinen Gerichtsstand in der Bundesrepublik Deutschland hat, gilt als Gerichtsstand der Sitz des Hotels."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Es gilt ausschließlich das Recht der Bundesrepublik Deutschland. Die Geltung des UN-Kaufrechts (CISG) und des Kollisionsrechts ist ausgeschlossen."
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "text": "Sollten einzelne Bestimmungen dieser Allgemeinen Geschäftsbedingungen unwirksam oder nichtig sein, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

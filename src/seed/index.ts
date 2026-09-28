@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import type { Config } from '@/payload-types'
@@ -236,6 +237,12 @@ async function seed() {
   if (!(await isSeeded('faqs'))) {
     console.log('Seeding FAQs...')
     await upsertFaqs(payload)
+  }
+
+  if (!(await isSeeded('legal-documents'))) {
+    console.log('Seeding legal pages...')
+    const { upsertLegalDocuments } = await import('./legal')
+    await upsertLegalDocuments(payload)
   }
 
   const pageIds = new Map<string, number>()

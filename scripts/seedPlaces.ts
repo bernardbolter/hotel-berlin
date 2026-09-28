@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import '../src/seed/guard'
 import { getPayload } from 'payload'
 
 import type { Place } from '../src/payload-types'

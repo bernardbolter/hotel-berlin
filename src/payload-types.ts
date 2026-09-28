@@ -86,6 +86,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlace;
     places: Place;
     pages: Page;
+    'legal-documents': LegalDocument;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -116,6 +117,7 @@ export interface Config {
     'neighbourhood-places': NeighbourhoodPlacesSelect<false> | NeighbourhoodPlacesSelect<true>;
     places: PlacesSelect<false> | PlacesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    'legal-documents': LegalDocumentsSelect<false> | LegalDocumentsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -168,11 +170,17 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * CMS logins. Only admins can create users or change roles. Hotel staff accounts should be Editor.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  /**
+   * Admins manage users and the Hotel global. Editors manage collections and the other globals. Set hotel accounts to Editor.
+   */
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -594,6 +602,38 @@ export interface Venue {
         segment?: string | null;
         /**
          * Optional status note, e.g. "Kitchen closes 22:30"
+         */
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * One-off closures, holiday hours, or “on request” windows. Regular weekly hours stay in Opening hours.
+   */
+  specialHours?:
+    | {
+        /**
+         * First day this exception applies (Berlin calendar date).
+         */
+        validFrom: string;
+        /**
+         * Last day inclusive. Leave empty to apply on validFrom only.
+         */
+        validThrough?: string | null;
+        /**
+         * Closed = shut that day. Hours = replacement window. On request = no clock times.
+         */
+        kind: 'closed' | 'hours' | 'on-request';
+        /**
+         * e.g. 10:00 — only when kind is “Different hours”.
+         */
+        opens?: string | null;
+        /**
+         * e.g. 18:00 — only when kind is “Different hours”.
+         */
+        closes?: string | null;
+        /**
+         * Optional guest-facing line, e.g. “Feiertag” / “On request, 45 min notice”.
          */
         note?: string | null;
         id?: string | null;
@@ -1512,6 +1552,51 @@ export interface Place {
   createdAt: string;
 }
 /**
+ * Imprint, privacy, terms, cookies, and disclaimer. Switch locale (DE/EN) in the admin bar to edit each language. The slug maps to a fixed URL and should not be changed.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents".
+ */
+export interface LegalDocument {
+  id: number;
+  /**
+   * Locks this document to a site URL (e.g. imprint → /imprint, /de/impressum). Do not change after create.
+   */
+  slug: 'imprint' | 'privacy' | 'terms' | 'cookies' | 'disclaimer';
+  /**
+   * Page heading, e.g. “Privacy Policy” / “Datenschutzerklärung”.
+   */
+  title: string;
+  /**
+   * Optional date line shown under the heading, e.g. “24th April 2026”. Leave empty to hide.
+   */
+  updatedLabel?: string | null;
+  /**
+   * Optional intro under the heading (used on privacy). Not shown on Terms.
+   */
+  lede?: string | null;
+  /**
+   * Full legal text. Use headings (H2/H3), numbered or bullet lists, and links. Edit German and English separately with the locale switcher.
+   */
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -1610,6 +1695,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'legal-documents';
+        value: number | LegalDocument;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1658,6 +1747,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1877,6 +1967,17 @@ export interface VenuesSelect<T extends boolean = true> {
         closes?: T;
         isOpenEnded?: T;
         segment?: T;
+        note?: T;
+        id?: T;
+      };
+  specialHours?:
+    | T
+    | {
+        validFrom?: T;
+        validThrough?: T;
+        kind?: T;
+        opens?: T;
+        closes?: T;
         note?: T;
         id?: T;
       };
@@ -2289,6 +2390,19 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-documents_select".
+ */
+export interface LegalDocumentsSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  updatedLabel?: T;
+  lede?: T;
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -2328,6 +2442,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Hotel identity, address, and guest-stay facts (including WiFi). Admin only — editors cannot change this global.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel".
  */

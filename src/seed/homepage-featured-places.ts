@@ -5,6 +5,7 @@
  * Usage: pnpm exec tsx src/seed/homepage-featured-places.ts
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'

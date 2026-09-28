@@ -7,6 +7,7 @@ import { BookDirectStrip } from '@/components/layout/BookDirectStrip'
 import { FooterColumn } from '@/components/layout/FooterColumn'
 import { FooterContact } from '@/components/layout/FooterContact'
 import { Link } from '@/i18n/routing'
+import { footerBookingHref, isInternalBookCta, type BookingLocale } from '@/lib/booking'
 import { getFooterData } from '@/lib/payload/footer'
 import type { FooterBarLink } from '@/lib/payload/footerTypes'
 
@@ -43,11 +44,12 @@ type Props = {
 }
 
 export async function SiteFooter({ showBookDirectStrip = true }: Props = {}) {
-  const locale = (await getLocale()) as 'de' | 'en'
+  const locale = (await getLocale()) as BookingLocale
   const tc = await getTranslations('common')
   const t = await getTranslations('footer')
   const data = await getFooterData(locale)
   const year = new Date().getFullYear()
+  const bookCtaUrl = data.bookDirectStrip.ctaUrl
 
   return (
     <>
@@ -55,7 +57,8 @@ export async function SiteFooter({ showBookDirectStrip = true }: Props = {}) {
         <BookDirectStrip
           message={data.bookDirectStrip.message}
           ctaLabel={data.bookDirectStrip.ctaLabel}
-          ctaUrl={data.bookDirectStrip.ctaUrl}
+          ctaUrl={footerBookingHref(bookCtaUrl, locale)}
+          openPanel={isInternalBookCta(bookCtaUrl)}
         />
       ) : null}
 

@@ -5,6 +5,7 @@
  *   npm run seed:curated-tips
  */
 import 'dotenv/config'
+import './guard'
 import { getPayload } from 'payload'
 
 import { enrichNeighbourhoodPlace } from '../lib/geocode'

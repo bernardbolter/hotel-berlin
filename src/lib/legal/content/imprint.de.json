@@ -1,0 +1,62 @@
+{
+  "slug": "imprint",
+  "locale": "de",
+  "title": "Impressum",
+  "updated": null,
+  "blocks": [
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pandox Berlin GmbH\n\nc/o Hotel Berlin, Berlin\n\nLützowplatz 17\n\n10785 Berlin, Germany"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Phone: +49(30)2605-0\n\nFax: +49(30)2605-39-2716"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Geschäftsführer: Jan Henningsen, Karl Magnus Christian Melkersson und Anneli Elisabet Lindblom\n\nUst.Id.Nr.: DE 240700200\n\nSitz der Gesellschaft: Berlin\n\nRegistergericht: Amtsgericht Charlottenburg\n\nHandelsregistereintrag: HRB 96069"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Pflichtinformation nach der Verordnung (EU) Nr. 524/2013 des Europäischen Parlaments und Rats:"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "spans": [
+        {
+          "text": "Link zur Homepage der Stelle für die Online-Beilegung verbraucherrechtlicher Streitigkeiten der Europäischen Kommission: "
+        },
+        {
+          "text": "https://ec.europa.eu/consumers/odr/",
+          "href": "https://ec.europa.eu/consumers/odr/"
+        },
+        {
+          "text": " - weiterführende Informationen stehen Ihnen dort zur Verfügung. Für erste Fragen zu einer möglichen Streitschlichtung stehen wir Ihnen unter "
+        },
+        {
+          "text": "info@hotel-berlin.de",
+          "href": "mailto:info@hotel-berlin.de"
+        },
+        {
+          "text": " zur Verfügung."
+        }
+      ]
+    }
+  ]
+}

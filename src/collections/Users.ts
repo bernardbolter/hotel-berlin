@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { adminsOrSelf, isAdmin, isAdminField, isAdminUser, isStaff } from '@/access'
+import { isAdminUser, isStaffUser, adminsOrSelf, isAdmin, isAdminField } from '@/access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -12,7 +12,8 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    admin: isStaff,
+    // Payload's `admin` panel gate is boolean-only (not the full Access union).
+    admin: ({ req: { user } }) => isStaffUser(user),
     create: isAdmin,
     delete: isAdmin,
     read: adminsOrSelf,

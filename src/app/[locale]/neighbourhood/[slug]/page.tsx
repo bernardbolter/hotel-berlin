@@ -35,6 +35,7 @@ import {
   getRelatedPlacesBand,
 } from '@/lib/entity/relatedBand'
 import {
+  accentTextOnLight,
   categoryTokenForPersonType,
   resolveCategoryToken,
 } from '@/lib/spotlight/categoryTokens'
@@ -228,9 +229,9 @@ export default async function NeighbourhoodPlacePage({ params }: Props) {
       bandHeading = te('whereElseGoes', { name: relatedBand.endorser.firstName })
       bandHref = `/you-me-and-berlin/${relatedBand.endorser.slug}`
       bandCta = te('toProfile')
-      personTokenFill = resolveCategoryToken(
-        categoryTokenForPersonType(leadPerson?.type ?? 'local'),
-      ).fill
+      personTokenFill = accentTextOnLight(
+        resolveCategoryToken(categoryTokenForPersonType(leadPerson?.type ?? 'local')),
+      )
     } else if (relatedBand.source === 'district' && relatedBand.district) {
       bandHeading = te('moreInDistrict', { district: relatedBand.district })
       bandHref = '/neighbourhood'

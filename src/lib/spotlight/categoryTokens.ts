@@ -83,6 +83,15 @@ export function resolveCategoryToken(token: string): CategoryTokenStyle {
   return CATEGORY_TOKENS[key] ?? CATEGORY_TOKENS.other
 }
 
+/**
+ * Accent used as small type on a light ground (note labels, strip numbers).
+ * When `onFill` is Ink, the fill itself fails as text — use Ink (darker text).
+ * When `onFill` is White, the fill is AA on light — use the fill.
+ */
+export function accentTextOnLight(token: CategoryTokenStyle): string {
+  return token.onFill === INK ? INK : token.fill
+}
+
 const VENUE_TYPE_TOKEN: Record<string, CategoryToken> = {
   Restaurant: 'food',
   Bar: 'food',

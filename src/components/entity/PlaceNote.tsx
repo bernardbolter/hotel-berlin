@@ -3,9 +3,10 @@ import { Link } from '@/i18n/routing'
 import { safeMediaUrl } from '@/lib/entity/mediaUrl'
 import { mediaFileUrl } from '@/lib/map/toMapPlace'
 import { personInitials } from '@/lib/people/initials'
-import { pinColorForCategory } from '@/lib/neighbourhood/categories'
+import { pinChipStyleForCategory } from '@/lib/neighbourhood/categories'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 import {
+  accentTextOnLight,
   categoryTokenForPersonType,
   resolveCategoryToken,
 } from '@/lib/spotlight/categoryTokens'
@@ -57,11 +58,12 @@ export function PlaceNote({
   const personToken = lead
     ? resolveCategoryToken(categoryTokenForPersonType(lead.person.type))
     : null
-  const placeColor = pinColorForCategory(category)
+  const chipStyle = pinChipStyleForCategory(category)
   const hasQuote = Boolean(lead?.quote?.trim())
   const bigText = hasQuote ? lead!.quote!.trim() : walkSentence
 
   const portraitUrl = lead ? safeMediaUrl(mediaFileUrl(lead.person.portrait)) : null
+  const labelColor = personToken ? accentTextOnLight(personToken) : undefined
 
   return (
     <aside className="place-note">
@@ -90,10 +92,7 @@ export function PlaceNote({
         </Link>
       ) : null}
 
-      <p
-        className="place-note__label"
-        style={personToken ? { color: personToken.fill } : undefined}
-      >
+      <p className="place-note__label" style={labelColor ? { color: labelColor } : undefined}>
         {lead ? labels.recommends : labels.fromHotel}
       </p>
 
@@ -107,7 +106,16 @@ export function PlaceNote({
       ) : null}
 
       <div className="place-note__object">
-        <span className="place-note__chip" style={{ backgroundColor: placeColor }}>
+        <span
+          className="place-note__chip"
+          style={{
+            backgroundColor: chipStyle.backgroundColor,
+            color: chipStyle.color,
+            ...(chipStyle.borderColor
+              ? { border: `1.5px solid ${chipStyle.borderColor}` }
+              : null),
+          }}
+        >
           {categoryLabel}
         </span>
         <h1 className="place-note__title">{placeName}</h1>

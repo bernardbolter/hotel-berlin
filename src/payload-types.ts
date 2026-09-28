@@ -1132,6 +1132,9 @@ export interface NeighbourhoodPlace {
     latitude?: number | null;
     longitude?: number | null;
   };
+  /**
+   * Fallback only — live pages prefer Mapbox Directions via getTrip. Do not hand-maintain; leave blank for new places.
+   */
   walkingMinutes?: number | null;
   /**
    * Optional — render the transit row in PlaceInfoCard only when this is populated. Do not block launch on backfilling this for all places.

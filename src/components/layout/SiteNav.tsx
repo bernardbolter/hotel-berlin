@@ -124,7 +124,7 @@ export function SiteNav({ context = 'outside', hereLinks, bridge, todayIso }: Si
     }`
 
   const langSwitcherColors = {
-    label: 'text-[#9A9590]',
+    label: 'text-[#6B6762]',
     link: 'text-[#6B6762]',
     active: 'text-hbb-black',
     hover: primaryHover,

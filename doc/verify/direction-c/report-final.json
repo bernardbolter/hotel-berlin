@@ -1,0 +1,194 @@
+{
+  "base": "http://localhost:3000",
+  "shots": {
+    "place-normal": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/place-normal.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/place-normal.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/place-normal.png"
+    ],
+    "place-olympiastadion": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/place-olympiastadion.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/place-olympiastadion.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/place-olympiastadion.png"
+    ],
+    "person-katja": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/person-katja.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/person-katja.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/person-katja.png"
+    ],
+    "person-kristiane": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/person-kristiane.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/person-kristiane.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/person-kristiane.png"
+    ],
+    "person-one-pick": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/person-one-pick.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/person-one-pick.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/person-one-pick.png"
+    ],
+    "band-mixed": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/band-mixed.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/band-mixed.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/band-mixed.png"
+    ],
+    "band-district": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/band-district.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/band-district.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/band-district.png"
+    ],
+    "band-endorser": [
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1440/band-endorser.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/1024/band-endorser.png",
+      "/Users/bescohome/Desktop/hotel-berlin/web/hotel-berlin-de/doc/verify/direction-c/390/band-endorser.png"
+    ]
+  },
+  "bands": [
+    {
+      "slug": "anjoy",
+      "heading": "Mehr in der Nachbarschaft",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "bayerischer-platz",
+      "heading": "Mehr in der Nachbarschaft",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "einar-und-bert-bookshop",
+      "heading": "Mehr in Mitte",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "einsunternull",
+      "heading": "Wo Kristiane sonst hingeht",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "holocaust-memorial",
+      "heading": "Mehr in der Nachbarschaft",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "kaethe-kollwitz-museum",
+      "heading": "Mehr in der Nachbarschaft",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "koenig-galerie",
+      "heading": "Wo Kristiane sonst hingeht",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "lokal",
+      "heading": "Wo Kristiane sonst hingeht",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "nobelhart-und-schmutzig",
+      "heading": "Wo Kristiane sonst hingeht",
+      "stripCells": 3,
+      "bandCount": 1
+    },
+    {
+      "slug": "olympiastadion",
+      "heading": "Mehr in der Nachbarschaft",
+      "stripCells": 3,
+      "bandCount": 1
+    }
+  ],
+  "people": [
+    {
+      "slug": "christiane-fritsch-weith",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": false,
+      "also": false,
+      "walkStops": 1
+    },
+    {
+      "slug": "gita-kurdpoor",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": false,
+      "also": false,
+      "walkStops": 2
+    },
+    {
+      "slug": "iris-berndt",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": false,
+      "also": false,
+      "walkStops": 1
+    },
+    {
+      "slug": "jennifer-oeser",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": false,
+      "also": false,
+      "walkStops": 1
+    },
+    {
+      "slug": "katja-morkel",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": true,
+      "also": false,
+      "walkStops": 1
+    },
+    {
+      "slug": "kristiane-kegelmann",
+      "hasQuote": true,
+      "source": "borrowed",
+      "ring": false,
+      "also": false,
+      "walkStops": 4
+    }
+  ],
+  "mapbox": {
+    "withToken": {
+      "place": [],
+      "person": []
+    }
+  },
+  "axe": {
+    "de-place": {
+      "violations": 0,
+      "details": []
+    },
+    "de-person": {
+      "violations": 0,
+      "details": []
+    },
+    "en-place": {
+      "violations": 0,
+      "details": []
+    },
+    "en-person": {
+      "violations": 0,
+      "details": []
+    }
+  },
+  "fixtures": {
+    "origin": "dev database (SQL INSERT, not seed)",
+    "status": "removed"
+  },
+  "tsc": {
+    "errors": 0
+  },
+  "test_int": {
+    "files": 22,
+    "tests": 188,
+    "passed": true
+  },
+  "grep_static_MAPBOX_SERVER_TOKEN": 0
+}

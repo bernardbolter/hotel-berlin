@@ -11,7 +11,7 @@ type AppHref = ComponentProps<typeof Link>['href']
 
 function FooterLink({ label, href, showArrow, dividerBefore, external }: FooterLinkData) {
   const className = showArrow
-    ? 'font-ui text-ui-md text-hbb-footer-amber hover:text-hbb-footer-primary inline-flex min-h-10 items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-footer-amber'
+    ? 'font-ui text-ui-md text-hbb-footer-primary hover:text-hbb-footer-primary inline-flex min-h-10 items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-footer-amber'
     : 'font-ui text-ui-md text-hbb-footer-primary/90 hover:text-hbb-footer-primary inline-flex min-h-10 items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-footer-amber'
 
   const content = (
@@ -61,7 +61,7 @@ export type FooterColumnProps = {
 
 function ColumnHeading({ title, icon }: { title: string; icon?: string | null }) {
   return (
-    <p className="mb-3.5 hidden border-b border-hbb-footer-amber/35 pb-2 font-ui text-ui-sm font-semibold uppercase tracking-ui-label text-hbb-footer-amber lg:flex lg:items-center lg:gap-2">
+    <p className="mb-3.5 hidden border-b border-hbb-footer-amber/35 pb-2 font-ui text-ui-sm font-semibold uppercase tracking-ui-label text-hbb-footer-primary lg:flex lg:items-center lg:gap-2">
       <AmenityIcon iconName={icon} size={16} className="shrink-0 text-hbb-footer-amber" />
       <span>{title}</span>
     </p>
@@ -92,7 +92,7 @@ export function FooterColumn({ title, icon, links, ariaLabel }: FooterColumnProp
       <button
         ref={buttonRef}
         type="button"
-        className="flex w-full items-center justify-between border-b border-hbb-footer-amber/35 py-2.5 font-ui text-ui-sm font-semibold uppercase tracking-ui-label text-hbb-footer-amber lg:hidden"
+        className="flex w-full items-center justify-between border-b border-hbb-footer-amber/35 py-2.5 font-ui text-ui-sm font-semibold uppercase tracking-ui-label text-hbb-footer-primary lg:hidden"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((value) => !value)}

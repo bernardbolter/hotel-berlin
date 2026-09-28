@@ -31,7 +31,7 @@ export function BookDirectStrip({
   const external = /^https?:\/\//i.test(ctaUrl)
 
   return (
-    <div className="bg-white">
+    <aside className="bg-white" aria-label={message}>
       <div className="site-shell flex flex-col items-start justify-between gap-5 px-section-sm py-5 md:flex-row md:items-center md:gap-8 md:px-section-x md:py-6">
         <p className="font-ui text-ui-lg font-bold text-hbb-black md:text-ui-xl">{message}</p>
         <SweepCta
@@ -45,6 +45,6 @@ export function BookDirectStrip({
           {ctaLabel}
         </SweepCta>
       </div>
-    </div>
+    </aside>
   )
 }

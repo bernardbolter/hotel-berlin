@@ -1,7 +1,7 @@
 import { Link } from '@/i18n/routing'
 import { tripMetaLine } from '@/lib/entity/computed/formatTrip'
 import type { Trip } from '@/lib/entity/computed/types'
-import { pinColorForCategory } from '@/lib/neighbourhood/categories'
+import { pinChipStyleForCategory } from '@/lib/neighbourhood/categories'
 import type { RelatedBandSource, RelatedStripItem } from '@/lib/entity/relatedBand'
 
 type Props = {
@@ -31,12 +31,23 @@ export function PlaceRelatedStrip({ items, source, locale, personTokenFill }: Pr
                 {num}
               </span>
             ) : (
-              <span
-                className="place-c-strip__chip"
-                style={{ backgroundColor: pinColorForCategory(item.category) }}
-              >
-                {item.categoryLabel}
-              </span>
+              (() => {
+                const chip = pinChipStyleForCategory(item.category)
+                return (
+                  <span
+                    className="place-c-strip__chip"
+                    style={{
+                      backgroundColor: chip.backgroundColor,
+                      color: chip.color,
+                      ...(chip.borderColor
+                        ? { border: `1.5px solid ${chip.borderColor}` }
+                        : null),
+                    }}
+                  >
+                    {item.categoryLabel}
+                  </span>
+                )
+              })()
             )}
             <h3 className="place-c-strip__title">
               <Link

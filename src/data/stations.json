@@ -1,0 +1,1435 @@
+{
+  "_source": "Coordinates from OpenStreetMap Overpass (railway=station / public_transport=station, subway or light_rail) queried Sep 2026. Lines checked against BVG / S-Bahn Berlin network maps. Coverage: U-Bahn and S-Bahn stations inside or on the S-Bahn ring, plus any station within 1.5 km of an active neighbourhood place (incl. Olympiastadion / Westend).",
+  "stations": [
+    {
+      "name": "Alexanderplatz",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.41128,
+      "lat": 52.521566
+    },
+    {
+      "name": "Baumschulenweg",
+      "lines": [
+        "S45",
+        "S46",
+        "S47",
+        "S8",
+        "S85",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.489862,
+      "lat": 52.4674
+    },
+    {
+      "name": "Bellevue",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.34807,
+      "lat": 52.519985
+    },
+    {
+      "name": "Berlin Hauptbahnhof Tunnel (S-Bahn)",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.369585,
+      "lat": 52.526621
+    },
+    {
+      "name": "Betriebsbahnhof Rummelsburg",
+      "lines": [
+        "S3"
+      ],
+      "mode": "S",
+      "lng": 13.49773,
+      "lat": 52.493887
+    },
+    {
+      "name": "Beusselstraße",
+      "lines": [
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.329387,
+      "lat": 52.534408
+    },
+    {
+      "name": "Bornholmer Straße",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.397845,
+      "lat": 52.554771
+    },
+    {
+      "name": "Bundesplatz",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.329547,
+      "lat": 52.477658
+    },
+    {
+      "name": "Charlottenburg",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9",
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.304516,
+      "lat": 52.505048
+    },
+    {
+      "name": "Feuerbachstraße",
+      "lines": [
+        "S1"
+      ],
+      "mode": "S",
+      "lng": 13.332699,
+      "lat": 52.463673
+    },
+    {
+      "name": "Frankfurter Allee",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.475436,
+      "lat": 52.513623
+    },
+    {
+      "name": "Friedenau",
+      "lines": [
+        "S1"
+      ],
+      "mode": "S",
+      "lng": 13.3415,
+      "lat": 52.470716
+    },
+    {
+      "name": "Gesundbrunnen",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26",
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.390076,
+      "lat": 52.549175
+    },
+    {
+      "name": "Greifswalder Straße",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.438989,
+      "lat": 52.540246
+    },
+    {
+      "name": "Hackescher Markt",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.402342,
+      "lat": 52.522681
+    },
+    {
+      "name": "Halensee",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.290555,
+      "lat": 52.496025
+    },
+    {
+      "name": "Hauptbahnhof",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.369332,
+      "lat": 52.525195
+    },
+    {
+      "name": "Heidelberger Platz",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.311436,
+      "lat": 52.480295
+    },
+    {
+      "name": "Hermannstraße",
+      "lines": [
+        "S41",
+        "S42",
+        "S45",
+        "S46",
+        "S47"
+      ],
+      "mode": "S",
+      "lng": 13.431241,
+      "lat": 52.467634
+    },
+    {
+      "name": "Hohenzollerndamm",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.300242,
+      "lat": 52.488627
+    },
+    {
+      "name": "Humboldthain",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.379468,
+      "lat": 52.544952
+    },
+    {
+      "name": "Innsbrucker Platz",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.341541,
+      "lat": 52.478107
+    },
+    {
+      "name": "Jannowitzbrücke",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.419493,
+      "lat": 52.514215
+    },
+    {
+      "name": "Julius-Leber-Brücke",
+      "lines": [
+        "S1"
+      ],
+      "mode": "S",
+      "lng": 13.361168,
+      "lat": 52.486505
+    },
+    {
+      "name": "Jungfernheide",
+      "lines": [
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.299269,
+      "lat": 52.530403
+    },
+    {
+      "name": "Karlshorst",
+      "lines": [
+        "S3"
+      ],
+      "mode": "S",
+      "lng": 13.527279,
+      "lat": 52.480467
+    },
+    {
+      "name": "Köllnische Heide",
+      "lines": [
+        "S45",
+        "S46",
+        "S47"
+      ],
+      "mode": "S",
+      "lng": 13.467966,
+      "lat": 52.469646
+    },
+    {
+      "name": "Landsberger Allee",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.45478,
+      "lat": 52.529482
+    },
+    {
+      "name": "Neukölln",
+      "lines": [
+        "S41",
+        "S42",
+        "S45",
+        "S46",
+        "S47"
+      ],
+      "mode": "S",
+      "lng": 13.443757,
+      "lat": 52.469513
+    },
+    {
+      "name": "Nordbahnhof",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.387839,
+      "lat": 52.532275
+    },
+    {
+      "name": "Olympiastadion",
+      "lines": [
+        "S3",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.242828,
+      "lat": 52.511264
+    },
+    {
+      "name": "Oranienburger Straße",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.393014,
+      "lat": 52.525225
+    },
+    {
+      "name": "Ostbahnhof",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.435171,
+      "lat": 52.510745
+    },
+    {
+      "name": "Ostkreuz",
+      "lines": [
+        "S3",
+        "S41",
+        "S42",
+        "S5",
+        "S7",
+        "S8",
+        "S85",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.469578,
+      "lat": 52.503152
+    },
+    {
+      "name": "Pichelsberg",
+      "lines": [
+        "S3",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.22763,
+      "lat": 52.51015
+    },
+    {
+      "name": "Plänterwald",
+      "lines": [
+        "S8",
+        "S85",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.47324,
+      "lat": 52.478589
+    },
+    {
+      "name": "Potsdamer Platz",
+      "lines": [
+        "S1",
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.37664,
+      "lat": 52.509403
+    },
+    {
+      "name": "Prenzlauer Allee",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.42598,
+      "lat": 52.54479
+    },
+    {
+      "name": "Priesterweg",
+      "lines": [
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.356253,
+      "lat": 52.459923
+    },
+    {
+      "name": "Rummelsburg",
+      "lines": [
+        "S3"
+      ],
+      "mode": "S",
+      "lng": 13.478367,
+      "lat": 52.501288
+    },
+    {
+      "name": "Savignyplatz",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.319066,
+      "lat": 52.505175
+    },
+    {
+      "name": "Schöneberg",
+      "lines": [
+        "S1",
+        "S41",
+        "S42",
+        "S45",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.351918,
+      "lat": 52.479349
+    },
+    {
+      "name": "Schönhauser Allee",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.415596,
+      "lat": 52.549243
+    },
+    {
+      "name": "Sonnenallee",
+      "lines": [
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.45569,
+      "lat": 52.472981
+    },
+    {
+      "name": "Storkower Straße",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85"
+      ],
+      "mode": "S",
+      "lng": 13.464889,
+      "lat": 52.523743
+    },
+    {
+      "name": "Tempelhof",
+      "lines": [
+        "S41",
+        "S42",
+        "S45",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.384446,
+      "lat": 52.47097
+    },
+    {
+      "name": "Tiergarten",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.33645,
+      "lat": 52.514375
+    },
+    {
+      "name": "Treptower Park",
+      "lines": [
+        "S41",
+        "S42",
+        "S8",
+        "S85",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.46183,
+      "lat": 52.493849
+    },
+    {
+      "name": "Warschauer Straße",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.450121,
+      "lat": 52.506369
+    },
+    {
+      "name": "Wedding",
+      "lines": [
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.367,
+      "lat": 52.542787
+    },
+    {
+      "name": "Westend",
+      "lines": [
+        "S41",
+        "S42",
+        "S46"
+      ],
+      "mode": "S",
+      "lng": 13.28442,
+      "lat": 52.518014
+    },
+    {
+      "name": "Westhafen",
+      "lines": [
+        "S41",
+        "S42"
+      ],
+      "mode": "S",
+      "lng": 13.344415,
+      "lat": 52.536277
+    },
+    {
+      "name": "Westkreuz",
+      "lines": [
+        "S3",
+        "S41",
+        "S42",
+        "S46",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.283919,
+      "lat": 52.500792
+    },
+    {
+      "name": "Yorckstraße",
+      "lines": [
+        "S2",
+        "S25",
+        "S26"
+      ],
+      "mode": "S",
+      "lng": 13.372146,
+      "lat": 52.492068
+    },
+    {
+      "name": "Yorckstraße (Großgörschenstraße)",
+      "lines": [
+        "S1"
+      ],
+      "mode": "S",
+      "lng": 13.367859,
+      "lat": 52.492275
+    },
+    {
+      "name": "Zoologischer Garten",
+      "lines": [
+        "S3",
+        "S5",
+        "S7",
+        "S9"
+      ],
+      "mode": "S",
+      "lng": 13.331868,
+      "lat": 52.507138
+    },
+    {
+      "name": "Adenauerplatz",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.307323,
+      "lat": 52.500003
+    },
+    {
+      "name": "Afrikanische Straße",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.334618,
+      "lat": 52.560238
+    },
+    {
+      "name": "Alt-Tempelhof",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.38563,
+      "lat": 52.465522
+    },
+    {
+      "name": "Amrumer Straße",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.350155,
+      "lat": 52.542333
+    },
+    {
+      "name": "Anton-Wilhelm-Amo-Straße",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.385091,
+      "lat": 52.511792
+    },
+    {
+      "name": "Augsburger Straße",
+      "lines": [
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.336464,
+      "lat": 52.500442
+    },
+    {
+      "name": "Bayerischer Platz",
+      "lines": [
+        "U4",
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.340544,
+      "lat": 52.488576
+    },
+    {
+      "name": "Berliner Straße",
+      "lines": [
+        "U7",
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.33101,
+      "lat": 52.48733
+    },
+    {
+      "name": "Bernauer Straße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.396617,
+      "lat": 52.537438
+    },
+    {
+      "name": "Birkenstraße",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.341353,
+      "lat": 52.532382
+    },
+    {
+      "name": "Bismarckstraße",
+      "lines": [
+        "U2",
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.305239,
+      "lat": 52.511515
+    },
+    {
+      "name": "Blissestraße",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.320545,
+      "lat": 52.486489
+    },
+    {
+      "name": "Boddinstraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.425281,
+      "lat": 52.480168
+    },
+    {
+      "name": "Brandenburger Tor",
+      "lines": [
+        "U5"
+      ],
+      "mode": "U",
+      "lng": 13.38099,
+      "lat": 52.516605
+    },
+    {
+      "name": "Breitenbachplatz",
+      "lines": [
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.308871,
+      "lat": 52.467027
+    },
+    {
+      "name": "Bülowstraße",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.363221,
+      "lat": 52.497586
+    },
+    {
+      "name": "Deutsche Oper",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.310533,
+      "lat": 52.511837
+    },
+    {
+      "name": "Eberswalder Straße",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.412177,
+      "lat": 52.541515
+    },
+    {
+      "name": "Eisenacher Straße",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.350169,
+      "lat": 52.489553
+    },
+    {
+      "name": "Fehrbelliner Platz",
+      "lines": [
+        "U3",
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.314844,
+      "lat": 52.490299
+    },
+    {
+      "name": "Friedrich-Wilhelm-Platz",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.32873,
+      "lat": 52.472122
+    },
+    {
+      "name": "Gleisdreieck",
+      "lines": [
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.374032,
+      "lat": 52.499526
+    },
+    {
+      "name": "Gneisenaustraße",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.395825,
+      "lat": 52.49129
+    },
+    {
+      "name": "Güntzelstraße",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.331006,
+      "lat": 52.492084
+    },
+    {
+      "name": "Hallesches Tor",
+      "lines": [
+        "U1",
+        "U3",
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.39065,
+      "lat": 52.49776
+    },
+    {
+      "name": "Hansaplatz",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.342037,
+      "lat": 52.518008
+    },
+    {
+      "name": "Hausvogteiplatz",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.395591,
+      "lat": 52.51335
+    },
+    {
+      "name": "Hermannplatz",
+      "lines": [
+        "U7",
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.424553,
+      "lat": 52.486286
+    },
+    {
+      "name": "Hohenzollernplatz",
+      "lines": [
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.324755,
+      "lat": 52.494085
+    },
+    {
+      "name": "Jakob-Kaiser-Platz",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.293301,
+      "lat": 52.536279
+    },
+    {
+      "name": "Karl-Bonhoeffer-Nervenklinik",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.333503,
+      "lat": 52.578623
+    },
+    {
+      "name": "Kleistpark",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.36022,
+      "lat": 52.490367
+    },
+    {
+      "name": "Klosterstraße",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.412432,
+      "lat": 52.517235
+    },
+    {
+      "name": "Kochstraße/Checkpoint Charlie",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.390612,
+      "lat": 52.506045
+    },
+    {
+      "name": "Konstanzer Straße",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.309074,
+      "lat": 52.494532
+    },
+    {
+      "name": "Kottbusser Tor",
+      "lines": [
+        "U1",
+        "U3",
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.418311,
+      "lat": 52.498985
+    },
+    {
+      "name": "Kurfürstendamm",
+      "lines": [
+        "U1",
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.331437,
+      "lat": 52.503822
+    },
+    {
+      "name": "Kurfürstenstraße",
+      "lines": [
+        "U1",
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.361941,
+      "lat": 52.49996
+    },
+    {
+      "name": "Leinestraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.428354,
+      "lat": 52.472979
+    },
+    {
+      "name": "Leopoldplatz",
+      "lines": [
+        "U6",
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.359167,
+      "lat": 52.546383
+    },
+    {
+      "name": "Lichtenberg",
+      "lines": [
+        "U5"
+      ],
+      "mode": "U",
+      "lng": 13.498602,
+      "lat": 52.511115
+    },
+    {
+      "name": "Lindauer Allee",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.338425,
+      "lat": 52.575416
+    },
+    {
+      "name": "Mehringdamm",
+      "lines": [
+        "U6",
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.388617,
+      "lat": 52.494131
+    },
+    {
+      "name": "Mendelssohn-Bartholdy-Park",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.374861,
+      "lat": 52.503724
+    },
+    {
+      "name": "Moritzplatz",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.410748,
+      "lat": 52.503662
+    },
+    {
+      "name": "Märkisches Museum",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.410175,
+      "lat": 52.512335
+    },
+    {
+      "name": "Möckernbrücke",
+      "lines": [
+        "U1",
+        "U3",
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.383123,
+      "lat": 52.498693
+    },
+    {
+      "name": "Naturkundemuseum",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.38216,
+      "lat": 52.531272
+    },
+    {
+      "name": "Nollendorfplatz",
+      "lines": [
+        "U1",
+        "U2",
+        "U3",
+        "U4"
+      ],
+      "mode": "U",
+      "lng": 13.35373,
+      "lat": 52.499597
+    },
+    {
+      "name": "Olympia-Stadion",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.250448,
+      "lat": 52.516864
+    },
+    {
+      "name": "Oranienburger Tor",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.387358,
+      "lat": 52.5256
+    },
+    {
+      "name": "Osloer Straße",
+      "lines": [
+        "U8",
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.373271,
+      "lat": 52.55716
+    },
+    {
+      "name": "Pankstraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.381458,
+      "lat": 52.552262
+    },
+    {
+      "name": "Paradestraße",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.386256,
+      "lat": 52.478019
+    },
+    {
+      "name": "Platz der Luftbrücke",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.385951,
+      "lat": 52.486084
+    },
+    {
+      "name": "Prinzenstraße",
+      "lines": [
+        "U1",
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.40591,
+      "lat": 52.498397
+    },
+    {
+      "name": "Rathaus Neukölln",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.434179,
+      "lat": 52.481652
+    },
+    {
+      "name": "Rathaus Schöneberg",
+      "lines": [
+        "U4"
+      ],
+      "mode": "U",
+      "lng": 13.341972,
+      "lat": 52.483177
+    },
+    {
+      "name": "Residenzstraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.360474,
+      "lat": 52.57119
+    },
+    {
+      "name": "Richard-Wagner-Platz",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.306588,
+      "lat": 52.517387
+    },
+    {
+      "name": "Rosa-Luxemburg-Platz",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.410487,
+      "lat": 52.527695
+    },
+    {
+      "name": "Rosenthaler Platz",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.401121,
+      "lat": 52.5299
+    },
+    {
+      "name": "Ruhleben",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.241419,
+      "lat": 52.525674
+    },
+    {
+      "name": "Rüdesheimer Platz",
+      "lines": [
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.314415,
+      "lat": 52.473246
+    },
+    {
+      "name": "Samariterstraße",
+      "lines": [
+        "U5"
+      ],
+      "mode": "U",
+      "lng": 13.464441,
+      "lat": 52.51474
+    },
+    {
+      "name": "Schwartzkopffstraße",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.377318,
+      "lat": 52.535157
+    },
+    {
+      "name": "Schönleinstraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.422057,
+      "lat": 52.493055
+    },
+    {
+      "name": "Senefelderplatz",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.412686,
+      "lat": 52.53239
+    },
+    {
+      "name": "Sophie-Charlotte-Platz",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.296331,
+      "lat": 52.510914
+    },
+    {
+      "name": "Spichernstraße",
+      "lines": [
+        "U3",
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.331009,
+      "lat": 52.496445
+    },
+    {
+      "name": "Stadtmitte",
+      "lines": [
+        "U2",
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.389655,
+      "lat": 52.512081
+    },
+    {
+      "name": "Strausberger Platz",
+      "lines": [
+        "U5"
+      ],
+      "mode": "U",
+      "lng": 13.431526,
+      "lat": 52.518098
+    },
+    {
+      "name": "Südstern",
+      "lines": [
+        "U7"
+      ],
+      "mode": "U",
+      "lng": 13.407667,
+      "lat": 52.489298
+    },
+    {
+      "name": "Turmstraße",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.341297,
+      "lat": 52.526149
+    },
+    {
+      "name": "Uhlandstraße",
+      "lines": [
+        "U1"
+      ],
+      "mode": "U",
+      "lng": 13.326697,
+      "lat": 52.502812
+    },
+    {
+      "name": "Ullsteinstraße",
+      "lines": [
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.384466,
+      "lat": 52.453745
+    },
+    {
+      "name": "Unter den Linden",
+      "lines": [
+        "U5",
+        "U6"
+      ],
+      "mode": "U",
+      "lng": 13.38882,
+      "lat": 52.516988
+    },
+    {
+      "name": "Viktoria-Luise-Platz",
+      "lines": [
+        "U4"
+      ],
+      "mode": "U",
+      "lng": 13.343186,
+      "lat": 52.496175
+    },
+    {
+      "name": "Vinetastraße",
+      "lines": [
+        "U2"
+      ],
+      "mode": "U",
+      "lng": 13.413278,
+      "lat": 52.559325
+    },
+    {
+      "name": "Voltastraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.392876,
+      "lat": 52.54229
+    },
+    {
+      "name": "Walther-Schreiber-Platz",
+      "lines": [
+        "U9"
+      ],
+      "mode": "U",
+      "lng": 13.32826,
+      "lat": 52.465325
+    },
+    {
+      "name": "Weberwiese",
+      "lines": [
+        "U5"
+      ],
+      "mode": "U",
+      "lng": 13.444714,
+      "lat": 52.516747
+    },
+    {
+      "name": "Weinmeisterstraße",
+      "lines": [
+        "U8"
+      ],
+      "mode": "U",
+      "lng": 13.405019,
+      "lat": 52.525467
+    },
+    {
+      "name": "Wittenbergplatz",
+      "lines": [
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "mode": "U",
+      "lng": 13.343001,
+      "lat": 52.501798
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import { HOTEL_PIN_COLOR } from '@/lib/neighbourhood/categories'
 import { personInitials } from '@/lib/people/initials'
 
@@ -8,7 +10,10 @@ type Props = {
   portraitUrl?: string | null
   portraitAlt?: string
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'pin' | 'pinActive'
+  /** Avatar fill when showing initials (defaults to hotel ink). */
+  fill?: string
   className?: string
+  style?: CSSProperties
 }
 
 const SIZE: Record<NonNullable<Props['size']>, string> = {
@@ -30,7 +35,9 @@ export function InitialsAvatar({
   portraitUrl,
   portraitAlt = '',
   size = 'md',
+  fill,
   className = '',
+  style,
 }: Props) {
   const letters = (initials ?? personInitials(name)).slice(0, 2)
   const sizeClass = SIZE[size]
@@ -43,6 +50,7 @@ export function InitialsAvatar({
         src={portraitUrl}
         alt={portraitAlt || name}
         className={`shrink-0 rounded-full object-cover ${sizeClass} ${className}`}
+        style={style}
       />
     )
   }
@@ -50,7 +58,7 @@ export function InitialsAvatar({
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center rounded-full font-ui font-medium text-white ${sizeClass} ${className}`}
-      style={{ backgroundColor: HOTEL_PIN_COLOR }}
+      style={{ backgroundColor: fill ?? HOTEL_PIN_COLOR, ...style }}
       aria-hidden="true"
     >
       {letters}

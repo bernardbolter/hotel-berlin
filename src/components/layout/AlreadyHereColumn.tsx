@@ -36,7 +36,7 @@ export function AlreadyHereColumn({
         {title}
       </p>
       {description ? (
-        <p className="mb-3.5 font-ui text-ui-md leading-relaxed text-hbb-footer-primary/70">{description}</p>
+        <p className="mb-3.5 font-ui text-ui-md leading-relaxed text-hbb-footer-primary/85">{description}</p>
       ) : null}
       <ul role="list" aria-label={linksAriaLabel} className="flex flex-col">
         {links.map((link) => {

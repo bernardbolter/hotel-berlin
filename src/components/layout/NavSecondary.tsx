@@ -43,8 +43,8 @@ export function NavSecondary({
 
   const isBar = layout === 'bar'
   const textSize = isBar ? 'text-[12px] min-[1100px]:text-[14px]' : 'text-[15px]'
-  const accent = isInside ? 'text-hbb-teal' : 'text-hbb-amber-text'
-  const underline = isInside ? 'after:bg-hbb-teal' : 'after:bg-hbb-amber-text'
+  const accent = isInside ? 'text-hbb-teal' : 'text-hbb-amber-deep'
+  const underline = isInside ? 'after:bg-hbb-teal' : 'after:bg-hbb-amber-deep'
 
   const secondaryNavLinkClass = (href: string) => {
     const current = isCurrent(href)
@@ -63,11 +63,12 @@ export function NavSecondary({
 
   const pipeClass = isInside
     ? `select-none px-2 font-ui font-medium text-hbb-teal/40 ${textSize}`
-    : `select-none px-2 font-ui font-medium text-hbb-amber-text/40 ${textSize}`
+    : `select-none px-2 font-ui font-medium text-hbb-amber-deep/40 ${textSize}`
 
   const row2Vars = {
     '--ctx-accent': isInside ? '#2C6B7A' : '#B87A2E',
-    '--ctx-accent-text': isInside ? '#2C6B7A' : '#9A6420',
+    /* Grey nav strip (#F3F3F3): amber-text fails 4.48:1 — use amber-deep (token map). */
+    '--ctx-accent-text': isInside ? '#2C6B7A' : '#8A5818',
   } as CSSProperties
 
   const renderLink = (link: SecondaryNavLink) => {

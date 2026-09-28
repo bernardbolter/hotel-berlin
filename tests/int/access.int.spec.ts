@@ -56,12 +56,23 @@ describe('staff roles', () => {
     expect(roleField && 'defaultValue' in roleField ? roleField.defaultValue : undefined).toBe(
       'editor',
     )
-    expect(Users.access.admin?.(args(editor))).toBe(true)
-    expect(Users.access.admin?.(args(admin))).toBe(true)
-    expect(Users.access.admin?.(args(null))).toBe(false)
-    expect(Users.admin?.hidden?.({ user: editor } as never)).toBe(true)
-    expect(Users.admin?.hidden?.({ user: admin } as never)).toBe(false)
-    expect(Hotel.admin?.hidden?.({ user: editor } as never)).toBe(true)
-    expect(Hotel.admin?.hidden?.({ user: admin } as never)).toBe(false)
+    const access = Users.access
+    expect(access).toBeDefined()
+    expect(typeof access?.admin).toBe('function')
+    expect(access!.admin!(args(editor))).toBe(true)
+    expect(access!.admin!(args(admin))).toBe(true)
+    expect(access!.admin!(args(null))).toBe(false)
+
+    const callHidden = (hidden: unknown, user: unknown): boolean => {
+      if (typeof hidden === 'function') {
+        return Boolean((hidden as (args: { user: unknown }) => unknown)({ user }))
+      }
+      return Boolean(hidden)
+    }
+
+    expect(callHidden(Users.admin?.hidden, editor)).toBe(true)
+    expect(callHidden(Users.admin?.hidden, admin)).toBe(false)
+    expect(callHidden(Hotel.admin?.hidden, editor)).toBe(true)
+    expect(callHidden(Hotel.admin?.hidden, admin)).toBe(false)
   })
 })

@@ -4,33 +4,49 @@ import { getTranslations } from 'next-intl/server'
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { BorrowedRow } from '@/components/entity/BorrowedRow'
 import { EntityBand } from '@/components/entity/EntityBand'
-import { EntityFacts } from '@/components/entity/EntityFacts'
-import { EntityIdentity } from '@/components/entity/EntityIdentity'
+import { PersonHero } from '@/components/entity/PersonHero'
+import {
+  PersonWalk,
+  type AlsoRecommendView,
+  type WalkStopView,
+} from '@/components/entity/PersonWalk'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
-import { PlacesMapView } from '@/components/map/PlacesMapView'
 import { VideoEmbed } from '@/components/media/VideoEmbed'
 import { PersonCard } from '@/components/neighbourhood/PersonCard'
 import { EditorialBand } from '@/components/primitives/EditorialBand'
+import { LineCta } from '@/components/primitives/LineCta'
 import { RichTextParagraphs } from '@/components/primitives/RichTextParagraphs'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { Link } from '@/i18n/routing'
 import { getResolvedPerson } from '@/lib/aeo/resolve'
 import { buildPersonPageGraph, defaultConfig } from '@/lib/aeo-schema/src/index'
 import { entityMetadata, resolveLocale } from '@/lib/entity/canonical'
+import { getTrip, orderPicks } from '@/lib/entity/computed'
+import type { LngLat, TripPick } from '@/lib/entity/computed/types'
+import { DEFAULT_HOTEL_COORDS } from '@/lib/map/config'
 import { safeMediaUrl } from '@/lib/entity/mediaUrl'
-import { getMapSettings } from '@/lib/map/settings'
-import { mapPlaceLabels, mediaFileAlt, mediaFileUrl, toMapViewPlace } from '@/lib/map/toMapPlace'
-import { districtFromPostalCode } from '@/lib/places/district'
+import { mediaFileAlt, mediaFileUrl } from '@/lib/map/toMapPlace'
+import {
+  firstName,
+  personWalkHeading,
+  resolveHeroQuote,
+} from '@/lib/entity/personHero'
+import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 import { getPeopleSharingTags } from '@/lib/payload/borrow'
 import { getPublishedPersonSlugs } from '@/lib/payload/entities'
 import { lexicalToParagraphs } from '@/lib/richText/lexicalToPlain'
-import { categoryTokenForPersonType } from '@/lib/spotlight/categoryTokens'
-import type { NeighbourhoodPlaceDoc } from '@/lib/queries/neighbourhoodPlaces'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>
+}
+
+const WALK_MAX = 5
+
+type PickWithGeo = TripPick & {
+  place: NeighbourhoodPlace
+  point: LngLat
 }
 
 export async function generateStaticParams() {
@@ -58,17 +74,37 @@ export async function generateMetadata({ params }: Props) {
   })
 }
 
+function hostOnly(url: string): string {
+  try {
+    return new URL(url).host.replace(/^www\./, '')
+  } catch {
+    return url.replace(/^https?:\/\//, '').replace(/^www\./, '')
+  }
+}
+
+function igHandle(url: string): string {
+  return url.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@').replace(/\/$/, '')
+}
+
+function quoteForPerson(
+  place: NeighbourhoodPlace,
+  personId: string | number,
+): string | null {
+  const entry = place.endorsements?.find((e) => {
+    const id = typeof e.person === 'object' ? e.person?.id : e.person
+    return id === personId
+  })
+  return entry?.quote?.trim() || null
+}
+
 export default async function PersonPage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
   const t = await getTranslations('youMeBerlin')
   const tPlaces = await getTranslations('neighbourhood')
   const te = await getTranslations('entity')
-  const [resolved, mapSettings] = await Promise.all([
-    getResolvedPerson(slug, locale),
-    getMapSettings(),
-  ])
 
+  const resolved = await getResolvedPerson(slug, locale)
   if (!resolved) notFound()
 
   const { payload: person, aeo, picks } = resolved
@@ -78,7 +114,6 @@ export default async function PersonPage({ params }: Props) {
   const portraitAlt = mediaFileAlt(person.portrait, person.name)
   const bioParagraphs = lexicalToParagraphs(person.bio)
   const hasBio = bioParagraphs.length > 0
-  const quote = person.quote?.trim()
   const videoUrl = person.video?.trim()
   const room =
     person.roomConfirmed && person.roomNumber?.trim()
@@ -90,33 +125,95 @@ export default async function PersonPage({ params }: Props) {
       typeof doc === 'object' && doc != null && doc.status === 'active',
   )
 
-  const labelFn = {
-    category: (category: string) => tPlaces(`categories.${category}`),
-    walking: (minutes: number) => tPlaces('walkingMinutes', { minutes }),
-    transit: (args: { minutes: number; line: string; station: string }) =>
-      tPlaces('transitLine', args),
+  const editorIndexBySlug = new Map(
+    payloadPicks.map((place, i) => [place.slug, i + 1]),
+  )
+
+  const heroQuote = resolveHeroQuote(person.quote, person.id, payloadPicks)
+
+  const withGeo: PickWithGeo[] = []
+  const withoutGeo: NeighbourhoodPlace[] = []
+
+  for (const place of payloadPicks) {
+    const lat = place.geo?.latitude
+    const lng = place.geo?.longitude
+    if (lat == null || lng == null) {
+      withoutGeo.push(place)
+      continue
+    }
+    withGeo.push({
+      id: place.id,
+      editorIndex: editorIndexBySlug.get(place.slug) ?? withGeo.length + 1,
+      point: { lat: Number(lat), lng: Number(lng) },
+      place,
+    })
   }
 
-  const mapPlaces = payloadPicks
-    .map((doc) =>
-      toMapViewPlace(
-        doc as unknown as NeighbourhoodPlaceDoc,
-        mapPlaceLabels(doc as unknown as NeighbourhoodPlaceDoc, labelFn),
-        { leadPersonSlug: typeof person.slug === 'string' ? person.slug : null },
-      ),
-    )
-    .filter((p): p is NonNullable<typeof p> => p != null)
+  const hotel = {
+    lng: DEFAULT_HOTEL_COORDS.lng,
+    lat: DEFAULT_HOTEL_COORDS.lat,
+  }
+
+  const ordered =
+    withGeo.length > 0 ? await orderPicks(withGeo, { hotel }) : null
+
+  const walkPicks = ordered?.stops.slice(0, WALK_MAX) ?? []
+  const overflowPicks = ordered?.stops.slice(WALK_MAX) ?? []
+
+  const walkStops: WalkStopView[] = walkPicks.map(({ pick, leg }) => ({
+    slug: pick.place.slug,
+    name: pick.place.name,
+    category: pick.place.category as PlaceCategory,
+    categoryLabel: tPlaces(`categories.${pick.place.category}`),
+    editorIndex: pick.editorIndex,
+    quote: quoteForPerson(pick.place, person.id),
+    leg,
+    lng: pick.point.lng,
+    lat: pick.point.lat,
+  }))
+
+  const also: AlsoRecommendView[] = []
+
+  for (const { pick } of overflowPicks) {
+    const trip = await getTrip(hotel, pick.point, {
+      storedMinutes: pick.place.walkingMinutes,
+    })
+    also.push({
+      slug: pick.place.slug,
+      name: pick.place.name,
+      category: pick.place.category as PlaceCategory,
+      categoryLabel: tPlaces(`categories.${pick.place.category}`),
+      editorIndex: pick.editorIndex,
+      trip,
+    })
+  }
+
+  for (const place of withoutGeo) {
+    also.push({
+      slug: place.slug,
+      name: place.name,
+      category: place.category as PlaceCategory,
+      categoryLabel: tPlaces(`categories.${place.category}`),
+      editorIndex: editorIndexBySlug.get(place.slug) ?? 0,
+      trip: null,
+    })
+  }
+
+  const showWalk = walkStops.length > 0 && ordered?.returnLeg != null
+  const showAlsoOnly = !showWalk && also.length > 0
 
   const similar = await getPeopleSharingTags(person.id, locale)
 
-  const meta = [
-    { chip: person.jobTitle || person.type, token: categoryTokenForPersonType(person.type) },
-    person.basedIn,
-    room,
-  ].filter((item): item is NonNullable<typeof item> => Boolean(item))
-
   const website = person.website?.trim()
   const instagram = person.instagram?.trim()
+  const extraLinks = !hasBio
+    ? [
+        website ? { href: website, label: hostOnly(website) } : null,
+        instagram ? { href: instagram, label: igHandle(instagram) } : null,
+      ].filter((l): l is { href: string; label: string } => l != null)
+    : undefined
+
+  const vorname = firstName(person.name)
 
   return (
     <>
@@ -124,91 +221,70 @@ export default async function PersonPage({ params }: Props) {
       <SiteNavWithData context="outside" />
       <main id="main-content" className="bg-hbb-page pb-section-y">
         <div className="pt-section-y">
-          <EntityIdentity
-            breadcrumb={{ label: t('label'), href: '/you-me-berlin' }}
-            title={person.name}
-            meta={meta}
-            lead={!portraitUrl ? quote : undefined}
-            portrait={portraitUrl ? { src: portraitUrl, alt: portraitAlt } : null}
-            fallback="quote"
-          />
+          <nav
+            className="person-c-crumb px-section-sm md:px-section-x"
+            aria-label="Breadcrumb"
+          >
+            <Link href="/you-me-berlin">{t('label')}</Link>
+            <span className="person-c-crumb__sep" aria-hidden="true">
+              /
+            </span>
+            <span>{person.name}</span>
+          </nav>
         </div>
 
-        {mapSettings.accessToken && mapPlaces.length > 0 ? (
-          <section className="mt-12" aria-labelledby="picks-map-heading">
-            <h2 id="picks-map-heading" className="sr-only">
-              {t('mapAria')}
-            </h2>
-            <PlacesMapView
-              accessToken={mapSettings.accessToken}
-              bounds={mapSettings.bounds}
-              center={mapSettings.center}
-              places={mapPlaces}
-              hotelName={mapSettings.hotelName}
-              ariaLabel={t('mapAria')}
-              noscriptHtml={t.raw('mapNoscript') as string}
-              pinVariant="person"
-              cardEmphasis="person"
-              compact
-              autoSelectFirst
+        <div
+          className={`person-c-top px-section-sm md:px-section-x ${showWalk || showAlsoOnly ? '' : 'person-c-top--solo'}`}
+        >
+          <PersonHero
+            name={person.name}
+            personType={person.type}
+            jobTitle={person.jobTitle}
+            basedIn={person.basedIn}
+            roomLine={room}
+            placesCount={payloadPicks.length}
+            placesLabel={t('placesCount', { count: payloadPicks.length })}
+            heroQuote={heroQuote}
+            portraitUrl={portraitUrl}
+            portraitAlt={portraitAlt}
+            personSlug={person.slug}
+            mapCta={`${t('onBigMap')} →`}
+            onPlaceLabel={t('onPlace')}
+            extraLinks={extraLinks}
+          />
+
+          {showWalk && ordered?.returnLeg ? (
+            <PersonWalk
+              locale={locale}
+              heading={personWalkHeading(person.name, locale)}
+              subLine={t('walkOrderNote')}
+              hotelName={t('hotelName')}
+              startLabel={t('walkStart')}
+              stops={walkStops}
+              returnLeg={ordered.returnLeg}
+              also={also}
+              alsoHeading={t('alsoRecommends', { name: vorname })}
             />
-          </section>
-        ) : null}
+          ) : showAlsoOnly ? (
+            <PersonWalk
+              locale={locale}
+              heading={personWalkHeading(person.name, locale)}
+              subLine={t('walkOrderNote')}
+              hotelName={t('hotelName')}
+              startLabel={t('walkStart')}
+              stops={[]}
+              returnLeg={null}
+              also={also}
+              alsoHeading={t('alsoRecommends', { name: vorname })}
+            />
+          ) : null}
+        </div>
 
-        {payloadPicks.length > 0 ? (
-          <EntityBand heading={t('picksHeading', { name: person.name })} className="mt-12" id="picks">
-            <ol className="entity-picks">
-              {payloadPicks.map((place) => {
-                const endorsement = place.endorsements?.find((entry) => {
-                  const id = typeof entry.person === 'object' ? entry.person?.id : entry.person
-                  return id === person.id
-                })
-                const district = districtFromPostalCode(place.address?.postalCode)
-                const walking =
-                  place.walkingMinutes != null
-                    ? tPlaces('walkingMinutes', { minutes: place.walkingMinutes })
-                    : null
-                const line = [
-                  tPlaces(`categories.${place.category}`),
-                  district,
-                  walking,
-                ]
-                  .filter(Boolean)
-                  .join(' · ')
-
-                return (
-                  <li key={place.slug}>
-                    <div>
-                      <h3 className="font-ui text-ui-md font-medium text-hbb-black">
-                        <Link
-                          href={{ pathname: '/neighbourhood/[slug]', params: { slug: place.slug } }}
-                          className="hover:text-[var(--ctx-accent-text)]"
-                        >
-                          {place.name}
-                        </Link>
-                      </h3>
-                      <p className="mt-1 font-ui text-ui-xs text-[var(--dim)]">{line}</p>
-                      {endorsement?.quote ? (
-                        <blockquote className="mt-3 max-w-[62ch] font-serif text-serif-sm italic text-gray-700">
-                          <p>{endorsement.quote}</p>
-                          <cite className="mt-1 block not-italic font-ui text-ui-xs text-[var(--dim)]">
-                            {person.name}
-                          </cite>
-                        </blockquote>
-                      ) : null}
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
-          </EntityBand>
-        ) : null}
-
-        {portraitUrl && hasBio ? (
+        {hasBio ? (
           <div className="mt-16 px-section-sm md:px-section-x">
             <EditorialBand
               ratio="1:2"
-              image={{ src: portraitUrl, alt: portraitAlt }}
+              image={portraitUrl ? { src: portraitUrl, alt: portraitAlt } : null}
               heading={te('letterHeading')}
               id="letter"
             >
@@ -217,40 +293,31 @@ export default async function PersonPage({ params }: Props) {
                 className="mt-4 max-w-prose"
                 paragraphClassName="font-serif text-[clamp(0.95rem,1.05vw,1.05rem)] leading-[1.65] text-[#3a3a3a]"
               />
+              {(website || instagram) && (
+                <div className="mt-6 flex flex-wrap gap-4">
+                  {website ? (
+                    <LineCta href={website} external className="text-ui-sm">
+                      {hostOnly(website)}
+                    </LineCta>
+                  ) : null}
+                  {instagram ? (
+                    <LineCta href={instagram} external className="text-ui-sm">
+                      {igHandle(instagram)}
+                    </LineCta>
+                  ) : null}
+                </div>
+              )}
             </EditorialBand>
           </div>
         ) : null}
 
-        <EntityBand className="mt-12">
-          <EntityFacts
-            rows={[
-              website
-                ? {
-                    term: te('website'),
-                    value: (
-                      <a href={website} className="underline-offset-2 hover:underline" rel="noopener noreferrer">
-                        {website.replace(/^https?:\/\//, '')}
-                      </a>
-                    ),
-                  }
-                : null,
-              instagram
-                ? {
-                    term: te('instagram'),
-                    value: (
-                      <a href={instagram} className="underline-offset-2 hover:underline" rel="noopener noreferrer">
-                        {instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@')}
-                      </a>
-                    ),
-                  }
-                : null,
-            ]}
-          />
-        </EntityBand>
-
         {videoUrl ? (
           <div className="mt-10 px-section-sm md:px-section-x">
-            <VideoEmbed url={videoUrl} title={t('videoTitle', { name: person.name })} className="max-w-2xl" />
+            <VideoEmbed
+              url={videoUrl}
+              title={t('videoTitle', { name: person.name })}
+              className="max-w-2xl"
+            />
           </div>
         ) : null}
 
@@ -275,9 +342,12 @@ export default async function PersonPage({ params }: Props) {
         ) : null}
 
         <div className="px-section-sm pt-16 md:px-section-x">
-          <SweepCta href="/you-me-berlin" color="ctx">
-            {t('backToList')}
-          </SweepCta>
+          <div className="place-c-onward">
+            <p className="place-c-onward__line">{t('bridgeIntro')}</p>
+            <SweepCta href="/you-me-berlin" color="ctx" edge="right">
+              {t('backToList')}
+            </SweepCta>
+          </div>
         </div>
       </main>
       <SiteFooter />

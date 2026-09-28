@@ -113,7 +113,15 @@ export const NeighbourhoodPlaces: CollectionConfig = {
         { name: 'longitude', type: 'number' },
       ],
     },
-    { name: 'walkingMinutes', type: 'number' },
+    {
+      name: 'walkingMinutes',
+      type: 'number',
+      admin: {
+        description:
+          'Fallback only — live pages prefer Mapbox Directions via getTrip. Do not hand-maintain; leave blank for new places.',
+        // Kept in schema for geocode / Directions-down fallback. Not an editor task.
+      },
+    },
     {
       name: 'transit',
       type: 'group',

@@ -118,7 +118,7 @@ export async function SiteFooter({ showBookDirectStrip = true }: Props = {}) {
         {data.partnerLinks.length > 0 ? (
           <div className="bg-hbb-footer-bg-medium">
             <div className="site-shell flex flex-wrap items-center gap-x-3 gap-y-2 px-section-sm py-3 md:px-section-x">
-              <span className="font-ui text-ui-sm uppercase tracking-ui-label text-hbb-footer-primary/70">
+              <span className="font-ui text-ui-sm uppercase tracking-ui-label text-hbb-footer-primary">
                 {t('partOf')}
               </span>
               {data.partnerLinks.map((partner, index) => (

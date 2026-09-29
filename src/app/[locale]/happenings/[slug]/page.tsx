@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { BorrowedRow } from '@/components/entity/BorrowedRow'
@@ -34,6 +34,9 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** Slugs not in generateStaticParams → framework 404. */
+export const dynamicParams = true
+
 export async function generateStaticParams() {
   try {
     const slugs = await getEventSlugs()
@@ -46,8 +49,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
+  setRequestLocale(locale)
   const event = await getEventBySlug(slug, locale)
-  if (!event) return { title: 'Not found' }
+  if (!event) notFound()
 
   return entityMetadata({
     locale,
@@ -61,12 +65,14 @@ export async function generateMetadata({ params }: Props) {
 export default async function HappeningDetailPage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
-  const t = await getTranslations('happenings')
-  const te = await getTranslations('entity')
-  const now = getBerlinNow()
+  setRequestLocale(locale)
   const event = await getEventBySlug(slug, locale)
 
   if (!event) notFound()
+
+  const t = await getTranslations({ locale, namespace: 'happenings' })
+  const te = await getTranslations({ locale, namespace: 'entity' })
+  const now = getBerlinNow()
 
   const graph = buildEventPageGraph(toAeoEvent(event), defaultConfig)
   const venue = typeof event.venue === 'object' && event.venue ? event.venue : null
@@ -91,7 +97,7 @@ export default async function HappeningDetailPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="outside" />
+      <SiteNavWithData context="outside" locale={locale} />
       <main id="main-content" className="bg-hbb-page pb-section-y">
         <div className="pt-section-y">
           <EntityIdentity
@@ -202,7 +208,7 @@ export default async function HappeningDetailPage({ params }: Props) {
           </SweepCta>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   )
 }

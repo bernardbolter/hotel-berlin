@@ -2,6 +2,7 @@ import * as migration_20260921_090837_baseline from './20260921_090837_baseline'
 import * as migration_20260921_105545_add_user_role from './20260921_105545_add_user_role';
 import * as migration_20260921_110650_add_legal_documents from './20260921_110650_add_legal_documents';
 import * as migration_20260921_111010_add_venue_special_hours from './20260921_111010_add_venue_special_hours';
+import * as migration_20260928_134900_add_media_image_sizes from './20260928_134900_add_media_image_sizes';
 
 export const migrations = [
   {
@@ -22,6 +23,11 @@ export const migrations = [
   {
     up: migration_20260921_111010_add_venue_special_hours.up,
     down: migration_20260921_111010_add_venue_special_hours.down,
-    name: '20260921_111010_add_venue_special_hours'
+    name: '20260921_111010_add_venue_special_hours',
+  },
+  {
+    up: migration_20260928_134900_add_media_image_sizes.up,
+    down: migration_20260928_134900_add_media_image_sizes.down,
+    name: '20260928_134900_add_media_image_sizes'
   },
 ];

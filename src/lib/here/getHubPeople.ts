@@ -80,7 +80,7 @@ export async function getHubPeople(
   const rotated = rotateByDay(people, dateKey).slice(0, 4)
 
   return rotated.map((person) => {
-    const src = mediaUrl(person.portrait)
+    const src = mediaUrl(person.portrait, 'portrait')
     return {
       role: person.jobTitle?.trim() || copy.roleFallback,
       room: person.roomConfirmed && person.roomNumber?.trim()

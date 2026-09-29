@@ -15,7 +15,7 @@ function isPopulated<T extends object>(value: number | T | null | undefined): va
 function firstImage(doc: Artwork): ArtImage | null {
   const row = doc.images?.[0]
   if (!row || !isPopulated<Media>(row.image)) return null
-  const src = mediaUrl(row.image)
+  const src = mediaUrl(row.image, 'card')
   if (!src) return null
   return {
     src,
@@ -99,7 +99,7 @@ export async function getCurrentArtExhibition(
   if (!exhibition) return null
 
   const until = formatUntil(exhibition.endDate, loc)
-  const src = mediaUrl(exhibition.heroImage) || mediaUrl(fkkb.heroImage)
+  const src = mediaUrl(exhibition.heroImage, 'card') || mediaUrl(fkkb.heroImage, 'card')
   const image: ArtImage | null = src
     ? {
         src,
@@ -154,7 +154,7 @@ export function exhibitionFromDoc(
   nowChip: string,
 ): ArtExhibitionTile {
   const until = formatUntil(exhibition.endDate, locale)
-  const src = mediaUrl(exhibition.heroImage)
+  const src = mediaUrl(exhibition.heroImage, 'card')
   return {
     slug: exhibition.slug,
     title: exhibition.title,

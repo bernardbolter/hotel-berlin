@@ -103,13 +103,13 @@ function venueLabelFromName(name: string | null | undefined): string {
 }
 
 function venueImage(venue: Venue, fallbackAlt: string): SpotlightCardProps['image'] | null {
-  const fromHero = mediaUrl(venue.heroImage)
+  const fromHero = mediaUrl(venue.heroImage, 'card')
   if (fromHero) {
     return { src: fromHero, alt: mediaAlt(venue.heroImage, fallbackAlt) }
   }
   const first = venue.images?.[0]
   if (first) {
-    const src = mediaUrl(first.image)
+    const src = mediaUrl(first.image, 'card')
     if (src) return { src, alt: first.alt || fallbackAlt }
   }
   return null
@@ -223,7 +223,7 @@ export async function resolveEventSpotlight(
     )
   if (!occ) return null
 
-  const imageFromEvent = mediaUrl(event.heroImage)
+  const imageFromEvent = mediaUrl(event.heroImage, 'card')
   const image = imageFromEvent
     ? { src: imageFromEvent, alt: mediaAlt(event.heroImage, event.name || event.slug) }
     : venue
@@ -277,7 +277,7 @@ export async function resolveEventSpotlight(
 export function resolvePersonSpotlight(person: Person): SpotlightCardProps | null {
   const token = categoryTokenForPersonType(person.type)
   const tokenStyle = resolveCategoryToken(token)
-  const portraitSrc = mediaUrl(person.portrait)
+  const portraitSrc = mediaUrl(person.portrait, 'portrait')
   if (!portraitSrc) return null
 
   const room = person.roomNumber?.trim()
@@ -319,7 +319,7 @@ export function buildVenueSpotlightFromParts(args: {
 
   if (args.exhibition) {
     const ex = args.exhibition
-    const exImage = mediaUrl(ex.heroImage)
+    const exImage = mediaUrl(ex.heroImage, 'card')
     const image = exImage
       ? { src: exImage, alt: mediaAlt(ex.heroImage, ex.title) }
       : venueImage(venue, venue.name)

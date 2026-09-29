@@ -2,10 +2,19 @@ import type { HeroSlide as HeroSlideDoc, Homepage, Hotel, Media } from '@/payloa
 import type { Where } from 'payload'
 
 import { heroSlides as fallbackHeroSlides, type HeroSlide } from '@/components/home/heroSlides'
+import { mediaSizedUrl, mediaUrl as originalMediaUrl } from '@/lib/media/url'
 import { getPayloadClient } from '@/lib/payload/client'
 
+function heroMediaUrl(image: number | Media | null | undefined): string | null {
+  return mediaSizedUrl(image, 'hero')
+}
+
+function cardMediaUrl(image: number | Media | null | undefined): string | null {
+  return mediaSizedUrl(image, 'card')
+}
+
 function mediaUrl(image: number | Media | null | undefined): string | null {
-  return typeof image === 'object' && image && 'url' in image && image.url ? image.url : null
+  return originalMediaUrl(image)
 }
 
 function venueCaption(venue: HeroSlideDoc['venue']): string | null {
@@ -22,7 +31,7 @@ function mapCollectionSlide(
   enDoc: HeroSlideDoc,
   deDoc: HeroSlideDoc | undefined,
 ): HeroSlide | null {
-  const src = mediaUrl(enDoc.image)
+  const src = heroMediaUrl(enDoc.image)
   if (!src) return null
 
   const captionEN = enDoc.captionOverride?.trim() || venueCaption(enDoc.venue) || ''
@@ -48,7 +57,7 @@ function mapHomepageSlides(enPage: Homepage, dePage: Homepage): HeroSlide[] {
 
   return enSlides
     .map((slide, index) => {
-      const src = mediaUrl(slide.image)
+      const src = heroMediaUrl(slide.image)
       if (!src) return null
 
       const deSlide = deSlides[index]
@@ -280,7 +289,7 @@ export async function getMeetAndWork(locale: 'de' | 'en'): Promise<MeetAndWorkCo
     const slides =
       block?.slides
         ?.map((slide, index) => {
-          const src = mediaUrl(slide.image)
+          const src = cardMediaUrl(slide.image)
           if (!src) return null
           return {
             id: slide.id ?? `slide-${index}`,
@@ -354,7 +363,7 @@ export async function getEatAndDrink(locale: 'de' | 'en'): Promise<EatAndDrinkCo
     })) as Hotel
 
     const block = hotel.eatAndDrink
-    const cmsSrc = mediaUrl(block?.image)
+    const cmsSrc = cardMediaUrl(block?.image)
     // CMS media can 404 on HEAD / miss files — prefer public fallback when unset
     const src = cmsSrc || defaults.image.src
 

@@ -21,6 +21,7 @@ import { mapPlaceLabels, personFromEndorsement, toMapViewPlace } from '@/lib/map
 import { getNeighbourhoodPlaces } from '@/lib/queries/neighbourhoodPlaces'
 import { getPeople, getPeopleFilterTags } from '@/lib/queries/people'
 import type { Media, Person, Tag } from '@/payload-types'
+import { mediaSizedUrl } from '@/lib/media/url'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -32,7 +33,7 @@ function first(value: string | string[] | undefined): string | undefined {
 }
 
 function mediaUrl(image: number | Media | null | undefined): string | null {
-  return typeof image === 'object' && image && 'url' in image && image.url ? image.url : null
+  return mediaSizedUrl(image, 'portrait')
 }
 
 function mediaAlt(image: number | Media | null | undefined): string {

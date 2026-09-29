@@ -55,7 +55,7 @@ function photoFromMedia(
   image: number | Media | null | undefined,
   fallbackAlt: string,
 ): AmenityCardImage | null {
-  const src = mediaUrl(image)
+  const src = mediaUrl(image, 'card')
   if (!src || typeof image !== 'object' || !image) return null
   return {
     src,

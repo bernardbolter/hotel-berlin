@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { EntityBand } from '@/components/entity/EntityBand'
@@ -45,6 +45,9 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** Slugs not in generateStaticParams (unknown / inactive) → framework 404. */
+export const dynamicParams = true
+
 export async function generateStaticParams() {
   try {
     const slugs = await getPlaceSlugs()
@@ -57,8 +60,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
+  setRequestLocale(locale)
   const resolved = await getResolvedPlace(slug, locale)
-  if (!resolved) return { title: 'Not found' }
+  if (!resolved) notFound()
 
   return entityMetadata({
     locale,
@@ -104,11 +108,13 @@ function hostOnly(url: string): string {
 export default async function NeighbourhoodPlacePage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
-  const t = await getTranslations('neighbourhood')
-  const te = await getTranslations('entity')
+  setRequestLocale(locale)
 
   const resolved = await getResolvedPlace(slug, locale)
   if (!resolved) notFound()
+
+  const t = await getTranslations({ locale, namespace: 'neighbourhood' })
+  const te = await getTranslations({ locale, namespace: 'entity' })
 
   const { payload: place, aeo, district } = resolved
   const graph = buildPlacePageGraph(aeo, defaultConfig)
@@ -187,7 +193,7 @@ export default async function NeighbourhoodPlacePage({ params }: Props) {
   const address = formatAddress(place)
   const website = place.website?.trim()
   const indoor = indoorLabel(place.indoorOutdoor, t)
-  const imageUrl = safeMediaUrl(mediaFileUrl(place.image))
+  const imageUrl = safeMediaUrl(mediaFileUrl(place.image, 'card'))
   const imageAlt = mediaFileAlt(place.image, place.name)
 
   const walkSentence = (() => {
@@ -248,7 +254,7 @@ export default async function NeighbourhoodPlacePage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="outside" />
+      <SiteNavWithData context="outside" locale={locale} />
       <main id="main-content" className="place-c-page bg-hbb-page pb-section-y">
         <div className="pt-section-y">
           <nav className="place-c-crumb px-section-sm md:px-section-x" aria-label="Breadcrumb">
@@ -410,7 +416,7 @@ export default async function NeighbourhoodPlacePage({ params }: Props) {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   )
 }

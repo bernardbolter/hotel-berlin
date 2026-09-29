@@ -1,15 +1,25 @@
 import type { Media } from '@/payload-types'
+import {
+  mediaAlt as resolveMediaAlt,
+  mediaSizedUrl,
+  mediaUrl as originalMediaUrl,
+  type MediaImageSize,
+} from '@/lib/media/url'
 
-export function mediaUrl(image: number | Media | null | undefined): string | null {
-  return typeof image === 'object' && image && 'url' in image && image.url ? image.url : null
+export type { MediaImageSize }
+
+/** Prefer a named size when provided; otherwise the original. */
+export function mediaUrl(
+  image: number | Media | null | undefined,
+  size?: MediaImageSize,
+): string | null {
+  if (size) return mediaSizedUrl(image, size)
+  return originalMediaUrl(image)
 }
 
 export function mediaAlt(
   image: number | Media | null | undefined,
   fallback = '',
 ): string {
-  if (typeof image === 'object' && image && 'alt' in image) {
-    return image.alt || fallback
-  }
-  return fallback
+  return resolveMediaAlt(image, fallback)
 }

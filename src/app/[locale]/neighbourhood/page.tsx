@@ -250,7 +250,7 @@ export default async function NeighbourhoodPage({ params, searchParams }: Props)
                           : undefined
                       }
                       description={place.description}
-                      imageUrl={mediaFileUrl(place.image)}
+                      imageUrl={mediaFileUrl(place.image, 'card')}
                       imageAlt={mediaFileAlt(place.image)}
                       endorsements={endorsements}
                     />

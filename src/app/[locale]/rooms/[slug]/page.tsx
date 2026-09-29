@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { SiteFooter } from '@/components/layout/SiteFooter'
@@ -30,6 +30,9 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** Slugs not in generateStaticParams → framework 404. */
+export const dynamicParams = true
+
 export async function generateStaticParams() {
   try {
     const slugs = await getRoomSlugs()
@@ -41,24 +44,29 @@ export async function generateStaticParams() {
 
 function resolveSocialImage(room: NonNullable<Awaited<ReturnType<typeof getRoomBySlug>>>) {
   const social = room.socialImage
-  if (social && typeof social === 'object' && social.url) {
-    return {
-      url: social.url.startsWith('http')
-        ? social.url
-        : `https://hotel-berlin.de${social.url}`,
-      alt: social.alt ?? room.name,
+  if (social && typeof social === 'object') {
+    const url =
+      (social.sizes?.og?.url && social.sizes.og.url) ||
+      social.url ||
+      null
+    if (url) {
+      return {
+        url: url.startsWith('http') ? url : `https://hotel-berlin.de${url}`,
+        alt: social.alt ?? room.name,
+      }
     }
   }
 
   const first = room.images?.[0]
   if (!first) return null
   const media = first.image
-  if (!media || typeof media === 'number' || !media.url) return null
+  if (!media || typeof media === 'number') return null
+  const url =
+    (media.sizes?.og?.url && media.sizes.og.url) || media.url || null
+  if (!url) return null
 
   return {
-    url: media.url.startsWith('http')
-      ? media.url
-      : `https://hotel-berlin.de${media.url}`,
+    url: url.startsWith('http') ? url : `https://hotel-berlin.de${url}`,
     alt: first.alt || media.alt || room.name,
   }
 }
@@ -66,8 +74,9 @@ function resolveSocialImage(room: NonNullable<Awaited<ReturnType<typeof getRoomB
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
+  setRequestLocale(locale)
   const room = await getRoomBySlug(slug, locale)
-  if (!room) return { title: 'Not found' }
+  if (!room) notFound()
 
   const path = roomCanonicalPath(locale, slug)
   const socialImage = resolveSocialImage(room)
@@ -100,10 +109,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RoomDetailPage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
-  const t = await getTranslations('rooms')
+  setRequestLocale(locale)
   const room = await getRoomBySlug(slug, locale)
 
   if (!room) notFound()
+
+  const t = await getTranslations({ locale, namespace: 'rooms' })
 
   const hero = roomHeroFields(room, locale, t('from'))
   const amenities = roomAmenities(room)
@@ -119,7 +130,7 @@ export default async function RoomDetailPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="outside" />
+      <SiteNavWithData context="outside" locale={locale} />
       <main id="main-content" className="bg-hbb-page">
         <div className="mx-auto max-w-5xl px-section-sm pt-section-y md:px-section-x">
           <nav
@@ -236,7 +247,7 @@ export default async function RoomDetailPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   )
 }

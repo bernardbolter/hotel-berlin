@@ -62,7 +62,7 @@ export function PlaceNote({
   const hasQuote = Boolean(lead?.quote?.trim())
   const bigText = hasQuote ? lead!.quote!.trim() : walkSentence
 
-  const portraitUrl = lead ? safeMediaUrl(mediaFileUrl(lead.person.portrait)) : null
+  const portraitUrl = lead ? safeMediaUrl(mediaFileUrl(lead.person.portrait, 'portrait')) : null
   const labelColor = personToken ? accentTextOnLight(personToken) : undefined
 
   return (
@@ -131,7 +131,7 @@ export function PlaceNote({
           <ul className="place-note__also-list">
             {shownOthers.map((entry) => {
               const token = resolveCategoryToken(categoryTokenForPersonType(entry.person.type))
-              const url = safeMediaUrl(mediaFileUrl(entry.person.portrait))
+              const url = safeMediaUrl(mediaFileUrl(entry.person.portrait, 'portrait'))
               return (
                 <li key={entry.person.slug} className="place-note__also-row">
                   <InitialsAvatar

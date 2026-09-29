@@ -41,12 +41,17 @@ function FooterBarAnchor({
 type Props = {
   /** When false, hide the book-direct bar above the footer (e.g. meetings pages with their own inquiry CTA). */
   showBookDirectStrip?: boolean
+  /**
+   * Pass explicitly on generateStaticParams / dynamicParams slug routes so
+   * this component never calls getLocale() → headers().
+   */
+  locale?: BookingLocale
 }
 
-export async function SiteFooter({ showBookDirectStrip = true }: Props = {}) {
-  const locale = (await getLocale()) as BookingLocale
-  const tc = await getTranslations('common')
-  const t = await getTranslations('footer')
+export async function SiteFooter({ showBookDirectStrip = true, locale: localeProp }: Props = {}) {
+  const locale = localeProp ?? ((await getLocale()) as BookingLocale)
+  const tc = await getTranslations({ locale, namespace: 'common' })
+  const t = await getTranslations({ locale, namespace: 'footer' })
   const data = await getFooterData(locale)
   const year = new Date().getFullYear()
   const bookCtaUrl = data.bookDirectStrip.ctaUrl

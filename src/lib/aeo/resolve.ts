@@ -19,7 +19,7 @@ export type ResolvedPerson = {
 /**
  * Place detail resolver. depth: 2 is required so endorsements[].person is a
  * full Person object — getting this wrong silently drops reviewer data from
- * the JSON-LD graph.
+ * the JSON-LD graph. Inactive / unknown slugs return null → 404.
  */
 export async function getResolvedPlace(
   slug: string,
@@ -47,9 +47,8 @@ export async function getResolvedPlace(
 }
 
 /**
- * Person detail resolver. Includes draft records (with noindex at the page
- * layer) so the preview pipe can be smoke-tested. depth: 2 + picks join so
- * reverse-join places carry endorsement quotes.
+ * Person detail resolver. Draft and unknown slugs return null → 404.
+ * depth: 2 + picks join so reverse-join places carry endorsement quotes.
  */
 export async function getResolvedPerson(
   slug: string,
@@ -59,7 +58,9 @@ export async function getResolvedPerson(
   const result = await payload.find({
     collection: 'people',
     locale: locale as 'de' | 'en',
-    where: { slug: { equals: slug } },
+    where: {
+      and: [{ slug: { equals: slug } }, { status: { equals: 'published' } }],
+    },
     depth: 2,
     limit: 1,
     joins: {
@@ -95,14 +96,15 @@ export async function getAllPlacesForSchema(locale: string): Promise<AeoPlace[]>
 }
 
 /**
- * Full people set for listing JSON-LD. Includes drafts so the v1 seed batch
- * is represented in the graph during preview — pages themselves noindex drafts.
+ * Full people set for listing JSON-LD. Published only — drafts stay out of
+ * the public graph during content entry.
  */
 export async function getAllPeopleForSchema(locale: string): Promise<AeoPerson[]> {
   const payload = await getPayloadClient()
   const result = await payload.find({
     collection: 'people',
     locale: locale as 'de' | 'en',
+    where: { status: { equals: 'published' } },
     depth: 0,
     sort: 'name',
     limit: 500,

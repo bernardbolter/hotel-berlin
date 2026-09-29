@@ -75,8 +75,8 @@ export async function getArtWallData(
   const until = formatUntil(exhibition?.endDate, loc)
   const exhibitionWhere = until ? copy.nowUntil(until) : copy.nowChip
   const exhibitionTitle = exhibition?.title || 'Magwie × CokyOne'
-  const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage) : null
-  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage) : null
+  const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage, 'card') : null
+  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage, 'card') : null
 
   const tiles: ArtWallTile[] = [
     {

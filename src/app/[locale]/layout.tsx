@@ -1,6 +1,6 @@
 import { Archivo } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, getTranslations } from 'next-intl/server'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import React from 'react'
@@ -36,8 +36,13 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound()
   }
 
-  const messages = await getMessages()
-  const tc = await getTranslations('common')
+  // Enables static rendering: without this, getMessages/getTranslations/
+  // getLocale fall through to headers() and throw DYNAMIC_SERVER_USAGE.
+  setRequestLocale(locale)
+
+  // Pass locale so getRequestConfig never reads headers() via requestLocale.
+  const messages = await getMessages({ locale })
+  const tc = await getTranslations({ locale, namespace: 'common' })
 
   const bookingLocale: BookingLocale = locale === 'en' ? 'en' : 'de'
 

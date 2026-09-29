@@ -46,6 +46,7 @@
     "apply:neighbourhood-geo": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/apply-neighbourhood-geo-from-seed.ts",
     "smoke:aeo-schema": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/smoke-aeo-schema.ts",
     "media:to-r2": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/media-to-r2.ts",
+    "media:regenerate-sizes": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/regenerate-sizes.ts",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",

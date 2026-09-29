@@ -18,7 +18,7 @@ export type LocationFeatureSpecification = {
 }
 
 function toSchemaAmenity(doc: Amenity, locale: 'de' | 'en'): SchemaAmenity {
-  const image = typeof doc.image === 'object' && doc.image ? mediaUrl(doc.image) : null
+  const image = typeof doc.image === 'object' && doc.image ? mediaUrl(doc.image, 'card') : null
   return {
     slug: doc.slug,
     name: doc.title,

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { BorrowedRow } from '@/components/entity/BorrowedRow'
@@ -42,6 +42,9 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** Slugs not in generateStaticParams (unknown / unpublished) → framework 404. */
+export const dynamicParams = true
+
 const WALK_MAX = 5
 
 type PickWithGeo = TripPick & {
@@ -61,8 +64,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
+  setRequestLocale(locale)
   const resolved = await getResolvedPerson(slug, locale)
-  if (!resolved) return { title: 'Not found' }
+  if (!resolved) notFound()
 
   return entityMetadata({
     locale,
@@ -100,17 +104,19 @@ function quoteForPerson(
 export default async function PersonPage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
-  const t = await getTranslations('youMeBerlin')
-  const tPlaces = await getTranslations('neighbourhood')
-  const te = await getTranslations('entity')
+  setRequestLocale(locale)
 
   const resolved = await getResolvedPerson(slug, locale)
   if (!resolved) notFound()
 
+  const t = await getTranslations({ locale, namespace: 'youMeBerlin' })
+  const tPlaces = await getTranslations({ locale, namespace: 'neighbourhood' })
+  const te = await getTranslations({ locale, namespace: 'entity' })
+
   const { payload: person, aeo, picks } = resolved
   const graph = buildPersonPageGraph(aeo, picks, defaultConfig)
 
-  const portraitUrl = safeMediaUrl(mediaFileUrl(person.portrait))
+  const portraitUrl = safeMediaUrl(mediaFileUrl(person.portrait, 'portrait'))
   const portraitAlt = mediaFileAlt(person.portrait, person.name)
   const bioParagraphs = lexicalToParagraphs(person.bio)
   const hasBio = bioParagraphs.length > 0
@@ -218,7 +224,7 @@ export default async function PersonPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="outside" />
+      <SiteNavWithData context="outside" locale={locale} />
       <main id="main-content" className="bg-hbb-page pb-section-y">
         <div className="pt-section-y">
           <nav
@@ -350,7 +356,7 @@ export default async function PersonPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   )
 }

@@ -91,8 +91,8 @@ export async function getDiningBandData(
     localizeInBuildingLocation(lutze.location, loc) ||
     null
 
-  const heroSrc = mediaUrl(lutze.heroImage)
-  const gallerySrc = lutze.images?.[0] ? mediaUrl(lutze.images[0].image) : null
+  const heroSrc = mediaUrl(lutze.heroImage, 'hero')
+  const gallerySrc = lutze.images?.[0] ? mediaUrl(lutze.images[0].image, 'hero') : null
 
   const facts: DiningBandFact[] = []
   const bar = barFact(hours, loc, openEndLabel)

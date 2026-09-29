@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { SiteFooter } from '@/components/layout/SiteFooter'
@@ -35,6 +35,9 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>
 }
 
+/** Slugs not in generateStaticParams → framework 404. */
+export const dynamicParams = true
+
 export async function generateStaticParams() {
   try {
     const slugs = await getMeetingRoomSlugs()
@@ -47,8 +50,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
+  setRequestLocale(locale)
   const room = await getMeetingRoomBySlug(slug, locale)
-  if (!room) return { title: 'Not found' }
+  if (!room) notFound()
 
   const path = meetingCanonicalPath(locale, slug)
 
@@ -69,10 +73,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function MeetingRoomDetailPage({ params }: Props) {
   const { locale: localeParam, slug } = await params
   const locale = resolveLocale(localeParam)
-  const t = await getTranslations('meetingsPage')
+  setRequestLocale(locale)
   const room = await getMeetingRoomBySlug(slug, locale)
 
   if (!room) notFound()
+
+  const t = await getTranslations({ locale, namespace: 'meetingsPage' })
 
   const gallery = meetingGalleryImages(room)
   const combinable = combinableRoomNames(room, locale)
@@ -106,7 +112,7 @@ export default async function MeetingRoomDetailPage({ params }: Props) {
   return (
     <>
       <JsonLdScript graph={graph} />
-      <SiteNavWithData context="outside" />
+      <SiteNavWithData context="outside" locale={locale} />
       <main id="main-content" className="bg-hbb-page">
         <div className="mx-auto max-w-5xl px-section-sm pt-section-y md:px-section-x">
           <nav aria-label="Breadcrumb" className="font-ui text-ui-sm text-gray-400">
@@ -286,7 +292,7 @@ export default async function MeetingRoomDetailPage({ params }: Props) {
           preselectedRoomSlug={room.slug}
         />
       </main>
-      <SiteFooter showBookDirectStrip={false} />
+      <SiteFooter showBookDirectStrip={false} locale={locale} />
     </>
   )
 }

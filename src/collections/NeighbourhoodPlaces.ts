@@ -15,17 +15,27 @@ export const NeighbourhoodPlaces: CollectionConfig = {
   hooks: {
     beforeChange: [geocodeNeighbourhoodPlaceBeforeChange],
     afterChange: [
-      async () => {
+      async ({ doc }) => {
         const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hotel-berlin.de'
         const secret = process.env.REVALIDATE_SECRET
 
         if (!secret) return
 
-        await fetch(`${baseUrl}/api/revalidate?path=/neighbourhood&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/you-me-berlin&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/en&secret=${secret}`)
-        await fetch(`${baseUrl}/api/revalidate?path=/de&secret=${secret}`)
+        const paths = [
+          '/neighbourhood',
+          '/you-me-berlin',
+          '/',
+          '/en',
+          '/de',
+        ]
+        if (typeof doc?.slug === 'string' && doc.slug.length > 0) {
+          paths.push(`/neighbourhood/${doc.slug}`)
+        }
+        await Promise.all(
+          paths.map((path) =>
+            fetch(`${baseUrl}/api/revalidate?path=${encodeURIComponent(path)}&secret=${secret}`),
+          ),
+        )
       },
     ],
   },

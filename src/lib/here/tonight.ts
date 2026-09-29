@@ -80,8 +80,8 @@ export async function resolveTonightHero(
     fkkb?.location ||
     (de ? 'Erdgeschoss' : 'ground floor')
 
-  const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage) : null
-  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage) : null
+  const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage, 'card') : null
+  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage, 'card') : null
 
   return {
     title,

@@ -9,10 +9,15 @@ import { SiteNav } from './SiteNav'
 
 type Props = {
   context?: 'outside' | 'inside'
+  /**
+   * Pass explicitly on generateStaticParams / dynamicParams slug routes so
+   * this component never calls getLocale() → headers().
+   */
+  locale?: 'de' | 'en'
 }
 
-export async function SiteNavWithData({ context = 'outside' }: Props) {
-  const locale = (await getLocale()) as 'de' | 'en'
+export async function SiteNavWithData({ context = 'outside', locale: localeProp }: Props) {
+  const locale = localeProp ?? ((await getLocale()) as 'de' | 'en')
   const [hereLinks, hotel] = await Promise.all([
     getSecondaryNavLinks(locale),
     getHotel().catch(() => null),

@@ -100,7 +100,7 @@ function standInForSlug(slug: string, alt: string): { src: string; alt: string }
  * Never picsum. Endorser portraits stay in the avatar, not the 4:3 media.
  */
 export function tipCardImage(place: NeighbourhoodPlace): { src: string; alt: string } {
-  const placeSrc = mediaUrl(place.image)
+  const placeSrc = mediaUrl(place.image, 'card')
   const cms =
     placeSrc && !isRandomPlaceholder(placeSrc)
       ? { src: placeSrc, alt: mediaAlt(place.image, place.name) }
@@ -124,7 +124,7 @@ export function placeToTipCard(
   let endorser: TipCardEndorser | null = null
   let portrait: { src: string; alt: string } | null = null
   if (person) {
-    const portraitSrc = mediaUrl(person.portrait)
+    const portraitSrc = mediaUrl(person.portrait, 'portrait')
     portrait = portraitSrc
       ? { src: portraitSrc, alt: mediaAlt(person.portrait, person.name) }
       : null

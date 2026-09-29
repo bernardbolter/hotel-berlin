@@ -1,24 +1,29 @@
 import type { PlaceInfoCardEndorsement } from '@/components/map/PlaceInfoCard'
 import type { MapViewPlace } from '@/components/map/PlacesMapView'
+import {
+  mediaAlt,
+  mediaSizedUrl,
+  mediaUrl,
+  type MediaImageSize,
+} from '@/lib/media/url'
 import { personInitials } from '@/lib/people/initials'
 import type { NeighbourhoodPlaceDoc } from '@/lib/queries/neighbourhoodPlaces'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
 import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 
 export function mediaFileUrl(
-  image: { url?: string | null } | number | null | undefined,
+  image: Parameters<typeof mediaSizedUrl>[0],
+  size?: MediaImageSize,
 ): string | null {
-  return typeof image === 'object' && image && image.url ? image.url : null
+  if (size) return mediaSizedUrl(image, size)
+  return mediaUrl(image)
 }
 
 export function mediaFileAlt(
   image: { url?: string | null; alt?: string | null } | number | null | undefined,
   fallback = '',
 ): string {
-  if (typeof image === 'object' && image && 'alt' in image) {
-    return image.alt || fallback
-  }
-  return fallback
+  return mediaAlt(image, fallback)
 }
 
 type EndorsementPerson = NonNullable<NeighbourhoodPlaceDoc['endorsements']>[number]['person']
@@ -91,7 +96,7 @@ export function toMapViewPlace(
         }
       : null
 
-  const imageSrc = mediaFileUrl(place.image)
+  const imageSrc = mediaFileUrl(place.image, 'card')
   const creditText = place.imageCredit?.creditText?.trim()
   const resolvedMedia = withPlaceImageFallback(
     place.slug,
@@ -131,7 +136,7 @@ export function toMapViewPlace(
         slug: leadResolved.slug,
         jobTitle: leadResolved.jobTitle,
         initials: personInitials(leadResolved.name),
-        portraitUrl: mediaFileUrl(leadResolved.portrait),
+        portraitUrl: mediaFileUrl(leadResolved.portrait, 'portrait'),
         quote: leadEntry?.quote ?? null,
       }
     : null

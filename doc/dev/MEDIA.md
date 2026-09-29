@@ -66,3 +66,26 @@ That is F3 (`imageSizes` on `Media`). After F3:
 3. Run the regeneration script from that brief so existing files get the new derivative.
 
 Until F3, only originals are stored and served.
+
+## Image sizes (F3)
+
+Named sizes on `media`: `thumb`, `card`, `portrait` (1:1), `hero`, `og` (1200×630 cover). Card width is the largest Playwright-measured on-route card `<img>` CSS width at 1440 × 2:
+
+| Size | CSS (measured @ 1440) | Payload size |
+|---|---|---|
+| `card` | 432 (borrowed band; spotlight 304, amenity 302, tip/place 323) | 864 |
+| `hero` | 1440 (`--site-max`) | 2880 |
+| `portrait` | 320 (entity identity; hub 520 is off-route) | 640×640 |
+
+Admin upload copy states the card minimum as **864** (the size, not the CSS width). Slots request the named size, not the original. For width-only sizes (`card`, `hero`), Payload omits the derivative when the source is narrower than the size; `mediaSizedUrl` then falls back to the original URL. (`withoutEnlargement: true` is reserved for fixed-box sizes like `thumb` / `portrait` / `og`, where it caps rather than omits.)
+
+After changing the size table:
+
+```bash
+npm run migrate:create add_media_image_sizes
+npm run migrate
+npm run media:regenerate-sizes
+```
+
+The regenerate script walks every media document, reads the original from disk or R2, and re-writes derivatives. It prints processed / skipped / failed counts and is safe to re-run.
+

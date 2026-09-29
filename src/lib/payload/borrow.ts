@@ -47,7 +47,7 @@ export type EventCardData = {
 type Locale = 'de' | 'en'
 
 function toPlaceCard(place: NeighbourhoodPlace): PlaceCardData {
-  const imageUrl = safeMediaUrl(mediaFileUrl(place.image))
+  const imageUrl = safeMediaUrl(mediaFileUrl(place.image, 'card'))
   const endorsements =
     place.endorsements
       ?.map((entry) => personFromEndorsement(entry.person, { requirePublished: true }))
@@ -79,7 +79,7 @@ function toPersonCard(person: Person): PersonCardData {
     jobTitle: person.jobTitle,
     roomNumber: person.roomConfirmed ? person.roomNumber : null,
     shortBio: person.shortBio,
-    portraitUrl: safeMediaUrl(mediaFileUrl(person.portrait)),
+    portraitUrl: safeMediaUrl(mediaFileUrl(person.portrait, 'portrait')),
     portraitAlt: mediaFileAlt(person.portrait, person.name),
     tags,
   }

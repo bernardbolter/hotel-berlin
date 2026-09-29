@@ -48,7 +48,7 @@ export async function resolveEventHeroOverride(
 
     const venue =
       event.venue && typeof event.venue === 'object' ? (event.venue as Venue) : null
-    const src = mediaUrl(event.heroImage as number | Media | null)
+    const src = mediaUrl(event.heroImage as number | Media | null, 'hero')
 
     return {
       slug: event.slug,

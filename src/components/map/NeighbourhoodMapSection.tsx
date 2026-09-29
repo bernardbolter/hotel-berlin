@@ -16,6 +16,7 @@ import {
   type NeighbourhoodPlaceDoc,
 } from '@/lib/queries/neighbourhoodPlaces'
 import type { TeaserContext } from '@/lib/places/getTeaserPlaces'
+import { mediaSizedUrl } from '@/lib/media/url'
 import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
@@ -24,7 +25,7 @@ const HEADING_CLASS =
   'text-left font-serif text-[clamp(1.45rem,2.3vw,2.1rem)] font-normal leading-[1.12] text-[#1F1F1F]'
 
 function mediaUrl(image: NeighbourhoodPlaceDoc['image']): string | null {
-  return typeof image === 'object' && image && image.url ? image.url : null
+  return mediaSizedUrl(image, 'card')
 }
 
 function mediaAlt(image: NeighbourhoodPlaceDoc['image']): string {

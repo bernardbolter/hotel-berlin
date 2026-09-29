@@ -5,7 +5,6 @@ import { MapboxStaticImage } from '@/components/map/MapboxStaticImage'
 import { HintDot } from '@/components/primitives/HintDot'
 import { HotelDiscPin } from '@/components/primitives/HotelDiscPin'
 import { SectionHeading } from '@/components/primitives/SectionHeading'
-import { mapBackgroundImage } from '@/lib/data/homepageImages'
 import { coordsToPercent, getPinVariant, HOTEL_COORDS } from '@/lib/map/staticPins'
 import { getMapSettings } from '@/lib/map/settings'
 import { getFeaturedPlaces } from '@/lib/queries/places'
@@ -36,7 +35,7 @@ export async function MapTeaser() {
             bounds={mapSettings.bounds}
             width={1280}
             height={560}
-            fallbackSrc={mapBackgroundImage}
+            fallbackSrc="/images/hero_map.png"
             className="h-full w-full object-cover opacity-95"
           />
           <div className="absolute inset-0 bg-hbb-teal-deep/10" />

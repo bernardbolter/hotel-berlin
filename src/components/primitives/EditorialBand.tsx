@@ -23,6 +23,11 @@ type Props = {
   /** Mark layout-test photography so gaps are visible, not silently filled. */
   placeholder?: boolean
   placeholderLabel?: string
+  /**
+   * When there is no image, keep the media column as flat warm ground
+   * (F5 empty state) instead of collapsing to the text-only letter layout.
+   */
+  emptyGround?: boolean
   eyebrow?: string
   heading: string
   body?: string
@@ -43,6 +48,7 @@ export function EditorialBand({
   imageCredit,
   placeholder = false,
   placeholderLabel = 'Photography forthcoming',
+  emptyGround = false,
   eyebrow,
   heading,
   body,
@@ -55,11 +61,13 @@ export function EditorialBand({
   const headingId = id ?? undefined
   const creditText = imageCredit?.creditText?.trim()
   const hasImage = Boolean(image?.src)
-  const ratioClass = !hasImage
-    ? 'editorial-band--text'
-    : ratio === '2:1'
-      ? 'editorial-band--2-1'
-      : 'editorial-band--1-2'
+  const showEmptyGround = emptyGround && !hasImage
+  const ratioClass =
+    !hasImage && !showEmptyGround
+      ? 'editorial-band--text'
+      : ratio === '2:1'
+        ? 'editorial-band--2-1'
+        : 'editorial-band--1-2'
 
   return (
     <section
@@ -97,6 +105,8 @@ export function EditorialBand({
             </p>
           ) : null}
         </div>
+      ) : showEmptyGround ? (
+        <div className="editorial-band__photo" aria-hidden="true" />
       ) : null}
 
       <div className="editorial-band__copy flex min-w-0 flex-col items-start">

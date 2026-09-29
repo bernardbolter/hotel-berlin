@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server'
 import { ArtLocationCard } from '@/components/here/ArtLocationCard'
 import { HubSerifHeading } from '@/components/here/HubSerifHeading'
 import { EditorialBand } from '@/components/primitives/EditorialBand'
-import { HERE_IMAGES } from '@/lib/here/images'
 import { resolveTonightHero } from '@/lib/here/tonight'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import { resolveVenueSpotlight } from '@/lib/spotlight/resolvers'
@@ -13,9 +12,9 @@ type Props = {
 }
 
 const FLOORS = [
-  { key: 'somari', href: '/here/art', image: HERE_IMAGES.muralSomari },
-  { key: 'deerbln', href: '/here/art', image: HERE_IMAGES.muralDeer },
-  { key: 'pisa73', href: '/here/art', image: HERE_IMAGES.muralPisa },
+  { key: 'somari', href: '/here/art' },
+  { key: 'deerbln', href: '/here/art' },
+  { key: 'pisa73', href: '/here/art' },
 ] as const
 
 export async function ArtInBuildingSection({ locale }: Props) {
@@ -52,6 +51,7 @@ export async function ArtInBuildingSection({ locale }: Props) {
           meta={show.meta}
           body={liveBody}
           image={liveImage}
+          emptyGround={!liveImage}
           cta={{ href: '/here/art', label: t('art.currentCta') }}
         />
         <ul
@@ -65,7 +65,7 @@ export async function ArtInBuildingSection({ locale }: Props) {
                 floorLabel={t(`art.floors.${floor.key}.floor`)}
                 title={t(`art.floors.${floor.key}.title`)}
                 href={floor.href}
-                image={floor.image}
+                image={null}
               />
             </li>
           ))}

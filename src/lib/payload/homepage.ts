@@ -1,7 +1,7 @@
 import type { HeroSlide as HeroSlideDoc, Homepage, Hotel, Media } from '@/payload-types'
 import type { Where } from 'payload'
 
-import { heroSlides as fallbackHeroSlides, type HeroSlide } from '@/components/home/heroSlides'
+import type { HeroSlide } from '@/components/home/heroSlides'
 import { mediaSizedUrl, mediaUrl as originalMediaUrl } from '@/lib/media/url'
 import { getPayloadClient } from '@/lib/payload/client'
 
@@ -134,11 +134,11 @@ export async function getHeroSlides(
     const fromHomepage = mapHomepageSlides(enPage, dePage)
     if (fromHomepage.length > 0) return fromHomepage
   } catch {
-    if (context === 'here') return []
-    // Fall through to placeholders when CMS is unavailable.
+    return []
   }
 
-  return fallbackHeroSlides
+  // No Unsplash / stock fallback — empty CMS means grey ground (F5).
+  return []
 }
 
 export type HeroMapCopy = {

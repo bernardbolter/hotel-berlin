@@ -31,7 +31,7 @@ export type HereDiningBandCopy = {
 
 type Props = {
   heading: string
-  image: HereImage
+  image: HereImage | null
   hours: OpeningHoursEntry[]
   facts: DiningBandFact[]
   roomServiceNote: string
@@ -60,13 +60,15 @@ export function HereDiningBand({
       <div className="grid w-full grid-cols-1 items-start gap-10 max-lg:grid-cols-[auto_minmax(0,1fr)] max-lg:gap-x-3 max-lg:gap-y-0.5 lg:grid-cols-[2fr_1fr] lg:grid-rows-[auto_auto] lg:gap-x-10 lg:gap-y-0">
         <figure className="relative min-w-0 w-full max-lg:col-span-2 max-lg:row-start-2 lg:col-start-1 lg:row-start-1">
           <div className="rooms-photo-mask relative min-w-0 overflow-hidden bg-hbb-warm max-[550px]:aspect-[1/0.75] min-[551px]:aspect-[3/2]">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 1023px) 100vw, 67vw"
-              className="hero-photo-img object-cover"
-            />
+            {image ? (
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 1023px) 100vw, 67vw"
+                className="hero-photo-img object-cover"
+              />
+            ) : null}
           </div>
         </figure>
 

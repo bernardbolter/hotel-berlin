@@ -1,4 +1,4 @@
-import { firstHereImage, HERE_IMAGES, type HereImage } from '@/lib/here/images'
+import { firstHereImage, type HereImage } from '@/lib/here/images'
 import { getEatAndDrink } from '@/lib/payload/homepage'
 import { guestStayFromHotel, getHotel } from '@/lib/payload/hotel'
 import { getVenueBySlug } from '@/lib/payload/venues'
@@ -27,7 +27,7 @@ export type DiningBandFact = {
 
 export type DiningBandData = {
   heading: string
-  image: HereImage
+  image: HereImage | null
   hours: OpeningHoursEntry[]
   facts: DiningBandFact[]
   roomServiceNote: string
@@ -167,7 +167,6 @@ export async function getDiningBandData(
         ? { src: gallerySrc, alt: lutze.images[0].alt || lutze.name }
         : null,
       eatAndDrink.image,
-      HERE_IMAGES.lutzeInterior,
     ),
     hours,
     facts,

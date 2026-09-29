@@ -62,8 +62,8 @@ export function RoomsTeaser({ rooms, copy }: Props) {
     if (rooms.length === 0) return
     const currentRoom = rooms[current]
     const nextRoom = rooms[(current + 1) % rooms.length]
-    if (currentRoom) preloadSrc(currentRoom.teaserImage.src)
-    if (nextRoom) preloadSrc(nextRoom.teaserImage.src)
+    if (currentRoom?.teaserImage) preloadSrc(currentRoom.teaserImage.src)
+    if (nextRoom?.teaserImage) preloadSrc(nextRoom.teaserImage.src)
   }, [current, preloadSrc, rooms])
 
   useEffect(() => {
@@ -105,12 +105,14 @@ export function RoomsTeaser({ rooms, copy }: Props) {
                   }}
                   aria-hidden={!isActive}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={room.teaserImage.src}
-                    alt={room.teaserImage.alt}
-                    className="hero-photo-img absolute inset-0 h-full w-full object-cover"
-                  />
+                  {room.teaserImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={room.teaserImage.src}
+                      alt={room.teaserImage.alt}
+                      className="hero-photo-img absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : null}
                 </div>
               )
             })}

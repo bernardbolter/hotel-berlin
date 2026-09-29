@@ -17,7 +17,7 @@ export function EventsRow({ items, ariaLabel, className = '', max = CAPPED_EVENT
   return (
     <CappedRow ariaLabel={ariaLabel} className={className} max={max} minCols={1}>
       {items.map((item, index) => (
-        <li key={`${item.image.src}-${item.primaryMeta}-${index}`} className="min-w-0">
+        <li key={`${item.cta.href}-${item.primaryMeta}-${index}`} className="min-w-0">
           <SpotlightCard {...item} className="w-full min-w-0!" />
         </li>
       ))}

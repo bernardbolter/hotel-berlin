@@ -39,77 +39,38 @@ describe('pickHubTips', () => {
   })
 })
 
-describe('TipCard fixtures', () => {
-  it('prints a room only on the confirmed host and keeps the other two avatar states', async () => {
-    const { TIP_CARD_FIXTURES } = await import('../../src/lib/here/tipCardFixtures')
-    const [portrait, empty, none] = TIP_CARD_FIXTURES
-    expect(portrait?.endorser?.room).toBe('Room 1171')
-    expect(portrait?.endorser?.portrait).toBeTruthy()
-    expect(empty?.endorser?.room).toBeNull()
-    expect(empty?.endorser?.portrait).toEqual(empty?.image)
-    expect(none?.endorser).toBeNull()
-  })
-
-  it('uses a place photo when present, never a portrait or random stock', async () => {
-    const { TIP_CARD_FIXTURES } = await import('../../src/lib/here/tipCardFixtures')
-    const [withPlace, empty, none] = TIP_CARD_FIXTURES
-    expect(withPlace?.image?.src).toContain('k%C3%A4the-kollwitz-museum')
-    expect(withPlace?.image?.src).not.toBe(withPlace?.endorser?.portrait?.src)
-    expect(empty?.image).toBeTruthy()
-    expect(empty?.endorser?.portrait?.src).toBe(empty?.image?.src)
-    expect(none?.image).toBeNull()
-    for (const card of TIP_CARD_FIXTURES) {
-      expect(card.image?.src ?? '').not.toMatch(/picsum/)
-    }
-  })
-})
-
 describe('tipCardImage', () => {
   it('prefers a real CMS place photo', () => {
     const place = {
       slug: 'lokal',
       name: 'Lokal',
-      image: { url: '/media/lokal.jpg', alt: 'Lokal' },
+      image: { url: '/api/media/file/lokal.jpg', alt: 'Lokal' },
     } as NeighbourhoodPlace
-    expect(tipCardImage(place)?.src).toBe('/media/lokal.jpg')
+    expect(tipCardImage(place)?.src).toBe('/api/media/file/lokal.jpg')
   })
 
-  it('uses a credited photo of the place when CMS media is missing', () => {
+  it('returns null when CMS media is missing — name block empty state', () => {
     const place = {
       slug: 'olympiastadion',
       name: 'Olympiastadion',
       image: null,
     } as NeighbourhoodPlace
-    expect(tipCardImage(place)?.src).toContain('Olympiastadion_Berlin')
+    expect(tipCardImage(place)).toBeNull()
   })
 
-  it('uses a photo of the memorial, not a random landscape', () => {
-    const place = {
-      slug: 'holocaust-memorial',
-      name: 'Holocaust Memorial',
-      image: { url: 'https://picsum.photos/800/600?random=x', alt: 'x' },
-    } as NeighbourhoodPlace
-    expect(tipCardImage(place)?.src).toContain('Holocaust_Memorial_Berlin')
-    expect(tipCardImage(place)?.src).not.toMatch(/picsum/)
-  })
-
-  it('doubles the place photo into the avatar when the endorser has no portrait', () => {
-    const place = {
-      slug: 'einar-und-bert-bookshop',
-      name: 'Einar & Bert Bookshop',
-      image: null,
-    } as NeighbourhoodPlace
-    const image = tipCardImage(place)
-    expect(image.src).toMatch(/^\/images\//)
-  })
-
-  it('uses Anjoy’s credited fallback rather than leaving the card empty', () => {
-    const place = {
-      slug: 'anjoy',
-      name: 'Anjoy',
-      image: null,
-    } as NeighbourhoodPlace
-    expect(tipCardImage(place)?.src).toContain('unsplash')
+  it('rejects picsum / unsplash / wikimedia stand-ins', () => {
+    for (const url of [
+      'https://picsum.photos/800/600?random=x',
+      'https://images.unsplash.com/photo-123',
+      'https://upload.wikimedia.org/wikipedia/commons/x.jpg',
+    ]) {
+      const place = {
+        slug: 'anjoy',
+        name: 'Anjoy',
+        image: { url, alt: 'x' },
+      } as NeighbourhoodPlace
+      expect(tipCardImage(place)).toBeNull()
+    }
   })
 })
 

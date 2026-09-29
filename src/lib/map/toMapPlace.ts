@@ -6,10 +6,10 @@ import {
   mediaUrl,
   type MediaImageSize,
 } from '@/lib/media/url'
+import { safeMediaUrl } from '@/lib/entity/mediaUrl'
 import { personInitials } from '@/lib/people/initials'
 import type { NeighbourhoodPlaceDoc } from '@/lib/queries/neighbourhoodPlaces'
 import type { PlaceCategory } from '@/lib/neighbourhood/constants'
-import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 
 export function mediaFileUrl(
   image: Parameters<typeof mediaSizedUrl>[0],
@@ -96,19 +96,17 @@ export function toMapViewPlace(
         }
       : null
 
-  const imageSrc = mediaFileUrl(place.image, 'card')
+  const imageSrc = safeMediaUrl(mediaFileUrl(place.image, 'card'))
   const creditText = place.imageCredit?.creditText?.trim()
-  const resolvedMedia = withPlaceImageFallback(
-    place.slug,
-    imageSrc ? { src: imageSrc, alt: mediaFileAlt(place.image, place.name) } : null,
-    creditText
-      ? {
-          creditText,
-          creditUrl: place.imageCredit?.creditUrl?.trim() || null,
-        }
-      : null,
-    place.name,
-  )
+  const image = imageSrc
+    ? { src: imageSrc, alt: mediaFileAlt(place.image, place.name) }
+    : null
+  const imageCredit = creditText
+    ? {
+        creditText,
+        creditUrl: place.imageCredit?.creditUrl?.trim() || null,
+      }
+    : null
   const endorsements = endorsementChips(place, {
     requirePublished: opts.requirePublishedEndorsers,
   })
@@ -152,8 +150,8 @@ export function toMapViewPlace(
     walkingLabel: labels.walkingLabel,
     transit,
     transitLabel: transit ? labels.transitLabel : undefined,
-    image: resolvedMedia.image,
-    imageCredit: resolvedMedia.imageCredit,
+    image,
+    imageCredit,
     endorsements,
     leadPerson,
     latitude: lat,

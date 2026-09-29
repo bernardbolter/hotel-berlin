@@ -17,7 +17,7 @@ import {
 } from '@/lib/queries/neighbourhoodPlaces'
 import type { TeaserContext } from '@/lib/places/getTeaserPlaces'
 import { mediaSizedUrl } from '@/lib/media/url'
-import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
+import { safeMediaUrl } from '@/lib/entity/mediaUrl'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
 /** Slightly under Rooms / Happenings title scale (Laica), off-black. */
@@ -52,19 +52,17 @@ function toTeaserPlace(
         }
       : null
 
-  const imageSrc = mediaUrl(doc.image)
+  const imageSrc = safeMediaUrl(mediaUrl(doc.image))
   const creditText = doc.imageCredit?.creditText?.trim()
-  const resolvedMedia = withPlaceImageFallback(
-    doc.slug,
-    imageSrc ? { src: imageSrc, alt: mediaAlt(doc.image) || doc.name } : null,
-    creditText
-      ? {
-          creditText,
-          creditUrl: doc.imageCredit?.creditUrl?.trim() || null,
-        }
-      : null,
-    doc.name,
-  )
+  const image = imageSrc
+    ? { src: imageSrc, alt: mediaAlt(doc.image) || doc.name }
+    : null
+  const imageCredit = creditText
+    ? {
+        creditText,
+        creditUrl: doc.imageCredit?.creditUrl?.trim() || null,
+      }
+    : null
   const endorsements =
     doc.endorsements
       ?.map((entry) => {
@@ -116,8 +114,8 @@ function toTeaserPlace(
     priceRange: doc.priceRange ?? null,
     transit,
     transitLabel: transit ? transitLabel : undefined,
-    image: resolvedMedia.image,
-    imageCredit: resolvedMedia.imageCredit,
+    image,
+    imageCredit,
     endorsements,
     leadEndorser,
     latitude: lat,

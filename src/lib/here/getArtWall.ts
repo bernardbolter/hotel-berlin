@@ -1,5 +1,5 @@
 import type { ArtWallTile } from '@/components/here/ArtWall'
-import { firstHereImage, HERE_IMAGES } from '@/lib/here/images'
+import { firstHereImage } from '@/lib/here/images'
 import { getPayloadClient } from '@/lib/payload/client'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
@@ -13,12 +13,6 @@ const MURAL_SPANS: Array<{ cols: 1 | 2 | 3; rows: 1 | 2 }> = [
   { cols: 1, rows: 1 },
   { cols: 2, rows: 1 },
 ]
-
-const MURAL_IMAGES = {
-  somari: HERE_IMAGES.muralSomari,
-  deerbln: HERE_IMAGES.muralDeer,
-  pisa73: HERE_IMAGES.muralPisa,
-} as const
 
 type FloorCopy = {
   floor: string
@@ -89,7 +83,6 @@ export async function getArtWallData(
           ? { src: exhibitionSrc, alt: mediaAlt(exhibition?.heroImage, exhibitionTitle) }
           : null,
         venueSrc ? { src: venueSrc, alt: mediaAlt(fkkb?.heroImage, exhibitionTitle) } : null,
-        HERE_IMAGES.fkkb,
       ),
       span: { cols: 3, rows: 2 },
     },
@@ -98,7 +91,7 @@ export async function getArtWallData(
       href: `/here/art#werk-${key}`,
       who: copy.floors[key].title,
       where: copy.floors[key].floor || copy.locationTbc,
-      image: MURAL_IMAGES[key],
+      image: null,
       span: MURAL_SPANS[index]!,
     })),
     {

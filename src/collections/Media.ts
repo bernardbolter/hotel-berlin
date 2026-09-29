@@ -34,6 +34,8 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       required: true,
+      // Localized since amenities / baseline (`media_locales`). Existing values
+      // were moved to `en` by F4; `de` stays empty until editors fill it.
       localized: true,
     },
   ],

@@ -2,6 +2,21 @@
 
 Schema changes ship as Payload migrations. Do not turn push mode back on.
 
+## Local backup (before content entry / risky ops)
+
+Snapshot the current worktree database and the `media/` tree into a timestamped folder:
+
+```bash
+LOCAL_BACKUP_DIR=~/Backups/hotel-berlin npm run backup:local
+```
+
+Creates `LOCAL_BACKUP_DIR/hotelberlin-YYYYMMDD-HHMMSS/` with:
+
+- `database.dump` — `pg_dump --format=custom` of `DATABASE_URL`
+- `media/` — full copy of the repo `media/` directory
+
+`BACKUP_DIR` is accepted as an alias for `LOCAL_BACKUP_DIR`. If `pg_dump` is not on your PATH (common with Homebrew `postgresql@16`), set `PG_DUMP=/usr/local/opt/postgresql@16/bin/pg_dump` (or the matching Apple Silicon path under `/opt/homebrew/opt/…`). Restore the dump with `pg_restore` into an empty database when needed.
+
 ## One database per worktree
 
 Each git worktree has its own Postgres database. Migrating or seeding one branch must not rewrite tables another branch is reading.

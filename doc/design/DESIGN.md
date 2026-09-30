@@ -51,8 +51,12 @@ identity, not a context accent.
 | `--body-text` | `#2A3540` | All body copy |
 | `--dim` | `#6B7C8D` | Captions, metadata, footers |
 | `--rule` | `#D8DCE0` | Dividers, borders, outlines |
-| `--bg-subtle` | `#F4F6F7` | Card backgrounds, inputs |
-| `--teal-light` | `#EBF3F5` | Pullquote background |
+| `--bg-subtle` | `#F4F6F7` | Neutral section tint (home rooms teaser); also card backgrounds, inputs |
+| `--amber-light` | `#FEF5EA` | ~10% `--amber` into white — sections tied to sport / main-site accent (home FAQ, /here amenities) |
+| `--coral-light` | `#FEEFEF` | ~10% `--coral` into white — sections tied to events / music |
+| `--gold-light` | `#F9F2EA` | ~10% `--cat-food` into white — sections tied to dining / food |
+| `--green-light` | `#E7EAE6` | ~10–12% `--green` into white — sections tied to neighbourhood |
+| `--teal-light` | `#EBF3F5` | Pullquote background; /here accent-tinted sections (FAQ, art) |
 | `--amber` | `#F79B2E` | Solid fills only, always with Ink `#141414` on top. Never white text on this. Never as type on `--panel-grey`. |
 | `--amber-dark` | `#B87A2E` | Borders that sit on white (e.g. the /here WiFi password pill). Not type on grey (2.88:1). |
 | `--amber-mid` / `--amber-text` | `#9A6420` | 4.98:1 on white — amber type on white; hairlines on grey at 42% alpha. **Not** small type on `--panel-grey` (4.00:1, fails AA). |

@@ -3,10 +3,11 @@ import { getTranslations } from 'next-intl/server'
 import { ArtLocationCard } from '@/components/here/ArtLocationCard'
 import { HubSerifHeading } from '@/components/here/HubSerifHeading'
 import { EditorialBand } from '@/components/primitives/EditorialBand'
+import { getCurrentExhibitions } from '@/lib/art/exhibitions'
 import { HERE_IMAGES } from '@/lib/here/images'
 import { resolveTonightHero } from '@/lib/here/tonight'
-import { getVenueBySlug } from '@/lib/payload/venues'
 import { resolveVenueSpotlight } from '@/lib/spotlight/resolvers'
+import type { Venue } from '@/payload-types'
 
 type Props = {
   locale: string
@@ -18,23 +19,27 @@ const FLOORS = [
   { key: 'pisa73', href: '/here/art', image: HERE_IMAGES.muralPisa },
 ] as const
 
+/** Legacy section — prefer ArtWallSection on /hier. Kept for any remaining call sites. */
 export async function ArtInBuildingSection({ locale }: Props) {
   const t = await getTranslations('here')
+  const loc = locale === 'de' ? 'de' : 'en'
   const show = await resolveTonightHero(locale)
 
   let liveImage = show.image
   let liveTitle = show.title
   let liveBody = t('art.currentDescription')
   try {
-    const fkkb = await getVenueBySlug('fkkb', locale === 'de' ? 'de' : 'en')
-    if (fkkb) {
-      const liveShow = await resolveVenueSpotlight(fkkb, { locale })
+    const [lead] = await getCurrentExhibitions(undefined, loc)
+    const venue =
+      lead && typeof lead.venue === 'object' && lead.venue ? (lead.venue as Venue) : null
+    if (venue) {
+      const liveShow = await resolveVenueSpotlight(venue, { locale })
       if (liveShow?.image?.src) liveImage = liveShow.image
       if (liveShow?.title) liveTitle = liveShow.title
       if (liveShow?.description) liveBody = liveShow.description
     }
   } catch (error) {
-    console.error('[ArtInBuildingSection] FKKB spotlight skipped:', error)
+    console.error('[ArtInBuildingSection] gallery spotlight skipped:', error)
   }
 
   return (

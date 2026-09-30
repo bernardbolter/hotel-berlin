@@ -1,12 +1,21 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import {
+  SectionShell,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { getRoomsTeaserCopy } from '@/lib/payload/homepage'
 import { getRoomsForHero } from '@/lib/payload/rooms'
 import { mapRoomToHeroItem } from '@/lib/rooms/roomHero'
 
 import { RoomsTeaser } from './RoomsTeaser'
 
-export async function RoomsHero() {
+type Props = {
+  /** Explicit section tint — required so rhythm stays intentional. */
+  background: LightSectionBackground
+}
+
+export async function RoomsHero({ background }: Props) {
   const t = await getTranslations('rooms')
   const locale = (await getLocale()) as 'de' | 'en'
   let rooms: Awaited<ReturnType<typeof getRoomsForHero>> = []
@@ -22,11 +31,15 @@ export async function RoomsHero() {
   const items = rooms.map((room) => mapRoomToHeroItem(room, locale, t('from').toLowerCase()))
 
   return (
-    <section aria-labelledby="rooms-heading" className="bg-white">
-      {/* Full-bleed white; 15px left at ≤550 (matches hero forest panel), 20px to lg, 10px at lg+ */}
+    <SectionShell
+      as="section"
+      background={background}
+      aria-labelledby="rooms-heading"
+    >
+      {/* Full-bleed tint; 15px left at ≤550 (matches hero forest panel), 20px to lg, 10px at lg+ */}
       <div className="site-shell box-border pt-14 pr-5 pb-[41px] pl-[15px] min-[551px]:pl-5 md:pt-16 md:pr-10 md:pb-[49px] lg:pt-20 lg:pb-[65px] lg:pl-[10px] xl:pr-14">
         <RoomsTeaser rooms={items} copy={copy} />
       </div>
-    </section>
+    </SectionShell>
   )
 }

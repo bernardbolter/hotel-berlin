@@ -24,6 +24,7 @@ export async function ArtPageView({ locale }: Props) {
 
   const copy = {
     all: grid.raw('all'),
+    outside: grid('outside'),
     lobby: grid('lobby'),
     floors1to4: grid('floors1to4'),
     floors5to10: grid('floors5to10'),

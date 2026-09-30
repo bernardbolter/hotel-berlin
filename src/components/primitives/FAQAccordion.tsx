@@ -3,6 +3,10 @@
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import {
+  sectionBackgroundClass,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { SweepCta } from '@/components/primitives/SweepCta'
 
 export type FAQAccordionItem = {
@@ -24,6 +28,8 @@ export type FAQAccordionProps = {
   initialOpenId?: string | null
   /** Skip section chrome — used when grouping under category headings */
   embedded?: boolean
+  /** Full-bleed section tint when not embedded. */
+  background?: LightSectionBackground
 }
 
 const ACCENT = {
@@ -55,6 +61,7 @@ export function FAQAccordion({
   className = '',
   initialOpenId = null,
   embedded = false,
+  background,
 }: FAQAccordionProps) {
   const accent = ACCENT[context]
   const [openId, setOpenId] = useState<string | null>(initialOpenId)
@@ -127,10 +134,12 @@ export function FAQAccordion({
       ? 'px-section-sm py-14 md:px-section-x md:py-24'
       : 'px-section-sm py-14 md:px-section-x md:py-14'
 
+  const bgClass = background ? sectionBackgroundClass(background) : 'bg-hbb-page'
+
   return (
     <section
       aria-labelledby={heading ? 'faq-heading' : undefined}
-      className={`bg-hbb-page text-[#1F1F1F] ${padding} ${className}`}
+      className={`${bgClass} text-[#1F1F1F] ${padding} ${className}`}
     >
       <div className="mx-auto w-full max-w-(--site-max)">
         {(heading || (variant === 'mini' && ctaHref)) && (

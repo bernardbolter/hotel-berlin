@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
+import type { LightSectionBackground } from '@/components/layout/SectionShell'
 import { FAQAccordion } from '@/components/primitives/FAQAccordion'
 import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
 import { getFaqs, getRelevantFaqs, type FaqCategory, type FaqContext } from '@/lib/faqs'
@@ -14,6 +15,8 @@ export type FAQSectionProps = {
   limit?: number
   showAllLink?: boolean
   heading?: string
+  /** Explicit section tint when this block owns a full-bleed band. */
+  background?: LightSectionBackground
 }
 
 /**
@@ -29,6 +32,7 @@ export async function FAQSection({
   limit = 4,
   showAllLink = true,
   heading,
+  background,
 }: FAQSectionProps) {
   const locale = await getLocale()
   const t = await getTranslations('faq')
@@ -65,6 +69,7 @@ export async function FAQSection({
         heading={heading ?? t('title')}
         ctaHref={showAllLink ? ctaHref : undefined}
         ctaLabel={t('allFaqs')}
+        background={background}
       />
     </>
   )

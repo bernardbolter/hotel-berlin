@@ -1,5 +1,14 @@
 import type { ArtExhibitionTile, ArtWork } from '@/lib/art/types'
 
+const emptyAeo = {
+  geo: null,
+  artform: null,
+  surface: null,
+  subjects: [] as string[],
+  permission: null,
+  creditText: null,
+}
+
 function work(partial: ArtWork): ArtWork {
   return partial
 }
@@ -29,6 +38,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'a0',
     inExhibition: false,
+    ...emptyAeo,
   }),
   work({
     id: 2,
@@ -50,6 +60,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'a1',
     inExhibition: false,
+    ...emptyAeo,
   }),
   work({
     id: 3,
@@ -63,7 +74,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
       slug: 'pisa73',
       person: { slug: 'kristiane-kegelmann', name: 'Kristiane Kegelmann', published: true },
     },
-    floor: 'EG',
+    floor: 'lobby',
     spot: 'Haupteingang',
     year: 2023,
     technique: 'Mural',
@@ -75,6 +86,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'a2',
     inExhibition: false,
+    ...emptyAeo,
   }),
   work({
     id: 4,
@@ -84,7 +96,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     visibility: 'live',
     status: 'not-for-sale',
     artist: { name: 'Magdalena Wiegner', slug: 'magwie', person: null },
-    floor: 'B2',
+    floor: 'basement',
     spot: 'vor dem KTTK',
     year: 2022,
     technique: 'Mixed media',
@@ -96,6 +108,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'b0',
     inExhibition: false,
+    ...emptyAeo,
   }),
   work({
     id: 5,
@@ -105,7 +118,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     visibility: 'live',
     status: 'available',
     artist: { name: 'Andreas Ponto', slug: 'cokyone', person: null },
-    floor: 'EG',
+    floor: 'lobby',
     spot: 'Galerie',
     year: 2025,
     technique: 'Screenprint',
@@ -117,6 +130,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'c0',
     inExhibition: true,
+    ...emptyAeo,
   }),
   work({
     id: 6,
@@ -138,6 +152,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'a3',
     inExhibition: false,
+    ...emptyAeo,
   }),
   work({
     id: 7,
@@ -159,6 +174,7 @@ export const ARTWORK_FIXTURES: ArtWork[] = [
     pinned: false,
     order: 'a4',
     inExhibition: false,
+    ...emptyAeo,
   }),
 ]
 

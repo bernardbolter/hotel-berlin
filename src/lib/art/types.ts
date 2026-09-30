@@ -1,7 +1,8 @@
+/** Place-in-building levels (DB column still `locationInBuilding.floor`). Bottom → top. */
 export const ART_FLOORS = [
-  'B2',
-  'B1',
-  'EG',
+  'outside',
+  'basement',
+  'lobby',
   '1',
   '2',
   '3',
@@ -12,14 +13,51 @@ export const ART_FLOORS = [
   '8',
   '9',
   '10',
-  'Dach',
 ] as const
 
 export type ArtFloor = (typeof ART_FLOORS)[number]
+
 export type ArtworkType = 'mural' | 'edition' | 'installation'
 export type ArtworkVisibility = 'live' | 'hidden'
 export type ArtworkSaleStatus = 'available' | 'sold' | 'not-for-sale'
-export type FloorFilter = 'all' | 'lobby' | 'floors1to4' | 'floors5to10' | 'basement' | 'exhibition'
+export type ArtworkPermission = 'granted' | 'open' | 'denied'
+export type ArtworkArtform =
+  | 'mural'
+  | 'graffiti'
+  | 'print'
+  | 'photo'
+  | 'painting'
+  | 'installation'
+  | 'sculpture'
+
+export type FloorFilter =
+  | 'all'
+  | 'outside'
+  | 'lobby'
+  | 'floors1to4'
+  | 'floors5to10'
+  | 'basement'
+  | 'exhibition'
+
+export const ART_ARTFORM_OPTIONS: Array<{ value: ArtworkArtform; label: { de: string; en: string } }> =
+  [
+    { value: 'mural', label: { de: 'Mural', en: 'Mural' } },
+    { value: 'graffiti', label: { de: 'Graffiti', en: 'Graffiti' } },
+    { value: 'print', label: { de: 'Druck', en: 'Print' } },
+    { value: 'photo', label: { de: 'Foto', en: 'Photo' } },
+    { value: 'painting', label: { de: 'Gemälde', en: 'Painting' } },
+    { value: 'installation', label: { de: 'Installation', en: 'Installation' } },
+    { value: 'sculpture', label: { de: 'Skulptur', en: 'Sculpture' } },
+  ]
+
+export const ART_PERMISSION_OPTIONS: Array<{
+  value: ArtworkPermission
+  label: { de: string; en: string }
+}> = [
+  { value: 'granted', label: { de: 'erteilt', en: 'granted' } },
+  { value: 'open', label: { de: 'offen', en: 'open' } },
+  { value: 'denied', label: { de: 'abgelehnt', en: 'denied' } },
+]
 
 export type ArtImage = {
   src: string
@@ -37,6 +75,15 @@ export type ArtArtist = {
   name: string
   slug: string
   person: ArtPersonLink | null
+  realName?: string | null
+  shortBio?: string | null
+  website?: string | null
+  instagram?: string | null
+  wikidataId?: string | null
+  nationality?: string | null
+  basedIn?: string | null
+  medium?: string | null
+  sameAs?: string[]
 }
 
 export type ArtWork = {
@@ -49,9 +96,15 @@ export type ArtWork = {
   artist: ArtArtist
   floor: ArtFloor | null
   spot: string | null
+  geo: { latitude: number; longitude: number } | null
   year: number | null
   technique: string | null
   dimensions: string | null
+  artform: ArtworkArtform | null
+  surface: string | null
+  subjects: string[]
+  permission: ArtworkPermission | null
+  creditText: string | null
   description: unknown
   image: ArtImage | null
   contextImage: ArtImage | null

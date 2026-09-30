@@ -37,7 +37,13 @@
   --nbhd: #56674f; /* hub people cards — same as --green / --cat-nbhd */
   --cardline: #e0dcd5; /* amenity / person card borders */
   --dim: #6b7c8d; /* captions, metadata, footers */
-  --bg-subtle: #f4f6f7; /* card backgrounds, inputs */
+  --bg-subtle: #f4f6f7; /* neutral section tint; also cards/inputs */
+  /* Section background rhythm — ~10% brand colour into white (same mix as teal-light) */
+  --amber-light: #fef5ea; /* ~10% --amber; sport / main-site accent sections */
+  --coral-light: #feefef; /* ~10% --coral; events / music sections */
+  --gold-light: #f9f2ea; /* ~10% --cat-food; dining / food sections */
+  --green-light: #e7eae6; /* ~10–12% --green; neighbourhood sections */
+  --teal-light: #ebf3f5; /* pullquotes; /here accent-tinted sections */
 
   /* Context accent — flipped by [data-context]. Category tokens stay independent. */
   --ctx-accent: #216a95; /* navy — home/outside; distinct from --cat-art teal */
@@ -2432,14 +2438,19 @@ body {
 }
 .artwall {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 278px;
   gap: 4px;
   width: 100%;
 }
 
+.artwall--sparse {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 @media (max-width: 900px) {
-  .artwall {
+  .artwall,
+  .artwall--sparse {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 220px;
   }
@@ -2451,7 +2462,8 @@ body {
 }
 
 @media (max-width: 560px) {
-  .artwall {
+  .artwall,
+  .artwall--sparse {
     grid-template-columns: 1fr;
   }
 }
@@ -2501,6 +2513,16 @@ body {
   background: var(--teal);
 }
 
+.artwall__where--soon {
+  background: transparent;
+  border: 1.5px solid var(--teal);
+  color: #8fd0dc;
+}
+
+.artwall__where--gallery {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .artwall__who {
   font-family: var(--font-laica), Georgia, serif;
   font-size: 24px;
@@ -2512,6 +2534,13 @@ body {
 
 .artwall__tile--hero .artwall__who {
   font-size: 40px;
+}
+
+.artwall__sub {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 .person-card {
@@ -3257,6 +3286,11 @@ body {
 
 .art-loc__bar.is-keller {
   background: #cfc8be;
+}
+
+.art-loc__bar.is-outside {
+  margin-bottom: 6px;
+  background: #c4bdb3;
 }
 
 .art-loc__bar.is-on {

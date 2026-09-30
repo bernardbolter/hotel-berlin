@@ -10,6 +10,7 @@ import type { ArtArtistListItem, ArtExhibitionTile, ArtWork, FloorFilter } from 
 
 export type ArtGridCopy = {
   all: string
+  outside: string
   lobby: string
   floors1to4: string
   floors5to10: string
@@ -34,7 +35,15 @@ type Props = {
   copy: ArtGridCopy
 }
 
-const FILTERS: FloorFilter[] = ['all', 'lobby', 'floors1to4', 'floors5to10', 'basement', 'exhibition']
+const FILTERS: FloorFilter[] = [
+  'all',
+  'outside',
+  'lobby',
+  'floors1to4',
+  'floors5to10',
+  'basement',
+  'exhibition',
+]
 
 export function ArtGrid({ works, exhibitions, artists, copy }: Props) {
   const [filter, setFilter] = useState<FloorFilter>('all')

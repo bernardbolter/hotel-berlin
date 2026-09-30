@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { artPhotoHelp } from '@/lib/art/photoHelp'
+import { MEDIA_MASTER_EDGE } from '@/lib/media/limits'
+
 /**
  * Derivative widths = largest measured on-route card <img> CSS width × 2
  * (Playwright @ 1440 viewport, 2026-09-29):
@@ -25,8 +28,8 @@ export const Media: CollectionConfig = {
   },
   admin: {
     description: {
-      de: `Kartenfotos mindestens ${CARD_WIDTH} px breit (größtes gemessenes Karten-CSS × 2).`,
-      en: `Card photos need a minimum width of ${CARD_WIDTH} px (largest measured card CSS × 2).`,
+      de: artPhotoHelp.de.photo.short,
+      en: artPhotoHelp.en.photo.short,
     },
   },
   fields: [
@@ -35,13 +38,40 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
       localized: true,
+      maxLength: 120,
+      admin: {
+        description: {
+          de: artPhotoHelp.de.alt.short,
+          en: artPhotoHelp.en.alt.short,
+        },
+      },
+    },
+    {
+      name: 'altAiPrompt',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '/components/admin/AltTextAiPrompt#AltTextAiPrompt',
+        },
+      },
     },
   ],
   upload: {
     crop: true,
     focalPoint: true,
     adminThumbnail: 'thumb',
-    // Originals stay as uploaded; WebP is applied per size only.
+    // Derivatives: Payload already calls sharp.rotate() (EXIF orientation) before
+    // writing sizes; withMetadata:false ensures no EXIF (incl. GPS / serial) on outputs.
+    withMetadata: false,
+    // Cap the stored master at hero width (F3). Do not enlarge smaller sources —
+    // guided upload rejects long edge < MEDIA_MASTER_EDGE before this runs.
+    resizeOptions: {
+      width: MEDIA_MASTER_EDGE,
+      height: MEDIA_MASTER_EDGE,
+      fit: 'inside',
+      withoutEnlargement: true,
+    },
+    formatOptions: webp,
     imageSizes: [
       {
         name: 'thumb',

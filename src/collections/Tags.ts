@@ -36,6 +36,7 @@ export const Tags: CollectionConfig = {
         { label: 'Category', value: 'category' },
         { label: 'Medium', value: 'medium' },
         { label: 'Theme', value: 'theme' },
+        { label: 'Subject', value: 'subject' },
         { label: 'Amenity', value: 'amenity' },
         { label: 'Neighbourhood', value: 'neighbourhood' },
       ],

@@ -2,7 +2,7 @@ import { formatBerlinTime, getBerlinParts } from '@/lib/venue-time/berlin'
 import { formatEventPrice, venueFloor } from '@/lib/spotlight/eventMeta'
 import { categoryTokenForEventCategory } from '@/lib/spotlight/categoryTokens'
 import type { EventOccurrence } from '@/lib/payload/getEventOccurrences'
-import type { Exhibition, Venue } from '@/payload-types'
+import type { Venue } from '@/payload-types'
 
 export const AGENDA_WINDOW_DAYS = 30
 export const FEATURED_MAX = 3
@@ -138,7 +138,9 @@ export function featuredSkipKeys(
 
 export function buildAgendaDays(args: {
   occurrences: EventOccurrence[]
-  exhibition?: { id: string | number; title: string; slug: string; endDate?: string | null; venue: Venue | null } | null
+  /** @deprecated Prefer `exhibitions` — kept for call sites mid-migration. */
+  exhibition?: AgendaExhibitionInput | null
+  exhibitions?: AgendaExhibitionInput[]
   now: Date
   locale: 'de' | 'en'
   filter?: AgendaFilter
@@ -187,26 +189,61 @@ export function buildAgendaDays(args: {
     push(row)
   }
 
-  if (args.exhibition && (filter === 'all' || filter === 'art')) {
-    const exhibition = args.exhibition
-    const until = exhibition.endDate ? formatUntil(exhibition.endDate, locale) : null
-    push({
-      kind: 'exhibition',
-      key: `exhibition:${exhibition.id}:${today}`,
-      slug: exhibition.slug,
-      href: args.exhibitionHref ?? '/here/art',
-      title: exhibition.title,
-      timeLabel: '',
-      allDay: true,
-      category: agendaCategoryLabel('Art', locale),
-      categoryToken: 'art',
-      venueShort: exhibition.venue?.name?.trim() || 'FKKB',
-      floor: venueFloor(exhibition.venue, locale) || null,
-      price: until,
-      until,
-      dateKey: today,
-      start: args.now,
-    })
+  const shows =
+    args.exhibitions ??
+    (args.exhibition ? [args.exhibition] : [])
+
+  if ((filter === 'all' || filter === 'art') && shows.length > 0) {
+    for (const exhibition of shows) {
+      const venue = exhibition.venue
+      const until =
+        exhibition.runType === 'permanent'
+          ? null
+          : exhibition.endDate
+            ? formatUntil(exhibition.endDate, locale)
+            : null
+      const href = args.exhibitionHref ?? '/here/art'
+      const base = {
+        kind: 'exhibition' as const,
+        slug: exhibition.slug,
+        href,
+        title: exhibition.title,
+        timeLabel: '',
+        allDay: true,
+        category: agendaCategoryLabel('Art', locale),
+        categoryToken: 'art',
+        venueShort: venue?.name?.trim() || null,
+        floor: venueFloor(venue, locale) || null,
+        price: until,
+        until,
+      }
+
+      // Permanent: once in the window (today), never a daily flood.
+      if (exhibition.runType === 'permanent') {
+        push({
+          ...base,
+          key: `exhibition:${exhibition.id}:${today}`,
+          dateKey: today,
+          start: args.now,
+        })
+        continue
+      }
+
+      const dayKeys = exhibitionDayKeys({
+        startDate: exhibition.startDate,
+        endDate: exhibition.endDate,
+        today,
+        windowEnd,
+      })
+      for (const dateKey of dayKeys) {
+        push({
+          ...base,
+          key: `exhibition:${exhibition.id}:${dateKey}`,
+          dateKey,
+          start: args.now,
+        })
+      }
+    }
   }
 
   const days: AgendaDay[] = []
@@ -225,6 +262,43 @@ export function buildAgendaDays(args: {
     })
   }
   return days
+}
+
+export type AgendaExhibitionInput = {
+  id: string | number
+  title: string
+  slug: string
+  startDate?: string | null
+  endDate?: string | null
+  runType?: 'dated' | 'permanent' | null
+  venue: Venue | null
+}
+
+/** Berlin calendar days of a dated run, clamped to [today, windowEnd]. */
+export function exhibitionDayKeys(args: {
+  startDate?: string | null
+  endDate?: string | null
+  today: string
+  windowEnd: string
+}): string[] {
+  const start = berlinDayKeyFromIso(args.startDate) ?? args.today
+  const end = berlinDayKeyFromIso(args.endDate) ?? args.windowEnd
+  let cursor = start < args.today ? args.today : start
+  const last = end > args.windowEnd ? args.windowEnd : end
+  if (cursor > last) return []
+  const keys: string[] = []
+  while (cursor <= last) {
+    keys.push(cursor)
+    cursor = addDaysToDateKey(cursor, 1)
+  }
+  return keys
+}
+
+function berlinDayKeyFromIso(iso: string | null | undefined): string | null {
+  if (!iso) return null
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return null
+  return getBerlinParts(date).dateKey
 }
 
 function formatUntil(endDate: string, locale: 'de' | 'en'): string {

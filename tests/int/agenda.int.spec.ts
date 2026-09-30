@@ -97,25 +97,29 @@ describe('buildAgendaDays', () => {
     expect(days).toEqual([])
   })
 
-  it('filters by category and keeps exhibitions under today once', () => {
+  it('filters by category and expands a dated exhibition across its run days', () => {
     const days = buildAgendaDays({
       occurrences: [
         occ({ id: 1, slug: 'vinyl', name: 'Vinyl', category: 'Music' }, berlinLocalToUtc(2026, 9, 21, 18, 0, 0)),
       ],
-      exhibition: {
-        id: 9,
-        title: 'Duo',
-        slug: 'duo',
-        endDate: '2026-09-30',
-        venue: { name: 'FKKB', slug: 'fkkb' } as never,
-      },
+      exhibitions: [
+        {
+          id: 9,
+          title: 'Duo',
+          slug: 'duo',
+          runType: 'dated',
+          startDate: '2026-09-20T12:00:00.000Z',
+          endDate: '2026-09-21T12:00:00.000Z',
+          venue: { name: 'Galerie', slug: 'galerie' } as never,
+        },
+      ],
       now,
       locale: 'de',
       filter: 'art',
     })
-    expect(days).toHaveLength(1)
-    expect(days[0]?.kind).toBe('today')
-    expect(days[0]?.rows.map((r: AgendaRow) => r.kind)).toEqual(['exhibition'])
+    expect(days.map((d) => d.dateKey)).toEqual(['2026-09-20', '2026-09-21'])
+    expect(days.every((d) => d.rows.every((r: AgendaRow) => r.kind === 'exhibition'))).toBe(true)
     expect(days[0]?.rows[0]?.price).toMatch(/^bis /)
+    expect(days[0]?.rows[0]?.venueShort).toBe('Galerie')
   })
 })

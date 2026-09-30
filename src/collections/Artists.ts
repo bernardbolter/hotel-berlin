@@ -17,6 +17,15 @@ export const Artists: CollectionConfig = {
     slugField({ name: 'slug', useAsSlug: 'name' }),
     { name: 'alias', type: 'text' },
     {
+      name: 'realName',
+      type: 'text',
+      label: { de: 'Bürgerlicher Name', en: 'Legal / real name' },
+      admin: {
+        description:
+          'Optional — only when the artist publishes it themselves. Many street artists work under an alias deliberately.',
+      },
+    },
+    {
       name: 'person',
       type: 'relationship',
       relationTo: 'people',
@@ -26,7 +35,15 @@ export const Artists: CollectionConfig = {
       },
     },
     { name: 'bio', type: 'richText', localized: true },
-    { name: 'shortBio', type: 'textarea' },
+    {
+      name: 'shortBio',
+      type: 'textarea',
+      localized: true,
+      maxLength: 140,
+      admin: {
+        description: 'One factual sentence, max 140 characters. No praise.',
+      },
+    },
     { name: 'portrait', type: 'upload', relationTo: 'media' },
     { name: 'website', type: 'text' },
     { name: 'instagram', type: 'text' },
@@ -37,6 +54,11 @@ export const Artists: CollectionConfig = {
       name: 'wikidataId',
       type: 'text',
       admin: { description: identityDescription },
+      validate: (value: unknown) => {
+        if (value == null || value === '') return true
+        if (typeof value === 'string' && /^Q\d+$/.test(value.trim())) return true
+        return 'Wikidata ID must look like Q12345'
+      },
     },
     {
       name: 'sameAs',

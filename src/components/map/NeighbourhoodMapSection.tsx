@@ -1,6 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
+import {
+  SectionShell,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { HomepageMapTeaser, type MapTeaserPlace } from '@/components/map/HomepageMapTeaser'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { toAeoPlace } from '@/lib/aeo/mapToSchema'
@@ -134,6 +138,8 @@ type Props = {
   ctaLabel?: string
   /** @deprecated Compact /here chrome removed — section is full-bleed in both contexts. */
   layout?: 'section' | 'card'
+  /** Explicit section tint — required so rhythm stays intentional. */
+  background: LightSectionBackground
 }
 
 /**
@@ -145,7 +151,8 @@ export async function NeighbourhoodMapSection({
   framing = 'place',
   ctaHref = '/neighbourhood',
   ctaLabel,
-}: Props = {}) {
+  background,
+}: Props) {
   const locale = (await getLocale()) as 'de' | 'en'
   const t = await getTranslations('map')
   const tMap = await getTranslations('heroMap')
@@ -234,7 +241,7 @@ export async function NeighbourhoodMapSection({
   )
 
   return (
-    <section aria-labelledby={headingId} className="bg-hbb-page">
+    <SectionShell as="section" background={background} aria-labelledby={headingId}>
       {listGraph ? <JsonLdScript graph={listGraph} /> : null}
       <div className="site-shell px-section-sm pb-6 pt-section-y md:px-section-x">
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
@@ -248,6 +255,6 @@ export async function NeighbourhoodMapSection({
       </div>
 
       <div className="w-full overflow-hidden border-t border-black/5">{teaser}</div>
-    </section>
+    </SectionShell>
   )
 }

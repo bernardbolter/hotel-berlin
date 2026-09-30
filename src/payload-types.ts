@@ -201,13 +201,16 @@ export interface User {
   collection: 'users';
 }
 /**
- * Card photos need a minimum width of 864 px (largest measured card CSS × 2).
+ * A photograph of the work, as square-on as you can. Long edge at least 2880 px; stored at most 2880 px / 10 MB (JPEG 82 %).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
+  /**
+   * Describe the photograph in one sentence for someone who cannot see it – a screen-reader user, for example.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -279,7 +282,7 @@ export interface Tag {
    * Pick a Lucide icon. Leave blank for no icon.
    */
   lucideIcon?: string | null;
-  type: 'category' | 'medium' | 'theme' | 'amenity' | 'neighbourhood';
+  type: 'category' | 'medium' | 'theme' | 'subject' | 'amenity' | 'neighbourhood';
   updatedAt: string;
   createdAt: string;
 }
@@ -1020,6 +1023,10 @@ export interface Artist {
   slug: string;
   alias?: string | null;
   /**
+   * Optional — only when the artist publishes it themselves. Many street artists work under an alias deliberately.
+   */
+  realName?: string | null;
+  /**
    * Optional join to a You, Me & Berlin person. The name links out only when this is set and that person has a public page. Dedicated artist routes are still open (O-F3).
    */
   person?: (number | null) | Person;
@@ -1038,6 +1045,9 @@ export interface Artist {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * One factual sentence, max 140 characters. No praise.
+   */
   shortBio?: string | null;
   portrait?: (number | null) | Media;
   website?: string | null;
@@ -1161,7 +1171,15 @@ export interface NeighbourhoodPlace {
   name: string;
   slug: string;
   category:
-    'Art' | 'Bar' | 'Kids' | 'Museum' | 'Parks and Nature' | 'Party' | 'Restaurant' | 'Shopping' | 'Sightseeing';
+    | 'Art'
+    | 'Bar'
+    | 'Kids'
+    | 'Museum'
+    | 'Parks and Nature'
+    | 'Party'
+    | 'Restaurant'
+    | 'Shopping'
+    | 'Sightseeing';
   /**
    * xlsx “Also” column. Stored as a tag; primary `category` drives card colour and the map pin.
    */
@@ -1328,11 +1346,23 @@ export interface Artwork {
   artist: number | Artist;
   editionNumber?: string | null;
   /**
-   * Technique shown in the facts list, e.g. “Spray paint on plaster”.
+   * VisualArtwork.artform — controlled list for consistent structured data.
+   */
+  artform?: ('mural' | 'graffiti' | 'print' | 'photo' | 'painting' | 'installation' | 'sculpture') | null;
+  /**
+   * Technique → artMedium, e.g. “Sprühfarbe” / “Spray paint”.
    */
   medium?: string | null;
+  /**
+   * artworkSurface — Putz/plaster, Beton/concrete…
+   */
+  surface?: string | null;
   dimensions?: string | null;
   year?: number | null;
+  /**
+   * What is depicted (Vogel, Porträt…). JSON-LD keywords. type=subject only.
+   */
+  subjects?: (number | Tag)[] | null;
   /**
    * The story on the work page and in structured data. Write natively per locale. Do not add a separate story field.
    */
@@ -1352,17 +1382,36 @@ export interface Artwork {
     [k: string]: unknown;
   } | null;
   /**
-   * Floor + spot for the grid caption and floor locator.
+   * Place in / on the building + spot for the grid caption and locator.
    */
   locationInBuilding?: {
-    floor?: ('B2' | 'B1' | 'EG' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'Dach') | null;
+    floor?: ('outside' | 'basement' | 'lobby' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10') | null;
     /**
-     * e.g. „bei den Aufzügen“ / “near the lifts”. Max 40.
+     * Indoors: „bei den Aufzügen“. Outside: „Fassade zur Straße“, „beim Parkplatz“, „Hof, linke Wand“. Max 40.
      */
     spot?: string | null;
   };
   /**
-   * Querformat und Hochformat willkommen; für die Übersicht wird 4:5 zugeschnitten – Fokuspunkt setzen.
+   * Outdoor works only — never guess.
+   */
+  geo?: {
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+  /**
+   * Artist consent to publish the photograph. Open and denied block publishing.
+   */
+  permission?: ('granted' | 'open' | 'denied') | null;
+  /**
+   * Optional note about the consent (date, channel, caveats).
+   */
+  permissionNote?: string | null;
+  /**
+   * Photo credit → ImageObject.creditText / copyrightNotice.
+   */
+  creditText?: string | null;
+  /**
+   * A photograph of the work, as square-on as you can. Long edge at least 2880 px; stored at most 2880 px / 10 MB (JPEG 82 %).
    */
   images?:
     | {
@@ -1372,7 +1421,7 @@ export interface Artwork {
       }[]
     | null;
   /**
-   * Optional step-back shot showing where the work hangs in the building.
+   * Optional: a second photograph, one step back.
    */
   contextImage?: (number | null) | Media;
   /**
@@ -2235,6 +2284,7 @@ export interface ArtistsSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   alias?: T;
+  realName?: T;
   person?: T;
   bio?: T;
   shortBio?: T;
@@ -2269,9 +2319,12 @@ export interface ArtworksSelect<T extends boolean = true> {
   pinned?: T;
   artist?: T;
   editionNumber?: T;
+  artform?: T;
   medium?: T;
+  surface?: T;
   dimensions?: T;
   year?: T;
+  subjects?: T;
   description?: T;
   locationInBuilding?:
     | T
@@ -2279,6 +2332,15 @@ export interface ArtworksSelect<T extends boolean = true> {
         floor?: T;
         spot?: T;
       };
+  geo?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  permission?: T;
+  permissionNote?: T;
+  creditText?: T;
   images?:
     | T
     | {

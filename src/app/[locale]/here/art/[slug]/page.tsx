@@ -88,6 +88,7 @@ export default async function ArtWorkPage({ params }: Props) {
       exhibition={exhibition}
       moreBy={moreBy}
       moreOnFloor={moreOnFloor}
+      locale={locale === 'de' ? 'de' : 'en'}
       copy={{
         crumbHere: page('crumbHere'),
         crumbArt: page('title'),
@@ -100,7 +101,9 @@ export default async function ArtWorkPage({ params }: Props) {
         moreBy: page.raw('moreByHeading'),
         moreByAll: page.raw('moreByAll'),
         moreOnFloor: page.raw('moreOnFloor'),
+        moreOutside: page('moreOutside'),
         seeFloor: page('seeFloor'),
+        seeOutside: page('seeOutside'),
         onward: page('workOnward'),
         onwardCta: page('workOnwardCta'),
         exhibitionCta: page('exhibitionCta'),

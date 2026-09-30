@@ -1,5 +1,9 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import {
+  SectionShell,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { getHomepageSpotlightCards } from '@/lib/data/homepageSpotlight'
 import { spotlightTeasers } from '@/lib/data/spotlightTeasers'
@@ -23,11 +27,16 @@ function fillHomepageRow(
 const HEADING_CLASS =
   'text-left font-serif text-[clamp(2.15rem,3.4vw,3.1rem)] font-normal leading-[1.12] text-[#1F1F1F]'
 
+type Props = {
+  /** Explicit section tint — required so rhythm stays intentional. */
+  background: LightSectionBackground
+}
+
 /**
  * Homepage Happenings — one responsive row of SpotlightCards + link to all events.
  * Prefers live Payload cards; falls back to static teasers if nothing resolves.
  */
-export async function EventsSection() {
+export async function EventsSection({ background }: Props) {
   const t = await getTranslations('events')
   const locale = await getLocale()
 
@@ -38,19 +47,23 @@ export async function EventsSection() {
   const items = fillHomepageRow(live, spotlightTeasers)
 
   return (
-    <section
+    <SectionShell
+      as="section"
+      background={background}
       aria-labelledby="events-heading"
-      className="bg-hbb-page px-section-sm py-section-y md:px-section-x"
+      className="px-section-sm py-section-y md:px-section-x"
     >
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <h2 id="events-heading" className={HEADING_CLASS}>
-          {t('label')}
-        </h2>
-        <SweepCta href="/happenings" color="ink" edge="right" className="shrink-0">
-          {t('viewAll')}
-        </SweepCta>
+      <div className="site-shell">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <h2 id="events-heading" className={HEADING_CLASS}>
+            {t('label')}
+          </h2>
+          <SweepCta href="/happenings" color="ink" edge="right" className="shrink-0">
+            {t('viewAll')}
+          </SweepCta>
+        </div>
+        <EventsRow items={items} ariaLabel={t('rowAria')} />
       </div>
-      <EventsRow items={items} ariaLabel={t('rowAria')} />
-    </section>
+    </SectionShell>
   )
 }

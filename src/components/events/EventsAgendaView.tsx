@@ -47,7 +47,7 @@ export async function EventsAgendaView({ locale, framing, filterRaw, pathname }:
       return []
     }),
   ])
-  // A1: lead show for featured strip. A3 expands every current show into agenda days.
+  // A3: every current gallery show expands into agenda days (permanent once).
   const exhibition = currentShows[0] ?? null
   const venue =
     exhibition && typeof exhibition.venue === 'object' && exhibition.venue
@@ -89,16 +89,16 @@ export async function EventsAgendaView({ locale, framing, filterRaw, pathname }:
 
   const days = buildAgendaDays({
     occurrences,
-    exhibition:
-      exhibition && venue
-        ? {
-            id: exhibition.id,
-            title: exhibition.title,
-            slug: exhibition.slug,
-            endDate: exhibition.endDate,
-            venue,
-          }
-        : null,
+    exhibitions: currentShows.map((show) => ({
+      id: show.id,
+      title: show.title,
+      slug: show.slug,
+      startDate: show.startDate,
+      endDate: show.endDate,
+      runType: show.runType,
+      venue:
+        typeof show.venue === 'object' && show.venue ? (show.venue as Venue) : null,
+    })),
     now,
     locale: loc,
     filter,

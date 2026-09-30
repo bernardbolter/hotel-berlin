@@ -37,13 +37,16 @@ export async function revalidateCms(
   }
 }
 
-export function collectionCacheHooks(tag: string): { hooks: NonNullable<CollectionConfig['hooks']> } {
+export function collectionCacheHooks(
+  tag: string,
+  extraPaths: string[] = [],
+): { hooks: NonNullable<CollectionConfig['hooks']> } {
   const afterChange: CollectionAfterChangeHook = async ({ doc, req }) => {
-    await revalidateCms(req, [tag])
+    await revalidateCms(req, [tag], extraPaths)
     return doc
   }
   const afterDelete: CollectionAfterDeleteHook = async ({ req }) => {
-    await revalidateCms(req, [tag])
+    await revalidateCms(req, [tag], extraPaths)
   }
   return {
     hooks: {

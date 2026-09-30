@@ -1,0 +1,283 @@
+<title>Kunst im Haus — Section States</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap">
+<style>
+  :root{
+    --bg:#F4F2EF; --surface:#FFFFFF; --text:#23201C; --dim:#6E675E; --faint:#948C82;
+    --rule:#E2DDD5; --accent:#2C6B7A; --accent-bg:#E7F0F2;
+    --shadow:0 1px 2px rgba(35,32,28,.05), 0 12px 32px rgba(35,32,28,.09);
+    --ff-ui:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --ff-ed:'Newsreader',Charter,Georgia,serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#1A1815;--surface:#23201C;--text:#EDE8E1;--dim:#9C9389;--faint:#7A7269;
+    --rule:#35302A;--accent:#6FB3C2;--accent-bg:#1E2E32;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45);}}
+  :root[data-theme="dark"]{
+    --bg:#1A1815;--surface:#23201C;--text:#EDE8E1;--dim:#9C9389;--faint:#7A7269;
+    --rule:#35302A;--accent:#6FB3C2;--accent-bg:#1E2E32;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45);}
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--ff-ui);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:40px 16px 96px;display:flex;flex-direction:column;gap:36px}
+  @media (min-width:700px){.wrap{padding:40px 28px 96px}}
+  .masthead{display:flex;flex-direction:column;gap:10px}
+  .kicker{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--accent)}
+  .masthead h1{margin:0;font-family:var(--ff-ed);font-weight:300;font-size:clamp(30px,4.4vw,44px);line-height:1.1;text-wrap:balance}
+  .masthead p{margin:0;max-width:72ch;color:var(--dim);font-size:15.5px}
+  .masthead p strong{color:var(--text)}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:4px;font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+
+  .sec{display:flex;flex-direction:column;gap:16px}
+  .sec>h2{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--dim);display:flex;align-items:center;gap:14px}
+  .sec>h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:.86em;background:var(--accent-bg);color:var(--accent);padding:1px 5px}
+
+  .controls{position:sticky;top:0;z-index:30;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+  .seg{display:flex;flex-wrap:wrap;background:var(--surface);border:1px solid var(--rule)}
+  .seg button{appearance:none;border:0;background:transparent;cursor:pointer;font:700 11px/1 var(--ff-ui);letter-spacing:.07em;text-transform:uppercase;color:var(--dim);padding:11px 12px;white-space:nowrap}
+  .seg button+button{border-left:1px solid var(--rule)}
+  .seg button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+  .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+  .seglabel{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--faint)}
+  .statenote{font-size:13.5px;color:var(--dim);max-width:78ch;min-height:40px}
+  .statenote b{color:var(--text)}
+
+  /* ============ artboard ============ */
+  .artboard{container-type:inline-size;width:100%;background:#FBFBFB;border:1px solid var(--rule);box-shadow:var(--shadow);overflow:hidden}
+  .stage{--px:calc(100cqw / 1425);background:#FBFBFB;color:#141414;font-family:var(--ff-ui)}
+  .stage.phone{--px:calc(100cqw / 390)}
+  .phoneboard{container-type:inline-size;width:390px;max-width:100%;background:#FBFBFB;border:1px solid var(--rule);box-shadow:var(--shadow);overflow:hidden}
+
+  .nav{display:flex;align-items:center;gap:calc(20 * var(--px));padding:calc(15 * var(--px)) calc(32 * var(--px));border-bottom:1px solid #E6E2DC}
+  .nav b{font-family:var(--ff-ed);font-weight:400;font-size:calc(19 * var(--px))}
+  .nav span{font-size:calc(11 * var(--px));color:#5A5A5A}
+  .nav .sp{flex:1}
+  .subnav{display:flex;gap:calc(14 * var(--px));align-items:center;padding:calc(10 * var(--px)) calc(32 * var(--px));background:#F1EFEB;font-size:calc(11 * var(--px));color:#2C6B7A}
+
+  .secinner{padding:calc(30 * var(--px)) calc(32 * var(--px)) calc(40 * var(--px))}
+  .sechead{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:calc(22 * var(--px))}
+  .sechead h3{margin:0;font-family:var(--ff-ed);font-weight:300;font-size:calc(46 * var(--px));line-height:1}
+  .sechead .lcta{font-size:calc(13 * var(--px));font-weight:700;letter-spacing:.07em;color:#9A6420;border-right:calc(2 * var(--px)) solid #E0DCD5;padding-right:calc(18 * var(--px))}
+
+  /* mosaic */
+  .mosaic{display:grid;gap:calc(4 * var(--px));grid-template-columns:repeat(4,1fr);grid-auto-rows:calc(276 * var(--px))}
+  .t{position:relative;overflow:hidden;background:#141414;display:flex;align-items:flex-end;padding:calc(18 * var(--px));color:#fff;isolation:isolate}
+  .t--big{grid-column:span 2;grid-row:span 2}
+  .t--wide{grid-column:span 2}
+  .t--empty{background:#1C1B19}
+  .t--empty::after{content:"";position:absolute;inset:0;background:
+     repeating-linear-gradient(135deg,rgba(255,255,255,.028) 0 calc(2 * var(--px)),transparent calc(2 * var(--px)) calc(6 * var(--px)));z-index:-1}
+  .t--teal{background:#2C6B7A}
+  .t__in{display:flex;flex-direction:column;gap:calc(8 * var(--px));width:100%}
+  .chip{display:inline-flex;align-items:center;gap:calc(6 * var(--px));align-self:flex-start;font-size:calc(9.5 * var(--px));font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:calc(4 * var(--px)) calc(8 * var(--px));background:rgba(0,0,0,.55);color:#fff}
+  .chip--now{background:#2C6B7A}
+  .chip--soon{background:transparent;border:calc(1.5 * var(--px)) solid #2C6B7A;color:#8FD0DC}
+  .chip--gallery{background:rgba(255,255,255,.14)}
+  .t__title{font-family:var(--ff-ed);font-weight:300;font-size:calc(38 * var(--px));line-height:1.05;margin:0}
+  .t--small .t__title{font-size:calc(26 * var(--px))}
+  .t__sub{font-size:calc(11.5 * var(--px));color:rgba(255,255,255,.72)}
+  .t__all{font-family:var(--ff-ed);font-size:calc(30 * var(--px));line-height:1}
+  .t__alllink{font-size:calc(10.5 * var(--px));font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:calc(1.5 * var(--px)) solid rgba(255,255,255,.7);padding-bottom:calc(2 * var(--px));width:max-content;margin-top:calc(8 * var(--px))}
+  .t__ph{position:absolute;top:calc(14 * var(--px));right:calc(14 * var(--px));font-size:calc(9 * var(--px));letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+  /* hidden-section state */
+  .gap{padding:calc(26 * var(--px)) calc(32 * var(--px));border:calc(1 * var(--px)) dashed #CFC8BE;color:#8A8278;font-size:calc(13 * var(--px));text-align:center;background:#F6F4F0}
+
+  /* phone */
+  .stage.phone .secinner{padding:calc(22 * var(--px)) calc(16 * var(--px)) calc(28 * var(--px))}
+  .stage.phone .sechead{flex-direction:column;align-items:flex-start;gap:calc(8 * var(--px));padding-bottom:calc(16 * var(--px))}
+  .stage.phone .sechead h3{font-size:calc(34 * var(--px))}
+  .stage.phone .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:calc(190 * var(--px))}
+  .stage.phone .t--big{grid-column:span 2;grid-row:span 1}
+  .stage.phone .t--wide{grid-column:span 2}
+  .stage.phone .t__title{font-size:calc(28 * var(--px))}
+  .stage.phone .t--small .t__title{font-size:calc(19 * var(--px))}
+
+  .boards{display:flex;flex-direction:column;gap:14px}
+  .boardlabel{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+  .two{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+  .two>div:first-child{flex:1 1 560px;min-width:320px}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tablescroll{overflow-x:auto}
+  table{min-width:620px}
+  th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--dim);padding:0 14px 9px 0;border-bottom:1px solid var(--rule)}
+  td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+  td:first-child{font-weight:600;white-space:nowrap}
+  ul.calls{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0;padding:0}
+  ul.calls>li{background:var(--surface);padding:14px 18px;list-style:none}
+  ul.calls h3{margin:0 0 4px;font-size:13px;font-weight:700}
+  ul.calls p{margin:0;font-size:13px;color:var(--dim)}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Hotel Berlin, Berlin · /hier · Kunst im Haus</div>
+    <h1>Two galleries, one section, seven states</h1>
+    <p>The FKKB and the photo gallery both run <strong>monthly</strong> shows, so <strong>two current exhibitions is the normal state</strong>, not the exception. This draws that state first and then every way it can thin out: one show, one show plus an announced one, none, and no art at all. <strong>Nothing here is curated.</strong> Every tile is chosen by date and by recency, so the section is right on a morning when nobody has logged in for a month.</p>
+    <div class="meta"><span>30 Sep 2026</span><span>Design comp</span><span>Newsreader stands in for Laica A</span><span>Tiles show the no-photo state, because there are no photos yet</span></div>
+  </header>
+
+  <div class="controls">
+    <span class="seglabel">State</span>
+    <div class="seg" role="group" aria-label="State">
+      <button data-s="A" aria-pressed="true">A · Two shows</button>
+      <button data-s="B" aria-pressed="false">B · One + announced</button>
+      <button data-s="C" aria-pressed="false">C · One show</button>
+      <button data-s="D" aria-pressed="false">D · Only announced</button>
+      <button data-s="E" aria-pressed="false">E · No show</button>
+      <button data-s="F" aria-pressed="false">F · Two works</button>
+      <button data-s="G" aria-pressed="false">G · Nothing</button>
+    </div>
+  </div>
+
+  <p class="statenote" id="note"></p>
+
+  <div class="boards">
+    <div class="boardlabel">Desktop · 1425</div>
+    <div class="artboard"><div class="stage">
+      <div class="nav"><b>Hotel Berlin, Berlin</b><span>Was ist los</span><span>So kommst du hin</span><span>Die Nachbarschaft</span><span>Galerie</span><span>Wallride</span><span class="sp"></span><span>DE | EN</span></div>
+      <div class="subnav"><span>Noch nicht hier?</span><span>Zimmer</span><span>Meetings</span><span>Essen &amp; Trinken</span><span>Happenings</span><span>Nachbarschaft</span></div>
+      <div class="secinner">
+        <div class="sechead">
+          <h3>Kunst im Haus</h3>
+          <span class="lcta">Kunstprogramm →</span>
+        </div>
+        <div class="mosaic" id="grid"></div>
+        <div class="gap" id="gap" hidden>Der ganze Abschnitt erscheint nicht. Kein Platzhalter, keine leere Überschrift.</div>
+      </div>
+    </div></div>
+
+    <div class="boardlabel">Phone · 390</div>
+    <div class="phoneboard"><div class="stage phone">
+      <div class="secinner">
+        <div class="sechead"><h3>Kunst im Haus</h3><span class="lcta">Kunstprogramm →</span></div>
+        <div class="mosaic" id="pgrid"></div>
+        <div class="gap" id="pgap" hidden>Abschnitt erscheint nicht.</div>
+      </div>
+    </div></div>
+  </div>
+
+  <section class="sec">
+    <h2>What fills each tile, in order</h2>
+    <div class="tablescroll">
+      <table>
+        <thead><tr><th>Slot</th><th>First choice</th><th>Then</th><th>Then</th></tr></thead>
+        <tbody>
+          <tr><td>Lead</td><td>Current show ending soonest</td><td>Next show starting within 30 days</td><td>Highest-ranked work, shown large</td></tr>
+          <tr><td>Second wide</td><td>The other current show</td><td>An announced show</td><td>— slot collapses, works take the space</td></tr>
+          <tr><td>Small tiles</td><td>Works with a photo: pinned first, then newest</td><td>No two from the same floor group while others remain</td><td>— fewer tiles, no padding</td></tr>
+          <tr><td>Last tile</td><td><code>Alle Werke</code>, always, as long as one work exists</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Why it's built this way</h2>
+    <ul class="calls">
+      <li><h3>Two monthly shows is the resting state</h3><p>So state A is the design, and the others are what happens when it thins. A layout designed for one show and stretched to two would put the second gallery in a small tile next to a mural, which reads as less important than it is. Two equal wide tiles say: two galleries, both current.</p></li>
+      <li><h3>Ending soonest goes first</h3><p>Between two current shows, the one closing in four days is the more useful thing to tell a guest who is here for two nights. It also means the lead tile changes by itself over the month, without anyone touching it.</p></li>
+      <li><h3>A show leaves on its closing date</h3><p><code>status</code> is worked out from the dates, not set by hand. On the day after a show closes it stops being „Jetzt" everywhere: the mosaic, the art page and the agenda. That is the whole reason exhibitions are one record.</p></li>
+      <li><h3>An announced show is worth a tile</h3><p>„Ab 12.10." with an outlined chip, so it reads as a promise rather than something you can see today. It gives the galleries a reason to tell the hotel their dates early, which is the behaviour we want.</p></li>
+      <li><h3>Empty degrades to art, not to apology</h3><p>With no shows at all, the section is simply the works in the building, led by the pinned or newest one. No „Zur Zeit keine Ausstellung", because that line is a statement that goes stale and makes an ordinary month look like a failure.</p></li>
+      <li><h3>Tiles are dark because there are no photos</h3><p>What you see is the real empty state. A tile with a photograph keeps the same caption block over the image. As you upload, the section fills in by itself, newest first.</p></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function(){
+  var ALL = {kind:'all'};
+  function ex(gal,title,artists,chipText,chipClass){return {kind:'ex',gal:gal,title:title,sub:artists,chip:chipText,chipClass:chipClass}}
+  function wk(where,artist,title){return {kind:'wk',where:where,artist:artist,title:title}}
+
+  var W = [
+    wk('4. Etage · bei den Aufzügen','Somari'),
+    wk('2. Etage · Treppenhaus','deerBLN'),
+    wk('Lobby · Haupteingang','Pisa73'),
+    wk('Keller · Wallride','Magwie')
+  ];
+
+  var STATES = {
+    A:{note:'<b>A · Two current shows — the normal month.</b> Both galleries lead, as two wide tiles, each with its own name and closing date. The one closing sooner is on top. Below them, three works and <code>Alle Werke</code>.',
+       tiles:[
+         ex('FKKB','Magwie × CokyOne','Graffiti · bis 30.9.','Jetzt · bis 30.9.','chip--now'),
+         ex('Fotogalerie','Nachtschicht','Lena Osterhagen · bis 24.10.','Jetzt · bis 24.10.','chip--now'),
+         W[0],W[1],ALL]},
+    B:{note:'<b>B · One current show, one announced.</b> The running show leads large. The next one takes a small tile with an outlined chip, so it reads as a date to come, not something to see now.',
+       tiles:[
+         ex('FKKB','Magwie × CokyOne','Graffiti · bis 30.9.','Jetzt · bis 30.9.','chip--now'),
+         ex('Fotogalerie','Nachtschicht','Lena Osterhagen','Ab 12.10.','chip--soon'),
+         W[0],W[1],ALL]},
+    C:{note:'<b>C · One current show only.</b> The signed-off layout: one large tile, three works, <code>Alle Werke</code>. The second gallery is simply absent — no empty frame, no placeholder.',
+       tiles:[
+         ex('FKKB','Magwie × CokyOne','Graffiti · bis 30.9.','Jetzt · bis 30.9.','chip--now'),
+         W[0],W[1],W[2],ALL]},
+    D:{note:'<b>D · Nothing running, one announced.</b> The announced show takes the lead tile with the outlined chip. The works carry the rest, so the section still looks like a building with art in it.',
+       tiles:[
+         ex('Fotogalerie','Nachtschicht','Lena Osterhagen','Ab 12.10.','chip--soon'),
+         W[0],W[1],W[2],ALL]},
+    E:{note:'<b>E · No show at all.</b> Between exhibitions the section becomes the permanent collection: the pinned or newest work leads, the rest follow. <b>No line saying there is no exhibition.</b>',
+       tiles:[W[3],W[0],W[1],W[2],ALL]},
+    F:{note:'<b>F · Only two works, no shows.</b> Early days, while you are still uploading. Three equal tiles, no big tile, no gap where a fourth would go. It reads as deliberate rather than unfinished.',
+       tiles:[W[0],W[1],ALL], small:true},
+    G:{note:'<b>G · No works with photographs and no shows.</b> The whole section is absent from <code>/hier</code>. The art page keeps its own line — „Die Werke im Haus werden gerade fotografiert." — but the hub does not announce an emptiness.',
+       tiles:[]}
+  };
+
+  function tileEl(t,i,state){
+    var d=document.createElement(t.kind==='all'?'a':'div');
+    d.className='t';
+    if(t.kind==='ex'){
+      var lead = (i===0);
+      var twoShows = state==='A';
+      d.className+= twoShows ? ' t--wide' : (lead?' t--big':' t--small');
+      if(!lead && !twoShows) d.className+=' t--small';
+      d.className+=' t--empty';
+      d.innerHTML='<div class="t__in">'+
+        '<span class="chip '+t.chipClass+'">'+t.chip+'</span>'+
+        '<span class="chip chip--gallery">'+t.gal+'</span>'+
+        '<p class="t__title">'+t.title+'</p>'+
+        '<span class="t__sub">'+t.sub+'</span></div>'+
+        '<span class="t__ph">kein Foto</span>';
+    } else if(t.kind==='wk'){
+      var big = (i===0 && !state.match(/^[F]$/));
+      d.className+= big?' t--big':' t--small';
+      d.className+=' t--empty';
+      d.innerHTML='<div class="t__in">'+
+        '<span class="chip">'+t.where+'</span>'+
+        '<p class="t__title">'+t.artist+'</p></div>'+
+        '<span class="t__ph">kein Foto</span>';
+    } else {
+      d.className+=' t--small t--teal';
+      d.innerHTML='<div class="t__in"><span class="t__all">Alle Werke</span><span class="t__alllink">Alle ansehen →</span></div>';
+    }
+    return d;
+  }
+
+  function paint(id,gapId,s){
+    var g=document.getElementById(id), gap=document.getElementById(gapId);
+    g.innerHTML='';
+    var st=STATES[s];
+    if(!st.tiles.length){g.hidden=true;gap.hidden=false;return}
+    g.hidden=false;gap.hidden=true;
+    st.tiles.forEach(function(t,i){
+      var el=tileEl(t,i,s);
+      if(st.small){el.classList.remove('t--big');el.classList.add('t--small')}
+      g.appendChild(el);
+    });
+    g.style.gridTemplateColumns = st.small ? 'repeat(3,1fr)' : 'repeat(4,1fr)';
+  }
+
+  function render(s){
+    document.getElementById('note').innerHTML=STATES[s].note;
+    paint('grid','gap',s);
+    paint('pgrid','pgap',s);
+    document.querySelectorAll('.seg button').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-s')===s))});
+  }
+  document.querySelectorAll('.seg button').forEach(function(b){
+    b.addEventListener('click',function(){render(b.getAttribute('data-s'))});
+  });
+  render('A');
+})();
+</script>

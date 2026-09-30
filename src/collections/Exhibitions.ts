@@ -6,7 +6,12 @@ import { collectionCacheHooks } from '@/lib/payload/revalidate'
 
 export const Exhibitions: CollectionConfig = {
   slug: 'exhibitions',
-  ...collectionCacheHooks('exhibitions'),
+  ...collectionCacheHooks('exhibitions', [
+    '/here',
+    '/here/art',
+    '/happenings',
+    '/here/events',
+  ]),
   access: publicReadStaffWrite,
   admin: { useAsTitle: 'title', group: 'Content' },
   fields: [

@@ -2,14 +2,19 @@ import { getTranslations } from 'next-intl/server'
 
 import { ArtWall } from '@/components/here/ArtWall'
 import { HubSerifHeading } from '@/components/here/HubSerifHeading'
+import {
+  SectionShell,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { getArtWallData } from '@/lib/here/getArtWall'
 
 type Props = {
   locale: string
+  background: LightSectionBackground
 }
 
 /** Heading contained; mosaic full-bleed — same structure as the map section. */
-export async function ArtWallSection({ locale }: Props) {
+export async function ArtWallSection({ locale, background }: Props) {
   const t = await getTranslations('here')
   const data = await getArtWallData(locale, {
     nowUntil: (date) => t('artWall.nowUntil', { date }),
@@ -21,10 +26,14 @@ export async function ArtWallSection({ locale }: Props) {
     moreWithoutCount: t('artWall.more'),
   })
 
-  if (data.tiles.length === 0) return null
+  if (!data) return null
 
   return (
-    <section aria-labelledby="here-art-heading" className="bg-hbb-page">
+    <SectionShell
+      as="section"
+      background={background}
+      aria-labelledby="here-art-heading"
+    >
       <div className="site-shell px-section-sm pb-6 pt-section-y md:px-section-x">
         <HubSerifHeading
           id="here-art-heading"
@@ -34,7 +43,7 @@ export async function ArtWallSection({ locale }: Props) {
           ctaColor="ctx"
         />
       </div>
-      <ArtWall tiles={data.tiles} moreLabel={t('artWall.seeAll')} />
-    </section>
+      <ArtWall tiles={data.tiles} moreLabel={t('artWall.seeAll')} columns={data.columns} />
+    </SectionShell>
   )
 }

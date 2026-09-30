@@ -1,0 +1,290 @@
+<title>Section Background Rhythm</title>
+<style>
+  /* Layout: chrome (theme-aware) frames two fixed-light site mockups (Home, /here) stacked on mobile, side by side on wide screens; a segmented control swaps each section's bg between a thematic and a sequential light-tint assignment. */
+  :root{
+    --bg:#FBFAF8; --panel:#FFFFFF; --ink:#1A2B4A; --body:#2A3540; --dim:#6B7C8D; --rule:#E3E1DC;
+    --accent:#F79B2E; --accent-ink:#8A4E10;
+    --chip-bg:#F4F6F7; --chip-rule:#D8DCE0;
+    --shadow:0 1px 2px rgba(26,43,74,.06), 0 14px 36px rgba(26,43,74,.08);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#15181C; --panel:#1D2126; --ink:#EDEFF2; --body:#C7CCD3; --dim:#8B93A0; --rule:#2C3138;
+    --accent:#F7A94A; --accent-ink:#F7C98A;
+    --chip-bg:#22262C; --chip-rule:#31363D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#15181C; --panel:#1D2126; --ink:#EDEFF2; --body:#C7CCD3; --dim:#8B93A0; --rule:#2C3138;
+    --accent:#F7A94A; --accent-ink:#F7C98A;
+    --chip-bg:#22262C; --chip-rule:#31363D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+
+  /* fixed-light tokens for the site mockups themselves — the subject is a specific, always-light website, so these never flip with viewer theme */
+  .site{
+    --m-ink:#1A2B4A; --m-body:#2A3540; --m-dim:#6B7C8D; --m-rule:#D8DCE0; --m-white:#FFFFFF;
+    --m-dark-hero:#1E3B31; --m-dark-work:#1F4A55; --m-dark-footer:#1F1C18;
+    --m-neutral:#F4F6F7;
+    --m-amber-light:#FEF5EA; --m-amber:#F79B2E;
+    --m-coral-light:#FEEFEF; --m-coral:#F95D62;
+    --m-teal-light:#EBF3F5;  --m-teal:#2C6B7A;
+    --m-gold-light:#F9F2EA;  --m-gold:#B87A2E;
+    --m-green-light:#E7EAE6; --m-green:#56674F;
+  }
+
+  @font-face{ }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--body);
+    font-family:'Archivo',Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Newsreader',Georgia,serif; color:var(--ink); margin:0; text-wrap:balance}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:40px 20px 96px; display:flex; flex-direction:column; gap:8px}
+  @media (min-width:720px){ .wrap{padding:56px 32px 120px} }
+
+  .masthead{display:flex; flex-direction:column; gap:12px; margin-bottom:8px}
+  .kicker{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:var(--accent-ink)}
+  .masthead h1{font-weight:300; font-size:clamp(28px,4vw,40px); line-height:1.08}
+  .masthead p{margin:0; max-width:64ch; font-size:15px; line-height:1.6; color:var(--dim)}
+  .masthead p strong{color:var(--ink); font-weight:600}
+
+  /* legend */
+  .legend{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px;
+    margin:28px 0 8px; padding:18px; background:var(--panel); border:1px solid var(--rule); border-radius:4px;
+  }
+  .legend-item{display:flex; align-items:center; gap:10px}
+  .legend-swatch{width:26px; height:26px; border-radius:3px; border:1px solid rgba(0,0,0,.06); flex-shrink:0}
+  .legend-text{display:flex; flex-direction:column; line-height:1.25}
+  .legend-name{font-size:12.5px; font-weight:600; color:var(--ink)}
+  .legend-hex{font-size:11px; color:var(--dim); font-variant-numeric:tabular-nums}
+
+  /* toggle */
+  .modebar{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:28px 0 36px}
+  .modebar-label{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--dim)}
+  .seg{display:inline-flex; border:1px solid var(--rule); border-radius:99px; padding:3px; background:var(--panel); gap:2px}
+  .seg button{
+    appearance:none; border:none; background:transparent; color:var(--dim);
+    font-family:inherit; font-size:13px; font-weight:600; padding:8px 18px; border-radius:99px; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .seg button.active{background:var(--accent); color:#fff}
+  .seg button:not(.active):hover{color:var(--ink)}
+  .mode-note{font-size:12.5px; color:var(--dim); max-width:46ch}
+
+  /* page rails */
+  .rails{display:grid; grid-template-columns:1fr; gap:40px}
+  @media (min-width:980px){ .rails{grid-template-columns:1fr 1fr} }
+
+  .rail-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px}
+  .rail-title{font-family:'Newsreader',Georgia,serif; font-weight:500; font-size:19px; color:var(--ink)}
+  .rail-sub{font-size:11.5px; color:var(--dim); text-transform:uppercase; letter-spacing:.08em}
+
+  .site{
+    background:var(--m-white); border:1px solid var(--rule); border-radius:6px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .sec{padding:26px 22px; display:flex; flex-direction:column; gap:8px; transition:background .25s ease}
+  .sec + .sec{border-top:1px solid rgba(26,43,74,.06)}
+  .sec.dark{--tag-fg:rgba(255,255,255,.7)}
+  .sec.dark h3{color:#fff}
+  .sec.dark p{color:rgba(255,255,255,.78)}
+  .sec-top{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+  .sec-kicker{font-family:'Archivo'; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--m-dim)}
+  .sec.dark .sec-kicker{color:rgba(255,255,255,.6)}
+  .sec h3{font-size:19px; font-weight:500; line-height:1.15}
+  .sec p{margin:0; font-size:13px; line-height:1.55; color:var(--m-dim); max-width:46ch}
+  .tag{
+    font-family:'Archivo'; font-size:10px; font-weight:700; padding:4px 9px; border-radius:99px;
+    border:1px solid rgba(26,43,74,.14); color:var(--m-dim); white-space:nowrap;
+  }
+  .sec.dark .tag{border-color:rgba(255,255,255,.28); color:rgba(255,255,255,.75)}
+  .unchanged{opacity:.82}
+  .unchanged .tag{font-style:italic}
+
+  footer.credit{margin-top:56px; padding-top:20px; border-top:1px solid var(--rule); font-size:12px; color:var(--dim)}
+</style>
+
+<div class="wrap">
+  <div class="masthead">
+    <div class="kicker">Hotel Berlin, Berlin — Site Design</div>
+    <h1>Section Background Rhythm</h1>
+    <p>Right now every content section between the dark hero, work, and footer blocks sits on plain white — the page reads as a hard flip from <strong>dark → white → dark → white</strong>. This keeps every dark section exactly as is and gives the white sections a family of light brand-colour tints, so the light stretch of the page has its own quiet rhythm instead of one flat white.</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background:#F4F6F7;border-color:#D8DCE0"></div><div class="legend-text"><span class="legend-name">Neutral</span><span class="legend-hex">#F4F6F7 (existing bg-subtle)</span></div></div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#FEF5EA"></div><div class="legend-text"><span class="legend-name">Amber Light</span><span class="legend-hex">#FEF5EA</span></div></div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#FEEFEF"></div><div class="legend-text"><span class="legend-name">Coral Light</span><span class="legend-hex">#FEEFEF</span></div></div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#F9F2EA"></div><div class="legend-text"><span class="legend-name">Gold Light</span><span class="legend-hex">#F9F2EA</span></div></div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#E7EAE6"></div><div class="legend-text"><span class="legend-name">Green Light</span><span class="legend-hex">#E7EAE6</span></div></div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#EBF3F5"></div><div class="legend-text"><span class="legend-name">Teal Light</span><span class="legend-hex">#EBF3F5 (existing token)</span></div></div>
+  </div>
+  <p class="mode-note" style="max-width:70ch;margin:0 0 8px">Each tint is the same ~10% mix of the matching brand colour into white that produced the existing <code style="font-family:inherit">--teal-light</code> token — so the new tints read as one family with what's already in DESIGN.md, not a new system.</p>
+
+  <div class="modebar">
+    <span class="modebar-label">Assignment</span>
+    <div class="seg">
+      <button id="btn-thematic" class="active">Thematic</button>
+      <button id="btn-sequential">Sequential</button>
+    </div>
+    <span class="mode-note" id="mode-note"></span>
+  </div>
+
+  <div class="rails">
+
+    <!-- HOME -->
+    <div>
+      <div class="rail-head">
+        <div class="rail-title">Home — /</div>
+        <div class="rail-sub">8 sections</div>
+      </div>
+      <div class="site">
+        <div class="sec dark unchanged" style="background:var(--m-dark-hero)">
+          <div class="sec-top"><span class="sec-kicker">Hero</span><span class="tag">unchanged — dark</span></div>
+          <h3>Deine Berliner Geschichte beginnt hier</h3>
+          <p>Das Hotel Berlin, Berlin ist der Ort, an dem Reisende, Einheimische und Ihren aufeinandertreffen.</p>
+        </div>
+        <div class="sec" data-sec="home-1">
+          <div class="sec-top"><span class="sec-kicker">Rooms</span><span class="tag" data-tag>—</span></div>
+          <h3>Sleep &amp; Relax</h3>
+          <p>Familienzimmer · ab 97,75&nbsp;€ · Non-smoking, Free WiFi, King bed, Bunk beds</p>
+        </div>
+        <div class="sec dark unchanged" style="background:var(--m-dark-work)">
+          <div class="sec-top"><span class="sec-kicker">Meetings</span><span class="tag">unchanged — dark</span></div>
+          <h3>Tagen &amp; Arbeiten</h3>
+          <p>Business liegt in unserer DNA. Mit über 4.000&nbsp;ft² flexibler Konferenz- und Meetingflächen.</p>
+        </div>
+        <div class="sec" data-sec="home-2">
+          <div class="sec-top"><span class="sec-kicker">Events</span><span class="tag" data-tag>—</span></div>
+          <h3>Happenings</h3>
+          <p>FKKB · Thursday Tournament · Vinyl Nights · Zeichenstammtisch</p>
+        </div>
+        <div class="sec" data-sec="home-3">
+          <div class="sec-top"><span class="sec-kicker">Restaurant</span><span class="tag" data-tag>—</span></div>
+          <h3>Der Ort zum Essen, Spielen und Verweilen</h3>
+          <p>Lütze — Frühstück an der Theke, Mittagessen auf der Terrasse, Cocktails bis spät.</p>
+        </div>
+        <div class="sec" data-sec="home-4">
+          <div class="sec-top"><span class="sec-kicker">Neighbourhood</span><span class="tag" data-tag>—</span></div>
+          <h3>Du bist im richtigen Teil Berlins</h3>
+          <p>Neue Nationalgalerie · Käthe-Kollwitz-Museum · König Galerie</p>
+        </div>
+        <div class="sec" data-sec="home-5">
+          <div class="sec-top"><span class="sec-kicker">FAQ</span><span class="tag" data-tag>—</span></div>
+          <h3>Gute Fragen.</h3>
+          <p>Wann kann ich einchecken? Ist Lütze im Hotel geöffnet? Sind Haustiere erlaubt?</p>
+        </div>
+        <div class="sec dark unchanged" style="background:var(--m-dark-footer)">
+          <div class="sec-top"><span class="sec-kicker">Footer</span><span class="tag">unchanged — dark</span></div>
+          <h3 style="font-size:15px">Hotel Berlin, Berlin</h3>
+          <p>Lützowplatz 17, 10785 Berlin</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERE -->
+    <div>
+      <div class="rail-head">
+        <div class="rail-title">Guest hub — /here</div>
+        <div class="rail-sub">6 sections</div>
+      </div>
+      <div class="site">
+        <div class="sec unchanged" style="background:#F1E9DC">
+          <div class="sec-top"><span class="sec-kicker">Hero widget</span><span class="tag">unchanged — already tinted</span></div>
+          <h3>Guten Morgen</h3>
+          <p>WLAN HBB_Guest · Check-out 12:00 · Frühstück 06:30–10:00 · Gepäck an der Rezeption</p>
+        </div>
+        <div class="sec" data-sec="here-1">
+          <div class="sec-top"><span class="sec-kicker">Dining</span><span class="tag" data-tag>—</span></div>
+          <h3>Essen &amp; Trinken</h3>
+          <p>Lütze — Frühstück &amp; Wundermart, rund um die Uhr in der Lobby.</p>
+        </div>
+        <div class="sec" data-sec="here-2">
+          <div class="sec-top"><span class="sec-kicker">Amenities</span><span class="tag" data-tag>—</span></div>
+          <h3>Im Haus</h3>
+          <p>KTTK · Wallride · Fingerboard-Rampen · Gym</p>
+        </div>
+        <div class="sec" data-sec="here-3">
+          <div class="sec-top"><span class="sec-kicker">Neighbourhood</span><span class="tag" data-tag>—</span></div>
+          <h3>Wem die Nachbarschaft gehört</h3>
+          <p>König Galerie · Anjoy · Käthe-Kollwitz-Museum</p>
+        </div>
+        <div class="sec" data-sec="here-4">
+          <div class="sec-top"><span class="sec-kicker">FAQ</span><span class="tag" data-tag>—</span></div>
+          <h3>Häufig gefragt</h3>
+          <p>Wie verbinde ich mich mit dem WLAN? Wo kann ich mein Gepäck lassen?</p>
+        </div>
+        <div class="sec dark unchanged" style="background:var(--m-dark-footer)">
+          <div class="sec-top"><span class="sec-kicker">Footer</span><span class="tag">unchanged — dark</span></div>
+          <h3 style="font-size:15px">Hotel Berlin, Berlin</h3>
+          <p>Lützowplatz 17, 10785 Berlin</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="credit">Working comp for a client-requested change — alternating light section backgrounds, kept inside the existing DESIGN.md palette. Not yet built into the Next.js templates.</footer>
+</div>
+
+<script>
+(function(){
+  var tints = {
+    neutral: {hex:'#F4F6F7', name:'Neutral'},
+    amber:   {hex:'#FEF5EA', name:'Amber Light'},
+    coral:   {hex:'#FEEFEF', name:'Coral Light'},
+    gold:    {hex:'#F9F2EA', name:'Gold Light'},
+    green:   {hex:'#E7EAE6', name:'Green Light'},
+    teal:    {hex:'#EBF3F5', name:'Teal Light'}
+  };
+
+  var modes = {
+    thematic: {
+      'home-1':'neutral', 'home-2':'coral', 'home-3':'gold', 'home-4':'green', 'home-5':'amber',
+      'here-1':'gold', 'here-2':'amber', 'here-3':'green', 'here-4':'teal'
+    },
+    sequential: {
+      'home-1':'neutral', 'home-2':'amber', 'home-3':'coral', 'home-4':'gold', 'home-5':'green',
+      'here-1':'amber', 'here-2':'coral', 'here-3':'gold', 'here-4':'green'
+    }
+  };
+
+  var notes = {
+    thematic: 'Each section borrows the colour its content already owns elsewhere in the system — coral for events, gold for dining, green for neighbourhood, amber and teal closing each page on that page’s primary accent.',
+    sequential: 'Same five tints, just cycled in a fixed order without regard to what each section is about — useful as a plainer baseline to compare against.'
+  };
+
+  var sections = document.querySelectorAll('[data-sec]');
+  var noteEl = document.getElementById('mode-note');
+  var btnT = document.getElementById('btn-thematic');
+  var btnS = document.getElementById('btn-sequential');
+
+  function apply(modeName){
+    var map = modes[modeName];
+    sections.forEach(function(el){
+      var key = el.getAttribute('data-sec');
+      var tintKey = map[key];
+      var tint = tints[tintKey];
+      el.style.background = tint.hex;
+      var tag = el.querySelector('[data-tag]');
+      if(tag){ tag.textContent = tint.name + ' · ' + tint.hex; }
+    });
+    noteEl.textContent = notes[modeName];
+    btnT.classList.toggle('active', modeName === 'thematic');
+    btnS.classList.toggle('active', modeName === 'sequential');
+    try{ localStorage.setItem('hbb-bg-mode', modeName); }catch(e){}
+  }
+
+  btnT.addEventListener('click', function(){ apply('thematic'); });
+  btnS.addEventListener('click', function(){ apply('sequential'); });
+
+  var saved = 'thematic';
+  try{ saved = localStorage.getItem('hbb-bg-mode') || 'thematic'; }catch(e){}
+  apply(saved);
+})();
+</script>

@@ -46,6 +46,13 @@ const config: Config = {
         'hbb-page': '#FBFBFB',
         'hbb-warm': '#F5F0EB',
         'hbb-amber-wash': '#FDF6EA',
+        /** Section rhythm tints — DESIGN.md / tokens.json color.sectionBg */
+        'hbb-bg-subtle': 'var(--bg-subtle)',
+        'hbb-amber-light': 'var(--amber-light)',
+        'hbb-coral-light': 'var(--coral-light)',
+        'hbb-gold-light': 'var(--gold-light)',
+        'hbb-green-light': 'var(--green-light)',
+        'hbb-teal-light': 'var(--teal-light)',
 
         // Deep teal — Meet & Work, hero overlay
         'hbb-teal-deep': '#1A3C40',

@@ -22,7 +22,9 @@ export type ArtWorkPageCopy = {
   moreBy: string
   moreByAll: string
   moreOnFloor: string
+  moreOutside: string
   seeFloor: string
+  seeOutside: string
   onward: string
   onwardCta: string
   exhibitionCta: string
@@ -35,6 +37,7 @@ type Props = {
   moreBy: ArtWork[]
   moreOnFloor: ArtWork[]
   copy: ArtWorkPageCopy
+  locale?: 'de' | 'en'
 }
 
 function WorkTile({ work, untitled }: { work: ArtWork; untitled: string }) {
@@ -64,11 +67,19 @@ function WorkTile({ work, untitled }: { work: ArtWork; untitled: string }) {
   )
 }
 
-export function ArtWorkPageView({ work, exhibition, moreBy, moreOnFloor, copy }: Props) {
+export function ArtWorkPageView({
+  work,
+  exhibition,
+  moreBy,
+  moreOnFloor,
+  copy,
+  locale = 'de',
+}: Props) {
   const untitled = isUntitledTitle(work.title)
   const heading = untitled ? work.artist.name : work.title.trim()
   const crumbLeaf = untitled ? work.artist.name : work.title.trim()
-  const floorText = work.floor ? floorLabel(work.floor) : copy.locationTbc
+  const floorText = work.floor ? floorLabel(work.floor, locale) : copy.locationTbc
+  const outside = work.floor === 'outside'
   const personHref =
     work.artist.person?.published && work.artist.person.slug
       ? `/you-me-berlin/${work.artist.person.slug}`
@@ -145,7 +156,12 @@ export function ArtWorkPageView({ work, exhibition, moreBy, moreOnFloor, copy }:
               />
             ) : null}
             {work.floor ? (
-              <FloorLocator floor={work.floor} spot={work.spot} kicker={copy.inBuilding} />
+              <FloorLocator
+                floor={work.floor}
+                spot={work.spot}
+                kicker={copy.inBuilding}
+                locale={locale}
+              />
             ) : null}
             {work.year || work.technique || work.dimensions ? (
               <dl className="art-work__facts">
@@ -202,9 +218,13 @@ export function ArtWorkPageView({ work, exhibition, moreBy, moreOnFloor, copy }:
         {moreOnFloor.length > 0 && work.floor ? (
           <section className="art-work__band">
             <div className="art-work__bandh">
-              <h2>{copy.moreOnFloor.replace('{floor}', floorLabel(work.floor))}</h2>
+              <h2>
+                {outside
+                  ? copy.moreOutside
+                  : copy.moreOnFloor.replace('{floor}', floorLabel(work.floor, locale))}
+              </h2>
               <Link href={toAppHref('/here/art')} className="art-work__band-link">
-                {copy.seeFloor}
+                {outside ? copy.seeOutside : copy.seeFloor}
               </Link>
             </div>
             <div className="art-work__row3">

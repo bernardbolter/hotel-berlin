@@ -1,7 +1,7 @@
 import type { Artist, Artwork, Exhibition, Media, Person, Venue } from '@/payload-types'
 import { getCurrentExhibitions, loadGalleryExhibitions } from '@/lib/art/exhibitions'
 import { getExhibitionStatus } from '@/lib/art/status'
-import { floorGroupOf, matchesFloorFilter, objectPosition } from '@/lib/art/floors'
+import { floorGroupOf, isArtFloor, matchesFloorFilter, objectPosition } from '@/lib/art/floors'
 import type {
   ArtArtist,
   ArtArtistListItem,
@@ -9,6 +9,8 @@ import type {
   ArtFloor,
   ArtImage,
   ArtPageData,
+  ArtworkArtform,
+  ArtworkPermission,
   ArtWork,
   ArtWorkExhibitionBand,
   FloorFilter,
@@ -60,6 +62,8 @@ function artistFromDoc(value: number | Artist): ArtArtist {
     return { name: '', slug: '', person: null }
   }
   const person = isPopulated<Person>(value.person) ? value.person : null
+  const sameAs =
+    value.sameAs?.map((row) => row?.url).filter((url): url is string => Boolean(url?.trim())) ?? []
   return {
     name: value.name,
     slug: value.slug,
@@ -70,12 +74,20 @@ function artistFromDoc(value: number | Artist): ArtArtist {
           published: person.status === 'published',
         }
       : null,
+    realName: value.realName?.trim() || null,
+    shortBio: value.shortBio?.trim() || null,
+    website: value.website?.trim() || null,
+    instagram: value.instagram?.trim() || null,
+    wikidataId: value.wikidataId?.trim() || null,
+    nationality: value.nationality?.trim() || null,
+    basedIn: value.basedIn?.trim() || null,
+    medium: value.medium?.trim() || null,
+    sameAs,
   }
 }
 
 function asFloor(value: unknown): ArtFloor | null {
-  const floors: ArtFloor[] = ['B2', 'B1', 'EG', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Dach']
-  return floors.includes(value as ArtFloor) ? (value as ArtFloor) : null
+  return isArtFloor(value) ? value : null
 }
 
 function hasImage(doc: Artwork): boolean {
@@ -123,6 +135,13 @@ export function artworkFromDoc(doc: Artwork, inExhibition = false): ArtWork {
       ?.map((row) => mediaImage(row.image, row.alt || fallback))
       .filter((img): img is ArtImage => img != null) ?? []
 
+  const geoLat = doc.geo?.latitude
+  const geoLng = doc.geo?.longitude
+  const subjects =
+    doc.subjects
+      ?.map((tag) => (typeof tag === 'object' && tag && 'name' in tag ? String(tag.name) : null))
+      .filter((name): name is string => Boolean(name)) ?? []
+
   return {
     id: doc.id,
     slug: doc.slug,
@@ -133,9 +152,18 @@ export function artworkFromDoc(doc: Artwork, inExhibition = false): ArtWork {
     artist: artistFromDoc(doc.artist),
     floor: asFloor(loc && typeof loc === 'object' ? loc.floor : null),
     spot: loc && typeof loc === 'object' ? loc.spot?.trim() || null : null,
+    geo:
+      typeof geoLat === 'number' && typeof geoLng === 'number'
+        ? { latitude: geoLat, longitude: geoLng }
+        : null,
     year: doc.year ?? null,
     technique: doc.medium?.trim() || null,
     dimensions: doc.dimensions?.trim() || null,
+    artform: (doc.artform as ArtworkArtform | null | undefined) ?? null,
+    surface: doc.surface?.trim() || null,
+    subjects,
+    permission: (doc.permission as ArtworkPermission | null | undefined) ?? null,
+    creditText: doc.creditText?.trim() || null,
     description: doc.description ?? null,
     image: firstGalleryImage(doc),
     contextImage: mediaImage(doc.contextImage, fallback),

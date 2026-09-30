@@ -1,13 +1,20 @@
 import type { ArtWallTile } from '@/components/here/ArtWall'
 import { getCurrentExhibitions, getUpcomingExhibitions } from '@/lib/art/exhibitions'
+import { floorLabel, isArtFloor } from '@/lib/art/floors'
 import { getWorks } from '@/lib/art/works'
+import {
+  buildArtWallMosaic,
+  type ExhibitionMosaicInput,
+  type WorkMosaicInput,
+} from '@/lib/here/artWallMosaic'
 import { firstHereImage } from '@/lib/here/images'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
 import { getBerlinNow } from '@/lib/venue-time'
-import type { Media, Venue } from '@/payload-types'
+import type { Artist, Exhibition, Media, Venue } from '@/payload-types'
 
 export type ArtWallData = {
   tiles: ArtWallTile[]
+  columns: 3 | 4
   artworkCount: number
 }
 
@@ -37,10 +44,76 @@ function isVenue(value: unknown): value is Venue {
   return typeof value === 'object' && value != null && 'id' in value
 }
 
+function isArtist(value: unknown): value is Artist {
+  return typeof value === 'object' && value != null && 'name' in value
+}
+
+function exhibitionImage(exhibition: Exhibition, venue: Venue | null) {
+  const exhibitionSrc = mediaUrl(exhibition.heroImage, 'card')
+  const venueSrc = venue ? mediaUrl(venue.heroImage, 'card') : null
+  return firstHereImage(
+    exhibitionSrc
+      ? { src: exhibitionSrc, alt: mediaAlt(exhibition.heroImage, exhibition.title) }
+      : null,
+    venueSrc && venue
+      ? { src: venueSrc, alt: mediaAlt(venue.heroImage, exhibition.title) }
+      : null,
+  )
+}
+
+function artistLine(exhibition: Exhibition): string {
+  const names =
+    exhibition.artists
+      ?.map((a) => (isArtist(a) ? a.name : null))
+      .filter((n): n is string => Boolean(n)) ?? []
+  return names.join(' · ')
+}
+
+function toExhibitionInput(
+  exhibition: Exhibition & { runType: 'dated' | 'permanent' },
+  copy: {
+    nowUntil: (date: string) => string
+    nowChip: string
+    permanentChip: string
+    fromDate: (date: string) => string
+  },
+  locale: string,
+  chipKind: 'current' | 'upcoming',
+): ExhibitionMosaicInput {
+  const venue = isVenue(exhibition.venue) ? exhibition.venue : null
+  const until = formatUntil(exhibition.endDate, locale)
+  const from = formatFrom(exhibition.startDate, locale)
+
+  let chip: string
+  let chipVariant: ExhibitionMosaicInput['chipVariant']
+  if (chipKind === 'upcoming') {
+    chip = from ? copy.fromDate(from) : copy.nowChip
+    chipVariant = 'soon'
+  } else if (exhibition.runType === 'permanent') {
+    chip = copy.permanentChip
+    chipVariant = 'permanent'
+  } else {
+    chip = until ? copy.nowUntil(until) : copy.nowChip
+    chipVariant = 'now'
+  }
+
+  return {
+    id: exhibition.id,
+    title: exhibition.title,
+    slug: exhibition.slug,
+    href: '/here/art',
+    runType: exhibition.runType,
+    chip,
+    chipVariant,
+    galleryName: venue?.name?.trim() || null,
+    subtitle: artistLine(exhibition),
+    image: exhibitionImage(exhibition, venue),
+  }
+}
+
 /**
- * Live mosaic for `/hier`. Current gallery shows (soonest first, permanent last),
- * then one upcoming show within 30 days, then pinned/newest works, then Alle Werke.
- * A3 will refine the seven states; A1 only removes the hardcoded mural list.
+ * Live mosaic for `/hier`. States A–G from the ArtSection States comp.
+ * No imaged works and no shows → null (section omitted).
  */
 export async function getArtWallData(
   locale: string,
@@ -53,66 +126,20 @@ export async function getArtWallData(
     moreWithoutCount: string
     locationTbc: string
   },
-): Promise<ArtWallData> {
+  now: Date = getBerlinNow(),
+): Promise<ArtWallData | null> {
   const loc = locale === 'de' ? 'de' : 'en'
-  const now = getBerlinNow()
 
-  const [current, upcoming, works] = await Promise.all([
+  const [currentDocs, upcomingDocs, workDocs] = await Promise.all([
     getCurrentExhibitions(now, loc).catch(() => []),
     getUpcomingExhibitions(30, now, loc).catch(() => []),
     getWorks({ locale: loc }).catch(() => []),
   ])
 
-  const tiles: ArtWallTile[] = []
+  const current = currentDocs.map((ex) => toExhibitionInput(ex, copy, loc, 'current'))
+  const upcoming = upcomingDocs.map((ex) => toExhibitionInput(ex, copy, loc, 'upcoming'))
 
-  for (const exhibition of current) {
-    const until = formatUntil(exhibition.endDate, loc)
-    const venue = isVenue(exhibition.venue) ? exhibition.venue : null
-    const exhibitionSrc = mediaUrl(exhibition.heroImage, 'card')
-    const venueSrc = venue ? mediaUrl(venue.heroImage, 'card') : null
-    tiles.push({
-      kind: 'exhibition',
-      href: '/here/art',
-      who: exhibition.title,
-      where:
-        exhibition.runType === 'permanent'
-          ? copy.permanentChip
-          : until
-            ? copy.nowUntil(until)
-            : copy.nowChip,
-      image: firstHereImage(
-        exhibitionSrc
-          ? { src: exhibitionSrc, alt: mediaAlt(exhibition.heroImage, exhibition.title) }
-          : null,
-        venueSrc && venue
-          ? { src: venueSrc, alt: mediaAlt(venue.heroImage, exhibition.title) }
-          : null,
-      ),
-      span: { cols: current.length > 1 ? 3 : 3, rows: current.length > 1 ? 1 : 2 },
-    })
-  }
-
-  if (current.length === 0 && upcoming[0]) {
-    const show = upcoming[0]
-    const from = formatFrom(show.startDate, loc)
-    const venue = isVenue(show.venue) ? show.venue : null
-    const exhibitionSrc = mediaUrl(show.heroImage, 'card')
-    const venueSrc = venue ? mediaUrl(venue.heroImage, 'card') : null
-    tiles.push({
-      kind: 'exhibition',
-      href: '/here/art',
-      who: show.title,
-      where: from ? copy.fromDate(from) : copy.nowChip,
-      image: firstHereImage(
-        exhibitionSrc ? { src: exhibitionSrc, alt: mediaAlt(show.heroImage, show.title) } : null,
-        venueSrc && venue ? { src: venueSrc, alt: mediaAlt(venue.heroImage, show.title) } : null,
-      ),
-      span: { cols: 3, rows: 2 },
-    })
-  }
-
-  const workSlots = Math.max(0, 5 - tiles.length)
-  for (const work of works.slice(0, workSlots)) {
+  const works: WorkMosaicInput[] = workDocs.map((work) => {
     const image = work.images?.[0]
     const media = image && typeof image.image === 'object' ? (image.image as Media) : null
     const src = media ? mediaUrl(media, 'card') : null
@@ -122,30 +149,48 @@ export async function getArtWallData(
         : work.title?.trim() || work.slug
     const floor = work.locationInBuilding?.floor
     const spot = work.locationInBuilding?.spot
+    const floorText = isArtFloor(floor) ? floorLabel(floor, loc) : null
     const where =
-      floor && spot ? `${floor} · ${spot}` : floor || spot || copy.locationTbc
-    tiles.push({
-      kind: 'mural',
+      floorText && spot ? `${floorText} · ${spot}` : floorText || spot || copy.locationTbc
+
+    return {
+      id: work.id,
+      slug: work.slug,
       href: `/here/art/${work.slug}`,
-      who: artistName,
+      title: artistName,
       where,
+      floor: isArtFloor(floor) ? floor : null,
       image:
         src && media
           ? { src, alt: image?.alt || mediaAlt(media, work.title?.trim() || artistName) }
           : null,
-      span: { cols: 1, rows: 1 },
-    })
-  }
+    }
+  })
 
-  if (works.length > 0) {
-    tiles.push({
-      kind: 'more',
-      href: '/here/art',
-      who: copy.moreWithCount(works.length),
-      where: '',
-      span: { cols: 1, rows: 1 },
-    })
-  }
+  const mosaic = buildArtWallMosaic({
+    current,
+    upcoming,
+    works,
+    moreLabel: copy.moreWithoutCount,
+  })
 
-  return { tiles, artworkCount: works.length }
+  if (!mosaic) return null
+
+  return {
+    tiles: mosaic.tiles.map(
+      (tile): ArtWallTile => ({
+        kind: tile.kind === 'work' ? 'mural' : tile.kind,
+        href: tile.href,
+        who: tile.title,
+        where: tile.chip,
+        subtitle: tile.subtitle,
+        chipVariant: tile.chipVariant,
+        galleryChip: tile.galleryChip,
+        image: tile.image,
+        span: tile.span,
+      }),
+    ),
+    columns: mosaic.columns,
+    artworkCount: works.length,
+  }
 }

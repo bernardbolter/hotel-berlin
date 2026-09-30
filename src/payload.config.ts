@@ -1,12 +1,15 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { de } from '@payloadcms/translations/languages/de'
+import { en } from '@payloadcms/translations/languages/en'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { publicMediaUrl, r2Configured, r2Endpoint } from './lib/media/r2'
+import { MEDIA_MAX_FILE_SIZE } from './lib/media/limits'
 
 import { Amenities } from './collections/Amenities'
 import { Artists } from './collections/Artists'
@@ -44,6 +47,32 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      actions: ['/components/admin/AdminLanguageSwitcher#AdminLanguageSwitcher'],
+      beforeDashboard: ['/components/admin/NeuesWerkButton#NeuesWerkDashboardButton'],
+      views: {
+        neuesWerk: {
+          Component: '/components/admin/NeuesWerkView#NeuesWerkView',
+          path: '/neues-werk',
+          meta: {
+            title: 'Neues Werk',
+            description: 'Geführte Eingabe für Kunstwerke im Haus',
+          },
+        },
+        standorte: {
+          Component: '/components/admin/StandorteView#StandorteView',
+          path: '/standorte',
+          meta: {
+            title: 'Standorte',
+            description: 'Außenwerke ohne Koordinaten nachtragen',
+          },
+        },
+      },
+    },
+  },
+  i18n: {
+    fallbackLanguage: 'de',
+    supportedLanguages: { de, en },
   },
   collections: [
     Users,
@@ -91,6 +120,13 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   sharp,
+  upload: {
+    limits: {
+      fileSize: MEDIA_MAX_FILE_SIZE,
+    },
+    abortOnLimit: true,
+    responseOnLimit: `File too large. Maximum size is ${MEDIA_MAX_FILE_SIZE / (1024 * 1024)} MB.`,
+  },
   plugins: [
     s3Storage({
       // Unset R2 credentials keep files on local disk (dev).

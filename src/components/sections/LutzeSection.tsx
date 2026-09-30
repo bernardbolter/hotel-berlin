@@ -1,6 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { LutzeTeaser, type LutzeFact } from '@/components/home/LutzeTeaser'
+import {
+  SectionShell,
+  type LightSectionBackground,
+} from '@/components/layout/SectionShell'
 import { getEatAndDrink } from '@/lib/payload/homepage'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import {
@@ -8,11 +12,16 @@ import {
   toOpeningHoursEntries,
 } from '@/lib/venues/formatHours'
 
+type Props = {
+  /** Explicit section tint — required so rhythm stays intentional. */
+  background: LightSectionBackground
+}
+
 /**
  * Homepage Eat & Drink / Lütze block — after Happenings, before the map.
  * Payload-backed copy + photo; Rooms-mirrored layout.
  */
-export async function LutzeSection() {
+export async function LutzeSection({ background }: Props) {
   const locale = (await getLocale()) as 'de' | 'en'
   const [copy, venue, t, tRest] = await Promise.all([
     getEatAndDrink(locale),
@@ -50,8 +59,12 @@ export async function LutzeSection() {
   }
 
   return (
-    <section aria-labelledby="lutze-heading" className="bg-white">
-      {/* Full-bleed white; rooms shell mirrored — bleed on the left for the photo bar */}
+    <SectionShell
+      as="section"
+      background={background}
+      aria-labelledby="lutze-heading"
+    >
+      {/* Full-bleed tint; rooms shell mirrored — bleed on the left for the photo bar */}
       <div className="site-shell box-border pt-14 pr-[15px] pb-[41px] pl-5 min-[551px]:pr-5 md:pt-16 md:pb-[49px] md:pl-10 lg:pt-20 lg:pr-[10px] lg:pb-[65px] xl:pl-14">
         <LutzeTeaser
           copy={copy}
@@ -60,6 +73,6 @@ export async function LutzeSection() {
           visitAria={t('ctaVisitAria')}
         />
       </div>
-    </section>
+    </SectionShell>
   )
 }

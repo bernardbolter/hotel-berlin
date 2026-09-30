@@ -42,7 +42,7 @@ export function SpotlightCard({
     (Boolean(secondaryMeta.left.trim()) || Boolean(secondaryMeta.right.trim()))
   const identityLine = [venueLabel, locationLabel].filter(Boolean).join(' · ')
 
-  const cardClass = `spotlight-card group flex w-full min-w-[250px] flex-col bg-hbb-page no-underline text-inherit ${className}`
+  const cardClass = `spotlight-card group flex w-full min-w-[250px] flex-col bg-white no-underline text-inherit ${className}`
   const ariaLabel = `${title} — ${cta.label}`
 
   const body = (

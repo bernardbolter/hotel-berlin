@@ -1,10 +1,12 @@
 import type { ArtFloor, FloorFilter } from './types'
+import { ART_FLOORS } from './types'
 
 export function matchesFloorFilter(floor: ArtFloor | null, filter: FloorFilter): boolean {
   if (filter === 'all' || filter === 'exhibition') return true
   if (!floor) return false
-  if (filter === 'lobby') return floor === 'EG'
-  if (filter === 'basement') return floor === 'B1' || floor === 'B2'
+  if (filter === 'outside') return floor === 'outside'
+  if (filter === 'lobby') return floor === 'lobby'
+  if (filter === 'basement') return floor === 'basement'
   if (filter === 'floors1to4') return floor === '1' || floor === '2' || floor === '3' || floor === '4'
   if (filter === 'floors5to10') {
     return (
@@ -13,18 +15,18 @@ export function matchesFloorFilter(floor: ArtFloor | null, filter: FloorFilter):
       floor === '7' ||
       floor === '8' ||
       floor === '9' ||
-      floor === '10' ||
-      floor === 'Dach'
+      floor === '10'
     )
   }
   return false
 }
 
-/** Floor group used for “Mehr auf der n. Etage” borrowing. */
+/** Floor group used for “more on this level” borrowing and mosaic variety. */
 export function floorGroupOf(floor: ArtFloor | null): FloorFilter | null {
   if (!floor) return null
-  if (floor === 'EG') return 'lobby'
-  if (floor === 'B1' || floor === 'B2') return 'basement'
+  if (floor === 'outside') return 'outside'
+  if (floor === 'basement') return 'basement'
+  if (floor === 'lobby') return 'lobby'
   if (floor === '1' || floor === '2' || floor === '3' || floor === '4') return 'floors1to4'
   if (
     floor === '5' ||
@@ -32,8 +34,7 @@ export function floorGroupOf(floor: ArtFloor | null): FloorFilter | null {
     floor === '7' ||
     floor === '8' ||
     floor === '9' ||
-    floor === '10' ||
-    floor === 'Dach'
+    floor === '10'
   ) {
     return 'floors5to10'
   }
@@ -46,20 +47,22 @@ export function locationChip(floor: ArtFloor | null, spot: string | null, locati
   return (floor ? floorLabel(floor) : null) || spot || locationTbc
 }
 
-export function floorLabel(floor: ArtFloor): string {
-  if (floor === 'EG') return 'EG'
-  if (floor === 'B1' || floor === 'B2') return floor
-  if (floor === 'Dach') return 'Dach'
-  return `${floor}.`
+/** Short DE labels for chips / locator (site primary). */
+export function floorLabel(floor: ArtFloor, locale: 'de' | 'en' = 'de'): string {
+  if (floor === 'outside') return locale === 'en' ? 'Outside' : 'Außen'
+  if (floor === 'basement') return locale === 'en' ? 'Basement' : 'Keller'
+  if (floor === 'lobby') return 'Lobby'
+  return locale === 'en' ? `Floor ${floor}` : `${floor}. Etage`
 }
 
 /**
- * Locator bars, bottom → top in DOM (CSS column-reverse puts Keller at the bottom).
- * B1/B2 share Keller; Dach shares the top with 10.
+ * Locator bars, bottom → top in DOM (CSS column-reverse puts Außen at the bottom).
+ * Outside is not floor zero — a gap separates it from Keller.
  */
 export const FLOOR_LOCATOR_LEVELS = [
-  'Keller',
-  'EG',
+  'outside',
+  'basement',
+  'lobby',
   '1',
   '2',
   '3',
@@ -76,13 +79,14 @@ export type FloorLocatorLevel = (typeof FLOOR_LOCATOR_LEVELS)[number]
 
 export function locatorLevelFor(floor: ArtFloor | null): FloorLocatorLevel | null {
   if (!floor) return null
-  if (floor === 'B1' || floor === 'B2') return 'Keller'
-  if (floor === 'EG') return 'EG'
-  if (floor === 'Dach') return '10'
   if (FLOOR_LOCATOR_LEVELS.includes(floor as FloorLocatorLevel)) {
     return floor as FloorLocatorLevel
   }
   return null
+}
+
+export function isArtFloor(value: unknown): value is ArtFloor {
+  return typeof value === 'string' && (ART_FLOORS as readonly string[]).includes(value)
 }
 
 export function objectPosition(focalX?: number | null, focalY?: number | null): string | undefined {
@@ -102,4 +106,38 @@ export function sortLiveWorks<T extends { artworkType: string; order: string }>(
 
 export function isUntitledTitle(title: string | null | undefined): boolean {
   return !title?.trim()
+}
+
+/**
+ * Pick works for the hub mosaic: no two from the same floor group while
+ * unused groups remain (`outside` is its own group).
+ */
+export function pickWorksWithFloorVariety<T extends { floor?: ArtFloor | null }>(
+  works: T[],
+  limit: number,
+): T[] {
+  if (limit <= 0) return []
+  const picked: T[] = []
+  const used = new Set<FloorFilter>()
+  const remaining = [...works]
+
+  while (picked.length < limit && remaining.length > 0) {
+    const unusedLeft = remaining.some((w) => {
+      const g = floorGroupOf(w.floor ?? null)
+      return g != null && !used.has(g)
+    })
+    const idx = remaining.findIndex((w) => {
+      const g = floorGroupOf(w.floor ?? null)
+      if (g == null) return true
+      if (!used.has(g)) return true
+      return !unusedLeft
+    })
+    if (idx < 0) break
+    const [next] = remaining.splice(idx, 1)
+    const g = floorGroupOf(next.floor ?? null)
+    if (g) used.add(g)
+    picked.push(next)
+  }
+
+  return picked
 }

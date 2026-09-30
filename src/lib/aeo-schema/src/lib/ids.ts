@@ -115,6 +115,10 @@ export function artListUrl(config: SiteConfig): string {
   return `${config.baseUrl}${config.paths.art[config.canonicalLocale]}`;
 }
 
+export function artworkUrl(slug: string, config: SiteConfig): string {
+  return `${artListUrl(config)}/${slug}`;
+}
+
 export function artworkNodeId(slug: string, config: SiteConfig): string {
-  return `${artListUrl(config)}#werk-${slug}`;
+  return artworkUrl(slug, config);
 }

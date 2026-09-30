@@ -14,6 +14,7 @@ export const pathnames = {
   '/here/dining': { en: '/here/dining', de: '/hier/dining' },
   '/here/faq': { en: '/here/faq', de: '/hier/faq' },
   '/here/art': { en: '/here/art', de: '/hier/art' },
+  '/here/art/[slug]': { en: '/here/art/[slug]', de: '/hier/art/[slug]' },
   '/here/wallride': { en: '/here/wallride', de: '/hier/wallride' },
   '/neighbourhood': { en: '/neighbourhood', de: '/nachbarschaft' },
   '/neighbourhood/[slug]': {

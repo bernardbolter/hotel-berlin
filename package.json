@@ -41,6 +41,8 @@
     "apply:faq-schema": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/apply-faq-schema.ts",
     "seed:legal": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/legal.ts",
     "seed:amenities": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/amenities.ts",
+    "backup:local": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/backup-local.ts",
+    "seed:art-fixtures": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/art-fixtures.ts",
     "seed:faqs": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/faqs.ts",
     "geocode:neighbourhood": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/geocode-neighbourhood-places.ts",
     "apply:neighbourhood-geo": "cross-env NODE_OPTIONS=--no-deprecation SKIP_GEOCODE_HOOK=1 tsx src/seed/apply-neighbourhood-geo-from-seed.ts",

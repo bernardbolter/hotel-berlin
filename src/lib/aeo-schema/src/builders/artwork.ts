@@ -1,10 +1,11 @@
 import type { JsonLdNode, SiteConfig } from '../types'
-import { artworkNodeId, hotelNodeId, personNodeId } from '../lib/ids'
+import { artListUrl, artworkNodeId, hotelNodeId, personNodeId } from '../lib/ids'
 import { prune } from '../lib/prune'
 
 export type SchemaArtwork = {
   slug: string
-  title: string
+  /** Omit when untitled — VisualArtwork then has no `name`. */
+  title?: string | null
   description?: string
   image?: string
   creatorName?: string
@@ -22,10 +23,12 @@ export function buildArtworkNode(artwork: SchemaArtwork, config: SiteConfig): Js
       ? { '@type': 'Person', name: artwork.creatorName }
       : undefined
 
+  const title = artwork.title?.trim() || undefined
+
   return prune({
     '@type': 'VisualArtwork',
     '@id': artworkNodeId(artwork.slug, config),
-    name: artwork.title,
+    name: title,
     description: artwork.description,
     image: artwork.image,
     creator,
@@ -33,12 +36,46 @@ export function buildArtworkNode(artwork: SchemaArtwork, config: SiteConfig): Js
   })
 }
 
+/** Index page: CollectionPage + ItemList of @id references only. */
+export function buildArtIndexGraph(
+  artworks: SchemaArtwork[],
+  config: SiteConfig,
+  copy: { name: string; description?: string },
+): {
+  '@context': 'https://schema.org'
+  '@graph': JsonLdNode[]
+} {
+  const listId = `${artListUrl(config)}#list`
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      prune({
+        '@type': 'CollectionPage',
+        '@id': artListUrl(config),
+        name: copy.name,
+        description: copy.description,
+        mainEntity: { '@id': listId },
+      }),
+      prune({
+        '@type': 'ItemList',
+        '@id': listId,
+        numberOfItems: artworks.length,
+        itemListElement: artworks.map((artwork, index) =>
+          prune({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: { '@id': artworkNodeId(artwork.slug, config) },
+          }),
+        ),
+      }),
+    ],
+  }
+}
+
+/** @deprecated Prefer buildArtIndexGraph on the index and buildArtworkNode on work pages. */
 export function buildArtPageGraph(artworks: SchemaArtwork[], config: SiteConfig): {
   '@context': 'https://schema.org'
   '@graph': JsonLdNode[]
 } {
-  return {
-    '@context': 'https://schema.org',
-    '@graph': artworks.map((artwork) => buildArtworkNode(artwork, config)),
-  }
+  return buildArtIndexGraph(artworks, config, { name: 'Kunst im Haus' })
 }

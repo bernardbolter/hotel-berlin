@@ -56,8 +56,8 @@ describe('useHashOpen', () => {
     expect((document.getElementById('sauna') as HTMLDetailsElement).open).toBe(false)
   })
 
-  it('unhides an art panel from /hier/art#werk-x', async () => {
-    window.history.replaceState(null, '', '/hier/art#werk-somari')
+  it('unhides a details-like panel from a hash', async () => {
+    window.history.replaceState(null, '', '/amenities#pool')
 
     await mount(
       createElement(
@@ -66,12 +66,12 @@ describe('useHashOpen', () => {
         createElement(HashOpen),
         createElement(
           'section',
-          { id: 'werk-somari', hidden: true },
-          createElement('h2', null, 'Somari'),
+          { id: 'pool', hidden: true },
+          createElement('h2', null, 'Pool'),
         ),
       ),
     )
 
-    expect(document.getElementById('werk-somari')?.hasAttribute('hidden')).toBe(false)
+    expect(document.getElementById('pool')?.hasAttribute('hidden')).toBe(false)
   })
 })

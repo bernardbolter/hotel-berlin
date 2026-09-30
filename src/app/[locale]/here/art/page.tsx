@@ -9,8 +9,8 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'here' })
-  return herePageMetadata('/here/art', locale, t('pages.art.title'), t('pages.art.intro'))
+  const t = await getTranslations({ locale, namespace: 'art.page' })
+  return herePageMetadata('/here/art', locale, t('title'), t('intro'))
 }
 
 export default async function HereArtPage({ params }: Props) {

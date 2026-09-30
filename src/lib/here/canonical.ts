@@ -5,6 +5,7 @@ const HERE_PATHS = {
   '/here': { en: '/en/here', de: '/de/hier' },
   '/here/events': { en: '/en/here/events', de: '/de/hier/events' },
   '/here/art': { en: '/en/here/art', de: '/de/hier/art' },
+  '/here/art/[slug]': { en: '/en/here/art/[slug]', de: '/de/hier/art/[slug]' },
   '/here/dining': { en: '/en/here/dining', de: '/de/hier/dining' },
   '/here/explore': { en: '/en/here/explore', de: '/de/hier/explore' },
   '/here/faq': { en: '/en/here/faq', de: '/de/hier/faq' },

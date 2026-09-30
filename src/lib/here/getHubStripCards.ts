@@ -1,7 +1,6 @@
+import { getCurrentExhibitions } from '@/lib/art/exhibitions'
 import { getBerlinNow } from '@/lib/venue-time/berlin'
-import { getCurrentExhibitionForVenue } from '@/lib/venue-time/queries'
 import { getEventOccurrences } from '@/lib/payload/getEventOccurrences'
-import { getVenueBySlug } from '@/lib/payload/venues'
 import { pickHubStrip } from '@/lib/here/pickHubStrip'
 import {
   formatPracticalLine,
@@ -34,10 +33,11 @@ export async function getHubStripCards(options: {
   const framing = options.framing ?? 'guest'
   const limit = options.limit ?? HUB_LIMIT
 
-  const fkkb = await getVenueBySlug('fkkb', locale).catch(() => null)
-  const exhibition = fkkb
-    ? await getCurrentExhibitionForVenue(fkkb.id, now).catch(() => null)
-    : null
+  const [exhibition] = await getCurrentExhibitions(now, locale).catch(() => [])
+  const venue =
+    exhibition && typeof exhibition.venue === 'object' && exhibition.venue
+      ? (exhibition.venue as Venue)
+      : null
 
   const occurrences = await getEventOccurrences({
     from: now,
@@ -46,14 +46,14 @@ export async function getHubStripCards(options: {
     includeAlwaysOn: true,
   })
 
-  const slots = pickHubStrip(occurrences, Boolean(exhibition && fkkb), now, limit)
+  const slots = pickHubStrip(occurrences, Boolean(exhibition && venue), now, limit)
   const cards: SpotlightCardProps[] = []
 
   for (const slot of slots) {
     if (slot.kind === 'exhibition') {
-      if (!fkkb || !exhibition) continue
+      if (!venue || !exhibition) continue
       const card = exhibitionAlwaysOnCard({
-        venue: fkkb,
+        venue,
         exhibition: exhibition as Exhibition,
         locale,
         framing,

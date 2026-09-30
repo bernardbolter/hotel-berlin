@@ -1,3 +1,4 @@
+import { getExhibitionStatus } from '@/lib/art/status'
 import { getBerlinNow } from './berlin'
 import type { VenueTimeExhibition } from './types'
 
@@ -10,7 +11,8 @@ function venueIdOf(
 }
 
 /**
- * Pure selector — prefers `current`, then `permanent` (no end / end in future).
+ * Pure selector — dated current shows first, then permanent, for one venue.
+ * Status is derived from dates / runType (never a stored select).
  */
 export function selectCurrentExhibitionForVenue(
   exhibitions: VenueTimeExhibition[],
@@ -22,18 +24,16 @@ export function selectCurrentExhibitionForVenue(
     return id != null && String(id) === String(venueId)
   })
 
-  const current = forVenue.find((ex) => {
-    if (ex.status !== 'current') return false
-    if (ex.endDate && new Date(ex.endDate).getTime() < now.getTime()) return false
-    if (ex.startDate && new Date(ex.startDate).getTime() > now.getTime()) return false
-    return true
+  const dated = forVenue.find((ex) => {
+    const status = getExhibitionStatus(ex, now)
+    return status === 'current' && (ex.runType ?? ex.status) !== 'permanent'
   })
-  if (current) return current
+  if (dated) return dated
 
-  const permanent = forVenue.find((ex) => {
-    if (ex.status !== 'permanent') return false
-    if (ex.endDate && new Date(ex.endDate).getTime() < now.getTime()) return false
-    return true
-  })
-  return permanent ?? null
+  return (
+    forVenue.find((ex) => {
+      const status = getExhibitionStatus(ex, now)
+      return status === 'current' && (ex.runType === 'permanent' || ex.status === 'permanent')
+    }) ?? null
+  )
 }

@@ -37,7 +37,9 @@ export type RelativeTimeState =
 export type VenueTimeExhibition = {
   id: string | number
   title: string
+  /** @deprecated Derived via getExhibitionStatus — kept for fixture compatibility. */
   status?: 'upcoming' | 'current' | 'permanent' | 'past' | null
+  runType?: 'dated' | 'permanent' | null
   startDate?: string | null
   endDate?: string | null
   venue?: string | number | { id: string | number } | null

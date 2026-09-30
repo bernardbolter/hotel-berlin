@@ -4,6 +4,9 @@ import type { CollectionConfig } from 'payload'
 import { publicReadStaffWrite } from '@/access'
 import { collectionCacheHooks } from '@/lib/payload/revalidate'
 
+const identityDescription =
+  'Only identifiers the artist publishes themselves. Never guess a Q-number, and never use an entry for someone with the same name. / Nur Kennungen, die die Künstlerin oder der Künstler selbst veröffentlicht. Niemals eine Q-Nummer raten und niemals den Eintrag einer gleichnamigen Person verwenden.'
+
 export const Artists: CollectionConfig = {
   slug: 'artists',
   ...collectionCacheHooks('artists'),
@@ -30,6 +33,17 @@ export const Artists: CollectionConfig = {
     { name: 'nationality', type: 'text' },
     { name: 'basedIn', type: 'text' },
     { name: 'medium', type: 'text' },
+    {
+      name: 'wikidataId',
+      type: 'text',
+      admin: { description: identityDescription },
+    },
+    {
+      name: 'sameAs',
+      type: 'array',
+      admin: { description: identityDescription },
+      fields: [{ name: 'url', type: 'text', required: true }],
+    },
     { name: 'tags', type: 'relationship', relationTo: 'tags', hasMany: true },
   ],
 }

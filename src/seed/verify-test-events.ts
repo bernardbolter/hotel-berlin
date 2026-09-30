@@ -128,7 +128,7 @@ async function main() {
       name: 'getCurrentExhibitionForVenue(fkkb) → Magwie × CokyOne',
       ok: ex?.title === 'Magwie × CokyOne',
       detail: ex
-        ? `${ex.title} status=${ex.status} heroImage=${url ?? '(none yet — expected)'}`
+        ? `${ex.title} status=${ex.derivedStatus} heroImage=${url ?? '(none yet — expected)'}`
         : 'null',
     })
   }

@@ -350,7 +350,7 @@ async function main() {
       artists: [magwie.id, cokyone.id],
       startDate: berlinIso(2026, 8, 1, 0, 0),
       endDate: berlinIso(2026, 9, 30, 23, 59),
-      status: 'current',
+      runType: 'dated',
     },
     {
       en: {

@@ -33,12 +33,19 @@ export const Artworks: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Content',
-    defaultColumns: ['title', 'artist', 'artworkType', 'visibility', 'status'],
+    defaultColumns: ['title', 'artist', 'artworkType', 'visibility', 'pinned', 'status'],
     description:
-      'Works in the building for /hier/art. Drag to reorder. The grid shows live works with an image, murals first. Sale status is separate from publishing.',
+      'Works in the building for /hier/art. Drag to reorder. Live works need an image. Sale status is separate from publishing.',
   },
   fields: [
-    { name: 'title', type: 'text', required: true },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        description:
+          'Leave blank for untitled works — the artist name becomes the page heading and JSON-LD omits `name`.',
+      },
+    },
     slugField({ name: 'slug', useAsSlug: 'title' }),
     {
       name: 'artworkType',
@@ -50,9 +57,6 @@ export const Artworks: CollectionConfig = {
         { label: 'Edition', value: 'edition' },
         { label: 'Installation', value: 'installation' },
       ],
-      admin: {
-        description: 'Murals sort first on the hung wall. Editions for sale are a later FKKB question.',
-      },
     },
     {
       name: 'visibility',
@@ -68,12 +72,24 @@ export const Artworks: CollectionConfig = {
         description: 'Publishing. Hidden works leave /hier/art. Sale availability is the Status field.',
       },
     },
+    {
+      name: 'pinned',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Pinned works lead the mosaic and index. Drag order among pinned still applies.',
+      },
+    },
     { name: 'artist', type: 'relationship', relationTo: 'artists', required: true },
     { name: 'editionNumber', type: 'text' },
     {
       name: 'medium',
       type: 'text',
-      admin: { description: 'Technique shown in the open panel facts, e.g. “Spray paint on plaster”.' },
+      label: 'Technik / Technique',
+      admin: {
+        description: 'Technique shown in the facts list, e.g. “Spray paint on plaster”.',
+      },
     },
     { name: 'dimensions', type: 'text' },
     { name: 'year', type: 'number' },
@@ -82,14 +98,15 @@ export const Artworks: CollectionConfig = {
       type: 'richText',
       localized: true,
       admin: {
-        description: 'The story in the open panel. Write natively per locale. Do not add a separate story field.',
+        description:
+          'The story on the work page and in structured data. Write natively per locale. Do not add a separate story field.',
       },
     },
     {
       name: 'locationInBuilding',
       type: 'group',
       admin: {
-        description: 'Floor + spot for the grid caption. Blank floor shows Location TBC.',
+        description: 'Floor + spot for the grid caption and floor locator.',
       },
       fields: [
         {
@@ -121,6 +138,25 @@ export const Artworks: CollectionConfig = {
       ],
     },
     {
+      name: 'contextImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Optional step-back shot showing where the work hangs in the building.',
+      },
+    },
+    {
+      name: 'detailImages',
+      type: 'array',
+      admin: {
+        description: 'Optional detail crops. Rare — most murals have one photo plus a context shot.',
+      },
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'alt', type: 'text', required: true },
+      ],
+    },
+    {
       name: 'status',
       type: 'select',
       options: [
@@ -129,7 +165,7 @@ export const Artworks: CollectionConfig = {
         { label: 'Not for sale', value: 'not-for-sale' },
       ],
       admin: {
-        description: 'Sale state for FKKB editions. Independent of Visibility.',
+        description: 'Sale state for gallery editions. Independent of Visibility.',
       },
     },
     { name: 'tags', type: 'relationship', relationTo: 'tags', hasMany: true },

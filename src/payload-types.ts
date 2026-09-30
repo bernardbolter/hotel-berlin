@@ -1045,6 +1045,19 @@ export interface Artist {
   nationality?: string | null;
   basedIn?: string | null;
   medium?: string | null;
+  /**
+   * Only identifiers the artist publishes themselves. Never guess a Q-number, and never use an entry for someone with the same name. / Nur Kennungen, die die Künstlerin oder der Künstler selbst veröffentlicht. Niemals eine Q-Nummer raten und niemals den Eintrag einer gleichnamigen Person verwenden.
+   */
+  wikidataId?: string | null;
+  /**
+   * Only identifiers the artist publishes themselves. Never guess a Q-number, and never use an entry for someone with the same name. / Nur Kennungen, die die Künstlerin oder der Künstler selbst veröffentlicht. Niemals eine Q-Nummer raten und niemals den Eintrag einer gleichnamigen Person verwenden.
+   */
+  sameAs?:
+    | {
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   tags?: (number | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -1286,7 +1299,7 @@ export interface NeighbourhoodPlace {
   createdAt: string;
 }
 /**
- * Works in the building for /hier/art. Drag to reorder. The grid shows live works with an image, murals first. Sale status is separate from publishing.
+ * Works in the building for /hier/art. Drag to reorder. Live works need an image. Sale status is separate from publishing.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "artworks".
@@ -1294,30 +1307,34 @@ export interface NeighbourhoodPlace {
 export interface Artwork {
   id: number;
   _order?: string | null;
-  title: string;
+  /**
+   * Leave blank for untitled works — the artist name becomes the page heading and JSON-LD omits `name`.
+   */
+  title?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  /**
-   * Murals sort first on the hung wall. Editions for sale are a later FKKB question.
-   */
   artworkType: 'mural' | 'edition' | 'installation';
   /**
    * Publishing. Hidden works leave /hier/art. Sale availability is the Status field.
    */
   visibility: 'live' | 'hidden';
+  /**
+   * Pinned works lead the mosaic and index. Drag order among pinned still applies.
+   */
+  pinned?: boolean | null;
   artist: number | Artist;
   editionNumber?: string | null;
   /**
-   * Technique shown in the open panel facts, e.g. “Spray paint on plaster”.
+   * Technique shown in the facts list, e.g. “Spray paint on plaster”.
    */
   medium?: string | null;
   dimensions?: string | null;
   year?: number | null;
   /**
-   * The story in the open panel. Write natively per locale. Do not add a separate story field.
+   * The story on the work page and in structured data. Write natively per locale. Do not add a separate story field.
    */
   description?: {
     root: {
@@ -1335,7 +1352,7 @@ export interface Artwork {
     [k: string]: unknown;
   } | null;
   /**
-   * Floor + spot for the grid caption. Blank floor shows Location TBC.
+   * Floor + spot for the grid caption and floor locator.
    */
   locationInBuilding?: {
     floor?: ('B2' | 'B1' | 'EG' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'Dach') | null;
@@ -1355,7 +1372,21 @@ export interface Artwork {
       }[]
     | null;
   /**
-   * Sale state for FKKB editions. Independent of Visibility.
+   * Optional step-back shot showing where the work hangs in the building.
+   */
+  contextImage?: (number | null) | Media;
+  /**
+   * Optional detail crops. Rare — most murals have one photo plus a context shot.
+   */
+  detailImages?:
+    | {
+        image: number | Media;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sale state for gallery editions. Independent of Visibility.
    */
   status?: ('available' | 'sold' | 'not-for-sale') | null;
   tags?: (number | Tag)[] | null;
@@ -1390,17 +1421,22 @@ export interface Exhibition {
     };
     [k: string]: unknown;
   } | null;
-  startDate?: string | null;
-  endDate?: string | null;
-  location?: string | null;
   /**
-   * Hosting venue — required for SpotlightCard venue resolver
+   * Dated shows open and close. Permanent installations stay current and never outrank a dated show for the lead tile.
    */
-  venue?: (number | null) | Venue;
+  runType: 'dated' | 'permanent';
+  startDate: string;
+  /**
+   * Required for dated shows. Hidden for permanent installations.
+   */
+  endDate?: string | null;
+  /**
+   * Hosting gallery. Floor and room come from the venue record.
+   */
+  venue: number | Venue;
   heroImage?: (number | null) | Media;
   artists?: (number | Artist)[] | null;
   artworks?: (number | Artwork)[] | null;
-  status?: ('upcoming' | 'current' | 'permanent' | 'past') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -2208,6 +2244,13 @@ export interface ArtistsSelect<T extends boolean = true> {
   nationality?: T;
   basedIn?: T;
   medium?: T;
+  wikidataId?: T;
+  sameAs?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
   tags?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -2223,6 +2266,7 @@ export interface ArtworksSelect<T extends boolean = true> {
   slug?: T;
   artworkType?: T;
   visibility?: T;
+  pinned?: T;
   artist?: T;
   editionNumber?: T;
   medium?: T;
@@ -2236,6 +2280,14 @@ export interface ArtworksSelect<T extends boolean = true> {
         spot?: T;
       };
   images?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
+      };
+  contextImage?: T;
+  detailImages?:
     | T
     | {
         image?: T;
@@ -2257,14 +2309,13 @@ export interface ExhibitionsSelect<T extends boolean = true> {
   slug?: T;
   subtitle?: T;
   description?: T;
+  runType?: T;
   startDate?: T;
   endDate?: T;
-  location?: T;
   venue?: T;
   heroImage?: T;
   artists?: T;
   artworks?: T;
-  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

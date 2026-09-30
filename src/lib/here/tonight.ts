@@ -6,10 +6,9 @@ import {
   parseTimeToMinutes,
   type OpeningHoursEntry,
 } from '@/lib/venue-time'
-import { getCurrentExhibitionForVenue } from '@/lib/venue-time/queries'
+import { getCurrentExhibitions } from '@/lib/art/exhibitions'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
 import { firstHereImage, HERE_IMAGES, type HereImage } from '@/lib/here/images'
-import { getVenueBySlug } from '@/lib/payload/venues'
 import type { Venue } from '@/payload-types'
 
 export type TonightHeroData = {
@@ -68,34 +67,31 @@ export async function resolveTonightHero(
   now: Date = getBerlinNow(),
 ): Promise<TonightHeroData> {
   const de = locale === 'de'
-  const fkkb = await getVenueBySlug('fkkb', de ? 'de' : 'en').catch(() => null)
-  const exhibition = fkkb
-    ? await getCurrentExhibitionForVenue(fkkb.id, now).catch(() => null)
-    : null
+  const [exhibition] = await getCurrentExhibitions(now, de ? 'de' : 'en').catch(() => [])
+  const venue =
+    exhibition && typeof exhibition.venue === 'object' && exhibition.venue
+      ? (exhibition.venue as Venue)
+      : null
 
-  const title = exhibition?.title || 'Magwie × CokyOne'
+  const title = exhibition?.title || (de ? 'Kunst im Haus' : 'Art in the building')
   const location =
-    exhibition?.location ||
-    fkkb?.spotlightLocation ||
-    fkkb?.location ||
+    venue?.spotlightLocation ||
+    venue?.location ||
     (de ? 'Erdgeschoss' : 'ground floor')
+  const venueName = venue?.name || (de ? 'Galerie' : 'Gallery')
 
   const exhibitionSrc = exhibition ? mediaUrl(exhibition.heroImage, 'card') : null
-  const venueSrc = fkkb ? mediaUrl(fkkb.heroImage, 'card') : null
+  const venueSrc = venue ? mediaUrl(venue.heroImage, 'card') : null
 
   return {
     title,
-    meta: de
-      ? `FKKB-Galerie · ${location}`
-      : `FKKB gallery · ${location}`,
+    meta: `${venueName} · ${location}`,
     statusLabel: de ? 'Jetzt geöffnet · freier Eintritt' : 'Open now · free entry',
     image: firstHereImage(
       exhibitionSrc
         ? { src: exhibitionSrc, alt: mediaAlt(exhibition?.heroImage, title) }
         : null,
-      venueSrc
-        ? { src: venueSrc, alt: mediaAlt(fkkb?.heroImage, title) }
-        : null,
+      venueSrc ? { src: venueSrc, alt: mediaAlt(venue?.heroImage, title) } : null,
       HERE_IMAGES.fkkb,
     ),
     href: '/here/art',

@@ -148,13 +148,15 @@ describe('selectCurrentExhibitionForVenue', () => {
     {
       id: 1,
       title: 'Past Show',
-      status: 'past',
+      runType: 'dated',
+      startDate: '2025-01-01T00:00:00.000Z',
+      endDate: '2025-02-01T00:00:00.000Z',
       venue: 10,
     },
     {
       id: 2,
       title: 'Current Walls',
-      status: 'current',
+      runType: 'dated',
       venue: 10,
       startDate: '2026-01-01T00:00:00.000Z',
       endDate: '2026-12-31T23:59:59.000Z',
@@ -162,7 +164,8 @@ describe('selectCurrentExhibitionForVenue', () => {
     {
       id: 3,
       title: 'Permanent Collection',
-      status: 'permanent',
+      runType: 'permanent',
+      startDate: '2020-01-01T00:00:00.000Z',
       venue: 11,
     },
   ]

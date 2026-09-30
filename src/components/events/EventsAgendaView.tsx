@@ -4,6 +4,7 @@ import { AgendaRow } from '@/components/events/AgendaRow'
 import { EventsRow } from '@/components/events/EventsRow'
 import { Link } from '@/i18n/routing'
 import { toAppHref } from '@/i18n/toAppHref'
+import { getCurrentExhibitions } from '@/lib/art/exhibitions'
 import {
   AGENDA_FILTERS,
   AGENDA_WINDOW_DAYS,
@@ -17,9 +18,7 @@ import {
 import { pickHubStrip } from '@/lib/here/pickHubStrip'
 import { exhibitionAlwaysOnCard } from '@/lib/here/getHubStripCards'
 import { getEventOccurrences } from '@/lib/payload/getEventOccurrences'
-import { getVenueBySlug } from '@/lib/payload/venues'
 import { getBerlinNow } from '@/lib/venue-time/berlin'
-import { getCurrentExhibitionForVenue } from '@/lib/venue-time/queries'
 import { resolveEventSpotlight } from '@/lib/spotlight/resolvers'
 import type { SpotlightFraming, SpotlightCardProps } from '@/lib/spotlight/types'
 import type { Exhibition, Venue } from '@/payload-types'
@@ -38,21 +37,24 @@ export async function EventsAgendaView({ locale, framing, filterRaw, pathname }:
   const now = getBerlinNow()
   const to = new Date(now.getTime() + AGENDA_WINDOW_DAYS * 24 * 60 * 60 * 1000)
 
-  const [occurrences, fkkb] = await Promise.all([
+  const [occurrences, currentShows] = await Promise.all([
     getEventOccurrences({ from: now, to, locale: loc, includeAlwaysOn: true }).catch((error) => {
       console.error('[EventsAgendaView] occurrences failed', error)
       return []
     }),
-    getVenueBySlug('fkkb', loc).catch((error) => {
-      console.error('[EventsAgendaView] venue failed', error)
-      return null
+    getCurrentExhibitions(now, loc).catch((error) => {
+      console.error('[EventsAgendaView] exhibitions failed', error)
+      return []
     }),
   ])
-  const exhibition = fkkb
-    ? await getCurrentExhibitionForVenue(fkkb.id, now).catch(() => null)
-    : null
+  // A1: lead show for featured strip. A3 expands every current show into agenda days.
+  const exhibition = currentShows[0] ?? null
+  const venue =
+    exhibition && typeof exhibition.venue === 'object' && exhibition.venue
+      ? (exhibition.venue as Venue)
+      : null
 
-  const slots = pickHubStrip(occurrences, Boolean(exhibition && fkkb), now, FEATURED_MAX)
+  const slots = pickHubStrip(occurrences, Boolean(exhibition && venue), now, FEATURED_MAX)
   const skip = featuredSkipKeys(
     slots.map((slot) =>
       slot.kind === 'exhibition'
@@ -65,9 +67,9 @@ export async function EventsAgendaView({ locale, framing, filterRaw, pathname }:
   const featured: SpotlightCardProps[] = []
   for (const slot of slots) {
     if (slot.kind === 'exhibition') {
-      if (!fkkb || !exhibition) continue
+      if (!venue || !exhibition) continue
       const card = exhibitionAlwaysOnCard({
-        venue: fkkb,
+        venue,
         exhibition: exhibition as Exhibition,
         locale: loc,
         framing,
@@ -88,13 +90,13 @@ export async function EventsAgendaView({ locale, framing, filterRaw, pathname }:
   const days = buildAgendaDays({
     occurrences,
     exhibition:
-      exhibition && fkkb
+      exhibition && venue
         ? {
             id: exhibition.id,
             title: exhibition.title,
             slug: exhibition.slug,
             endDate: exhibition.endDate,
-            venue: fkkb as Venue,
+            venue,
           }
         : null,
     now,

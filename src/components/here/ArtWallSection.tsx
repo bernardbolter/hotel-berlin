@@ -14,24 +14,14 @@ export async function ArtWallSection({ locale }: Props) {
   const data = await getArtWallData(locale, {
     nowUntil: (date) => t('artWall.nowUntil', { date }),
     nowChip: t('artWall.nowChip'),
+    permanentChip: t('artWall.permanentChip'),
+    fromDate: (date) => t('artWall.fromDate', { date }),
     locationTbc: t('artWall.locationTbc'),
     moreWithCount: (count) => t('artWall.moreCount', { count }),
     moreWithoutCount: t('artWall.more'),
-    floors: {
-      somari: {
-        floor: t('art.floors.somari.floor'),
-        title: t('art.floors.somari.title'),
-      },
-      deerbln: {
-        floor: t('art.floors.deerbln.floor'),
-        title: t('art.floors.deerbln.title'),
-      },
-      pisa73: {
-        floor: t('art.floors.pisa73.floor'),
-        title: t('art.floors.pisa73.title'),
-      },
-    },
   })
+
+  if (data.tiles.length === 0) return null
 
   return (
     <section aria-labelledby="here-art-heading" className="bg-hbb-page">

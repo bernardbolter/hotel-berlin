@@ -19,7 +19,7 @@ export type ArtFloor = (typeof ART_FLOORS)[number]
 export type ArtworkType = 'mural' | 'edition' | 'installation'
 export type ArtworkVisibility = 'live' | 'hidden'
 export type ArtworkSaleStatus = 'available' | 'sold' | 'not-for-sale'
-export type FloorFilter = 'all' | 'lobby' | 'floors1to4' | 'floors5to10' | 'basement'
+export type FloorFilter = 'all' | 'lobby' | 'floors1to4' | 'floors5to10' | 'basement' | 'exhibition'
 
 export type ArtImage = {
   src: string
@@ -40,6 +40,7 @@ export type ArtArtist = {
 }
 
 export type ArtWork = {
+  id: number
   slug: string
   title: string
   artworkType: ArtworkType
@@ -53,7 +54,12 @@ export type ArtWork = {
   dimensions: string | null
   description: unknown
   image: ArtImage | null
+  contextImage: ArtImage | null
+  detailImages: ArtImage[]
+  pinned: boolean
   order: string
+  /** True when linked from any exhibition.artworks join. */
+  inExhibition: boolean
 }
 
 export type ArtExhibitionTile = {
@@ -61,10 +67,28 @@ export type ArtExhibitionTile = {
   title: string
   href: string
   chip: string
+  venueName: string | null
   image: ArtImage | null
+  runType: 'dated' | 'permanent'
+}
+
+export type ArtArtistListItem = {
+  name: string
+  slug: string
+  workCount: number
+  personHref: string | null
 }
 
 export type ArtPageData = {
   works: ArtWork[]
-  exhibition: ArtExhibitionTile | null
+  exhibitions: ArtExhibitionTile[]
+  artists: ArtArtistListItem[]
+}
+
+export type ArtWorkExhibitionBand = {
+  slug: string
+  title: string
+  href: string
+  current: boolean
+  line: string
 }

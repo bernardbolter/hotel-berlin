@@ -12,7 +12,7 @@
 
 | # | Decision | Consequence |
 |---|---|---|
-| D1 | **Hosting: Vercel (managed)**, owned by the hotel, Bernard as admin. Neon Postgres in Frankfurt, **Cloudflare R2** for media (decided 20 Sept; not Vercel Blob), Resend EU. | The Netcup plan in `deploy/netcup/` is **retired**. R2 adapter and real migrations become code blockers. |
+| D1 | **Hosting: Vercel (managed)**, owned by the hotel, Bernard as admin. Neon Postgres in Frankfurt, Vercel Blob for media, Resend EU. | The Netcup plan in `deploy/netcup/` is **retired**. Blob adapter and real migrations become code blockers. |
 | D2 | **The signed-off homepage wins.** Meetings, events, map, Lütze and FAQ all stay. | The Homepage V2 "hide lower sections / feature flags" item is closed. Step 0 contradiction #5 is resolved. |
 | D3 | **WiFi stays visible** in the hub. The hotel confirms the credentials are current and OK to publish. | Goes on the hotel list. Step 0 contradiction #7 resolved in favour of the HerePage DoD. |
 | D4 | **All 15 placeholder pages ship.** Bernard writes their copy from the live site; the hotel approves it. | Content workstream, not code. The pages already exist as scaffolds. |
@@ -36,23 +36,23 @@ Everything entered after this lands in the production database. Nothing is enter
 **Accounts and hosting**
 - [ ] **1.1 H/B** Hotel-owned Vercel Pro team. Move or recreate the existing `hotel-berlin-berlin` Vercel project there (LR §47).
 - [ ] **1.2 H/B** Neon project in Frankfurt. Production branch plus a preview branch.
-- [ ] **1.3 H/B** Cloudflare R2 bucket (EU jurisdiction). Public access via `NEXT_PUBLIC_MEDIA_URL` (`*.r2.dev` now, `media.hotel-berlin.de` later). CORS must allow browser-direct uploads (`doc/dev/MEDIA.md`).
+- [ ] **1.3 H/B** Vercel Blob store in `fra1`.
 - [ ] **1.4 H/B** Hotel-owned Mapbox account. Public token restricted to the production and soft-launch URLs (LR §32).
 - [ ] **1.5 H/B** Resend account with an EU-region sending domain (e.g. `mail.hotel-berlin.de`). Needs DNS.
 - [x] **1.6 B** Archive `deploy/netcup/`: mark it superseded, don't delete it.
 
 **Code that has to exist before production takes content**
 - [x] **1.7 C** Switch Payload from `push: true` to real migrations. Generate a baseline migration from the current schema. `payload_migrations` today holds only a dummy `dev` row (LR §46, §48). *Baseline is `src/migrations/20260919_122612_baseline.ts` (full CREATE for empty DBs). Local `next dev` still uses push. Production: `npm run migrate`. Do not run migrate against a push-built database.*
-- [x] **1.8 C** Media: `@payloadcms/storage-s3` against Cloudflare R2 with `clientUploads: true` to get past the 4.5 MB function limit. Public URLs from `NEXT_PUBLIC_MEDIA_URL` (not stored on the record). *Adapter is enabled only when R2 credentials are set; local disk remains the fallback. See `doc/dev/MEDIA.md`.*
+- [x] **1.8 C** Media: `@payloadcms/storage-vercel-blob` with `clientUploads: true` to get past the 4.5 MB function limit. Remove the unused R2 pattern from `next.config.ts` (LR §49). *Adapter is enabled only when `BLOB_READ_WRITE_TOKEN` is set; local disk remains the fallback.*
 - [x] **1.9 C** Media: define `imageSizes` (card, hero, portrait, OG) and turn on `focalPoint` / `crop` **before** real photos are uploaded. Today only originals are served (LR §6). Base the widths on the largest rendered sizes in `schema-inventory.md` §3.
 - [x] **1.10 C** Make `alt` localised (it's currently one language only) (LR §6).
 - [x] **1.11 C** Guard the seed scripts: stop when `NODE_ENV=production` unless an explicit flag is set. `DEPLOY.md` currently tells operators to seed on first boot (LR §48).
-- [x] **1.12 C** Complete `.env.example`: add `RESEND_*`, `REVALIDATE_SECRET`, `NEXT_PUBLIC_SITE_URL`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `NEXT_PUBLIC_MEDIA_URL` and the soft-launch flags (LR §50).
+- [x] **1.12 C** Complete `.env.example`: add `RESEND_*`, `REVALIDATE_SECRET`, `NEXT_PUBLIC_SITE_URL`, `BLOB_READ_WRITE_TOKEN` and the soft-launch flags (LR §50).
 - [x] **1.13 C** Production build green: `tsc --noEmit` clean (`ScaffoldPageView` href union, Step 0), lint pipeline fixed (it crashes on circular JSON), full `test:int` passing (LR §60). *19 Sept: `tsc --noEmit` 0; `npm run lint` 0 errors / 44 warnings (Next 16 flat config, no FlatCompat crash); `test:int` 12 files / 118 passed; `npm run build` compiled + typechecked, 212 pages.*
 - [x] **1.14 C** Soft-launch mode, controlled by env: basic auth in `proxy.ts`, a `robots.ts` that disallows everything, and `noindex` metadata. One switch flips all three at the domain switch. *`SOFT_LAUNCH=true` enables all three (`src/lib/launch/softLaunch.ts`). Unset it to go live.*
 - [x] **1.15 C** Revalidation: every collection and global calls `revalidatePath` / `revalidateTag` on change. Today only legal, the globals and the places collections do (LR §46). Without it, content Bernard enters won't appear without a redeploy. *Shared helper `src/lib/payload/revalidate.ts` (`revalidatePath('/', 'layout')` + tag `cms` + collection tag). Skips `users` and `meeting-inquiries`. HTTP `/api/revalidate` still works and also busts the layout.*
 - [x] **1.16 C** Payload roles: `admin` and `editor`. The editor role can't touch `users` or config globals (LR §55). *`role` on Users (`saveToJWT`). Editors are hidden from Users and the Hotel global; they can still edit collections plus Homepage, Navigation, Footer, Meetings. Public meeting-inquiry create is unchanged. Existing sessions without `role` are treated as admin so the current operator is not locked out. New hotel accounts: set role to Editor.*
-- [ ] **1.17 B** First deploy to `*.vercel.app`. Run migrations and a one-time import of the 346 existing media files into R2 (`scripts/media-to-r2.ts`), then check that nested routes return 200 on a clean production build. The 404s on :3000 were a stale dev compile (LR §3), but that has to be proven on production.
+- [ ] **1.17 B** First deploy to `*.vercel.app`. Run migrations and a one-time import of the 346 existing media files into Blob, then check that nested routes return 200 on a clean production build. The 404s on :3000 were a stale dev compile (LR §3), but that has to be proven on production.
 
 ---
 
@@ -138,7 +138,7 @@ Everything entered after this lands in the production database. Nothing is enter
 - [ ] **3.22 B** Finish `/hier/art`, `/hier/gallery`, `/hier/wallride` and `/hier/getting-around`. They still show an "in progress" label.
 
 **Legal** (LR §33–37)
-- [ ] **3.23 H** Sign off Impressum, Datenschutz, AGB, Cookies and Haftungsausschluss. Datenschutz needs updating to list Vercel, Neon, Cloudflare R2, Resend, Mapbox and the consent tool.
+- [ ] **3.23 H** Sign off Impressum, Datenschutz, AGB, Cookies and Haftungsausschluss. Datenschutz needs updating to list Vercel, Neon, Resend, Mapbox and the consent tool.
 - [ ] **3.24 B** Add the Disclaimer to the footer in the **database**. The seed has it; the production footer doesn't.
 - [ ] **3.25 B/H** Accessibility statement (Barrierefreiheitserklärung) under the BFSG. It is currently a stub.
 - [ ] **3.26 H** Buy the Laica A licence from Dinamo and add the licence file to the repo (LR §35).
@@ -191,7 +191,7 @@ Everything entered after this lands in the production database. Nothing is enter
 
 1. Vercel, Neon and Mapbox accounts in the hotel's name, with Bernard as admin. The billing entity.
 2. **Who controls DNS for hotel-berlin.de.**
-3. Contact for the data protection officer. DPAs with Vercel, Neon, Cloudflare, Resend, Mapbox and the consent tool.
+3. Contact for the data protection officer. DPAs with Vercel, Neon, Resend, Mapbox and the consent tool.
 4. Galaxy/TravelClick contract end date and notice period.
 5. Legal sign-off: Impressum, Datenschutz, AGB, Cookies, Haftungsausschluss, the accessibility statement.
 6. Facts: bed configurations, meeting room 21 vs 22, WiFi confirmation, sauna hours, Guest Care extension, fingerboard, room rates.

@@ -1,0 +1,437 @@
+<title>Full Pages Patterns</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#F4F2EF; --surface:#FFFFFF; --text:#23201C; --dim:#6E675E; --faint:#948C82;
+    --rule:#E2DDD5; --accent:#9A6420; --accent-bg:#F7EFE2;
+    --shadow:0 1px 2px rgba(35,32,28,.05), 0 12px 32px rgba(35,32,28,.09);
+
+    --ink:#141414; --meta:#5A5A5A; --page:#FBFBFB; --warm:#F5F0EB;
+    --amber:#F79B2E; --amber-deep:#8A5818;
+    --teal:#2C6B7A; --nbhd:#56674F; --coral:#F95D62; --navy:#216A95; --sport:#E08A28;
+    --cardline:#E0DCD5;
+
+    --ff-ui:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --ff-ed:'Newsreader',Charter,Georgia,serif;
+    --ff-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#1A1815;--surface:#23201C;--text:#EDE8E1;--dim:#9C9389;--faint:#7A7269;
+    --rule:#35302A;--accent:#E0A455;--accent-bg:#2E2619;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45);}}
+  :root[data-theme="dark"]{
+    --bg:#1A1815;--surface:#23201C;--text:#EDE8E1;--dim:#9C9389;--faint:#7A7269;
+    --rule:#35302A;--accent:#E0A455;--accent-bg:#2E2619;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45);}
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--ff-ui);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 16px 96px;display:flex;flex-direction:column;gap:56px}
+  @media (min-width:700px){.wrap{padding:40px 28px 96px}}
+
+  .masthead{display:flex;flex-direction:column;gap:10px}
+  .kicker{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--accent)}
+  .masthead h1{margin:0;font-family:var(--ff-ed);font-weight:300;font-size:clamp(30px,4.4vw,44px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+  .masthead p{margin:0;max-width:66ch;color:var(--dim);font-size:15.5px}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:4px;font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+
+  .sec{display:flex;flex-direction:column;gap:20px}
+  .sec>h2{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--dim);display:flex;align-items:center;gap:14px}
+  .sec>h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+  .lede{margin:0;max-width:72ch;color:var(--dim);font-size:15px}
+  .lede strong{color:var(--text);font-weight:600}
+  code{font-family:var(--ff-mono);font-size:.86em;background:var(--accent-bg);color:var(--accent);padding:1px 5px;border:1px solid var(--rule)}
+
+  .board{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .board__bar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .board__name{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+  .board__dims{font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+  .artboard{container-type:inline-size;width:100%;background:#FFF;border:1px solid var(--rule);box-shadow:var(--shadow);overflow:hidden}
+  .stage{--base:1425;--px:calc(100cqw / var(--base));background:var(--page);color:var(--ink);padding:calc(32 * var(--px))}
+  .stage--m{--base:390;padding:calc(20 * var(--px)) calc(16 * var(--px))}
+
+  /* ---------- rule table ---------- */
+  .tablescroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+  th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--dim);padding:0 14px 9px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+  td{padding:11px 14px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  td:first-child{font-weight:600}
+  .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:2px 7px;border:1px solid currentColor}
+
+  /* ---------- page chrome inside artboards ---------- */
+  .shead{display:flex;align-items:baseline;justify-content:space-between;gap:calc(24 * var(--px));margin-bottom:calc(22 * var(--px))}
+  .shead__t{font-family:var(--ff-ed);font-weight:400;font-size:calc(34 * var(--px));line-height:1.1}
+  .shead__l{font-size:calc(13 * var(--px));font-weight:500;border-bottom:calc(1.5 * var(--px)) solid currentColor;padding-bottom:calc(3 * var(--px));white-space:nowrap}
+  .ph1{font-family:var(--ff-ed);font-weight:300;font-size:calc(52 * var(--px));line-height:1.05;margin:0 0 calc(10 * var(--px))}
+  .pintro{font-size:calc(15 * var(--px));line-height:1.5;color:var(--meta);max-width:calc(640 * var(--px));margin:0 0 calc(28 * var(--px))}
+  .urlbar{display:inline-flex;gap:calc(6 * var(--px));align-items:center;font-family:var(--ff-mono);font-size:calc(11 * var(--px));color:var(--meta);background:#F1EEE9;padding:calc(4 * var(--px)) calc(10 * var(--px));margin-bottom:calc(18 * var(--px))}
+  .urlbar b{color:var(--ink);font-weight:500}
+  .grp{font-size:calc(10.5 * var(--px));font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--meta);display:flex;align-items:center;gap:calc(14 * var(--px));margin:calc(26 * var(--px)) 0 calc(4 * var(--px))}
+  .grp::after{content:"";flex:1;height:1px;background:var(--cardline)}
+
+  /* photo fills */
+  .ph-a{background:radial-gradient(50% 45% at 30% 30%,rgba(255,196,92,.5),transparent 70%),linear-gradient(160deg,#7A4A2A 0%,#5A3520 45%,#2A1C14 100%)}
+  .ph-b{background:radial-gradient(48% 44% at 70% 34%,rgba(180,210,230,.45),transparent 70%),linear-gradient(150deg,#4A5A66 0%,#33414C 50%,#1E272E 100%)}
+  .ph-c{background:radial-gradient(46% 42% at 36% 26%,rgba(214,228,196,.5),transparent 70%),linear-gradient(160deg,#6E7C5E 0%,#4E5A44 48%,#2A3324 100%)}
+  .ph-d{background:radial-gradient(50% 46% at 60% 30%,rgba(247,155,46,.42),transparent 70%),linear-gradient(155deg,#7A5C34 0%,#54402A 50%,#2B211A 100%)}
+  .ph-e{background:radial-gradient(44% 40% at 30% 28%,rgba(249,93,98,.4),transparent 70%),linear-gradient(150deg,#6B3A45 0%,#482933 52%,#251720 100%)}
+  .ph-f{background:radial-gradient(46% 42% at 66% 32%,rgba(44,107,122,.5),transparent 70%),linear-gradient(160deg,#2F5A66 0%,#20404A 50%,#14262C 100%)}
+  .ph-g{background:radial-gradient(48% 44% at 34% 30%,rgba(200,180,210,.42),transparent 70%),linear-gradient(150deg,#5A4E66 0%,#3E3648 52%,#221E29 100%)}
+  .ph-h{background:radial-gradient(46% 42% at 62% 28%,rgba(214,214,206,.4),transparent 70%),linear-gradient(160deg,#5E6060 0%,#434545 50%,#242525 100%)}
+  .grain{position:absolute;inset:0;opacity:.13;background-image:repeating-linear-gradient(101deg,rgba(0,0,0,.5) 0 1px,transparent 1px 4px),repeating-linear-gradient(11deg,rgba(255,255,255,.4) 0 1px,transparent 1px 5px)}
+
+  svg.ic{fill:none;stroke:var(--amber-deep);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- 1 · hub row ---------- */
+  .hubboards{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+  @media (min-width:900px){.hubboards{grid-template-columns:minmax(0,1fr) 260px}}
+  .hrow{display:grid;gap:calc(20 * var(--px));grid-template-columns:repeat(5,1fr)}
+  .stage--m .hrow{grid-template-columns:repeat(2,1fr);gap:calc(10 * var(--px))}
+  .stage--m .hrow > :nth-child(n+3){display:none}
+  .am{border:1px solid var(--cardline);background:#fff;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  .am__m{position:relative;aspect-ratio:1/0.62;background:#EFEBE4;border-top-left-radius:calc(20 * var(--px));overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .am__m svg{width:calc(28 * var(--px));height:calc(28 * var(--px));opacity:.5}
+  .am__b{padding:calc(11 * var(--px)) calc(12 * var(--px)) calc(12 * var(--px));display:flex;flex-direction:column;gap:calc(5 * var(--px))}
+  .am__k{font-size:calc(9 * var(--px));font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--amber-deep)}
+  .am__t{font-family:var(--ff-ed);font-size:calc(17 * var(--px));line-height:1.15}
+  .am__s{font-size:calc(11 * var(--px));line-height:1.35;color:var(--meta)}
+  .stage--m .am__m svg{width:calc(22 * var(--px));height:calc(22 * var(--px))}
+  .stage--m .am__k{font-size:calc(8.5 * var(--px))}
+  .stage--m .am__t{font-size:calc(15 * var(--px))}
+  .stage--m .am__s{font-size:calc(10.5 * var(--px))}
+  .stage--m .shead__t{font-size:calc(26 * var(--px))}
+  .stage--m .shead__l{font-size:calc(12 * var(--px))}
+  .stage--m .shead{margin-bottom:calc(14 * var(--px))}
+
+  /* ---------- 2 · amenity list ---------- */
+  .alist{border-top:1px solid var(--cardline)}
+  .arow{border-bottom:1px solid var(--cardline);background:#fff}
+  .arow summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:calc(40 * var(--px)) 1.3fr 1fr 1.1fr .9fr calc(22 * var(--px));align-items:center;gap:calc(16 * var(--px));padding:calc(15 * var(--px)) calc(16 * var(--px))}
+  .arow summary::-webkit-details-marker{display:none}
+  .arow summary:hover{background:#FCFAF7}
+  .arow__ic{width:calc(40 * var(--px));height:calc(40 * var(--px));background:#EFEBE4;border-top-left-radius:calc(10 * var(--px));display:flex;align-items:center;justify-content:center}
+  .arow__ic svg{width:calc(20 * var(--px));height:calc(20 * var(--px))}
+  .arow__t{font-family:var(--ff-ed);font-size:calc(20 * var(--px));line-height:1.15}
+  .arow__loc{font-size:calc(10 * var(--px));font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--amber-deep)}
+  .arow__f{font-size:calc(13 * var(--px));color:var(--ink)}
+  .arow__f small{display:block;font-size:calc(9 * var(--px));font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--meta);margin-bottom:calc(2 * var(--px))}
+  .arow__chev{width:calc(22 * var(--px));height:calc(22 * var(--px));stroke:var(--ink);transition:transform .2s}
+  .arow[open] .arow__chev{transform:rotate(180deg)}
+  .arow[open]{background:#FCFAF7;box-shadow:inset calc(3 * var(--px)) 0 0 var(--amber-deep)}
+  .arow__notice{display:inline-block;font-size:calc(11 * var(--px));font-weight:600;color:var(--amber-deep);margin-top:calc(3 * var(--px))}
+  .arow--pending{background:repeating-linear-gradient(45deg,#FAFAF8,#FAFAF8 10px,#F2F0EC 10px,#F2F0EC 20px)}
+  .arow--pending summary{cursor:default}
+  .arow--pending .arow__ic{border:1px dashed #CFC8BD;background:transparent}
+  .adetail{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:calc(28 * var(--px));padding:calc(4 * var(--px)) calc(16 * var(--px)) calc(26 * var(--px)) calc(72 * var(--px))}
+  .adetail__ph{position:relative;aspect-ratio:3/2;border-top-left-radius:calc(20 * var(--px));overflow:hidden}
+  .adetail__txt p{margin:0 0 calc(10 * var(--px));font-size:calc(14 * var(--px));line-height:1.55}
+  .adetail__txt .note{background:#F7EFE2;border-left:calc(3 * var(--px)) solid var(--amber-deep);padding:calc(9 * var(--px)) calc(12 * var(--px));font-size:calc(13 * var(--px))}
+  .adetail dl{display:grid;grid-template-columns:auto 1fr;gap:calc(6 * var(--px)) calc(14 * var(--px));margin:0 0 calc(14 * var(--px))}
+  .adetail dt{font-size:calc(9 * var(--px));font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--meta);padding-top:calc(3 * var(--px))}
+  .adetail dd{margin:0;font-size:calc(13 * var(--px))}
+  .adetail__faq{font-size:calc(12.5 * var(--px));border-top:1px solid var(--cardline);padding-top:calc(10 * var(--px))}
+  .adetail__faq b{display:block;font-size:calc(9 * var(--px));letter-spacing:.12em;text-transform:uppercase;color:var(--meta);margin-bottom:calc(4 * var(--px))}
+  .adetail__faq span{display:block;border-bottom:calc(1.2 * var(--px)) solid var(--amber-deep);width:max-content;margin-top:calc(4 * var(--px))}
+  .more{font-size:calc(12 * var(--px));font-weight:500;border-bottom:calc(1.5 * var(--px)) solid var(--amber-deep);color:var(--ink)}
+
+  /* ---------- 3 · events ---------- */
+  .erow{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(20 * var(--px));margin-bottom:calc(34 * var(--px))}
+  .ev{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  .ev__m{position:relative;aspect-ratio:5/4;border-top-left-radius:calc(44 * var(--px));overflow:hidden}
+  .ev__badge{position:absolute;top:calc(10 * var(--px));right:0;padding:calc(3 * var(--px)) calc(8 * var(--px));font-size:calc(8.5 * var(--px));font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+  .ev__d{font-size:calc(9.5 * var(--px));font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:calc(12 * var(--px))}
+  .ev__t{font-family:var(--ff-ed);font-size:calc(21 * var(--px));line-height:1.15;margin-top:calc(4 * var(--px))}
+  .ev__s{font-size:calc(11.5 * var(--px));color:var(--meta);margin-top:calc(3 * var(--px))}
+  .filters{display:flex;gap:calc(8 * var(--px));margin:0 0 calc(10 * var(--px))}
+  .chip{font-size:calc(10 * var(--px));font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:calc(5 * var(--px)) calc(11 * var(--px));border:1px solid var(--cardline);background:#fff}
+  .chip--on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .day{display:flex;align-items:baseline;gap:calc(12 * var(--px));margin:calc(22 * var(--px)) 0 calc(4 * var(--px))}
+  .day__d{font-family:var(--ff-ed);font-size:calc(22 * var(--px))}
+  .day__w{font-size:calc(10 * var(--px));font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--meta)}
+  .agenda{border-top:calc(1.5 * var(--px)) solid var(--ink)}
+  .ag{display:grid;grid-template-columns:calc(78 * var(--px)) calc(110 * var(--px)) 1.6fr 1.1fr .9fr calc(90 * var(--px));align-items:center;gap:calc(16 * var(--px));padding:calc(13 * var(--px)) calc(4 * var(--px));border-bottom:1px solid var(--cardline);text-decoration:none;color:inherit}
+  .ag:hover{background:#fff}
+  .ag__time{font-family:var(--ff-mono);font-size:calc(13 * var(--px))}
+  .ag__cat{font-size:calc(9 * var(--px));font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;padding:calc(3 * var(--px)) calc(7 * var(--px));width:max-content}
+  .ag__t{font-family:var(--ff-ed);font-size:calc(18 * var(--px))}
+  .ag__w,.ag__p{font-size:calc(12 * var(--px));color:var(--meta)}
+  .ag__go{font-size:calc(10 * var(--px));font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:calc(1.5 * var(--px)) solid currentColor;justify-self:end}
+  .past{margin-top:calc(22 * var(--px));font-size:calc(12 * var(--px));color:var(--meta)}
+  .past b{color:var(--ink);font-weight:500;border-bottom:calc(1.5 * var(--px)) solid var(--ink)}
+
+  /* ---------- 4 · art ---------- */
+  .afilters{display:flex;gap:calc(8 * var(--px));margin:0 0 calc(18 * var(--px))}
+  .agrid{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(4 * var(--px))}
+  .aw{position:relative;aspect-ratio:4/5;overflow:hidden;display:block}
+  .aw__cap{position:absolute;left:calc(12 * var(--px));bottom:calc(12 * var(--px));display:flex;flex-direction:column;gap:calc(4 * var(--px));align-items:flex-start;z-index:2}
+  .aw__where{background:rgba(20,20,20,.72);color:#fff;font-size:calc(8.5 * var(--px));font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:calc(3 * var(--px)) calc(8 * var(--px))}
+  .aw__who{font-family:var(--ff-ed);font-size:calc(22 * var(--px));color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+  .aw--sel{outline:calc(4 * var(--px)) solid var(--teal);outline-offset:calc(-4 * var(--px))}
+  .aw--sel::after{content:"";position:absolute;left:50%;bottom:calc(-1 * var(--px));transform:translateX(-50%);border:calc(12 * var(--px)) solid transparent;border-bottom-color:#fff;z-index:3}
+  .apanel{grid-column:1 / -1;background:#fff;display:grid;grid-template-columns:1.35fr 1fr;gap:calc(32 * var(--px));padding:calc(26 * var(--px));margin:calc(4 * var(--px)) 0}
+  .apanel__ph{position:relative;aspect-ratio:3/2;overflow:hidden}
+  .apanel__where{font-size:calc(10 * var(--px));font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+  .apanel__t{font-family:var(--ff-ed);font-size:calc(34 * var(--px));line-height:1.1;margin:calc(6 * var(--px)) 0 calc(4 * var(--px))}
+  .apanel__by{font-size:calc(14 * var(--px));margin-bottom:calc(14 * var(--px))}
+  .apanel__by b{font-weight:500;border-bottom:calc(1.5 * var(--px)) solid var(--teal)}
+  .apanel p{margin:0 0 calc(12 * var(--px));font-size:calc(14 * var(--px));line-height:1.55;color:#333}
+  .apanel dl{display:grid;grid-template-columns:auto 1fr;gap:calc(5 * var(--px)) calc(14 * var(--px));margin:0 0 calc(16 * var(--px))}
+  .apanel dt{font-size:calc(9 * var(--px));font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--meta);padding-top:calc(3 * var(--px))}
+  .apanel dd{margin:0;font-size:calc(13 * var(--px))}
+  .apanel__x{position:absolute;top:calc(18 * var(--px));right:calc(18 * var(--px));font-size:calc(11 * var(--px));color:var(--meta)}
+  .apanel{position:relative}
+  .apanel .more{border-color:var(--teal)}
+
+  .calls{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0;padding:0}
+  .calls>li{background:var(--surface);padding:14px 18px;list-style:none}
+  .calls h3{margin:0 0 4px;font-size:13px;font-weight:700}
+  .calls p{margin:0;font-size:13px;color:var(--dim);line-height:1.55}
+</style>
+
+<!-- icon sprites -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="6"/><path d="M6 14v6M18 14v6M12 8V5"/></symbol>
+  <symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 8c2 0 2-2 5-2s3 2 5 2 2-2 5-2 3 2 5 2M2 14c2 0 2-2 5-2s3 2 5 2 2-2 5-2 3 2 5 2"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-6 1 1 2 2 2 3 1-2 1-4 1-7z"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-8h5l3 8M10 8l2 8"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12"/><path d="M9 7V5h6v2M3 12h18"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16V11l2-5h12l2 5v5M3 16h18M7 19v-3M17 19v-3"/><circle cx="8" cy="13" r=".8"/><circle cx="16" cy="13" r=".8"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 4 3 7l2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">Hotel Berlin, Berlin · Full-page patterns</div>
+    <h1>Browse, look up, go deeper</h1>
+    <p>The full pages for the three moving parts. <strong>Amenities</strong> become a list you can open in place, <strong>events</strong> become an agenda that links to each event's own page, and <strong>art</strong> stays a visual grid that opens in place. Each item has its own anchor, so a card on <code>/hier</code> lands you on the right item, already open.</p>
+    <div class="meta">
+      <span>20 Sep 2026</span>
+      <span>Discussion comp, not a build spec</span>
+      <span>Newsreader stands in for Laica A</span>
+    </div>
+  </header>
+
+  <!-- ============ RULE ============ -->
+  <section class="sec">
+    <h2>The rule</h2>
+    <div class="tablescroll">
+      <table>
+        <thead><tr><th>The visitor is…</th><th>Pattern</th><th>Amenities</th><th>Events</th><th>Art on the walls</th></tr></thead>
+        <tbody>
+          <tr><td>browsing, being tempted</td><td><span class="tag" style="color:var(--amber-deep)">Cards</span></td><td>row on <code>/hier</code></td><td>row on home + <code>/hier</code>, top of the full page</td><td>the wall on <code>/hier</code>, and the full grid</td></tr>
+          <tr><td>looking something up, comparing</td><td><span class="tag" style="color:var(--ink)">Rows</span></td><td><strong>full page</strong>: opens in place</td><td><strong>agenda</strong> by day</td><td>—</td></tr>
+          <tr><td>wanting the whole story</td><td><span class="tag" style="color:var(--teal)">Own page</span></td><td>only when there's depth (KTTK, Wallride)</td><td><strong>every event</strong> (event search results, past events)</td><td><strong>artists</strong>, not single works</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 1 · HUB ROW ============ -->
+  <section class="sec">
+    <h2>1 · Im Haus on /hier: as many as fit</h2>
+    <div class="hubboards">
+      <div class="board">
+        <div class="board__bar"><div class="board__name">Desktop · 1425</div><div class="board__dims">5 of 9 shown · order = drag order in Payload</div></div>
+        <div class="artboard"><div class="stage">
+          <div class="shead"><div class="shead__t">Im Haus</div><div class="shead__l" style="color:var(--amber-deep)">Alle Ausstattung →</div></div>
+          <div class="hrow">
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-table"/></svg></div><div class="am__b"><div class="am__k">B2 Keller</div><div class="am__t">KTTK</div><div class="am__s">Mo–So 13–23 · 5 € / 30 Min.</div></div></a>
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-flame"/></svg></div><div class="am__b"><div class="am__k">Im Hotel</div><div class="am__t">Sauna &amp; Sanarium</div><div class="am__s">Zeiten werden bestätigt</div></div></a>
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-dumbbell"/></svg></div><div class="am__b"><div class="am__k">Im Hotel</div><div class="am__t">Gym</div><div class="am__s">24/7 · kostenlos</div></div></a>
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-waves"/></svg></div><div class="am__b"><div class="am__k">B2 · von KTTK</div><div class="am__t">Wallride</div><div class="am__s">Halfpipe · Skateboardmuseum</div></div></a>
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-bike"/></svg></div><div class="am__b"><div class="am__k">Tiefgarage</div><div class="am__t">Bett &amp; Bike</div><div class="am__s">Fahrradgarage · E-Bike-Laden</div></div></a>
+          </div>
+        </div></div>
+      </div>
+      <div class="board">
+        <div class="board__bar"><div class="board__name">Mobile · 390</div><div class="board__dims">2 shown</div></div>
+        <div class="artboard"><div class="stage stage--m">
+          <div class="shead"><div class="shead__t">Im Haus</div><div class="shead__l" style="color:var(--amber-deep)">Alle →</div></div>
+          <div class="hrow">
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-table"/></svg></div><div class="am__b"><div class="am__k">B2 Keller</div><div class="am__t">KTTK</div><div class="am__s">Mo–So 13–23</div></div></a>
+            <a class="am"><div class="am__m"><svg class="ic"><use href="#i-flame"/></svg></div><div class="am__b"><div class="am__k">Im Hotel</div><div class="am__t">Sauna</div><div class="am__s">Zeiten folgen</div></div></a>
+            <a class="am"><div class="am__m"></div></a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <p class="lede"><strong>Same behaviour as the events row:</strong> the server renders up to six, CSS shows 2 / 3 / 4 / 5 by width. Order is the drag order in Payload, so "more important" simply means higher in the list. The heading gets its link, which also settles the heading rule the audit flagged. <strong>Every card is a link</strong> to <code>/ausstattung#slug</code>, which opens that row.</p>
+  </section>
+
+  <!-- ============ 2 · AMENITIES LIST ============ -->
+  <section class="sec">
+    <h2>2 · /ausstattung: a list that opens in place</h2>
+    <div class="board">
+      <div class="board__bar"><div class="board__name">Desktop · 1425 · arrived from the Sauna card</div><div class="board__dims">native &lt;details&gt; · click any row</div></div>
+      <div class="artboard"><div class="stage">
+        <div class="urlbar">hotel-berlin.de/de/ausstattung<b>#sauna</b></div>
+        <h1 class="ph1">Ausstattung &amp; Services</h1>
+        <p class="pintro">Was es im Haus außer deinem Zimmer gibt – vom Tischtennis im Keller bis zum Babybett. Tippe auf eine Zeile für alle Details.</p>
+
+        <div class="grp">Im Haus · 8</div>
+        <div class="alist">
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-table"/></svg></span><span><span class="arow__t">KTTK</span><br><span class="arow__loc">Untergeschoss B2</span></span><span class="arow__f"><small>Wann</small>Mo–So 13:00–23:00</span><span class="arow__f"><small>Preis</small>5 € / 30 Min.</span><span class="arow__f"><small>&nbsp;</small><span class="more">Mehr zu KTTK →</span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div class="adetail__ph ph-b"><div class="grain"></div></div><div class="adetail__txt"><p>Königlicher Tischtennis Klub Berlin: vier JOOLA-Platten, Schläger gibt's an der Bar. Donnerstags Turnierabend.</p></div><div><span class="more">Mehr zu KTTK →</span></div></div>
+          </details>
+
+          <details class="arow" open>
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-flame"/></svg></span><span><span class="arow__t">Sauna &amp; Sanarium</span><br><span class="arow__loc">Im Hotel</span></span><span class="arow__f"><small>Wann</small>Zeiten werden bestätigt</span><span class="arow__f"><small>Preis</small>Kostenlos</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail">
+              <div class="adetail__ph ph-g"><div class="grain"></div></div>
+              <div class="adetail__txt">
+                <p>Finnische Sauna und Sanarium für Hotelgäste. Bitte an der Rezeption anmelden – die Sauna wird mit etwa 45 Minuten Vorlauf aufgeheizt.</p>
+                <p class="note"><b>Geschlossen am Di, 24.9.</b> – Wartung. <span style="color:var(--meta)">(Beispiel: kommt aus „Sonderzeiten")</span></p>
+              </div>
+              <div>
+                <dl><dt>Wo</dt><dd>Im Hotel · über den Aufzug</dd><dt>Anmeldung</dt><dd>Rezeption, 45 Min. vorher</dd><dt>Mitbringen</dt><dd>Handtücher liegen bereit</dd></dl>
+                <div class="adetail__faq"><b>Dazu in den FAQs</b><span>Wann ist die Sauna geöffnet?</span><span>Gibt es einen Fitnessraum?</span></div>
+              </div>
+            </div>
+          </details>
+
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-dumbbell"/></svg></span><span><span class="arow__t">Gym</span><br><span class="arow__loc">Im Hotel</span></span><span class="arow__f"><small>Wann</small>24/7</span><span class="arow__f"><small>Preis</small>Kostenlos</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div class="adetail__ph ph-h"><div class="grain"></div></div><div class="adetail__txt"><p>Hanteln, Crosstrainer, Ergometer, Laufbänder. Mit der Zimmerkarte rund um die Uhr.</p></div><div></div></div>
+          </details>
+
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-waves"/></svg></span><span><span class="arow__t">Wallride</span><br><span class="arow__loc">B2 · neben KTTK</span></span><span class="arow__f"><small>Wann</small>Dauerhaft</span><span class="arow__f"><small>Preis</small>Frei</span><span class="arow__f"><small>&nbsp;</small><span class="more">Mehr zu Wallride →</span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div class="adetail__ph ph-d"><div class="grain"></div></div><div class="adetail__txt"><p>Halfpipe und Ausstellung – das Skateboardmuseum Berlin im Keller.</p></div><div><span class="more">Mehr zu Wallride →</span></div></div>
+          </details>
+
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-plug"/></svg></span><span><span class="arow__t">E-Laden</span><br><span class="arow__loc">Tiefgarage</span></span><span class="arow__f"><small>Wann</small>24/7</span><span class="arow__f"><small>Was</small>8 × Typ 2 · bis 22 kW</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div class="adetail__ph ph-b"><div class="grain"></div></div><div class="adetail__txt"><p>Acht Ladepunkte in der Tiefgarage. Parkgebühr gilt.</p></div><div></div></div>
+          </details>
+
+          <div class="arow arow--pending">
+            <summary style="display:grid"><span class="arow__ic"><svg class="ic"><use href="#i-grid"/></svg></span><span><span class="arow__t">Fingerboard-Rampen</span><br><span class="arow__loc">Ort offen</span></span><span class="arow__f" style="grid-column:span 3;color:var(--meta)">Wartet auf Inhalte vom Hotel-Team: Ort, Fotos, Zugang.</span><span></span></summary>
+          </div>
+        </div>
+
+        <div class="grp">Services · 9</div>
+        <div class="alist">
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-clock"/></svg></span><span><span class="arow__t">Check-in &amp; Check-out</span><br><span class="arow__loc">Rezeption</span></span><span class="arow__f"><small>Check-in</small>ab 15:00</span><span class="arow__f"><small>Check-out</small>bis 12:00</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div></div><div class="adetail__txt"><p>Früher ankommen oder später abreisen? Frag an der Rezeption – Gepäck bewahren wir gern auf.</p></div><div></div></div>
+          </details>
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-cup"/></svg></span><span><span class="arow__t">Frühstück</span><br><span class="arow__loc">Lütze · Erdgeschoss</span></span><span class="arow__f"><small>Wann</small>06:30–10:00 · Sa/So bis 11:00</span><span class="arow__f"><small>Preis</small>Siehe Buchung</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div></div><div class="adetail__txt"><p>Buffet im Lütze. Kinder bis 6 frühstücken kostenlos.</p></div><div></div></div>
+          </details>
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-car"/></svg></span><span><span class="arow__t">Parken</span><br><span class="arow__loc">Tiefgarage</span></span><span class="arow__f"><small>Wann</small>24/7</span><span class="arow__f"><small>Preis</small>4 € / Std.</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div></div><div class="adetail__txt"><p>Einfahrt über die Kurfürstenstraße.</p></div><div></div></div>
+          </details>
+          <details class="arow">
+            <summary><span class="arow__ic"><svg class="ic"><use href="#i-shirt"/></svg></span><span><span class="arow__t">Wäscheservice</span><br><span class="arow__loc">Über die Rezeption</span></span><span class="arow__f"><small>Wann</small>Mo–Fr</span><span class="arow__f"><small>Preis</small>Nach Liste</span><span></span><svg class="arow__chev ic" style="stroke:var(--ink)"><use href="#i-chev"/></svg></summary>
+            <div class="adetail"><div></div><div class="adetail__txt"><p>Abgabe bis 9:00, zurück am selben Abend.</p></div><div></div></div>
+          </details>
+        </div>
+      </div></div>
+    </div>
+    <p class="lede"><strong>The facts sit in the row itself</strong>, so most people never need to open it. Opening shows the photo, the fuller text, any special hours and the related FAQs. <strong>The address bar follows the open row</strong>, so a link to <code>#sauna</code> arrives with it open. Rows with real depth (KTTK, Wallride) link on to their own page from the row. Services rows have no photo, and that's fine: the photo column simply stays empty.</p>
+    <p class="lede" style="font-size:13px;color:var(--faint)">Facts in this comp are placeholders taken from the live /hier and the old site. None of them is confirmed by the hotel.</p>
+  </section>
+
+  <!-- ============ 3 · EVENTS ============ -->
+  <section class="sec">
+    <h2>3 · Was ist los: cards on top, agenda below</h2>
+    <div class="board">
+      <div class="board__bar"><div class="board__name">Desktop · 1425</div><div class="board__dims">rows link to /happenings/[slug], they don't expand</div></div>
+      <div class="artboard"><div class="stage">
+        <h1 class="ph1">Was ist los</h1>
+        <p class="pintro">Konzerte, Tischtennis, Ausstellungen und Stammtische – im Haus und offen für alle.</p>
+        <div class="erow">
+          <a class="ev"><div class="ev__m ph-a"><div class="grain"></div><span class="ev__badge" style="background:var(--sport)">Sport</span></div><div class="ev__d" style="color:var(--sport)">Heute · ab 13:00</div><div class="ev__t">KTTK Open Play</div><div class="ev__s">KTTK · Untergeschoss B2</div></a>
+          <a class="ev"><div class="ev__m ph-h"><div class="grain"></div><span class="ev__badge" style="background:var(--coral)">Musik</span></div><div class="ev__d" style="color:var(--coral)">Mo 21.9 · 18:00</div><div class="ev__t">Vinyl Nights</div><div class="ev__s">Lütze · Erdgeschoss</div></a>
+          <a class="ev"><div class="ev__m ph-e"><div class="grain"></div><span class="ev__badge" style="background:var(--sport)">Sport</span></div><div class="ev__d" style="color:var(--sport)">Do 24.9 · 19:00</div><div class="ev__t">KTTK Turnierabend</div><div class="ev__s">KTTK · Untergeschoss B2</div></a>
+        </div>
+        <div class="filters"><span class="chip chip--on">Alle</span><span class="chip">Musik</span><span class="chip">Sport</span><span class="chip">Kunst</span><span class="chip">Community</span></div>
+
+        <div class="day"><span class="day__d">Heute</span><span class="day__w">So 20.9.</span></div>
+        <div class="agenda">
+          <a class="ag"><span class="ag__time">13:00</span><span class="ag__cat" style="background:var(--sport)">Sport</span><span class="ag__t">KTTK Open Play</span><span class="ag__w">KTTK · B2</span><span class="ag__p">5 € / 30 Min.</span><span class="ag__go">Details</span></a>
+          <a class="ag"><span class="ag__time">ganztags</span><span class="ag__cat" style="background:var(--teal)">Kunst</span><span class="ag__t">Magwie × CokyOne</span><span class="ag__w">FKKB · Atrium</span><span class="ag__p">Frei · bis 30.9.</span><span class="ag__go">Details</span></a>
+        </div>
+        <div class="day"><span class="day__d">Montag</span><span class="day__w">21.9.</span></div>
+        <div class="agenda">
+          <a class="ag"><span class="ag__time">18:00</span><span class="ag__cat" style="background:var(--coral)">Musik</span><span class="ag__t">Vinyl Nights</span><span class="ag__w">Lütze · EG</span><span class="ag__p">Kein Eintritt</span><span class="ag__go">Details</span></a>
+        </div>
+        <div class="day"><span class="day__d">Mittwoch</span><span class="day__w">23.9.</span></div>
+        <div class="agenda">
+          <a class="ag"><span class="ag__time">19:00</span><span class="ag__cat" style="background:var(--navy)">Community</span><span class="ag__t">Zeichenstammtisch</span><span class="ag__w">Lütze · EG</span><span class="ag__p">Kein Eintritt</span><span class="ag__go">Details</span></a>
+        </div>
+        <div class="day"><span class="day__d">Donnerstag</span><span class="day__w">24.9.</span></div>
+        <div class="agenda">
+          <a class="ag"><span class="ag__time">19:00</span><span class="ag__cat" style="background:var(--sport)">Sport</span><span class="ag__t">KTTK Turnierabend</span><span class="ag__w">KTTK · B2</span><span class="ag__p">5 € · ohne Buchung</span><span class="ag__go">Details</span></a>
+        </div>
+        <div class="past">Vergangene Veranstaltungen: <b>Archiv ansehen →</b></div>
+      </div></div>
+    </div>
+    <p class="lede"><strong>Two to three cards for the "hook"</strong>, then everything else as an agenda grouped by day, since people look for events by date. Rows <strong>link</strong> rather than open in place, because each event deserves its own page: Google only shows events in its event search results when each one has its own URL, and past event pages keep building the hotel's authority. An exhibition with a long run shows up once per day as "ganztags" without flooding the list.</p>
+  </section>
+
+  <!-- ============ 4 · ART ============ -->
+  <section class="sec">
+    <h2>4 · Kunst im Haus: a visual grid that opens in place</h2>
+    <div class="board">
+      <div class="board__bar"><div class="board__name">Desktop · 1425 · Pisa73 opened</div><div class="board__dims">panel opens under its row · teal = art</div></div>
+      <div class="artboard"><div class="stage">
+        <div class="urlbar">hotel-berlin.de/de/hier/art<b>#pisa73-vogel</b></div>
+        <h1 class="ph1">Kunst im Haus</h1>
+        <p class="pintro">Murals, Graffiti und die aktuelle Ausstellung der FKKB – über zehn Etagen verteilt. Alle Werke, mit dem Ort, an dem du sie findest.</p>
+        <div class="afilters"><span class="chip chip--on">Alle 15</span><span class="chip">Lobby</span><span class="chip">1.–4. Etage</span><span class="chip">5.–10. Etage</span><span class="chip">Keller</span></div>
+        <div class="agrid">
+          <a class="aw ph-a"><div class="grain"></div><div class="aw__cap"><span class="aw__where" style="background:var(--teal)">Jetzt · bis 30.9.</span><span class="aw__who">Magwie × CokyOne</span></div></a>
+          <a class="aw ph-e"><div class="grain"></div><div class="aw__cap"><span class="aw__where">4. Etage · Aufzüge</span><span class="aw__who">Somari</span></div></a>
+          <a class="aw ph-g"><div class="grain"></div><div class="aw__cap"><span class="aw__where">2. Etage</span><span class="aw__who">deerBLN</span></div></a>
+          <a class="aw aw--sel ph-d"><div class="grain"></div><div class="aw__cap"><span class="aw__where">Lobby · Haupteingang</span><span class="aw__who">Pisa73</span></div></a>
+
+          <div class="apanel">
+            <span class="apanel__x">Schließen ✕</span>
+            <div class="apanel__ph ph-d"><div class="grain"></div></div>
+            <div>
+              <div class="apanel__where">Lobby · Haupteingang, links</div>
+              <div class="apanel__t">Vogel</div>
+              <div class="apanel__by">von <b>Pisa73</b> →</div>
+              <p>Ein Kolibri in Neonfarben, gesprüht für die Eröffnung der Lobby. Pisa73 arbeitet seit den Neunzigern in Berlin; seine Vögel findet man von Kreuzberg bis Lissabon.</p>
+              <dl><dt>Jahr</dt><dd>2021</dd><dt>Technik</dt><dd>Sprühfarbe auf Putz</dd><dt>Größe</dt><dd>ca. 4 × 2,5 m</dd></dl>
+              <span class="more">Weitere Werke von Pisa73 →</span>
+            </div>
+          </div>
+
+          <a class="aw ph-f"><div class="grain"></div><div class="aw__cap"><span class="aw__where">7. Etage · Flur</span><span class="aw__who">Künstler:in</span></div></a>
+          <a class="aw ph-c"><div class="grain"></div><div class="aw__cap"><span class="aw__where">1. Etage</span><span class="aw__who">Künstler:in</span></div></a>
+          <a class="aw ph-b"><div class="grain"></div><div class="aw__cap"><span class="aw__where">Keller · B1</span><span class="aw__who">Künstler:in</span></div></a>
+          <a class="aw ph-h"><div class="grain"></div><div class="aw__cap"><span class="aw__where">9. Etage</span><span class="aw__who">Künstler:in</span></div></a>
+        </div>
+      </div></div>
+    </div>
+    <p class="lede"><strong>Your "cards flowing down the page", kept.</strong> Captions lead with the location, as on the wall. Clicking a work opens a panel under its row (like an image search), with the location, the story and the details, and the address bar follows. <strong>The artist is the link out</strong>, to their person page, which also connects to the people map. A single work doesn't get its own page; an artist does, because artists recur across works, exhibitions and recommendations.</p>
+    <p class="lede" style="font-size:13px;color:var(--faint)">The Pisa73 artwork text, year and size are invented for the comp.</p>
+  </section>
+
+  <!-- ============ HOW ANCHORS BEHAVE ============ -->
+  <section class="sec">
+    <h2>How the anchors behave</h2>
+    <ul class="calls">
+      <li><h3>Adding or deleting never breaks anything for search</h3><p>Search engines index <code>/ausstattung</code>, not <code>/ausstattung#sauna</code>. Items coming and going just change the page. No redirects, no 404s. A stale link to a deleted item lands at the top of the page.</p></li>
+      <li><h3>The anchor is the slug, locked after creation</h3><p>Renaming "Sauna" to "Sauna &amp; Sanarium" keeps <code>#sauna</code>. "Hide" rather than "delete" keeps the slug reserved.</p></li>
+      <li><h3>Structured data uses the same anchors</h3><p>Each item is a JSON-LD node with <code>@id …/ausstattung#sauna</code>, attached to the hotel. It appears and disappears with the item. Pending items and unconfirmed hours are left out.</p></li>
+      <li><h3>Everything is in the HTML</h3><p>Closed rows and closed art panels still contain their text, so crawlers, screen readers and people without JavaScript see all of it. Native <code>&lt;details&gt;</code> for the rows, a real button with <code>aria-expanded</code> for the art panel. Focus moves into the panel and Escape closes it.</p></li>
+      <li><h3>Mobile</h3><p>Amenity rows collapse to icon · name · the first fact, and open to full width. Events: time and title on one line, place and price below. Art: two columns, and the panel opens below the pair.</p></li>
+    </ul>
+  </section>
+
+</div>

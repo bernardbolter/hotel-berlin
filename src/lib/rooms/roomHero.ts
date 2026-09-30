@@ -1,19 +1,8 @@
 import type { Media, Room, Tag } from '@/payload-types'
 
-import roomsFallback from '@/lib/data/rooms.json'
-
 type RoomWithHeroFields = Room & {
   bathroomLabel?: 'shower' | 'rain-shower' | 'bath-shower' | 'spa-bathroom' | null
 }
-
-const DEFAULT_ROOM_IMAGE =
-  'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80'
-
-const fallbackBySlug = new Map(
-  (roomsFallback as { id: string; images: { src: string; altKey: string }[] }[]).map(
-    (room) => [room.id, room.images],
-  ),
-)
 
 export type RoomTeaserAmenity = {
   id: number
@@ -34,8 +23,8 @@ export type RoomHeroItem = {
   sleepsLabel: string
   locale: 'en' | 'de'
   bookingUrl: string | null
-  /** First gallery image (homepage D-shape rotator) */
-  teaserImage: { src: string; alt: string }
+  /** First gallery image, or null when empty (F5 — no stock stand-in). */
+  teaserImage: { src: string; alt: string } | null
   images: { src: string; alt: string }[]
   amenities: RoomTeaserAmenity[]
 }
@@ -45,23 +34,10 @@ function resolveMediaUrl(image: number | Media | undefined | null): string | nul
   return image.url ?? null
 }
 
-/** Homepage teaser always uses the room gallery’s first image (source of truth). */
-function pickTeaserImage(
-  room: Room,
-  images: { src: string; alt: string }[],
-): { src: string; alt: string } {
-  const first = images[0]
-  if (first) {
-    return { src: first.src, alt: first.alt || room.name }
-  }
-
-  return { src: DEFAULT_ROOM_IMAGE, alt: room.name }
-}
-
 type ResolvedRoomImage = { src: string; alt: string }
 
 function resolveRoomImages(room: Room): ResolvedRoomImage[] {
-  const cmsImages =
+  return (
     room.images
       ?.map((entry): ResolvedRoomImage | null => {
         const src = resolveMediaUrl(entry.image)
@@ -72,18 +48,7 @@ function resolveRoomImages(room: Room): ResolvedRoomImage[] {
         }
       })
       .filter((img): img is ResolvedRoomImage => img !== null) ?? []
-
-  if (cmsImages.length > 0) return cmsImages
-
-  const fallback = fallbackBySlug.get(room.slug)
-  if (fallback?.length) {
-    return fallback.map((img) => ({
-      src: img.src,
-      alt: room.name,
-    }))
-  }
-
-  return [{ src: DEFAULT_ROOM_IMAGE, alt: room.name }]
+  )
 }
 
 export function formatRoomPrice(
@@ -102,7 +67,7 @@ export function formatRoomPrice(
 
 function resolveTeaserAmenities(
   room: Room,
-  locale: 'en' | 'de',
+  _locale: 'en' | 'de',
 ): RoomTeaserAmenity[] {
   const featured = room.homepageTeaser?.featuredAmenities
   const source =
@@ -128,7 +93,9 @@ export function mapRoomToHeroItem(
 ): RoomHeroItem {
   const floorSizeM2 = room.floorSizeM2
   const images = resolveRoomImages(room)
-  const teaserImage = pickTeaserImage(room, images)
+  const teaserImage = images[0]
+    ? { src: images[0].src, alt: images[0].alt || room.name }
+    : null
   const priceLabel = formatRoomPrice(room.fromPrice, locale)
 
   return {

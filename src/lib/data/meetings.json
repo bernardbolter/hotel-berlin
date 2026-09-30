@@ -6,12 +6,7 @@
       { "key": "iconTheatre", "icon": "users" },
       { "key": "iconAv", "icon": "monitor" }
     ],
-    "images": [
-      {
-        "src": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
-        "altKey": "imageAlt"
-      }
-    ]
+    "images": []
   },
   {
     "id": "meeting-room-a1",
@@ -20,12 +15,7 @@
       { "key": "iconBoardroom", "icon": "users" },
       { "key": "iconDaylight", "icon": "sun" }
     ],
-    "images": [
-      {
-        "src": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-        "altKey": "imageAlt"
-      }
-    ]
+    "images": []
   },
   {
     "id": "berlin-berlin",
@@ -34,11 +24,6 @@
       { "key": "iconTheatre", "icon": "users" },
       { "key": "iconAv", "icon": "monitor" }
     ],
-    "images": [
-      {
-        "src": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&q=80",
-        "altKey": "imageAlt"
-      }
-    ]
+    "images": []
   }
 ]

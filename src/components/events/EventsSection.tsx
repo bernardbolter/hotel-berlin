@@ -6,22 +6,8 @@ import {
 } from '@/components/layout/SectionShell'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import { getHomepageSpotlightCards } from '@/lib/data/homepageSpotlight'
-import { spotlightTeasers } from '@/lib/data/spotlightTeasers'
-import type { SpotlightCardProps } from '@/lib/spotlight/types'
 
 import { EventsRow } from './EventsRow'
-
-function fillHomepageRow(
-  live: SpotlightCardProps[],
-  fallback: SpotlightCardProps[],
-  count = 4,
-): SpotlightCardProps[] {
-  if (live.length >= count) return live.slice(0, count)
-  if (live.length === 0) return fallback.slice(0, count)
-  const used = new Set(live.map((card) => card.title.toLowerCase()))
-  const extra = fallback.filter((card) => !used.has(card.title.toLowerCase()))
-  return [...live, ...extra].slice(0, count)
-}
 
 /** Matches RoomsTeaser section title scale (Laica). */
 const HEADING_CLASS =
@@ -33,18 +19,18 @@ type Props = {
 }
 
 /**
- * Homepage Happenings — one responsive row of SpotlightCards + link to all events.
- * Prefers live Payload cards; falls back to static teasers if nothing resolves.
+ * Homepage Happenings — live Payload cards only. No stock teaser fill (F5).
  */
 export async function EventsSection({ background }: Props) {
   const t = await getTranslations('events')
   const locale = await getLocale()
 
-  const live = await getHomepageSpotlightCards(locale).catch((error) => {
+  const items = await getHomepageSpotlightCards(locale).catch((error) => {
     console.error('[EventsSection] Failed to load spotlight cards:', error)
     return [] as Awaited<ReturnType<typeof getHomepageSpotlightCards>>
   })
-  const items = fillHomepageRow(live, spotlightTeasers)
+
+  if (items.length === 0) return null
 
   return (
     <SectionShell

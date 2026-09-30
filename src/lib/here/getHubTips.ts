@@ -3,10 +3,9 @@ import {
   HUB_TIP_SLUGS,
   pickHubTips,
 } from '@/lib/here/pickHubTips'
-import { HERE_IMAGES } from '@/lib/here/images'
-import { withPlaceImageFallback } from '@/lib/places/teaserImageFallbacks'
 import { getPayloadClient } from '@/lib/payload/client'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
+import { isRejectedMediaUrl } from '@/lib/entity/mediaUrl'
 import { getBerlinNow, getBerlinParts } from '@/lib/venue-time'
 import type {
   IndoorOutdoor,
@@ -76,41 +75,16 @@ export function matchExploreFilters(
   return true
 }
 
-function isRandomPlaceholder(src: string): boolean {
-  return src.includes('picsum.photos')
-}
-
-const TIP_STAND_INS = [
-  HERE_IMAGES.lutzeInterior,
-  HERE_IMAGES.lutze,
-  HERE_IMAGES.kttk,
-  HERE_IMAGES.fkkb,
-  HERE_IMAGES.muralSomari,
-] as const
-
-function standInForSlug(slug: string, alt: string): { src: string; alt: string } {
-  let hash = 0
-  for (let i = 0; i < slug.length; i++) hash = (hash + slug.charCodeAt(i)) | 0
-  const pick = TIP_STAND_INS[Math.abs(hash) % TIP_STAND_INS.length]!
-  return { src: pick.src, alt }
-}
-
 /**
- * Always fill the card: CMS photo, credited fallback, then a local stand-in.
- * Never picsum. Endorser portraits stay in the avatar, not the 4:3 media.
+ * CMS place photo only. No Wikimedia / Unsplash / local stand-in (F5).
+ * TipCard renders the name block when image is null.
  */
-export function tipCardImage(place: NeighbourhoodPlace): { src: string; alt: string } {
+export function tipCardImage(
+  place: NeighbourhoodPlace,
+): { src: string; alt: string } | null {
   const placeSrc = mediaUrl(place.image, 'card')
-  const cms =
-    placeSrc && !isRandomPlaceholder(placeSrc)
-      ? { src: placeSrc, alt: mediaAlt(place.image, place.name) }
-      : null
-
-  const resolved = withPlaceImageFallback(place.slug, cms, null, place.name)
-  const fromPlace =
-    resolved.image?.src && !isRandomPlaceholder(resolved.image.src) ? resolved.image : null
-
-  return fromPlace ?? standInForSlug(place.slug, place.name)
+  if (!placeSrc || isRejectedMediaUrl(placeSrc)) return null
+  return { src: placeSrc, alt: mediaAlt(place.image, place.name) }
 }
 
 export function placeToTipCard(

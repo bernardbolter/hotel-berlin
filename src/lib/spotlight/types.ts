@@ -1,7 +1,8 @@
 export type SpotlightFraming = 'prospect' | 'guest'
 
 export type SpotlightCardProps = {
-  image: { src: string; alt: string }
+  /** Null → category-coloured flat ground with the badge label (F5). */
+  image: { src: string; alt: string } | null
   badge: { label: string; categoryToken: string }
   identityMark?: { src: string; alt: string }
   /** Event / exhibition title (primary) */

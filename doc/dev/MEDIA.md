@@ -59,15 +59,17 @@ Uploads every file in `media/` (expected: 346 on a full checkout). For each obje
 
 ## Adding an image size
 
-That is F3 (`imageSizes` on `Media`). After F3:
+1. Edit the `imageSizes` table on `src/collections/Media.ts`.
+2. `npm run migrate:create <name>` then `npm run migrate`.
+3. Regenerate existing files:
 
-1. Edit the size table on the collection.
-2. `npm run migrate:create` / `npm run migrate`.
-3. Run the regeneration script from that brief so existing files get the new derivative.
+```bash
+npm run media:regenerate-sizes
+```
 
-Until F3, only originals are stored and served.
+The regenerate script walks every media document, reads the original from disk or R2, and re-writes derivatives. It prints processed / skipped / failed counts and is safe to re-run.
 
-## Image sizes (F3)
+## Image sizes
 
 Named sizes on `media`: `thumb`, `card`, `portrait` (1:1), `hero`, `og` (1200×630 cover). Card width is the largest Playwright-measured on-route card `<img>` CSS width at 1440 × 2:
 
@@ -77,15 +79,5 @@ Named sizes on `media`: `thumb`, `card`, `portrait` (1:1), `hero`, `og` (1200×6
 | `hero` | 1440 (`--site-max`) | 2880 |
 | `portrait` | 320 (entity identity; hub 520 is off-route) | 640×640 |
 
-Admin upload copy states the card minimum as **864** (the size, not the CSS width). Slots request the named size, not the original. For width-only sizes (`card`, `hero`), Payload omits the derivative when the source is narrower than the size; `mediaSizedUrl` then falls back to the original URL. (`withoutEnlargement: true` is reserved for fixed-box sizes like `thumb` / `portrait` / `og`, where it caps rather than omits.)
-
-After changing the size table:
-
-```bash
-npm run migrate:create add_media_image_sizes
-npm run migrate
-npm run media:regenerate-sizes
-```
-
-The regenerate script walks every media document, reads the original from disk or R2, and re-writes derivatives. It prints processed / skipped / failed counts and is safe to re-run.
+Admin upload copy states the card minimum as **864**. For width-only sizes (`card`, `hero`), Payload omits the derivative when the source is narrower; `mediaSizedUrl` falls back to the original. `withoutEnlargement: true` is reserved for fixed-box sizes (`thumb` / `portrait` / `og`).
 

@@ -229,7 +229,6 @@ export async function resolveEventSpotlight(
     : venue
       ? venueImage(venue, event.name || event.slug)
       : null
-  if (!image) return null
 
   const monogramSrc = venue ? mediaUrl(venue.venueMonogram) : null
   const floor = venueFloor(venue, locale)
@@ -323,7 +322,6 @@ export function buildVenueSpotlightFromParts(args: {
     const image = exImage
       ? { src: exImage, alt: mediaAlt(ex.heroImage, ex.title) }
       : venueImage(venue, venue.name)
-    if (!image) return null
 
     const until = formatExhibitionEnd(ex.endDate, locale)
     const body =
@@ -356,7 +354,6 @@ export function buildVenueSpotlightFromParts(args: {
 
   if (args.nextEvent) {
     const image = venueImage(venue, venue.name)
-    if (!image) return null
     const open = pickBarOrPrimarySegment(venue.openingHours, now)
     const primaryMeta = open
       ? formatOpenSegmentLine(open)

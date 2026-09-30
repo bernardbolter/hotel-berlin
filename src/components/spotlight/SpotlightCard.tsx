@@ -47,14 +47,27 @@ export function SpotlightCard({
 
   const body = (
     <>
-      <div className="spotlight-card__media relative aspect-5/6 w-full overflow-hidden">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-        />
+      <div
+        className="spotlight-card__media relative aspect-5/6 w-full overflow-hidden"
+        style={
+          image
+            ? undefined
+            : { backgroundColor: categoryStyle.fill, color: categoryStyle.onFill }
+        }
+      >
+        {image ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <span className="absolute inset-0 flex items-end p-4 font-ui text-[12px] font-extrabold uppercase tracking-[0.14em]">
+            {badge.label}
+          </span>
+        )}
         <span
           className="spotlight-card__badge absolute top-3 right-0 z-1 px-2.5 py-1.5 font-ui text-[10px] font-extrabold uppercase tracking-[0.14em]"
           style={{ backgroundColor: categoryStyle.fill, color: categoryStyle.onFill }}

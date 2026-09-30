@@ -2,7 +2,14 @@ import { getTranslations } from 'next-intl/server'
 
 import { ContentCard } from '@/components/primitives/ContentCard'
 import { SectionHeading } from '@/components/primitives/SectionHeading'
-import { cultureCardConfig } from '@/lib/data/cultureCards'
+
+/** Culture cards without stock photographs (F5). Image slots stay empty. */
+const cultureCardConfig = [
+  { id: 'fkkb', badgeColor: 'teal' as const, ctaHref: '/here/art', ctaExternal: false },
+  { id: 'kttk', badgeColor: 'amber' as const, ctaHref: '/happenings', ctaExternal: false },
+  { id: 'lutze', badgeColor: 'green' as const, ctaHref: '/here/dining', ctaExternal: false },
+  { id: 'ymb', badgeColor: 'purple' as const, ctaHref: '/you-me-berlin', ctaExternal: false },
+]
 
 export async function CultureSection() {
   const t = await getTranslations('culture')
@@ -23,10 +30,9 @@ export async function CultureSection() {
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
         aria-label={t('gridAria')}
       >
-        {(await Promise.all(
-          cultureCardConfig.map(async (card) => (
-            <li key={card.id}>
-              <ContentCard
+        {cultureCardConfig.map((card) => (
+          <li key={card.id}>
+            <ContentCard
               badge={t(`cards.${card.id}.badge`)}
               badgeColor={card.badgeColor}
               title={t(`cards.${card.id}.title`)}
@@ -36,11 +42,10 @@ export async function CultureSection() {
               ctaLabel={t(`cards.${card.id}.cta`)}
               ctaHref={card.ctaHref}
               ctaExternal={card.ctaExternal}
-              image={card.image}
-              imageAlt={t(`cards.${card.id}.imageAlt`)}
-              />
-            </li>
-          )),
+              image={undefined}
+              imageAlt=""
+            />
+          </li>
         ))}
       </ul>
     </section>

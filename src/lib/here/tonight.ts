@@ -8,14 +8,14 @@ import {
 } from '@/lib/venue-time'
 import { getCurrentExhibitions } from '@/lib/art/exhibitions'
 import { mediaAlt, mediaUrl } from '@/lib/spotlight/media'
-import { firstHereImage, HERE_IMAGES, type HereImage } from '@/lib/here/images'
+import { firstHereImage, type HereImage } from '@/lib/here/images'
 import type { Venue } from '@/payload-types'
 
 export type TonightHeroData = {
   title: string
   meta: string
   statusLabel: string
-  image: HereImage
+  image: HereImage | null
   href: string
 }
 
@@ -92,7 +92,6 @@ export async function resolveTonightHero(
         ? { src: exhibitionSrc, alt: mediaAlt(exhibition?.heroImage, title) }
         : null,
       venueSrc ? { src: venueSrc, alt: mediaAlt(venue?.heroImage, title) } : null,
-      HERE_IMAGES.fkkb,
     ),
     href: '/here/art',
   }

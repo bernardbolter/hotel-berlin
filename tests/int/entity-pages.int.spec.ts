@@ -41,9 +41,12 @@ describe('districtFromPostalCode', () => {
 })
 
 describe('media url guard', () => {
-  it('rejects picsum', () => {
+  it('rejects picsum, unsplash, wikimedia, and vercel blob stand-ins', () => {
     expect(isRejectedMediaUrl('https://picsum.photos/800')).toBe(true)
     expect(safeMediaUrl('https://picsum.photos/800')).toBeNull()
+    expect(isRejectedMediaUrl('https://images.unsplash.com/photo-1')).toBe(true)
+    expect(isRejectedMediaUrl('https://upload.wikimedia.org/wikipedia/commons/x.jpg')).toBe(true)
+    expect(isRejectedMediaUrl('https://xyz.blob.vercel-storage.com/a.jpg')).toBe(true)
     expect(safeMediaUrl('/api/media/file/x.jpg')).toBe('/api/media/file/x.jpg')
   })
 })

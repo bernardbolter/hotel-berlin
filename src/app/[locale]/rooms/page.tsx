@@ -131,10 +131,7 @@ export default async function RoomsIndexPage({ params }: Props) {
               <ul className="flex flex-col gap-16 lg:gap-20">
                 {rooms.map((room, index) => {
                   const hero = roomHeroFields(room, locale, t('from'))
-                  const galleryImages =
-                    hero.images.length > 0
-                      ? hero.images
-                      : [{ src: hero.teaserImage.src, alt: hero.teaserImage.alt }]
+                  const galleryImages = hero.images.length > 0 ? hero.images : []
                   return (
                     <li key={room.id}>
                       <RoomIndexCard

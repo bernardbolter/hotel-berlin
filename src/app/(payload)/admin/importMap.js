@@ -25,13 +25,17 @@ import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { CompletenessPanel as CompletenessPanel_71fc084c37c6ff6ba7bbd473080427ec } from '../../../components/admin/CompletenessPanel'
+import { HeroManagerListLinks as HeroManagerListLinks_9af41cbea1e0392e91e19fd702433c1f } from '../../../components/admin/HeroManagerButtons'
 import { NeuesWerkListButton as NeuesWerkListButton_863035fa213bb300b208b05def35a216 } from '../../../components/admin/NeuesWerkButton'
 import { default as default_0c598c7c3cf56aea4bb1490f1498bd4a } from '../../../components/admin/ContextBadge'
 import { AdminLanguageSwitcher as AdminLanguageSwitcher_13df1484becb085c437fde0ac8d71157 } from '../../../components/admin/AdminLanguageSwitcher'
-import { NeuesWerkDashboardButton as NeuesWerkDashboardButton_863035fa213bb300b208b05def35a216 } from '../../../components/admin/NeuesWerkButton'
+import { HeroNavLinks as HeroNavLinks_1ec896c05b9470570de4386762acbfe8 } from '../../../components/admin/HeroNavLinks'
+import { GuidedAdminDashboard as GuidedAdminDashboard_9af41cbea1e0392e91e19fd702433c1f } from '../../../components/admin/HeroManagerButtons'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { NeuesWerkView as NeuesWerkView_22ab842e28c993c17a520fad44f49086 } from '../../../components/admin/NeuesWerkView'
 import { StandorteView as StandorteView_9c56cab3debcf8138ca292cc1ef0ea62 } from '../../../components/admin/StandorteView'
+import { HeroStartseiteView as HeroStartseiteView_6f17c62249a9fb832b554346fd6a3add } from '../../../components/admin/HeroManagerView'
+import { HeroHierView as HeroHierView_6f17c62249a9fb832b554346fd6a3add } from '../../../components/admin/HeroManagerView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -63,12 +67,16 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "/components/admin/CompletenessPanel#CompletenessPanel": CompletenessPanel_71fc084c37c6ff6ba7bbd473080427ec,
+  "/components/admin/HeroManagerButtons#HeroManagerListLinks": HeroManagerListLinks_9af41cbea1e0392e91e19fd702433c1f,
   "/components/admin/NeuesWerkButton#NeuesWerkListButton": NeuesWerkListButton_863035fa213bb300b208b05def35a216,
   "/components/admin/ContextBadge#default": default_0c598c7c3cf56aea4bb1490f1498bd4a,
   "/components/admin/AdminLanguageSwitcher#AdminLanguageSwitcher": AdminLanguageSwitcher_13df1484becb085c437fde0ac8d71157,
-  "/components/admin/NeuesWerkButton#NeuesWerkDashboardButton": NeuesWerkDashboardButton_863035fa213bb300b208b05def35a216,
+  "/components/admin/HeroNavLinks#HeroNavLinks": HeroNavLinks_1ec896c05b9470570de4386762acbfe8,
+  "/components/admin/HeroManagerButtons#GuidedAdminDashboard": GuidedAdminDashboard_9af41cbea1e0392e91e19fd702433c1f,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "/components/admin/NeuesWerkView#NeuesWerkView": NeuesWerkView_22ab842e28c993c17a520fad44f49086,
   "/components/admin/StandorteView#StandorteView": StandorteView_9c56cab3debcf8138ca292cc1ef0ea62,
+  "/components/admin/HeroManagerView#HeroStartseiteView": HeroStartseiteView_6f17c62249a9fb832b554346fd6a3add,
+  "/components/admin/HeroManagerView#HeroHierView": HeroHierView_6f17c62249a9fb832b554346fd6a3add,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

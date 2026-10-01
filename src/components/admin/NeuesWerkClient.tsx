@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
   type DragEvent,
-  type ReactNode,
 } from 'react'
 import { useRouter } from 'next/navigation.js'
 import { Gutter, useConfig, useTranslation } from '@payloadcms/ui'
@@ -44,6 +43,8 @@ import {
 } from '@/lib/media/compressImageForUpload'
 import type { ExifGps } from '@/lib/media/exifGps'
 import { HelpMore } from './HelpMore'
+import { GuidedSection } from './guided/GuidedSection'
+import { StickyMissingBar } from './guided/StickyMissingBar'
 import { OutdoorLocationPanel, type GeoPoint } from './OutdoorLocationPanel'
 import { neuesWerkCopy, neuesWerkLocale } from './neuesWerkCopy'
 
@@ -212,34 +213,6 @@ function Mark({ show, mark }: { show: boolean; mark: string }) {
     <span aria-hidden="true" style={{ marginLeft: 4, color: 'var(--theme-elevation-600)' }}>
       {mark}
     </span>
-  )
-}
-
-function Section({
-  id,
-  title,
-  disabled,
-  children,
-}: {
-  id: string
-  title: string
-  disabled?: boolean
-  children: ReactNode
-}) {
-  return (
-    <section
-      aria-labelledby={id}
-      style={{
-        marginTop: 28,
-        opacity: disabled ? 0.45 : 1,
-        pointerEvents: disabled ? 'none' : 'auto',
-      }}
-    >
-      <h2 id={id} style={{ fontSize: 18, margin: '0 0 12px' }}>
-        {title}
-      </h2>
-      {children}
-    </section>
   )
 }
 
@@ -957,9 +930,8 @@ export function NeuesWerkClient() {
 
   return (
     <Gutter>
+      <div className="neues-werk guided-admin" ref={topRef}>
       <div
-        ref={topRef}
-        className="neues-werk"
         style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 96 }}
       >
         <header
@@ -996,7 +968,7 @@ export function NeuesWerkClient() {
           </p>
         ) : null}
 
-        <Section id="nw-photo" title={t.photoHeading}>
+        <GuidedSection id="nw-photo" title={t.photoHeading}>
           {dropZone('main')}
           <div style={{ marginTop: 8 }}>
             <HelpMore
@@ -1010,7 +982,7 @@ export function NeuesWerkClient() {
           {artistField}
           <p style={{ margin: '16px 0 8px', fontSize: 13, fontWeight: 600 }}>{t.contextPhoto}</p>
           {dropZone('context')}
-        </Section>
+        </GuidedSection>
 
         {!hasPhoto ? (
           <p style={{ marginTop: 16, fontSize: 14, color: 'var(--theme-elevation-800)' }}>
@@ -1018,7 +990,7 @@ export function NeuesWerkClient() {
           </p>
         ) : null}
 
-        <Section id="nw-ai" title={t.aiHeading} disabled={gated}>
+        <GuidedSection id="nw-ai" title={t.aiHeading} disabled={gated}>
           <p style={{ margin: '0 0 10px', fontSize: 13, color: 'var(--theme-elevation-800)' }}>
             {t.aiExplanation}
           </p>
@@ -1149,9 +1121,9 @@ export function NeuesWerkClient() {
               </button>
             </div>
           ) : null}
-        </Section>
+        </GuidedSection>
 
-        <Section id="nw-work" title={t.workHeading} disabled={gated}>
+        <GuidedSection id="nw-work" title={t.workHeading} disabled={gated}>
           <label style={{ display: 'block', fontSize: 13 }}>
             {t.altDe}
             <Mark show={suggested.has('altDe')} mark={t.suggestedMark} />
@@ -1356,9 +1328,9 @@ export function NeuesWerkClient() {
               ))}
             </select>
           </label>
-        </Section>
+        </GuidedSection>
 
-        <Section id="nw-where" title={t.whereHeading} disabled={gated}>
+        <GuidedSection id="nw-where" title={t.whereHeading} disabled={gated}>
           {carry.floor && form.floor === carry.floor ? (
             <p style={{ fontSize: 12, color: 'var(--theme-elevation-800)' }}>{t.carried}</p>
           ) : null}
@@ -1417,9 +1389,9 @@ export function NeuesWerkClient() {
               clear: t.clearGeo,
             }}
           />
-        </Section>
+        </GuidedSection>
 
-        <Section id="nw-rights" title={t.rightsHeading} disabled={gated}>
+        <GuidedSection id="nw-rights" title={t.rightsHeading} disabled={gated}>
           <label style={{ display: 'block', fontSize: 13 }}>
             {t.permission}
             <select
@@ -1453,54 +1425,31 @@ export function NeuesWerkClient() {
               style={{ display: 'block', width: '100%', marginTop: 4 }}
             />
           </label>
-        </Section>
+        </GuidedSection>
       </div>
 
-      <div
-        role="region"
-        aria-label={t.missingPrefix}
-        style={{
-          position: 'sticky',
-          bottom: 0,
-          zIndex: 20,
-          borderTop: '1px solid var(--theme-elevation-150)',
-          background: 'var(--theme-bg)',
-          padding: '12px 16px',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 12,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
+      <StickyMissingBar
+        ariaLabel={t.missingPrefix}
+        message={stickyMissing}
+        complete={completeness.complete}
       >
-        <p
-          style={{
-            margin: 0,
-            fontSize: 13,
-            flex: '1 1 200px',
-            color: completeness.complete ? '#1a7f4b' : 'var(--theme-text)',
-          }}
+        <button
+          type="button"
+          className="btn btn--style-secondary"
+          disabled={saving || gated}
+          onClick={() => void saveArtwork('next')}
         >
-          {stickyMissing}
-        </p>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            className="btn btn--style-secondary"
-            disabled={saving || gated}
-            onClick={() => void saveArtwork('next')}
-          >
-            {t.saveNext}
-          </button>
-          <button
-            type="button"
-            className="btn btn--style-primary"
-            disabled={saving || gated || !canPublishArtwork(completenessInput)}
-            onClick={() => void saveArtwork('publish')}
-          >
-            {t.savePublish}
-          </button>
-        </div>
+          {t.saveNext}
+        </button>
+        <button
+          type="button"
+          className="btn btn--style-primary"
+          disabled={saving || gated || !canPublishArtwork(completenessInput)}
+          onClick={() => void saveArtwork('publish')}
+        >
+          {t.savePublish}
+        </button>
+      </StickyMissingBar>
       </div>
     </Gutter>
   )

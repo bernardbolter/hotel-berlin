@@ -1,11 +1,13 @@
 import { HereHeroLayout } from '@/components/here/HereHeroLayout'
 import { type HeroSlide } from '@/components/home/heroSlides'
+import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import {
   berlinTimeOfDay,
   formatBerlinDayLabel,
 } from '@/lib/here/greeting'
 import { getHeroSubline } from '@/lib/here/getHeroSubline'
 import { resolveEventHeroOverride } from '@/lib/here/hero'
+import { buildHereHeroJsonLd } from '@/lib/hero/schema'
 import { getHeroSlides } from '@/lib/payload/homepage'
 import { getGuestStayInfo } from '@/lib/payload/hotel'
 import { getBerlinNow } from '@/lib/venue-time'
@@ -59,7 +61,8 @@ export async function HereHero({ locale, eventSlug }: Props) {
     photoSlides = [
       {
         src: eventOverride.image.src,
-        alt: eventOverride.image.alt,
+        altEN: eventOverride.image.alt,
+        altDE: eventOverride.image.alt,
         captionEN: eventOverride.name,
         captionDE: eventOverride.name,
       },
@@ -73,29 +76,36 @@ export async function HereHero({ locale, eventSlug }: Props) {
     }
   }
 
+  const graph = buildHereHeroJsonLd(photoSlides, loc, {
+    name: greeting,
+  })
+
   return (
-    <HereHeroLayout
-      slides={photoSlides}
-      stay={stay}
-      copy={{
-        dayLabel,
-        greeting,
-        subline1: subline.type === 'none' ? null : subline.line1,
-        subline2: subline.type === 'none' ? null : subline.line2,
-        wifiLabel: t('stay.wifi'),
-        checkoutLabel: t('stay.checkout'),
-        breakfastLabel: t('stay.breakfast'),
-        parkingLabel: t('stay.parking'),
-        luggageLabel: t('stay.luggage'),
-        stayCta: t('heroStayCta'),
-        clockAria: t('clockAria'),
-        galleryAria: t('galleryAria'),
-        wifiPasswordAria: t('heroWifiPasswordAria'),
-        guestCareKicker: t('help.guestCare.kicker'),
-        guestCareTitle: t('help.guestCare.title'),
-        guestCareBody: t('help.guestCare.body'),
-        guestCareExtension: t('help.guestCare.extension').trim() || null,
-      }}
-    />
+    <>
+      <JsonLdScript graph={graph} />
+      <HereHeroLayout
+        slides={photoSlides}
+        stay={stay}
+        copy={{
+          dayLabel,
+          greeting,
+          subline1: subline.type === 'none' ? null : subline.line1,
+          subline2: subline.type === 'none' ? null : subline.line2,
+          wifiLabel: t('stay.wifi'),
+          checkoutLabel: t('stay.checkout'),
+          breakfastLabel: t('stay.breakfast'),
+          parkingLabel: t('stay.parking'),
+          luggageLabel: t('stay.luggage'),
+          stayCta: t('heroStayCta'),
+          clockAria: t('clockAria'),
+          galleryAria: t('galleryAria'),
+          wifiPasswordAria: t('heroWifiPasswordAria'),
+          guestCareKicker: t('help.guestCare.kicker'),
+          guestCareTitle: t('help.guestCare.title'),
+          guestCareBody: t('help.guestCare.body'),
+          guestCareExtension: t('help.guestCare.extension').trim() || null,
+        }}
+      />
+    </>
   )
 }

@@ -1,3 +1,5 @@
+import { focalToObjectPosition } from '@/lib/media/focal'
+
 import type { ArtFloor, FloorFilter } from './types'
 import { ART_FLOORS } from './types'
 
@@ -89,11 +91,10 @@ export function isArtFloor(value: unknown): value is ArtFloor {
   return typeof value === 'string' && (ART_FLOORS as readonly string[]).includes(value)
 }
 
+/** @deprecated Prefer focalToObjectPosition — kept for art call sites. */
 export function objectPosition(focalX?: number | null, focalY?: number | null): string | undefined {
   if (focalX == null && focalY == null) return undefined
-  const x = focalX == null ? 50 : focalX * 100
-  const y = focalY == null ? 50 : focalY * 100
-  return `${x}% ${y}%`
+  return focalToObjectPosition(focalX, focalY)
 }
 
 export function sortLiveWorks<T extends { artworkType: string; order: string }>(works: T[]): T[] {

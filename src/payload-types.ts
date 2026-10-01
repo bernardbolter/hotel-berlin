@@ -716,7 +716,7 @@ export interface Venue {
   createdAt: string;
 }
 /**
- * Hero photo rotation for the homepage and /here guest hub. Set context per slide; duplicate (same image) to appear in both.
+ * Hero photo rotation for the homepage and /here guest hub. Prefer the guided views Hero Startseite / Hero Hier.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hero-slides".
@@ -729,9 +729,17 @@ export interface HeroSlide {
   adminTitle?: string | null;
   image: number | Media;
   /**
-   * Descriptive alt text — required for both DE and EN.
+   * Descriptive alt text — required for both DE and EN (max 120).
    */
   altText: string;
+  /**
+   * Longer factual description — feeds ImageObject.description. Not shown on the page.
+   */
+  description?: string | null;
+  /**
+   * Comma-separated terms — feeds ImageObject.keywords.
+   */
+  keywords?: string | null;
   /**
    * Optional. When set, caption is derived from venue name + floor/location.
    */
@@ -745,11 +753,15 @@ export interface HeroSlide {
    */
   credit?: string | null;
   /**
+   * Admin-only notes from the AI reply (hinweiseDe / hinweiseEn). Not shown on the site.
+   */
+  aiNotes?: string | null;
+  /**
    * Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.
    */
   context: 'homepage' | 'here';
   /**
-   * Controls rotation sequence (lower first).
+   * Controls rotation sequence (lower first). Managed by the guided reorder UI.
    */
   order: number;
   /**
@@ -2193,9 +2205,12 @@ export interface HeroSlidesSelect<T extends boolean = true> {
   adminTitle?: T;
   image?: T;
   altText?: T;
+  description?: T;
+  keywords?: T;
   venue?: T;
   captionOverride?: T;
   credit?: T;
+  aiNotes?: T;
   context?: T;
   order?: T;
   enabled?: T;

@@ -10,7 +10,10 @@ export const Users: CollectionConfig = {
     description:
       'CMS logins. Only admins can create users or change roles. Hotel staff accounts should be Editor.',
   },
-  auth: true,
+  auth: {
+    // Default Payload token/session is 2h — too short for photo entry sessions.
+    tokenExpiration: 60 * 60 * 12, // 12 hours
+  },
   access: {
     // Payload's `admin` panel gate is boolean-only (not the full Access union).
     admin: ({ req: { user } }) => isStaffUser(user),

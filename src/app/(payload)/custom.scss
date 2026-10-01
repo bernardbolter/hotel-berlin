@@ -1,0 +1,35 @@
+/* Guided admin flows: Neues Werk + Hero managers */
+.guided-admin {
+  input[type='text'],
+  input[type='url'],
+  input[type='email'],
+  input[type='search'],
+  input[type='number'],
+  input:not([type]),
+  textarea,
+  select {
+    padding: 10px 12px;
+    line-height: 1.4;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    padding: 12px;
+    min-height: 5.5rem;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    min-height: 2.5rem;
+  }
+
+  .btn--size-small {
+    padding: 8px 14px;
+    min-height: 2.25rem;
+  }
+
+  .btn--size-medium {
+    padding: 10px 18px;
+    min-height: 2.5rem;
+  }
+}

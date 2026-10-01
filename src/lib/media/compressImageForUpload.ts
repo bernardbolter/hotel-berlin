@@ -22,6 +22,8 @@ export type PreparedUploadImage = {
   file: File
   /** GPS read from the phone original before it was stripped. */
   gps: ExifGps | null
+  /** Long edge in px after orientation bake, when the browser could decode the image. */
+  longEdge?: number
 }
 
 /**
@@ -75,7 +77,7 @@ export async function compressImageForUpload(
     if (!needsReencode) {
       // Keep other EXIF; remove GPS only.
       const stripped = await maybeStripGpsOnly(file)
-      return { file: stripped, gps }
+      return { file: stripped, gps, longEdge }
     }
 
     const targetW = Math.max(1, Math.round(width * scale))
@@ -109,6 +111,7 @@ export async function compressImageForUpload(
     return {
       file: new File([blob], `${base}.jpg`, { type: 'image/jpeg', lastModified: Date.now() }),
       gps,
+      longEdge: Math.max(targetW, targetH),
     }
   } finally {
     bitmap.close()

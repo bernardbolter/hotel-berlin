@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { publicReadStaffWrite } from '@/access'
 import { artPhotoHelp } from '@/lib/art/photoHelp'
 import { MEDIA_MASTER_EDGE } from '@/lib/media/limits'
 
@@ -23,9 +24,7 @@ const CARD_WIDTH = 864
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  access: {
-    read: () => true,
-  },
+  access: publicReadStaffWrite,
   admin: {
     description: {
       de: artPhotoHelp.de.photo.short,

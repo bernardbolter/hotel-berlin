@@ -2,6 +2,7 @@ import type { HeroSlide as HeroSlideDoc, Homepage, Hotel, Media } from '@/payloa
 import type { Where } from 'payload'
 
 import type { HeroSlide } from '@/components/home/heroSlides'
+import { focalToObjectPosition } from '@/lib/media/focal'
 import { mediaSizedUrl, mediaUrl as originalMediaUrl } from '@/lib/media/url'
 import { getPayloadClient } from '@/lib/payload/client'
 
@@ -27,6 +28,11 @@ function venueCaption(venue: HeroSlideDoc['venue']): string | null {
   return parts.join(' · ')
 }
 
+function venueSlug(venue: HeroSlideDoc['venue']): string | null {
+  if (!venue || typeof venue !== 'object') return null
+  return venue.slug?.trim() || null
+}
+
 function mapCollectionSlide(
   enDoc: HeroSlideDoc,
   deDoc: HeroSlideDoc | undefined,
@@ -41,12 +47,21 @@ function mapCollectionSlide(
     venueCaption(enDoc.venue) ||
     captionEN
 
+  const media = typeof enDoc.image === 'object' ? enDoc.image : null
+
   return {
     src,
-    alt: enDoc.altText ?? '',
+    altEN: enDoc.altText ?? '',
+    altDE: deDoc?.altText ?? enDoc.altText ?? '',
     captionEN,
     captionDE,
     credit: enDoc.credit ?? undefined,
+    objectPosition: focalToObjectPosition(media?.focalX, media?.focalY),
+    descriptionEN: enDoc.description ?? undefined,
+    descriptionDE: deDoc?.description ?? enDoc.description ?? undefined,
+    keywordsEN: enDoc.keywords ?? undefined,
+    keywordsDE: deDoc?.keywords ?? enDoc.keywords ?? undefined,
+    venueSlug: venueSlug(enDoc.venue) || venueSlug(deDoc?.venue),
   }
 }
 
@@ -61,10 +76,12 @@ function mapHomepageSlides(enPage: Homepage, dePage: Homepage): HeroSlide[] {
       if (!src) return null
 
       const deSlide = deSlides[index]
+      const alt = slide.alt ?? ''
 
       return {
         src,
-        alt: slide.alt ?? '',
+        altEN: alt,
+        altDE: deSlide?.alt ?? alt,
         captionEN: slide.caption ?? '',
         captionDE: deSlide?.caption ?? slide.caption ?? '',
       } satisfies HeroSlide

@@ -8,6 +8,8 @@ import * as migration_20260930_111500_art_programme_a1 from './20260930_111500_a
 import * as migration_20261001_120000_guided_entry_step2 from './20261001_120000_guided_entry_step2'
 import * as migration_20261001_180000_localize_artwork_medium_surface from './20261001_180000_localize_artwork_medium_surface'
 import * as migration_20261001_190000_add_subject_tag_type from './20261001_190000_add_subject_tag_type'
+import * as migration_20261001_220000_hero_slides_aeo_fields from './20261001_220000_hero_slides_aeo_fields'
+import * as migration_20261001_230000_hero_slides_localize_ai_notes from './20261001_230000_hero_slides_localize_ai_notes'
 
 export const migrations = [
   {
@@ -59,5 +61,15 @@ export const migrations = [
     up: migration_20261001_190000_add_subject_tag_type.up,
     down: migration_20261001_190000_add_subject_tag_type.down,
     name: '20261001_190000_add_subject_tag_type',
+  },
+  {
+    up: migration_20261001_220000_hero_slides_aeo_fields.up,
+    down: migration_20261001_220000_hero_slides_aeo_fields.down,
+    name: '20261001_220000_hero_slides_aeo_fields',
+  },
+  {
+    up: migration_20261001_230000_hero_slides_localize_ai_notes.up,
+    down: migration_20261001_230000_hero_slides_localize_ai_notes.down,
+    name: '20261001_230000_hero_slides_localize_ai_notes',
   },
 ]

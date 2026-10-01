@@ -37,6 +37,8 @@ describe('combined AI prompt modes', () => {
     expect(p).toContain('mural | graffiti | print | photo | painting | installation | sculpture')
     expect(p).toContain('"medium":  { "de": null, "en": null }')
     expect(p).toContain('"surface": { "de": null, "en": null }')
+    expect(p).toContain('Rosa Wandbild')
+    expect(p).toContain('Keine Deutung')
     expect(p.toLowerCase()).not.toMatch(/\btitel\b/)
   })
 

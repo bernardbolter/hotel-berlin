@@ -1,11 +1,21 @@
 import type { Payload } from 'payload'
 
 import { checkArtworkCompleteness, type ArtworkCompletenessInput } from './artworks'
+import {
+  checkHeroSlideCompleteness,
+  type HeroSlideCompletenessInput,
+} from './heroSlides'
 import type { CompletenessResult } from './types'
 
 export { checkArtworkCompleteness, canPublishArtwork } from './artworks'
 export type { ArtworkCompletenessInput } from './artworks'
+export {
+  checkHeroSlideCompleteness,
+  canEnableHeroSlide,
+  type HeroSlideCompletenessInput,
+} from './heroSlides'
 export { enforceArtworkCompletenessOnPublish } from './enforcePublish'
+export { enforceHeroSlideCompletenessOnEnable } from './enforceHeroEnable'
 export {
   formatMissingList,
   issueMessages,
@@ -16,7 +26,9 @@ export {
   type CompletenessSeverity,
 } from './types'
 
-export type CompletenessCollection = 'artworks'
+export type CompletenessCollection = 'artworks' | 'hero-slides'
+
+export type CompletenessDoc = ArtworkCompletenessInput | HeroSlideCompletenessInput
 
 /**
  * Collection dispatcher — guided entry, sidebar and dashboard call this,
@@ -24,11 +36,13 @@ export type CompletenessCollection = 'artworks'
  */
 export function checkCompleteness(
   collection: CompletenessCollection,
-  doc: ArtworkCompletenessInput,
+  doc: CompletenessDoc,
 ): CompletenessResult {
   switch (collection) {
     case 'artworks':
-      return checkArtworkCompleteness(doc)
+      return checkArtworkCompleteness(doc as ArtworkCompletenessInput)
+    case 'hero-slides':
+      return checkHeroSlideCompleteness(doc as HeroSlideCompletenessInput)
     default: {
       const _exhaustive: never = collection
       return _exhaustive

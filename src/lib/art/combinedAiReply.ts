@@ -127,6 +127,10 @@ eines Kunstwerks im oder am Haus.
 TEIL 1 — nur aus dem Foto (nichts dazuerfinden):
 - Alt-Text auf Deutsch und Englisch: ein Satz, höchstens 120 Zeichen,
   beginnt mit dem Motiv, nicht mit der Wand. Keine Wertung.
+  Sag, was es ist und wo es ist, wenn im Foto erkennbar:
+  „Rosa Wandbild mit …", nicht nur „Ein rosa Kreis …".
+  Keine Deutung: ein Kreis ist ein Kreis, keine Sonne, solange es
+  nicht eindeutig ist.
 - artform: genau einer dieser Codes, sonst null:
   ${artformList}
 - Technik und Untergrund — nur wenn im Foto erkennbar, sonst null.

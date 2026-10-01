@@ -97,11 +97,14 @@ export function HeroPhotoSlider({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={slide.src}
-                alt={slide.alt}
+                alt={locale === 'de' ? slide.altDE : slide.altEN}
                 className="hero-photo-img absolute inset-0 h-full w-full object-cover"
+                style={slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined}
               />
             </div>
-            <figcaption className="sr-only">{captionFor(slide)}</figcaption>
+            <figcaption className="sr-only">
+              {[captionFor(slide), slide.credit].filter(Boolean).join(' — ')}
+            </figcaption>
           </figure>
         )
       })}

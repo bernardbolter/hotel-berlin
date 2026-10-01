@@ -49,7 +49,8 @@ export default buildConfig({
     },
     components: {
       actions: ['/components/admin/AdminLanguageSwitcher#AdminLanguageSwitcher'],
-      beforeDashboard: ['/components/admin/NeuesWerkButton#NeuesWerkDashboardButton'],
+      beforeDashboard: ['/components/admin/HeroManagerButtons#GuidedAdminDashboard'],
+      afterNavLinks: ['/components/admin/HeroNavLinks#HeroNavLinks'],
       views: {
         neuesWerk: {
           Component: '/components/admin/NeuesWerkView#NeuesWerkView',
@@ -65,6 +66,22 @@ export default buildConfig({
           meta: {
             title: 'Standorte',
             description: 'Außenwerke ohne Koordinaten nachtragen',
+          },
+        },
+        heroStartseite: {
+          Component: '/components/admin/HeroManagerView#HeroStartseiteView',
+          path: '/hero-startseite',
+          meta: {
+            title: 'Hero Startseite',
+            description: 'Titelbilder der Startseite',
+          },
+        },
+        heroHier: {
+          Component: '/components/admin/HeroManagerView#HeroHierView',
+          path: '/hero-hier',
+          meta: {
+            title: 'Hero Hier',
+            description: 'Titelbilder der Gästeseite',
           },
         },
       },

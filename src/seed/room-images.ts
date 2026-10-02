@@ -100,15 +100,36 @@ function parseSlugFilter(): string | null {
   return null
 }
 
+function parseOnlySlug(): string | null {
+  const onlyArg = process.argv.find((arg) => arg.startsWith('--only='))
+  if (onlyArg) return onlyArg.slice('--only='.length)
+
+  const onlyIndex = process.argv.indexOf('--only')
+  if (onlyIndex !== -1 && process.argv[onlyIndex + 1]) {
+    return process.argv[onlyIndex + 1]
+  }
+
+  return null
+}
+
 async function seedRoomImages() {
-  const force = process.argv.includes('--force') || process.env.SEED_ROOM_IMAGES_FORCE === '1'
-  const slugFilter = parseSlugFilter()
+  const onlySlug = parseOnlySlug()
+  const slugFilter = onlySlug ?? parseSlugFilter()
   const assetsRoot = resolveAssetsRoot()
   const scraped = isScrapedLayout(assetsRoot)
 
   console.log(`Using room assets from: ${assetsRoot}`)
   console.log(`Layout: ${scraped ? 'scraped site folders' : 'slug folders'}`)
-  if (slugFilter) console.log(`Filter: ${slugFilter}`)
+  if (onlySlug) {
+    console.log(`Force replace only: ${onlySlug}`)
+  } else if (slugFilter) {
+    console.log(`Filter: ${slugFilter}`)
+  }
+  if (process.argv.includes('--force') || process.env.SEED_ROOM_IMAGES_FORCE === '1') {
+    console.log(
+      'Note: --force is ignored unless --only=<slug> is set (protects manual gallery edits).',
+    )
+  }
 
   const payload = await getPayload({ config })
   const roomsToSeed = slugFilter ? rooms.filter((room) => room.slug === slugFilter) : rooms
@@ -143,8 +164,12 @@ async function seedRoomImages() {
       continue
     }
 
-    if (roomDoc.images?.length && !force) {
-      console.log(`  Skip ${room.slug}: already has ${roomDoc.images.length} image(s) (use --force to replace)`)
+    const hasImages = Boolean(roomDoc.images?.length)
+    const allowOverwrite = onlySlug === room.slug
+    if (hasImages && !allowOverwrite) {
+      console.log(
+        `  Skip ${room.slug}: already has ${roomDoc.images!.length} image(s) (use --only=${room.slug} to replace)`,
+      )
       continue
     }
 
@@ -162,6 +187,7 @@ async function seedRoomImages() {
         collection: 'media',
         data: { alt },
         filePath,
+        locale: 'en',
       })
 
       images.push({
@@ -174,6 +200,7 @@ async function seedRoomImages() {
       collection: 'rooms',
       id: roomDoc.id,
       data: { images },
+      locale: 'en',
     })
 
     console.log(`  ${room.slug}: uploaded ${images.length} image(s)`)

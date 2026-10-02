@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { hideFromHotelStaff, isEditorOrAdminUser } from '@/access'
 import { slugField } from 'payload'
 
 export const MeetingDocuments: CollectionConfig = {
@@ -8,6 +9,7 @@ export const MeetingDocuments: CollectionConfig = {
     plural: 'Meeting documents',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'area', 'pageRole', 'sortOrder', 'updatedAt'],
     description:
@@ -15,9 +17,9 @@ export const MeetingDocuments: CollectionConfig = {
   },
   access: {
     read: () => true,
-    create: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    create: ({ req }) => isEditorOrAdminUser(req.user),
+    update: ({ req }) => isEditorOrAdminUser(req.user),
+    delete: ({ req }) => isEditorOrAdminUser(req.user),
   },
   fields: [
     {

@@ -10,6 +10,11 @@ import * as migration_20261001_180000_localize_artwork_medium_surface from './20
 import * as migration_20261001_190000_add_subject_tag_type from './20261001_190000_add_subject_tag_type'
 import * as migration_20261001_220000_hero_slides_aeo_fields from './20261001_220000_hero_slides_aeo_fields'
 import * as migration_20261001_230000_hero_slides_localize_ai_notes from './20261001_230000_hero_slides_localize_ai_notes'
+import * as migration_20261001_240000_rooms_images_localize from './20261001_240000_rooms_images_localize'
+import * as migration_20261001_250000_rooms_manager_staff from './20261001_250000_rooms_manager_staff'
+import * as migration_20261001_260000_hero_slides_eat_drink_context from './20261001_260000_hero_slides_eat_drink_context'
+import * as migration_20261002_100000_meeting_rooms_manager from './20261002_100000_meeting_rooms_manager'
+import * as migration_20261002_110000_meeting_rooms_versions from './20261002_110000_meeting_rooms_versions'
 
 export const migrations = [
   {
@@ -71,5 +76,30 @@ export const migrations = [
     up: migration_20261001_230000_hero_slides_localize_ai_notes.up,
     down: migration_20261001_230000_hero_slides_localize_ai_notes.down,
     name: '20261001_230000_hero_slides_localize_ai_notes',
+  },
+  {
+    up: migration_20261001_240000_rooms_images_localize.up,
+    down: migration_20261001_240000_rooms_images_localize.down,
+    name: '20261001_240000_rooms_images_localize',
+  },
+  {
+    up: migration_20261001_250000_rooms_manager_staff.up,
+    down: migration_20261001_250000_rooms_manager_staff.down,
+    name: '20261001_250000_rooms_manager_staff',
+  },
+  {
+    up: migration_20261001_260000_hero_slides_eat_drink_context.up,
+    down: migration_20261001_260000_hero_slides_eat_drink_context.down,
+    name: '20261001_260000_hero_slides_eat_drink_context',
+  },
+  {
+    up: migration_20261002_100000_meeting_rooms_manager.up,
+    down: migration_20261002_100000_meeting_rooms_manager.down,
+    name: '20261002_100000_meeting_rooms_manager',
+  },
+  {
+    up: migration_20261002_110000_meeting_rooms_versions.up,
+    down: migration_20261002_110000_meeting_rooms_versions.down,
+    name: '20261002_110000_meeting_rooms_versions',
   },
 ]

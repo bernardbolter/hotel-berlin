@@ -90,7 +90,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
       <figure className="relative min-w-0 w-full max-lg:col-span-2 max-lg:row-start-2 lg:col-start-1 lg:row-start-1">
         <div className="flex w-full items-stretch gap-[2px] max-lg:w-[calc(100%+1.25rem-5px)] max-lg:-mr-[15px] max-lg:gap-px md:max-lg:w-[calc(100%+2.5rem-5px)] md:max-lg:-mr-[35px]">
           <div
-            className="rooms-photo-mask relative min-w-0 flex-1 overflow-hidden bg-hbb-warm max-[550px]:aspect-[1/0.75] min-[551px]:aspect-[3/2]"
+            className="rooms-photo-mask relative min-w-0 flex-1 overflow-hidden bg-hbb-image-panel max-[550px]:aspect-[1/0.75] min-[551px]:aspect-[3/2]"
           >
             {rooms.map((room, index) => {
               const isActive = index === current
@@ -109,8 +109,11 @@ export function RoomsTeaser({ rooms, copy }: Props) {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={room.teaserImage.src}
+                      srcSet={room.teaserImage.srcSet}
+                      sizes={room.teaserImage.sizes}
                       alt={room.teaserImage.alt}
                       className="hero-photo-img absolute inset-0 h-full w-full object-cover"
+                      style={{ objectPosition: room.teaserImage.objectPosition }}
                     />
                   ) : null}
                 </div>
@@ -146,19 +149,19 @@ export function RoomsTeaser({ rooms, copy }: Props) {
       {/* Specs — under photo on desktop; same row as room name below lg */}
       <ul
         role="list"
-        className={`mt-[2px] ml-auto flex w-fit border border-hbb-rooms-highlight/30 transition-opacity duration-300 max-lg:col-start-2 max-lg:row-start-3 max-lg:mt-0 max-lg:mr-[calc(5px-1.25rem)] max-[500px]:flex-col md:max-lg:mr-[calc(5px-2.5rem)] lg:col-start-1 lg:row-start-2 ${
+        className={`mt-[2px] ml-auto flex w-fit border border-hbb-rooms-highlight/30 bg-[#e8e8e8] transition-opacity duration-300 max-lg:col-start-2 max-lg:row-start-3 max-lg:mt-0 max-lg:mr-[calc(5px-1.25rem)] max-[500px]:flex-col md:max-lg:mr-[calc(5px-2.5rem)] lg:col-start-1 lg:row-start-2 ${
           priceVisible ? 'opacity-100' : 'opacity-0'
         } motion-reduce:opacity-100`}
       >
           <li className="flex flex-row items-center justify-center gap-2 border-r border-hbb-rooms-highlight/30 px-3 py-2 max-[500px]:border-r-0 max-[500px]:border-b">
-            <Ruler aria-hidden="true" size={14} className="shrink-0 text-hbb-rooms-highlight" />
+            <Ruler aria-hidden="true" size={14} className="shrink-0 text-hbb-rooms-accent-text" />
             <span className="font-ui text-[0.78rem] leading-snug text-[#5a5a5a]">
               <span className="sr-only">{t('specSize')}: </span>
               {active.sizeLabel}
             </span>
           </li>
           <li className="flex flex-row items-center justify-center gap-2 px-3 py-2">
-            <Users aria-hidden="true" size={14} className="shrink-0 text-hbb-rooms-highlight" />
+            <Users aria-hidden="true" size={14} className="shrink-0 text-hbb-rooms-accent-text" />
             <span className="font-ui text-[0.78rem] leading-snug text-[#5a5a5a]">
               <span className="sr-only">{t('specSleeps')}: </span>
               {active.sleepsLabel === '–'
@@ -226,7 +229,7 @@ export function RoomsTeaser({ rooms, copy }: Props) {
                   <AmenityIcon
                     iconName={amenity.iconName}
                     size={14}
-                    className="shrink-0 text-hbb-rooms-highlight"
+                    className="shrink-0 text-hbb-rooms-accent-text"
                   />
                   {amenity.name}
                 </li>
@@ -235,7 +238,11 @@ export function RoomsTeaser({ rooms, copy }: Props) {
           ) : null}
         </div>
 
-        <SweepCta href="/rooms" className="mt-10 max-lg:col-span-2 max-lg:mt-8 max-lg:w-fit max-lg:justify-self-start">
+        <SweepCta
+          href="/rooms"
+          color="rooms-accent"
+          className="mt-10 max-lg:col-span-2 max-lg:mt-8 max-lg:w-fit max-lg:justify-self-start"
+        >
           {copy.ctaLabel}
           <span className="sr-only"> {t('ctaSrSuffix')}</span>
         </SweepCta>

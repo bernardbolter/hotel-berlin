@@ -8,6 +8,9 @@ export type RoomGalleryImage = {
   src: string
   alt: string
   caption?: string | null
+  srcSet?: string
+  sizes?: string
+  objectPosition?: string
   /** Intrinsic width — used so we never upscale past the real asset. */
   width?: number
   height?: number
@@ -215,6 +218,11 @@ export function RoomGallery({
             const w = image.width ?? DEFAULT_W
             const h = image.height ?? DEFAULT_H
             const isActive = index === trackIndex
+            const logical = total > 0 ? ((index % total) + total) % total : 0
+            // Alternate small corner radii so successive slides feel distinct.
+            // One corner only, ~25px, alternating which corner.
+            const radiusClass =
+              logical % 2 === 0 ? 'rounded-tl-[25px]' : 'rounded-tr-[25px]'
             return (
               <button
                 key={`${image.src}-loop-${index}`}
@@ -223,7 +231,8 @@ export function RoomGallery({
                   if (!isActive) goToTrack(index)
                 }}
                 className={[
-                  'relative shrink-0 overflow-hidden rounded-sm bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-rooms-highlight',
+                  'relative shrink-0 overflow-hidden bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hbb-rooms-highlight',
+                  radiusClass,
                   isActive ? 'cursor-default' : 'cursor-pointer opacity-70 hover:opacity-90',
                 ].join(' ')}
                 style={{ width: slideWidth, height: slideHeight }}
@@ -236,8 +245,13 @@ export function RoomGallery({
                   alt={image.alt}
                   width={w}
                   height={h}
-                  sizes={`${slideWidth}px`}
+                  sizes={image.sizes ?? `${slideWidth}px`}
                   className="h-full w-full object-contain"
+                  style={
+                    image.objectPosition
+                      ? { objectPosition: image.objectPosition }
+                      : undefined
+                  }
                   priority={index >= middleStart && index < middleStart + total}
                   draggable={false}
                 />

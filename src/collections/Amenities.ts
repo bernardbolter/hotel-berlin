@@ -1,6 +1,6 @@
 import type { CollectionConfig, TextField } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { openingHoursArrayField } from '@/fields/openingHours'
 import { specialHoursArrayField } from '@/fields/specialHours'
 import { collectionCacheHooks } from '@/lib/payload/revalidate'
@@ -15,6 +15,7 @@ export const Amenities: CollectionConfig = {
     plural: 'Amenities',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'title',
     group: 'Content',
     defaultColumns: ['title', 'kind', 'location', 'hidden', 'pending', 'updatedAt'],

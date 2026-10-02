@@ -1,10 +1,12 @@
 import type { CollectionConfig } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 
 import { geocodeNeighbourhoodPlaceBeforeChange } from './hooks/geocodeNeighbourhoodPlace'
 
 export const NeighbourhoodPlaces: CollectionConfig = {
   slug: 'neighbourhood-places',
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'featuredOrder', 'distanceTier', 'status', 'updatedAt'],
     group: 'Neighbourhood',

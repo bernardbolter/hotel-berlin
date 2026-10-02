@@ -170,7 +170,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * CMS logins. Only admins can create users or change roles. Hotel staff accounts should be Editor.
+ * CMS logins. Only admins can create users or change roles. Hotel floor staff use the hotel-staff role (Rooms + Meeting Rooms Manager only).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -178,9 +178,9 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   /**
-   * Admins manage users and the Hotel global. Editors manage collections and the other globals. Set hotel accounts to Editor.
+   * Admins manage users and the Hotel global. Editors manage other content. Hotel staff: Rooms Manager, Meeting Rooms Manager and media upload only.
    */
-  role: 'admin' | 'editor';
+  role: 'admin' | 'editor' | 'hotel-staff';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -295,7 +295,11 @@ export interface Room {
   name: string;
   slug: string;
   /**
-   * Max 160 chars. AI citation length.
+   * Hidden rooms disappear from the homepage slider, /rooms and the sitemap.
+   */
+  visibleOnSite?: boolean | null;
+  /**
+   * Auto-derived from the long description (max 160 chars + …). Prefer editing description; teaser surfaces truncate the long text.
    */
   shortDescription?: string | null;
   description?: {
@@ -369,11 +373,18 @@ export interface Room {
     [k: string]: unknown;
   } | null;
   amenities?: (number | Tag)[] | null;
+  /**
+   * First photo = cover. Order: wide, second angle, bed, bath, detail, view. Landscape 3:2; 2000px width recommended, smaller photos are allowed.
+   */
   images?:
     | {
         image: number | Media;
         alt: string;
         caption?: string | null;
+        /**
+         * Optional shot category for gallery ordering guidance.
+         */
+        shotType?: ('wide' | 'bed' | 'bath' | 'detail' | 'view') | null;
         id?: string | null;
       }[]
     | null;
@@ -435,6 +446,10 @@ export interface MeetingRoom {
    * Same slug for /meetings/[slug] and /tagungen/[slug].
    */
   slug: string;
+  /**
+   * Hidden rooms disappear from the homepage, /meetings and the sitemap.
+   */
+  visibleOnSite?: boolean | null;
   area: 'saal' | 'bereich-a' | 'bereich-b' | 'bereich-c' | 'sonderflaeche';
   displayOrder: number;
   /**
@@ -462,6 +477,9 @@ export interface MeetingRoom {
     reception?: number | null;
     block?: number | null;
   };
+  /**
+   * First photo = cover (homepage and cards). Landscape 3:2; 2000px width recommended.
+   */
   images?:
     | {
         image: number | Media;
@@ -493,9 +511,22 @@ export interface MeetingRoom {
     [k: string]: unknown;
   } | null;
   /**
-   * Show on homepage Meet & Work teaser if used.
+   * Legacy homepage flag — prefer Homepage teaser → Enabled.
    */
   featured?: boolean | null;
+  /**
+   * Controls the Meet & Work rotation on the homepage.
+   */
+  homepageTeaser?: {
+    /**
+     * Include this meeting room in the homepage teaser rotation.
+     */
+    enabled?: boolean | null;
+    /**
+     * Rotation sequence (lower first).
+     */
+    order?: number | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -716,7 +747,7 @@ export interface Venue {
   createdAt: string;
 }
 /**
- * Hero photo rotation for the homepage and /here guest hub. Prefer the guided views Hero Startseite / Hero Hier.
+ * Photo rotation for homepage hero, /here hero, and Eat & Drink. Prefer the guided views (Hero Startseite / Hero Hier / Hero Essen & Trinken).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hero-slides".
@@ -757,9 +788,9 @@ export interface HeroSlide {
    */
   aiNotes?: string | null;
   /**
-   * Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.
+   * Which surface this slide appears on. Duplicate a slide (same image) to show it in more than one place.
    */
-  context: 'homepage' | 'here';
+  context: 'homepage' | 'here' | 'eat-and-drink';
   /**
    * Controls rotation sequence (lower first). Managed by the guided reorder UI.
    */
@@ -1183,15 +1214,7 @@ export interface NeighbourhoodPlace {
   name: string;
   slug: string;
   category:
-    | 'Art'
-    | 'Bar'
-    | 'Kids'
-    | 'Museum'
-    | 'Parks and Nature'
-    | 'Party'
-    | 'Restaurant'
-    | 'Shopping'
-    | 'Sightseeing';
+    'Art' | 'Bar' | 'Kids' | 'Museum' | 'Parks and Nature' | 'Party' | 'Restaurant' | 'Shopping' | 'Sightseeing';
   /**
    * xlsx “Also” column. Stored as a tag; primary `category` drives card colour and the map pin.
    */
@@ -1993,6 +2016,7 @@ export interface TagsSelect<T extends boolean = true> {
 export interface RoomsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  visibleOnSite?: T;
   shortDescription?: T;
   description?: T;
   fromPrice?: T;
@@ -2026,6 +2050,7 @@ export interface RoomsSelect<T extends boolean = true> {
         image?: T;
         alt?: T;
         caption?: T;
+        shotType?: T;
         id?: T;
       };
   socialImage?: T;
@@ -2056,6 +2081,7 @@ export interface RoomsSelect<T extends boolean = true> {
 export interface MeetingRoomsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  visibleOnSite?: T;
   area?: T;
   displayOrder?: T;
   floorSizeM2?: T;
@@ -2087,6 +2113,12 @@ export interface MeetingRoomsSelect<T extends boolean = true> {
   shortDescription?: T;
   description?: T;
   featured?: T;
+  homepageTeaser?:
+    | T
+    | {
+        enabled?: T;
+        order?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -3009,7 +3041,7 @@ export interface Hotel {
     body?: string | null;
   };
   /**
-   * Homepage Lütze / Eat & Drink teaser — Rooms-style layout (text + arch photo + one Sweep CTA). Links to /restaurant.
+   * Homepage Lütze / Eat & Drink teaser copy. Photos are managed under Hero Essen & Trinken (/admin/hero-essen).
    */
   eatAndDrink?: {
     /**
@@ -3025,11 +3057,11 @@ export interface Hotel {
      */
     body?: string | null;
     /**
-     * Arch-topped teaser photo (interior / terrace).
+     * Fallback photo when no Eat & Drink hero slides exist. Prefer Hero Essen & Trinken for the rotating gallery.
      */
     image?: (number | null) | Media;
     /**
-     * Descriptive alt text — AEO ImageObject.description.
+     * Descriptive alt text for the fallback image — AEO ImageObject.description.
      */
     imageAlt?: string | null;
     /**

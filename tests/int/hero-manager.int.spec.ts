@@ -222,6 +222,19 @@ describe('hero AI reply', () => {
     expect(p).toContain('captionOverrideEn')
   })
 
+  it('requires German caption when only English is drafted', () => {
+    const p = heroAiPrompt({
+      context: 'eat-and-drink',
+      venues: ['Lütze'],
+      locale: 'en',
+      captionOverrideEn: 'Evening courtyard',
+    })
+    expect(p).toContain('Evening courtyard')
+    expect(p).toContain('MISSING')
+    expect(p).toContain('German translation of:')
+    expect(p).toMatch(/"captionOverrideEn": "Evening courtyard"/)
+  })
+
   it('parses caption overrides from the AI reply', () => {
     const raw = JSON.stringify({
       gesehen: {
@@ -242,6 +255,72 @@ describe('hero AI reply', () => {
 
   it('rejects malformed JSON', () => {
     expect(parseHeroAiReply('not json').ok).toBe(false)
+  })
+
+  it('accepts keywords as a comma-separated string and string fokus coords', () => {
+    const raw = JSON.stringify({
+      gesehen: {
+        altDe: 'Theke mit Gläsern',
+        altEn: 'Bar counter with glasses',
+        stichworteDe: 'Bar, Lütze, Interior',
+        stichworteEn: 'bar, Lütze, interior',
+        fokuspunkt: { x: '42', y: '58' },
+        ortVorschlag: 'Lütze',
+      },
+      hinweiseDe: ['ok'],
+      hinweiseEn: ['ok'],
+    })
+    const parsed = parseHeroAiReply(raw)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    expect(parsed.data.stichworteDe).toEqual(['Bar', 'Lütze', 'Interior'])
+    expect(parsed.data.stichworteEn).toEqual(['bar', 'Lütze', 'interior'])
+    expect(parsed.data.fokuspunkt).toEqual({ x: 42, y: 58 })
+  })
+
+  it('extracts JSON wrapped in prose or a fence with a trailing comma', () => {
+    const raw = `Here is the analysis:
+\`\`\`json
+{
+  "gesehen": {
+    "altDe": "Frühstückstisch",
+    "altEn": "Breakfast table",
+  },
+  "hinweiseDe": ["ok"],
+  "hinweiseEn": ["ok"],
+}
+\`\`\`
+`
+    const parsed = parseHeroAiReply(raw)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    expect(parsed.data.altDe).toBe('Frühstückstisch')
+    expect(parsed.data.altEn).toBe('Breakfast table')
+  })
+
+  it('repairs unescaped quotes inside hinweise strings (place "Lütze")', () => {
+    const raw = `{
+"gesehen": {
+"altDe": "Restaurant mit Bar",
+"altEn": "Restaurant with bar",
+"ortVorschlag": "Lütze",
+"fokuspunkt": { "x": 40, "y": 50 }
+},
+"hinweiseDe": ["Die Zuordnung zum Ort „Lütze“ ist ein Vorschlag."],
+"hinweiseEn": ["The assignment to the place "Lütze" is a suggestion based on the bar."]
+}`
+    const parsed = parseHeroAiReply(raw)
+    expect(parsed.ok).toBe(true)
+    if (!parsed.ok) return
+    expect(parsed.data.ortVorschlag).toBe('Lütze')
+    expect(parsed.data.hinweiseEn[0]).toContain('Lütze')
+  })
+
+  it('returns a json error code for total garbage', () => {
+    const parsed = parseHeroAiReply('not json')
+    expect(parsed.ok).toBe(false)
+    if (parsed.ok) return
+    expect(parsed.error).toBe('json')
   })
 
   it('matches venue names case-insensitively', () => {

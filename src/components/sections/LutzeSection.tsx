@@ -5,7 +5,7 @@ import {
   SectionShell,
   type LightSectionBackground,
 } from '@/components/layout/SectionShell'
-import { getEatAndDrink } from '@/lib/payload/homepage'
+import { getEatAndDrink, getEatAndDrinkSlides } from '@/lib/payload/homepage'
 import { getVenueBySlug } from '@/lib/payload/venues'
 import {
   formatVenueHoursSegments,
@@ -19,12 +19,13 @@ type Props = {
 
 /**
  * Homepage Eat & Drink / Lütze block — after Happenings, before the map.
- * Payload-backed copy + photo; Rooms-mirrored layout.
+ * Payload-backed copy + hero-slides photo rotation.
  */
 export async function LutzeSection({ background }: Props) {
   const locale = (await getLocale()) as 'de' | 'en'
-  const [copy, venue, t, tRest] = await Promise.all([
+  const [copy, slides, venue, t, tRest] = await Promise.all([
     getEatAndDrink(locale),
+    getEatAndDrinkSlides(),
     getVenueBySlug('lutze', locale).catch(() => null),
     getTranslations('lutze'),
     getTranslations('restaurantPage'),
@@ -68,9 +69,11 @@ export async function LutzeSection({ background }: Props) {
       <div className="site-shell box-border pt-14 pr-[15px] pb-[41px] pl-5 min-[551px]:pr-5 md:pt-16 md:pb-[49px] md:pl-10 lg:pt-20 lg:pr-[10px] lg:pb-[65px] xl:pl-14">
         <LutzeTeaser
           copy={copy}
+          slides={slides}
           facts={facts}
           restaurantUrl="https://www.luetze-berlin.de/"
           visitAria={t('ctaVisitAria')}
+          galleryAria={t('galleryAria')}
         />
       </div>
     </SectionShell>

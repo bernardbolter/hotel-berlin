@@ -759,6 +759,26 @@ export const wundermartLocaleDe = {
   location: 'Lobby',
 }
 
+export const fruehstueckSeed = {
+  name: 'Breakfast',
+  slug: 'fruehstueck',
+  venueType: 'Restaurant' as const,
+  location: 'Lütze, ground floor',
+  shortDescription:
+    'Hotel breakfast in Lütze — weekdays 06:30–10:00, weekends until 11:00.',
+  isGuestFacing: true,
+  isOpenToPublic: false,
+  featured: false,
+  displayOrder: 0,
+}
+
+export const fruehstueckLocaleDe = {
+  name: 'Frühstück',
+  shortDescription:
+    'Hotelfrühstück in der Lütze — Wochentags 06:30–10:00, am Wochenende bis 11:00.',
+  location: 'Lütze, Erdgeschoss',
+}
+
 export const venuesSeed = [
   {
     name: 'Lütze',
@@ -832,6 +852,7 @@ export const venuesSeed = [
     displayOrder: 4,
   },
   wundermartSeed,
+  fruehstueckSeed,
   {
     name: 'Wallride',
     slug: 'wallride',

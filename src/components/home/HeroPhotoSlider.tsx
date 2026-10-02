@@ -15,6 +15,8 @@ type Props = {
   activeIndex: number
   onIndexChange: (index: number) => void
   className?: string
+  /** Pause / play control corner. Default top-right (main heroes). */
+  pauseAlign?: 'left' | 'right'
 }
 
 export function HeroPhotoSlider({
@@ -23,6 +25,7 @@ export function HeroPhotoSlider({
   activeIndex,
   onIndexChange,
   className = '',
+  pauseAlign = 'right',
 }: Props) {
   const locale = useLocale()
   const tc = useTranslations('common')
@@ -112,7 +115,9 @@ export function HeroPhotoSlider({
       {slides.length > 1 ? (
         <button
           type="button"
-          className="absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center bg-black/25 text-white/90 transition-colors hover:bg-black/45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className={`absolute top-3 z-10 flex h-8 w-8 items-center justify-center bg-black/25 text-white/90 transition-colors hover:bg-black/45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+            pauseAlign === 'left' ? 'left-3' : 'right-3'
+          }`}
           aria-label={paused || reduceMotion ? tc('playSlideshow') : tc('pauseSlideshow')}
           aria-pressed={paused || reduceMotion}
           onClick={() => setPaused((value) => !value)}

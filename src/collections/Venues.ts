@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { collectionCacheHooks } from '@/lib/payload/revalidate'
 import { openingHoursArrayField } from '../fields/openingHours'
 import { specialHoursArrayField } from '../fields/specialHours'
@@ -9,7 +9,10 @@ export const Venues: CollectionConfig = {
   slug: 'venues',
   ...collectionCacheHooks('venues'),
   access: publicReadStaffWrite,
-  admin: { useAsTitle: 'name' },
+  admin: {
+    hidden: hideFromHotelStaff,
+    useAsTitle: 'name',
+  },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
     { name: 'slug', type: 'text', required: true, unique: true },

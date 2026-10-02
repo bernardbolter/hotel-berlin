@@ -1,7 +1,7 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { collectionCacheHooks } from '@/lib/payload/revalidate'
 
 const identityDescription =
@@ -11,7 +11,11 @@ export const Artists: CollectionConfig = {
   slug: 'artists',
   ...collectionCacheHooks('artists'),
   access: publicReadStaffWrite,
-  admin: { useAsTitle: 'name', group: 'Content' },
+  admin: {
+    hidden: hideFromHotelStaff,
+    useAsTitle: 'name',
+    group: 'Content',
+  },
   fields: [
     { name: 'name', type: 'text', required: true },
     slugField({ name: 'slug', useAsSlug: 'name' }),

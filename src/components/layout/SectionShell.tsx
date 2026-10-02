@@ -12,22 +12,33 @@ export type SectionBackground =
   | 'here-tan'
   | 'surface'
   | 'neutral-light'
+  | 'surface-rooms'
+  | 'surface-meetings'
+  | 'surface-dining'
+  | 'surface-dark'
+  | 'surface-neutral'
   | 'amber-light'
   | 'coral-light'
   | 'gold-light'
   | 'green-light'
   | 'teal-light'
+  | 'none'
 
 /** Tints that light content sections may take — never a silent default. */
 export type LightSectionBackground = Extract<
   SectionBackground,
   | 'surface'
   | 'neutral-light'
+  | 'surface-rooms'
+  | 'surface-meetings'
+  | 'surface-dining'
+  | 'surface-neutral'
   | 'amber-light'
   | 'coral-light'
   | 'gold-light'
   | 'green-light'
   | 'teal-light'
+  | 'none'
 >
 
 const BG_CLASS: Record<SectionBackground, string> = {
@@ -37,11 +48,17 @@ const BG_CLASS: Record<SectionBackground, string> = {
   'here-tan': '',
   surface: 'bg-white',
   'neutral-light': 'bg-hbb-bg-subtle',
+  'surface-rooms': 'bg-hbb-surface-rooms',
+  'surface-meetings': 'bg-hbb-surface-meetings',
+  'surface-dining': 'bg-hbb-surface-dining',
+  'surface-dark': 'bg-hbb-surface-dark',
+  'surface-neutral': 'bg-hbb-surface-neutral',
   'amber-light': 'bg-hbb-amber-light',
   'coral-light': 'bg-hbb-coral-light',
   'gold-light': 'bg-hbb-gold-light',
   'green-light': 'bg-hbb-green-light',
   'teal-light': 'bg-hbb-teal-light',
+  none: '',
 }
 
 export function sectionBackgroundClass(background: SectionBackground): string {

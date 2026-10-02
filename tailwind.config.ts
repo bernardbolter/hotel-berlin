@@ -26,6 +26,9 @@ const config: Config = {
         'hbb-coral': '#F95D62',
         /** Rooms pages only — prices, nav rail, amenity icons. Not site-wide coral. */
         'hbb-rooms-highlight': '#C16157',
+        /** Homepage Sleep & Relax — tokens.json color.rooms.accentText / imagePanel */
+        'hbb-rooms-accent-text': 'var(--rooms-accent-text)',
+        'hbb-image-panel': 'var(--image-panel)',
         'hbb-purple': '#6A5870',
         'hbb-gold': '#A08C38',
         /** Eat & Drink / Lütze accent — espresso (unused elsewhere in map palette) */
@@ -48,11 +51,26 @@ const config: Config = {
         'hbb-amber-wash': '#FDF6EA',
         /** Section rhythm tints — DESIGN.md / tokens.json color.sectionBg */
         'hbb-bg-subtle': 'var(--bg-subtle)',
+        /** Sleep & Relax section ground — tokens.json color.rooms.surface */
+        'hbb-surface-rooms': 'var(--surface-rooms)',
+        /** Meet & Work section ground — tokens.json color.meetings.surface */
+        'hbb-surface-meetings': 'var(--surface-meetings)',
+        'hbb-meetings-highlight': 'var(--meetings-highlight)',
+        /** Eat & Drink section ground — tokens.json color.eatAndDrink.surface */
+        'hbb-surface-dining': 'var(--surface-dining)',
+        'hbb-dining-chip': 'var(--dining-chip)',
         'hbb-amber-light': 'var(--amber-light)',
         'hbb-coral-light': 'var(--coral-light)',
         'hbb-gold-light': 'var(--gold-light)',
         'hbb-green-light': 'var(--green-light)',
         'hbb-teal-light': 'var(--teal-light)',
+        /** Homepage map header + book-direct strip — tokens.json color.sectionBg.surfaceDark */
+        'hbb-surface-dark': 'var(--surface-dark)',
+        'hbb-surface-neutral': 'var(--surface-neutral)',
+        'hbb-on-dark': 'var(--on-dark)',
+        'hbb-on-dark-heading': 'var(--on-dark-heading)',
+        'hbb-on-dark-muted': 'var(--on-dark-muted)',
+        'hbb-on-dark-link': 'var(--on-dark-link)',
 
         // Deep teal — Meet & Work, hero overlay
         'hbb-teal-deep': '#1A3C40',

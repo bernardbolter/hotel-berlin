@@ -1,7 +1,7 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { artPhotoHelp } from '@/lib/art/photoHelp'
 import {
   ART_ARTFORM_OPTIONS,
@@ -28,6 +28,7 @@ export const Artworks: CollectionConfig = {
     plural: 'Artworks',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'title',
     group: 'Content',
     defaultColumns: ['title', 'artist', 'artworkType', 'visibility', 'pinned', 'status'],

@@ -1,7 +1,7 @@
 import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { collectionCacheHooks } from '@/lib/payload/revalidate'
 
 export const Exhibitions: CollectionConfig = {
@@ -13,7 +13,11 @@ export const Exhibitions: CollectionConfig = {
     '/here/events',
   ]),
   access: publicReadStaffWrite,
-  admin: { useAsTitle: 'title', group: 'Content' },
+  admin: {
+    hidden: hideFromHotelStaff,
+    useAsTitle: 'title',
+    group: 'Content',
+  },
   fields: [
     { name: 'title', type: 'text', required: true },
     slugField({ name: 'slug', useAsSlug: 'title' }),

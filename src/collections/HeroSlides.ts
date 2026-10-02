@@ -1,19 +1,19 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { enforceHeroSlideCompletenessOnEnable } from '@/lib/completeness/enforceHeroEnable'
 import { heroSlidesNormaliseEndpoint, heroSlidesReorderEndpoint } from '@/endpoints/heroSlidesReorder'
-import { heroPathsForContext } from '@/endpoints/heroSlidesReorder'
+import { heroPathsForContext, isHeroSlideContext } from '@/lib/hero/slideContext'
 import { revalidateCms } from '@/lib/payload/revalidate'
 
 const afterChange: CollectionAfterChangeHook = async ({ doc, req }) => {
-  const context = doc.context === 'here' ? 'here' : 'homepage'
+  const context = isHeroSlideContext(doc.context) ? doc.context : 'homepage'
   await revalidateCms(req, ['hero-slides'], heroPathsForContext(context))
   return doc
 }
 
 const afterDelete: CollectionAfterDeleteHook = async ({ doc, req }) => {
-  const context = doc?.context === 'here' ? 'here' : 'homepage'
+  const context = isHeroSlideContext(doc?.context) ? doc.context : 'homepage'
   await revalidateCms(req, ['hero-slides'], heroPathsForContext(context))
 }
 
@@ -24,10 +24,11 @@ export const HeroSlides: CollectionConfig = {
     plural: 'Hero slides',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'adminTitle',
     defaultColumns: ['adminTitle', 'context', 'order', 'enabled', 'updatedAt'],
     description:
-      'Hero photo rotation for the homepage and /here guest hub. Prefer the guided views Hero Startseite / Hero Hier.',
+      'Photo rotation for homepage hero, /here hero, and Eat & Drink. Prefer the guided views (Hero Startseite / Hero Hier / Hero Essen & Trinken).',
     components: {
       beforeListTable: ['/components/admin/HeroManagerButtons#HeroManagerListLinks'],
     },
@@ -135,10 +136,11 @@ export const HeroSlides: CollectionConfig = {
       options: [
         { label: 'Homepage', value: 'homepage' },
         { label: '/here guest hub', value: 'here' },
+        { label: 'Eat & Drink', value: 'eat-and-drink' },
       ],
       admin: {
         description:
-          'Which hero this slide appears in. Existing slides default to homepage. Duplicate a slide (same image) to show it in both heroes.',
+          'Which surface this slide appears on. Duplicate a slide (same image) to show it in more than one place.',
         position: 'sidebar',
       },
     },

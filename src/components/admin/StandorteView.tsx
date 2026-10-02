@@ -1,6 +1,7 @@
 import type { AdminViewServerProps } from 'payload'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 
+import { isHotelStaffUser } from '@/access'
 import { StandorteClient } from './StandorteClient'
 
 export function StandorteView({
@@ -28,7 +29,14 @@ export function StandorteView({
       viewActions={viewActions}
       visibleEntities={visibleEntities}
     >
-      <StandorteClient />
+      {isHotelStaffUser(user) ? (
+        <p style={{ padding: 24 }}>
+          Keine Berechtigung.{' '}
+          <a href="/admin/rooms-manager">Zum Zimmer-Manager</a>
+        </p>
+      ) : (
+        <StandorteClient />
+      )}
     </DefaultTemplate>
   )
 }

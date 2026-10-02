@@ -1,8 +1,11 @@
 import type { CollectionConfig, TextField } from 'payload'
 
+import { hideFromHotelStaff, tagsAccess } from '@/access'
+
 export const Tags: CollectionConfig = {
   slug: 'tags',
-  admin: { useAsTitle: 'name' },
+  access: tagsAccess,
+  admin: { useAsTitle: 'name', hidden: hideFromHotelStaff },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
     { name: 'slug', type: 'text', required: true, unique: true },

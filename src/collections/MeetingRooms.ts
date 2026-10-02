@@ -1,11 +1,49 @@
 import type { CollectionConfig } from 'payload'
 
+import { meetingRoomsAccess } from '@/access'
+import {
+  meetingRoomsImagesPatchEndpoint,
+  meetingRoomsImagesReorderEndpoint,
+  meetingRoomsImagesReplaceEndpoint,
+  meetingRoomsImagesUploadEndpoint,
+  meetingRoomsQuickUpdateEndpoint,
+} from '@/endpoints/meetingRoomsManager'
+import {
+  meetingRoomsReorderPageEndpoint,
+  meetingRoomsReorderSliderEndpoint,
+} from '@/endpoints/meetingRoomsReorder'
+
 export const MeetingRooms: CollectionConfig = {
   slug: 'meeting-rooms',
+  access: meetingRoomsAccess,
+  versions: {
+    maxPerDoc: 20,
+  },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'area', 'floorSizeM2', 'displayOrder', 'featured'],
+    defaultColumns: [
+      'name',
+      'visibleOnSite',
+      'area',
+      'floorSizeM2',
+      'displayOrder',
+      'homepageTeaser',
+    ],
+    components: {
+      beforeListTable: [
+        '/components/admin/MeetingRoomsManagerButtons#MeetingRoomsManagerListLink',
+      ],
+    },
   },
+  endpoints: [
+    meetingRoomsReorderPageEndpoint,
+    meetingRoomsReorderSliderEndpoint,
+    meetingRoomsImagesReorderEndpoint,
+    meetingRoomsImagesReplaceEndpoint,
+    meetingRoomsImagesUploadEndpoint,
+    meetingRoomsImagesPatchEndpoint,
+    meetingRoomsQuickUpdateEndpoint,
+  ],
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
     {
@@ -15,6 +53,22 @@ export const MeetingRooms: CollectionConfig = {
       unique: true,
       admin: {
         description: 'Same slug for /meetings/[slug] and /tagungen/[slug].',
+      },
+    },
+    {
+      name: 'visibleOnSite',
+      type: 'checkbox',
+      defaultValue: true,
+      label: {
+        de: 'Auf der Website anzeigen',
+        en: 'Show on website',
+      },
+      admin: {
+        description: {
+          de: 'Ausgeblendete Räume erscheinen nicht auf der Startseite, unter /tagungen und in der Sitemap.',
+          en: 'Hidden rooms disappear from the homepage, /meetings and the sitemap.',
+        },
+        position: 'sidebar',
       },
     },
     {
@@ -71,6 +125,12 @@ export const MeetingRooms: CollectionConfig = {
     {
       name: 'images',
       type: 'array',
+      admin: {
+        description: {
+          de: 'Erstes Foto = Titelbild (Startseite und Karten). Querformat 3:2; 2000 px Breite empfohlen.',
+          en: 'First photo = cover (homepage and cards). Landscape 3:2; 2000px width recommended.',
+        },
+      },
       fields: [
         { name: 'image', type: 'upload', relationTo: 'media', required: true },
         { name: 'alt', type: 'text', required: true, localized: true },
@@ -100,7 +160,30 @@ export const MeetingRooms: CollectionConfig = {
       name: 'featured',
       type: 'checkbox',
       defaultValue: false,
-      admin: { description: 'Show on homepage Meet & Work teaser if used.' },
+      admin: { description: 'Legacy homepage flag — prefer Homepage teaser → Enabled.' },
+    },
+    {
+      name: 'homepageTeaser',
+      type: 'group',
+      label: 'Homepage teaser',
+      admin: {
+        description: 'Controls the Meet & Work rotation on the homepage.',
+      },
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description: 'Include this meeting room in the homepage teaser rotation.',
+          },
+        },
+        {
+          name: 'order',
+          type: 'number',
+          admin: { description: 'Rotation sequence (lower first).' },
+        },
+      ],
     },
   ],
 }

@@ -1,6 +1,7 @@
 import type { AdminViewServerProps } from 'payload'
 import { DefaultTemplate } from '@payloadcms/next/templates'
 
+import { isHotelStaffUser } from '@/access'
 import { NeuesWerkClient } from './NeuesWerkClient'
 
 export function NeuesWerkView({
@@ -28,7 +29,14 @@ export function NeuesWerkView({
       viewActions={viewActions}
       visibleEntities={visibleEntities}
     >
-      <NeuesWerkClient />
+      {isHotelStaffUser(user) ? (
+        <p style={{ padding: 24 }}>
+          Keine Berechtigung.{' '}
+          <a href="/admin/rooms-manager">Zum Zimmer-Manager</a>
+        </p>
+      ) : (
+        <NeuesWerkClient />
+      )}
     </DefaultTemplate>
   )
 }

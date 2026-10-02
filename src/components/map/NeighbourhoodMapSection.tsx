@@ -24,9 +24,12 @@ import { mediaSizedUrl } from '@/lib/media/url'
 import { safeMediaUrl } from '@/lib/entity/mediaUrl'
 import type { NeighbourhoodPlace } from '@/payload-types'
 
-/** Slightly under Rooms / Happenings title scale (Laica), off-black. */
+/** Slightly under Rooms / Happenings title scale (Laica). */
 const HEADING_CLASS =
-  'text-left font-serif text-[clamp(1.45rem,2.3vw,2.1rem)] font-normal leading-[1.12] text-[#1F1F1F]'
+  'text-left font-serif text-[clamp(1.45rem,2.3vw,2.1rem)] font-normal leading-[1.12]'
+const HEADING_DEFAULT = `${HEADING_CLASS} text-[#1F1F1F]`
+/** Same white as hero forest panel type. */
+const HEADING_ON_FOREST = `${HEADING_CLASS} text-white`
 
 function mediaUrl(image: NeighbourhoodPlaceDoc['image']): string | null {
   return mediaSizedUrl(image, 'card')
@@ -138,6 +141,8 @@ type Props = {
   layout?: 'section' | 'card'
   /** Explicit section tint — required so rhythm stays intentional. */
   background: LightSectionBackground
+  /** Homepage bookend: hero-forest header strip above an un-tinted map. */
+  headerTone?: 'default' | 'dark'
 }
 
 /**
@@ -150,6 +155,7 @@ export async function NeighbourhoodMapSection({
   ctaHref = '/neighbourhood',
   ctaLabel,
   background,
+  headerTone = 'default',
 }: Props) {
   const locale = (await getLocale()) as 'de' | 'en'
   const t = await getTranslations('map')
@@ -241,14 +247,43 @@ export async function NeighbourhoodMapSection({
   return (
     <SectionShell as="section" background={background} aria-labelledby={headingId}>
       {listGraph ? <JsonLdScript graph={listGraph} /> : null}
-      <div className="site-shell px-section-sm pb-6 pt-section-y md:px-section-x">
-        <div className="flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
-          <h2 id={headingId} className={HEADING_CLASS}>
-            {heading}
-          </h2>
-          <SweepCta href={ctaHref} color="ink" edge="right" className="shrink-0">
-            {resolvedCta}
-          </SweepCta>
+      <div
+        className={
+          headerTone === 'dark'
+            ? 'bg-hbb-forest text-white [&_:focus-visible]:outline-2 [&_:focus-visible]:outline-offset-[3px] [&_:focus-visible]:outline-white'
+            : undefined
+        }
+      >
+        <div
+          className={
+            headerTone === 'dark'
+              ? 'site-shell px-section-sm py-4 md:px-section-x md:py-5'
+              : 'site-shell px-section-sm pb-6 pt-section-y md:px-section-x'
+          }
+        >
+          <div
+            className={
+              headerTone === 'dark'
+                ? 'flex flex-row items-center justify-between gap-4'
+                : 'flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between'
+            }
+          >
+            <h2
+              id={headingId}
+              className={headerTone === 'dark' ? HEADING_ON_FOREST : HEADING_DEFAULT}
+            >
+              {heading}
+            </h2>
+            <SweepCta
+              href={ctaHref}
+              color="ink"
+              edge="right"
+              invert={headerTone === 'dark'}
+              className="shrink-0"
+            >
+              {resolvedCta}
+            </SweepCta>
+          </div>
         </div>
       </div>
 

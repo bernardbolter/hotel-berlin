@@ -84,6 +84,30 @@ export default buildConfig({
             description: 'Titelbilder der Gästeseite',
           },
         },
+        heroEssen: {
+          Component: '/components/admin/HeroManagerView#HeroEssenView',
+          path: '/hero-essen',
+          meta: {
+            title: 'Hero Essen & Trinken',
+            description: 'Fotos der Eat & Drink-Sektion auf der Startseite',
+          },
+        },
+        roomsManager: {
+          Component: '/components/admin/RoomsManagerView#RoomsManagerView',
+          path: '/rooms-manager',
+          meta: {
+            title: 'Zimmer verwalten',
+            description: 'Startseiten-Slider, Zimmerreihenfolge und Fotos',
+          },
+        },
+        meetingRoomsManager: {
+          Component: '/components/admin/MeetingRoomsManagerView#MeetingRoomsManagerView',
+          path: '/meeting-rooms-manager',
+          meta: {
+            title: 'Tagungsräume verwalten',
+            description: 'Meet & Work auf der Startseite, Raumreihenfolge und Fotos',
+          },
+        },
       },
     },
   },

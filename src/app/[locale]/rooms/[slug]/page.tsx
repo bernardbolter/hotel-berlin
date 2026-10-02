@@ -19,6 +19,7 @@ import {
 import { getRoomBySlug, getRoomSlugs } from '@/lib/payload/rooms'
 import { mapRoomToAeo } from '@/lib/rooms/mapRoomToAeo'
 import { getBathroomLabel } from '@/lib/rooms/bathroomLabels'
+import { roomTeaserDescription } from '@/lib/rooms/roomDescription'
 import {
   resolveLocale,
   roomAmenities,
@@ -83,7 +84,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${room.name} | Hotel Berlin, Berlin`,
-    description: room.shortDescription ?? undefined,
+    description: roomTeaserDescription(room) || undefined,
     alternates: {
       canonical: `https://hotel-berlin.de${path}`,
       languages: {
@@ -172,19 +173,16 @@ export default async function RoomDetailPage({ params }: Props) {
 
         <RoomGallery
           className="mt-8"
-          images={hero.images.map((img, index) => {
-            const media = room.images?.[index]?.image
-            const dims =
-              media && typeof media === 'object'
-                ? { width: media.width ?? undefined, height: media.height ?? undefined }
-                : {}
-            return {
-              src: img.src,
-              alt: img.alt,
-              caption: room.images?.[index]?.caption ?? null,
-              ...dims,
-            }
-          })}
+          images={hero.detailImages.map((img) => ({
+            src: img.src,
+            alt: img.alt,
+            caption: img.caption ?? null,
+            srcSet: img.srcSet,
+            sizes: img.sizes,
+            objectPosition: img.objectPosition,
+            width: img.width,
+            height: img.height,
+          }))}
           ariaLabel={t('galleryAria')}
           prevLabel={t('prevImage')}
           nextLabel={t('nextImage')}
@@ -215,12 +213,6 @@ export default async function RoomDetailPage({ params }: Props) {
               accessible: t('featureAccessible'),
             }}
           />
-
-          {room.shortDescription && !room.description ? (
-            <p className="mt-10 max-w-2xl font-serif text-serif-md text-gray-700">
-              {room.shortDescription}
-            </p>
-          ) : null}
 
           <RichTextParagraphs
             value={room.description}

@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { publicReadStaffWrite } from '@/access'
+import { publicReadStaffWrite, hideFromHotelStaff } from '@/access'
 import { revalidateCms } from '@/lib/payload/revalidate'
 
 type LegalSlug = 'imprint' | 'privacy' | 'terms' | 'cookies' | 'disclaimer'
@@ -20,6 +20,7 @@ export const LegalDocuments: CollectionConfig = {
     plural: 'Legal pages',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     group: 'Content',

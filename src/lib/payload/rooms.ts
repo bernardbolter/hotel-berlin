@@ -2,13 +2,19 @@ import type { Room } from '@/payload-types'
 
 import { getPayloadClient } from './client'
 
+const visibleWhere = {
+  or: [{ visibleOnSite: { equals: true } }, { visibleOnSite: { exists: false } }],
+}
+
 /** Rooms for the homepage Sleep & Relax teaser (Outside_short.pdf). */
 export async function getRoomsForHero(locale: 'de' | 'en'): Promise<Room[]> {
   const payload = await getPayloadClient()
 
   const teaser = await payload.find({
     collection: 'rooms',
-    where: { 'homepageTeaser.enabled': { equals: true } },
+    where: {
+      and: [{ 'homepageTeaser.enabled': { equals: true } }, visibleWhere],
+    },
     sort: 'homepageTeaser.order',
     locale,
     depth: 2,
@@ -20,7 +26,9 @@ export async function getRoomsForHero(locale: 'de' | 'en'): Promise<Room[]> {
   // Fallback: legacy `featured` flag until homepageTeaser is populated
   const { docs } = await payload.find({
     collection: 'rooms',
-    where: { featured: { equals: true } },
+    where: {
+      and: [{ featured: { equals: true } }, visibleWhere],
+    },
     sort: 'displayOrder',
     locale,
     depth: 2,
@@ -34,6 +42,7 @@ export async function getAllRooms(locale: 'de' | 'en'): Promise<Room[]> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
+    where: visibleWhere,
     locale,
     depth: 2,
     sort: 'displayOrder',
@@ -51,7 +60,9 @@ export async function getFeaturedRooms(locale: 'de' | 'en' = 'en') {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
-    where: { featured: { equals: true } },
+    where: {
+      and: [{ featured: { equals: true } }, visibleWhere],
+    },
     sort: 'displayOrder',
     locale,
     depth: 2,
@@ -67,7 +78,9 @@ export async function getRoomBySlug(
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
-    where: { slug: { equals: slug } },
+    where: {
+      and: [{ slug: { equals: slug } }, visibleWhere],
+    },
     locale,
     depth: 2,
     limit: 1,
@@ -79,6 +92,7 @@ export async function getRoomSlugs(): Promise<string[]> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'rooms',
+    where: visibleWhere,
     depth: 0,
     limit: 50,
     select: { slug: true },

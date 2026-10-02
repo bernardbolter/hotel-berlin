@@ -1,10 +1,15 @@
-import { Clock, MapPin, Utensils, Wine } from 'lucide-react'
+'use client'
 
+import { Clock, MapPin, Utensils, Wine } from 'lucide-react'
+import { useState } from 'react'
+
+import { HeroPhotoSlider } from '@/components/home/HeroPhotoSlider'
+import type { HeroSlide } from '@/components/home/heroSlides'
 import { SweepCta } from '@/components/primitives/SweepCta'
 import type { EatAndDrinkCopy } from '@/lib/payload/homepage'
 
 /** Eat & Drink accent — espresso (map-palette gap, not amber). */
-const ACCENT = '#5C4033'
+const ACCENT = 'var(--espresso)'
 const LUTZE_SITE = 'https://www.luetze-berlin.de/'
 
 export type LutzeFact = {
@@ -15,9 +20,11 @@ export type LutzeFact = {
 
 type Props = {
   copy: EatAndDrinkCopy
+  slides: HeroSlide[]
   facts?: LutzeFact[]
   restaurantUrl?: string
   visitAria?: string
+  galleryAria?: string
 }
 
 const FACT_ICONS = {
@@ -30,16 +37,27 @@ const FACT_ICONS = {
 /**
  * Homepage Eat & Drink / Lütze teaser — Rooms layout mirrored:
  * text left (1/3), photo right (2/3); stacked below lg like rooms.
+ * Photo is a hero-style crossfade slider when multiple slides are configured.
  */
 export function LutzeTeaser({
   copy,
+  slides,
   facts = [],
   restaurantUrl = LUTZE_SITE,
   visitAria = 'Visit Lütze website (opens in new tab)',
+  galleryAria = 'Lütze restaurant and bar',
 }: Props) {
-  const src = copy.image.src
+  const [activeIndex, setActiveIndex] = useState(0)
   const visibleFacts = facts.filter((fact) => fact.value.trim())
   const href = restaurantUrl.trim() || LUTZE_SITE
+  const fallbackSlide: HeroSlide = {
+    src: copy.image.src,
+    altEN: copy.image.alt,
+    altDE: copy.image.alt,
+    captionEN: '',
+    captionDE: '',
+  }
+  const photoSlides = slides.length > 0 ? slides : [fallbackSlide]
 
   return (
     <div className="grid w-full grid-cols-1 items-start gap-10 max-lg:grid-cols-[auto_minmax(0,1fr)] max-lg:gap-x-3 max-lg:gap-y-0.5 lg:grid-cols-[1fr_2fr] lg:grid-rows-[auto_auto] lg:gap-x-10 lg:gap-y-0">
@@ -51,11 +69,12 @@ export function LutzeTeaser({
             className="w-[2px] shrink-0 self-stretch bg-hbb-espresso max-lg:w-[15px] md:max-lg:w-[35px]"
           />
           <div className="lutze-photo-mask relative min-w-0 flex-1 overflow-hidden bg-hbb-warm max-[550px]:aspect-[1/0.75] min-[551px]:aspect-[3/2]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={src}
-              alt={copy.image.alt}
-              className="hero-photo-img absolute inset-0 h-full w-full object-cover"
+            <HeroPhotoSlider
+              slides={photoSlides}
+              ariaLabel={galleryAria}
+              activeIndex={activeIndex}
+              onIndexChange={setActiveIndex}
+              pauseAlign="left"
             />
           </div>
         </div>
@@ -76,7 +95,7 @@ export function LutzeTeaser({
               return (
                 <li
                   key={`${fact.icon}-${fact.label}`}
-                  className="flex flex-row items-center justify-center gap-2 border border-hbb-espresso/30 px-3 py-2 transition-colors group-hover:border-hbb-espresso"
+                  className="flex flex-row items-center justify-center gap-2 border border-hbb-espresso/30 bg-hbb-dining-chip px-3 py-2 transition-colors group-hover:border-hbb-espresso"
                 >
                   <Icon aria-hidden="true" size={14} className="shrink-0 text-hbb-espresso" />
                   <span className="font-ui text-[0.78rem] leading-snug text-[#5a5a5a]">

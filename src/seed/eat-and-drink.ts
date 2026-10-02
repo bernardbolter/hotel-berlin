@@ -1,5 +1,5 @@
 /**
- * Seed Hotel.eatAndDrink homepage teaser (copy + interior photo).
+ * Seed Hotel.eatAndDrink homepage teaser copy + Eat & Drink hero-slides.
  *
  * Usage: npm run seed:eat-and-drink
  *        npm run seed:eat-and-drink -- --force
@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url'
 import { getPayload } from 'payload'
 
 import config from '../payload.config'
+import { fruehstueckLocaleDe, fruehstueckSeed } from './data'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const assetsDir = path.resolve(dirname, 'assets/food')
@@ -38,6 +39,62 @@ const copy = {
   },
 } as const
 
+async function upsertVenue(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  slug: string,
+  en: Record<string, unknown>,
+  de?: Record<string, unknown>,
+) {
+  const existing = (
+    await payload.find({
+      collection: 'venues',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 0,
+      locale: 'en',
+    })
+  ).docs[0]
+
+  if (existing) {
+    if (!force) {
+      console.log(`Reusing venue: ${slug} (id ${existing.id})`)
+      return existing
+    }
+    await payload.update({
+      collection: 'venues',
+      id: existing.id,
+      data: en,
+      locale: 'en',
+    })
+    if (de) {
+      await payload.update({
+        collection: 'venues',
+        id: existing.id,
+        data: de,
+        locale: 'de',
+      })
+    }
+    console.log(`Updated venue: ${slug} (id ${existing.id})`)
+    return existing
+  }
+
+  const created = await payload.create({
+    collection: 'venues',
+    data: { slug, ...en },
+    locale: 'en',
+  })
+  if (de) {
+    await payload.update({
+      collection: 'venues',
+      id: created.id,
+      data: de,
+      locale: 'de',
+    })
+  }
+  console.log(`Created venue: ${slug} (id ${created.id})`)
+  return created
+}
+
 async function uploadOrReuse(
   payload: Awaited<ReturnType<typeof getPayload>>,
   filePath: string,
@@ -58,10 +115,6 @@ async function uploadOrReuse(
     return existing
   }
 
-  if (existing && force) {
-    // Re-upload as new file — keep it simple; overwrite reference on hotel global
-  }
-
   const media = await payload.create({
     collection: 'media',
     data: { alt },
@@ -69,6 +122,55 @@ async function uploadOrReuse(
   })
   console.log(`Uploaded media: ${filename} (id ${media.id})`)
   return media
+}
+
+async function ensureEatAndDrinkSlide(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  mediaId: number,
+) {
+  const existing = await payload.find({
+    collection: 'hero-slides',
+    where: { context: { equals: 'eat-and-drink' } },
+    limit: 1,
+    depth: 0,
+  })
+
+  if (existing.docs.length > 0 && !force) {
+    console.log(`Skip: eat-and-drink hero slide already exists (id ${existing.docs[0]!.id})`)
+    return
+  }
+
+  if (existing.docs.length > 0 && force) {
+    for (const doc of existing.docs) {
+      await payload.delete({ collection: 'hero-slides', id: doc.id })
+    }
+  }
+
+  const slide = await payload.create({
+    collection: 'hero-slides',
+    locale: 'en',
+    data: {
+      adminTitle: 'Lütze interior',
+      image: mediaId,
+      altText: copy.en.imageAlt,
+      captionOverride: 'Lütze',
+      context: 'eat-and-drink',
+      order: 1,
+      enabled: true,
+    },
+  })
+
+  await payload.update({
+    collection: 'hero-slides',
+    id: slide.id,
+    locale: 'de',
+    data: {
+      altText: copy.de.imageAlt,
+      captionOverride: 'Lütze',
+    },
+  })
+
+  console.log(`✓ hero-slides eat-and-drink (id ${slide.id})`)
 }
 
 async function main() {
@@ -80,44 +182,61 @@ async function main() {
   const payload = await getPayload({ config })
 
   const hotel = await payload.findGlobal({ slug: 'hotel', depth: 0, locale: 'en' })
-  if (hotel.eatAndDrink?.image && !force) {
-    console.log('Skip: hotel.eatAndDrink.image already set (use --force to replace)')
-    process.exit(0)
-  }
-
   const media = await uploadOrReuse(payload, interiorPath, copy.en.imageAlt)
 
-  await payload.updateGlobal({
-    slug: 'hotel',
-    locale: 'en',
-    data: {
-      eatAndDrink: {
-        kicker: copy.en.kicker,
-        heading: copy.en.heading,
-        body: copy.en.body,
-        ctaLabel: copy.en.ctaLabel,
-        image: media.id as number,
-        imageAlt: copy.en.imageAlt,
+  if (!hotel.eatAndDrink?.image || force) {
+    await payload.updateGlobal({
+      slug: 'hotel',
+      locale: 'en',
+      data: {
+        eatAndDrink: {
+          kicker: copy.en.kicker,
+          heading: copy.en.heading,
+          body: copy.en.body,
+          ctaLabel: copy.en.ctaLabel,
+          image: media.id as number,
+          imageAlt: copy.en.imageAlt,
+        },
       },
-    },
-  })
-  console.log('✓ hotel.eatAndDrink (en)')
+    })
+    console.log('✓ hotel.eatAndDrink (en)')
 
-  await payload.updateGlobal({
-    slug: 'hotel',
-    locale: 'de',
-    data: {
-      eatAndDrink: {
-        kicker: copy.de.kicker,
-        heading: copy.de.heading,
-        body: copy.de.body,
-        ctaLabel: copy.de.ctaLabel,
-        image: media.id as number,
-        imageAlt: copy.de.imageAlt,
+    await payload.updateGlobal({
+      slug: 'hotel',
+      locale: 'de',
+      data: {
+        eatAndDrink: {
+          kicker: copy.de.kicker,
+          heading: copy.de.heading,
+          body: copy.de.body,
+          ctaLabel: copy.de.ctaLabel,
+          image: media.id as number,
+          imageAlt: copy.de.imageAlt,
+        },
       },
+    })
+    console.log('✓ hotel.eatAndDrink (de)')
+  } else {
+    console.log('Skip: hotel.eatAndDrink.image already set (use --force to replace)')
+  }
+
+  await ensureEatAndDrinkSlide(payload, media.id as number)
+
+  await upsertVenue(
+    payload,
+    'fruehstueck',
+    {
+      name: fruehstueckSeed.name,
+      venueType: fruehstueckSeed.venueType,
+      location: fruehstueckSeed.location,
+      shortDescription: fruehstueckSeed.shortDescription,
+      isGuestFacing: fruehstueckSeed.isGuestFacing,
+      isOpenToPublic: fruehstueckSeed.isOpenToPublic,
+      featured: fruehstueckSeed.featured,
+      displayOrder: fruehstueckSeed.displayOrder,
     },
-  })
-  console.log('✓ hotel.eatAndDrink (de)')
+    fruehstueckLocaleDe,
+  )
 
   console.log('Done.')
   process.exit(0)

@@ -43,6 +43,7 @@ import {
 } from '@/lib/media/compressImageForUpload'
 import type { ExifGps } from '@/lib/media/exifGps'
 import { HelpMore } from './HelpMore'
+import { GuidedBackToDashboard } from './guided/GuidedBackToDashboard'
 import { GuidedSection } from './guided/GuidedSection'
 import { StickyMissingBar } from './guided/StickyMissingBar'
 import { OutdoorLocationPanel, type GeoPoint } from './OutdoorLocationPanel'
@@ -945,6 +946,7 @@ export function NeuesWerkClient() {
           }}
         >
           <div>
+            <GuidedBackToDashboard style={{ marginBottom: 10 }} />
             <p
               style={{
                 margin: 0,

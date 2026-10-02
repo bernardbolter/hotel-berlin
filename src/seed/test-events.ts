@@ -153,7 +153,7 @@ async function main() {
     instagram: 'https://www.instagram.com/x.magwie.x/',
     medium: 'Illustration, mixed media',
     shortBio:
-      'Magdalena Wiegner, known as Magwie, creates surreal dreamscapes filled with playful, beautifully imperfect characters that blur the line between fantasy and reality.',
+      'Magdalena Wiegner (Magwie) makes surreal dreamscapes with playful, imperfect characters.',
   })
 
   const cokyone = await upsertBySlug(payload, 'artists', 'cokyone', {
@@ -164,7 +164,7 @@ async function main() {
     instagram: 'https://www.instagram.com/cokyone/',
     medium: 'Graffiti, nature-inspired imagery',
     shortBio:
-      'Andreas Ponto, known as CokyOne, brings the energy of graffiti together with nature-inspired imagery, exploring our connection to the world around us.',
+      'Andreas Ponto (CokyOne) mixes graffiti energy with nature-inspired imagery.',
   })
 
   // --- Events ---
@@ -349,7 +349,7 @@ async function main() {
       venue: fkkbId,
       artists: [magwie.id, cokyone.id],
       startDate: berlinIso(2026, 8, 1, 0, 0),
-      endDate: berlinIso(2026, 9, 30, 23, 59),
+      endDate: berlinIso(2026, 12, 31, 23, 59),
       runType: 'dated',
     },
     {

@@ -38,7 +38,7 @@ export function BookDirectStrip({
           href={ctaUrl}
           unlocalized
           external={external}
-          color="ctx"
+          color="ink"
           className="shrink-0"
           onClick={openPanel ? onPanelClick : undefined}
         >

@@ -29,8 +29,10 @@ const overwriteLabelsEn = {
 const de = {
   startseiteTitle: 'Hero Startseite',
   hierTitle: 'Hero Hier',
+  essenTitle: 'Hero Essen & Trinken',
   startseiteKicker: 'Startseite',
   hierKicker: 'Gästeseite /here',
+  essenKicker: 'Startseite · Eat & Drink',
   livePaused: (live: number, paused: number) =>
     `${live} Foto${live === 1 ? '' : 's'} live · ${paused} pausiert`,
   newPhoto: '+ Neues Foto',
@@ -59,12 +61,18 @@ const de = {
     'Noch keine Fotos. Ohne Fotos zeigt die Startseite eine graue Fläche.',
   emptyHere:
     'Noch keine eigenen Fotos. Die Gästeseite zeigt dann die Fotos der Startseite.',
+  emptyEssen:
+    'Noch keine Fotos. Ohne Fotos zeigt Eat & Drink das Einzelbild aus Hotel → Eat & Drink.',
   aiCopy: 'Prompt kopieren',
   aiCopied: 'Kopiert',
   aiPaste: 'Antwort einfügen',
   aiApply: 'Antwort übernehmen',
   aiApplySelected: 'Auswahl übernehmen',
   aiMalformed: 'Die Antwort konnte nicht gelesen werden.',
+  aiMalformedJson:
+    'Kein gültiges JSON — oft kaputte Anführungszeichen in den Hinweisen (z. B. Ort "Lütze" mit geraden Quotes). Nochmal versuchen; wir reparieren kaputte Quotes wenn möglich.',
+  aiMalformedSchema:
+    'JSON gelesen, aber Felder haben die falsche Form (z. B. Stichworte als Text statt Liste). Prompt noch einmal ausführen oder die Antwort prüfen.',
   aiExplanation:
     'Optional: oben Ort/Bildunterschrift (eine Sprache reicht). Dann 1) Prompt kopieren · 2) Foto in der KI anhängen · 3) JSON hier einfügen · 4) „Antwort übernehmen“. Leere Felder werden gefüllt; die fehlende Caption-Sprache kommt mit.',
   aiAppliedOk:
@@ -99,6 +107,8 @@ const de = {
     'Nur nötig, wenn kein Ort passt. Eine Sprache reicht — die andere kommt über den KI-Prompt darunter.',
   captionOverrideHint:
     'Eine Sprache ausfüllen (oder beide). Beim Prompt kopieren wird sie mitgeschickt und übersetzt zurückgegeben.',
+  captionTranslateMissing:
+    'Bildunterschrift: die andere Sprache fehlte in der KI-Antwort. Unten „Andere Sprache füllen“ nutzen oder Prompt erneut mit der vorhandenen Caption ausführen.',
   credit: 'Bildnachweis',
   adminTitle: 'Interner Name',
   save: 'Speichern',
@@ -140,8 +150,10 @@ const de = {
   genericError: 'Etwas ist schiefgelaufen. Bitte noch einmal versuchen.',
   listLinkStartseite: 'Hero Startseite verwalten',
   listLinkHier: 'Hero Hier verwalten',
+  listLinkEssen: 'Hero Essen & Trinken verwalten',
   dashboardBlurbStartseite: 'Titelbilder der Startseite — Reihenfolge und Texte.',
   dashboardBlurbHier: 'Titelbilder der Gästeseite — Reihenfolge und Texte.',
+  dashboardBlurbEssen: 'Eat & Drink-Fotos auf der Startseite — Reihenfolge und Texte.',
   chars: (n: number, max: number) => `${n} / ${max}`,
   appendVisibleText: (text: string) => `Sichtbaren Text anhängen: „${text}"`,
 } as const
@@ -149,8 +161,10 @@ const de = {
 const en = {
   startseiteTitle: 'Homepage hero',
   hierTitle: 'Here hero',
+  essenTitle: 'Eat & Drink hero',
   startseiteKicker: 'Homepage',
   hierKicker: 'Guest hub /here',
+  essenKicker: 'Homepage · Eat & Drink',
   livePaused: (live: number, paused: number) =>
     `${live} live photo${live === 1 ? '' : 's'} · ${paused} paused`,
   newPhoto: '+ New photo',
@@ -178,12 +192,18 @@ const en = {
   emptyHomepage: 'No photos yet. Without photos the homepage shows a grey panel.',
   emptyHere:
     'No photos of their own yet. The guest hub then shows the homepage photos.',
+  emptyEssen:
+    'No photos yet. Without photos Eat & Drink falls back to the single Hotel → Eat & Drink image.',
   aiCopy: 'Copy prompt',
   aiCopied: 'Copied',
   aiPaste: 'Paste reply',
   aiApply: 'Apply reply',
   aiApplySelected: 'Apply selection',
   aiMalformed: 'The reply could not be read.',
+  aiMalformedJson:
+    'Not valid JSON — often broken quotes inside the notes (e.g. place "Lütze" with straight quotes). Try again; we repair broken quotes when we can.',
+  aiMalformedSchema:
+    'JSON was readable, but some fields have the wrong shape (e.g. keywords as text instead of a list). Re-run the prompt or check the reply.',
   aiExplanation:
     'Optional: set place/caption above first (one language is enough). Then 1) Copy the prompt · 2) Attach the photo in the AI · 3) Paste the JSON here · 4) “Apply reply”. Empty fields fill in; the missing caption language comes back too.',
   aiAppliedOk:
@@ -218,6 +238,8 @@ const en = {
     'Only needed when no place fits. One language is enough — the other comes back via the AI prompt below.',
   captionOverrideHint:
     'Fill one language (or both). When you copy the prompt it is included and returned translated.',
+  captionTranslateMissing:
+    'Caption: the other language was missing from the AI reply. Use “Fill other language” below, or re-run the prompt with the caption you already typed.',
   credit: 'Photo credit',
   adminTitle: 'Internal label',
   save: 'Save',
@@ -259,8 +281,10 @@ const en = {
   genericError: 'Something went wrong. Please try again.',
   listLinkStartseite: 'Manage homepage hero',
   listLinkHier: 'Manage /here hero',
+  listLinkEssen: 'Manage Eat & Drink photos',
   dashboardBlurbStartseite: 'Homepage hero photos — order and copy.',
   dashboardBlurbHier: 'Guest-hub hero photos — order and copy.',
+  dashboardBlurbEssen: 'Homepage Eat & Drink photos — order and copy.',
   chars: (n: number, max: number) => `${n} / ${max}`,
   appendVisibleText: (text: string) => `Append visible text: “${text}”`,
 } as const

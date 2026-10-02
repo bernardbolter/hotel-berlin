@@ -49,7 +49,7 @@ export function HomeHeroLayout({ slides, copy, map }: Props) {
   }, [])
 
   return (
-    <section aria-label="Hero" className="home-hero relative bg-white">
+    <section aria-label="Hero" className="home-hero relative bg-white pb-4">
       <div className="site-shell">
         <div className="home-hero__row relative z-10">
           <div className="home-hero__copy h-fit self-start rounded-bl-[25px]">

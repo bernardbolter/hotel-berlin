@@ -1,16 +1,21 @@
 import type { Endpoint } from 'payload'
 
 import { isStaffUser } from '@/access'
+import {
+  heroPathsForContext,
+  isHeroSlideContext,
+  type HeroSlideContext,
+} from '@/lib/hero/slideContext'
 import { revalidateCms } from '@/lib/payload/revalidate'
 
 type ReorderBody = {
-  context?: 'homepage' | 'here'
+  context?: HeroSlideContext
   ids?: number[]
 }
 
 /**
  * POST /api/hero-slides/reorder
- * Body: { context: 'homepage' | 'here', ids: number[] } — live (enabled) slide ids in new order.
+ * Body: { context, ids: number[] } — live (enabled) slide ids in new order.
  * Rewrites order = 1…n. Disabled slides keep their order and stay after live ones on next normalise.
  */
 export const heroSlidesReorderEndpoint: Endpoint = {
@@ -30,7 +35,7 @@ export const heroSlidesReorderEndpoint: Endpoint = {
 
     const context = body.context
     const ids = Array.isArray(body.ids) ? body.ids.map(Number).filter((n) => Number.isFinite(n)) : []
-    if (context !== 'homepage' && context !== 'here') {
+    if (!isHeroSlideContext(context)) {
       return Response.json({ error: 'Invalid context' }, { status: 400 })
     }
     if (ids.length === 0) {
@@ -78,10 +83,7 @@ export const heroSlidesReorderEndpoint: Endpoint = {
   },
 }
 
-export function heroPathsForContext(context: 'homepage' | 'here'): string[] {
-  if (context === 'here') return ['/here', '/de/hier', '/en/here']
-  return ['/', '/de', '/en']
-}
+export { heroPathsForContext } from '@/lib/hero/slideContext'
 
 /**
  * Renumber all slides in a context: enabled first (by order, createdAt), then disabled.
@@ -89,7 +91,7 @@ export function heroPathsForContext(context: 'homepage' | 'here'): string[] {
  */
 export async function normaliseHeroSlideOrder(
   payload: Parameters<Endpoint['handler']>[0]['payload'],
-  context: 'homepage' | 'here',
+  context: HeroSlideContext,
   req?: Parameters<Endpoint['handler']>[0],
 ): Promise<{ changed: boolean; orders: Array<{ id: number; order: number; enabled: boolean }> }> {
   const all = await payload.find({
@@ -170,13 +172,13 @@ export const heroSlidesNormaliseEndpoint: Endpoint = {
     if (!isStaffUser(req.user)) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
-    let body: { context?: 'homepage' | 'here' }
+    let body: { context?: HeroSlideContext }
     try {
-      body = (await req.json?.()) as { context?: 'homepage' | 'here' }
+      body = (await req.json?.()) as { context?: HeroSlideContext }
     } catch {
       return Response.json({ error: 'Invalid JSON' }, { status: 400 })
     }
-    if (body.context !== 'homepage' && body.context !== 'here') {
+    if (!isHeroSlideContext(body.context)) {
       return Response.json({ error: 'Invalid context' }, { status: 400 })
     }
     const result = await normaliseHeroSlideOrder(req.payload, body.context, req)

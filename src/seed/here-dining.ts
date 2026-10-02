@@ -11,6 +11,8 @@ import { getPayload } from 'payload'
 import config from '../payload.config'
 import {
   hotelSeed,
+  fruehstueckLocaleDe,
+  fruehstueckSeed,
   lutzeHoursSeed,
   lutzeLocaleDe,
   wundermartLocaleDe,
@@ -104,6 +106,22 @@ async function main() {
       displayOrder: wundermartSeed.displayOrder,
     },
     wundermartLocaleDe,
+  )
+
+  await upsertVenue(
+    payload,
+    'fruehstueck',
+    {
+      name: fruehstueckSeed.name,
+      venueType: fruehstueckSeed.venueType,
+      location: fruehstueckSeed.location,
+      shortDescription: fruehstueckSeed.shortDescription,
+      isGuestFacing: fruehstueckSeed.isGuestFacing,
+      isOpenToPublic: fruehstueckSeed.isOpenToPublic,
+      featured: fruehstueckSeed.featured,
+      displayOrder: fruehstueckSeed.displayOrder,
+    },
+    fruehstueckLocaleDe,
   )
 
   const kttk = (

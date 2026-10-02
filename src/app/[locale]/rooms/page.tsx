@@ -139,7 +139,7 @@ export default async function RoomsIndexPage({ params }: Props) {
                         name={room.name}
                         fromPriceLabel={hero.priceLabel}
                         fromLabel={t('from')}
-                        shortDescription={room.shortDescription ?? ''}
+                        shortDescription={hero.shortDescription ?? ''}
                         images={galleryImages}
                         bookingUrl={room.bookingUrl}
                         mediaOnLeft={index % 2 === 0}

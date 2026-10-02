@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { staffWritableGlobal } from '@/access'
+import { staffWritableGlobal, hideFromHotelStaff } from '@/access'
 import { globalCacheHooks } from '@/lib/payload/revalidate'
 
 export const Homepage: GlobalConfig = {
@@ -9,6 +9,7 @@ export const Homepage: GlobalConfig = {
   access: staffWritableGlobal,
   label: 'Homepage',
   admin: {
+    hidden: hideFromHotelStaff,
     description:
       'Homepage settings. Hero photos live in the Hero slides collection.',
   },

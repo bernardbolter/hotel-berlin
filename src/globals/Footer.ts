@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { staffWritableGlobal } from '@/access'
+import { staffWritableGlobal, hideFromHotelStaff } from '@/access'
 import { globalCacheHooks } from '@/lib/payload/revalidate'
 import { linkField } from '../fields/linkField'
 import { lucideIconField } from '../fields/lucideIconField'
@@ -11,6 +11,7 @@ export const Footer: GlobalConfig = {
   access: staffWritableGlobal,
   label: 'Footer',
   admin: {
+    hidden: hideFromHotelStaff,
     description:
       'Public site footer: book-direct strip, contact, link columns, awards, partners, copyright.',
   },

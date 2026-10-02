@@ -2,14 +2,23 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
 import { Link } from '@/i18n/routing'
 
-export type SweepCtaColor = 'terracotta' | 'ctx' | 'meet-work' | 'ink' | 'espresso' | 'forest'
+export type SweepCtaColor =
+  | 'terracotta'
+  | 'rooms-accent'
+  | 'ctx'
+  | 'meet-work'
+  | 'ink'
+  | 'espresso'
+  | 'forest'
+  | 'on-dark'
+  | 'on-dark-secondary'
 export type SweepCtaSize = 'md' | 'sm'
 export type SweepCtaEdge = 'left' | 'right'
 
 type SharedProps = {
   children: ReactNode
   className?: string
-  /** terracotta = rooms; ctx = context accent; meet-work = Meet & Work #1E4B5D; ink = off-black headers; espresso = home Eat & Drink; forest = hub dining */
+  /** terracotta = rooms pages; rooms-accent = homepage Sleep & Relax CTA; ctx = context accent; meet-work = Meet & Work; ink = off-black headers; espresso = home Eat & Drink; forest = hub dining; on-dark / on-dark-secondary = dark bookend strips */
   color?: SweepCtaColor
   /** md = default section CTAs; sm = compact bars / secondary placements */
   size?: SweepCtaSize
@@ -39,11 +48,14 @@ export type SweepCtaProps = SweepCtaAsLink | SweepCtaAsButton
 
 const colorClass: Record<SweepCtaColor, string> = {
   terracotta: 'sweep-cta--terracotta',
+  'rooms-accent': 'sweep-cta--rooms-accent',
   ctx: 'sweep-cta--ctx',
   'meet-work': 'sweep-cta--meet-work',
   ink: 'sweep-cta--ink',
   espresso: 'sweep-cta--espresso',
   forest: 'sweep-cta--forest',
+  'on-dark': 'sweep-cta--on-dark',
+  'on-dark-secondary': 'sweep-cta--on-dark-secondary',
 }
 
 const sizeClass: Record<SweepCtaSize, string> = {

@@ -1,9 +1,13 @@
 import { slugField } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 import type { CollectionConfig } from 'payload'
 
 export const Events: CollectionConfig = {
   slug: 'events',
-  admin: { useAsTitle: 'name' },
+  admin: {
+    hidden: hideFromHotelStaff,
+    useAsTitle: 'name',
+  },
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
     slugField({ name: 'slug', useAsSlug: 'name' }),

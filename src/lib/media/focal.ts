@@ -1,15 +1,15 @@
 /**
- * Payload stores focalX/focalY as 0–1 fractions. Convert to CSS object-position.
+ * Payload stores focalX/focalY as 0–1 fractions. Some rows accidentally store
+ * 0–100 percent. Convert to CSS object-position.
  * Centre (50% 50%) when unset.
+ *
+ * Examples: 50 → "50% 50%"; 0.5 → "50% 50%".
  */
 export function focalToObjectPosition(
   focalX?: number | null,
   focalY?: number | null,
 ): string {
-  if (focalX == null && focalY == null) return '50% 50%'
-  const x = focalX == null ? 50 : focalX * 100
-  const y = focalY == null ? 50 : focalY * 100
-  return `${x}% ${y}%`
+  return `${focalToPercent(focalX)}% ${focalToPercent(focalY)}%`
 }
 
 /** UI / AI use 0–100 percent; Payload media uses 0–1. */

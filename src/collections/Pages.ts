@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -7,6 +8,7 @@ export const Pages: CollectionConfig = {
     plural: 'Pages',
   },
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'title',
     description:
       'Site pages. Inside (/here) pages can be added to the guest hub navigation.',

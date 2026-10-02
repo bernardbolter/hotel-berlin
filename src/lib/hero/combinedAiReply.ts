@@ -1,48 +1,77 @@
 import { z } from 'zod'
 
-const localizedString = z.string().nullable().optional()
+const localizedString = z.preprocess((val) => {
+  if (val == null) return val
+  if (typeof val === 'number' || typeof val === 'boolean') return String(val)
+  return val
+}, z.string().nullable().optional())
 
-export const heroAiReplySchema = z.object({
-  gesehen: z
-    .object({
-      altDe: localizedString,
-      altEn: localizedString,
-      beschreibungDe: localizedString,
-      beschreibungEn: localizedString,
-      stichworteDe: z.array(z.string().nullable()).nullable().optional(),
-      stichworteEn: z.array(z.string().nullable()).nullable().optional(),
-      ortVorschlag: localizedString,
-      captionOverrideDe: localizedString,
-      captionOverrideEn: localizedString,
-      // Returned by the model; not stored on the slide (see brief §5).
-      tageszeit: localizedString,
-      sichtbarerText: localizedString,
-      fokuspunkt: z
-        .object({
-          x: z.number().nullable().optional(),
-          y: z.number().nullable().optional(),
-        })
-        .nullable()
-        .optional(),
-      // Coerced in extractHinweise — models often return a string, not an array.
-      hinweiseDe: z.unknown().optional(),
-      hinweiseEn: z.unknown().optional(),
-    })
-    .passthrough()
-    .optional(),
-  /** Preferred: bilingual notes so the admin language switch can show the matching set. */
-  hinweiseDe: z.unknown().optional(),
-  hinweiseEn: z.unknown().optional(),
-  /**
-   * Legacy / alternate shapes. Kept as unknown so `{ de, en }` objects do not
-   * fail the whole reply — extractHinweise() reads them after parse.
-   */
-  hinweise: z.unknown().optional(),
-})
+/** Models often return comma-separated strings instead of arrays. */
+const keywordList = z.preprocess((val) => {
+  if (val == null || val === '') return null
+  if (typeof val === 'string') {
+    return val
+      .split(/[,;]/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+  }
+  if (Array.isArray(val)) {
+    return val.map((item) => (item == null ? null : String(item)))
+  }
+  return val
+}, z.array(z.string().nullable()).nullable().optional())
+
+const fokusCoord = z.preprocess((val) => {
+  if (val == null || val === '') return null
+  if (typeof val === 'string' && val.trim() !== '' && !Number.isNaN(Number(val))) {
+    return Number(val)
+  }
+  return val
+}, z.number().nullable().optional())
+
+export const heroAiReplySchema = z
+  .object({
+    gesehen: z
+      .object({
+        altDe: localizedString,
+        altEn: localizedString,
+        beschreibungDe: localizedString,
+        beschreibungEn: localizedString,
+        stichworteDe: keywordList,
+        stichworteEn: keywordList,
+        ortVorschlag: localizedString,
+        captionOverrideDe: localizedString,
+        captionOverrideEn: localizedString,
+        // Returned by the model; not stored on the slide (see brief §5).
+        tageszeit: localizedString,
+        sichtbarerText: localizedString,
+        fokuspunkt: z
+          .object({
+            x: fokusCoord,
+            y: fokusCoord,
+          })
+          .nullable()
+          .optional(),
+        // Coerced in extractHinweise — models often return a string, not an array.
+        hinweiseDe: z.unknown().optional(),
+        hinweiseEn: z.unknown().optional(),
+      })
+      .passthrough()
+      .optional(),
+    /** Preferred: bilingual notes so the admin language switch can show the matching set. */
+    hinweiseDe: z.unknown().optional(),
+    hinweiseEn: z.unknown().optional(),
+    /**
+     * Legacy / alternate shapes. Kept as unknown so `{ de, en }` objects do not
+     * fail the whole reply — extractHinweise() reads them after parse.
+     */
+    hinweise: z.unknown().optional(),
+  })
+  .passthrough()
 
 export type HeroAiReply = z.infer<typeof heroAiReplySchema>
 
-export type HeroPromptContext = 'homepage' | 'here'
+export type HeroPromptContext = import('@/lib/hero/slideContext').HeroSlideContext
 export type HeroPromptLocale = 'de' | 'en'
 
 export type HeroPromptArgs = {
@@ -75,32 +104,56 @@ export function heroAiPrompt({
 
   const capDe = captionOverrideDe.trim()
   const capEn = captionOverrideEn.trim()
-  const captionBlockEn =
-    capDe || capEn
-      ? `
-Custom caption already drafted by the editor (translate the missing language; keep the given one):
-${capDe ? `- German: ${capDe}` : '- German: (please provide)'}
-${capEn ? `- English: ${capEn}` : '- English: (please provide)'}
-Return both captionOverrideDe and captionOverrideEn in the JSON.
+  const hasDraft = Boolean(capDe || capEn)
+  const missingDe = hasDraft && !capDe
+  const missingEn = hasDraft && !capEn
+
+  const captionBlockEn = hasDraft
+    ? `
+Custom caption already drafted by the editor:
+${capDe ? `- German (keep this wording): ${capDe}` : '- German: MISSING — you MUST return captionOverrideDe as a natural German translation of the English caption'}
+${capEn ? `- English (keep this wording): ${capEn}` : '- English: MISSING — you MUST return captionOverrideEn as a natural English translation of the German caption'}
+CRITICAL: Return BOTH captionOverrideDe and captionOverrideEn in the JSON. Never leave the missing language as null when the other is given.
 `
-      : `
+    : `
 If no place fits, you may suggest a short custom caption in both languages via captionOverrideDe / captionOverrideEn; otherwise leave both null.
 `
 
-  const captionBlockDe =
-    capDe || capEn
-      ? `
-Eigene Bildunterschrift, schon vom Redakteur entworfen (fehlende Sprache übersetzen, vorhandene behalten):
-${capDe ? `- Deutsch: ${capDe}` : '- Deutsch: (bitte ergänzen)'}
-${capEn ? `- Englisch: ${capEn}` : '- Englisch: (bitte ergänzen)'}
-Gib captionOverrideDe und captionOverrideEn beide im JSON zurück.
+  const captionBlockDe = hasDraft
+    ? `
+Eigene Bildunterschrift, schon vom Redakteur entworfen:
+${capDe ? `- Deutsch (diese Formulierung behalten): ${capDe}` : '- Deutsch: FEHLT — captionOverrideDe MUSS eine natürliche deutsche Übersetzung der englischen Bildunterschrift sein'}
+${capEn ? `- Englisch (diese Formulierung behalten): ${capEn}` : '- Englisch: FEHLT — captionOverrideEn MUSS eine natürliche englische Übersetzung der deutschen Bildunterschrift sein'}
+WICHTIG: Gib captionOverrideDe UND captionOverrideEn beide im JSON zurück. Die fehlende Sprache darf nicht null sein, wenn die andere schon da ist.
 `
-      : `
+    : `
 Wenn kein Ort passt, kannst du eine kurze eigene Bildunterschrift in beiden Sprachen vorschlagen (captionOverrideDe / captionOverrideEn); sonst beide null.
 `
 
+  const captionJsonHintEn = hasDraft
+    ? missingDe
+      ? `"captionOverrideDe": "German translation of: ${capEn.replace(/"/g, '\\"')}",\n    "captionOverrideEn": ${JSON.stringify(capEn)},`
+      : missingEn
+        ? `"captionOverrideDe": ${JSON.stringify(capDe)},\n    "captionOverrideEn": "English translation of the German caption",`
+        : `"captionOverrideDe": ${JSON.stringify(capDe)},\n    "captionOverrideEn": ${JSON.stringify(capEn)},`
+    : `"captionOverrideDe": "custom caption German if needed, else null",
+    "captionOverrideEn": "custom caption English if needed, else null",`
+
+  const captionJsonHintDe = hasDraft
+    ? missingDe
+      ? `"captionOverrideDe": "deutsche Übersetzung von: ${capEn.replace(/"/g, '\\"')}",\n    "captionOverrideEn": ${JSON.stringify(capEn)},`
+      : missingEn
+        ? `"captionOverrideDe": ${JSON.stringify(capDe)},\n    "captionOverrideEn": "englische Übersetzung der deutschen Bildunterschrift",`
+        : `"captionOverrideDe": ${JSON.stringify(capDe)},\n    "captionOverrideEn": ${JSON.stringify(capEn)},`
+    : `"captionOverrideDe": "eigene Bildunterschrift Deutsch falls nötig, sonst null",
+    "captionOverrideEn": "eigene Bildunterschrift Englisch falls nötig, sonst null",`
   if (locale === 'en') {
-    const pageLabel = context === 'here' ? 'guest hub (/here)' : 'homepage'
+    const pageLabel =
+      context === 'here'
+        ? 'guest hub (/here)'
+        : context === 'eat-and-drink'
+          ? 'Eat & Drink section on the homepage'
+          : 'homepage'
     return `I maintain the website for Hotel Berlin, Berlin. Attached is a photo for
 the large hero image on the ${pageLabel}. It rotates with other photos there
 and is cropped tightly on phones.
@@ -125,8 +178,7 @@ Return only this JSON, with no text before or after it:
     "stichworteDe": ["5 to 10 German terms a guest might search for"],
     "stichworteEn": ["the same terms in English"],
     "ortVorschlag": "exactly one of the names above, or null",
-    "captionOverrideDe": "custom caption German if needed, else null",
-    "captionOverrideEn": "custom caption English if needed, else null",
+    ${captionJsonHintEn}
     "tageszeit": "morgens | tagsüber | abends | nachts | null",
     "sichtbarerText": "text in the image, verbatim, or null",
     "fokuspunkt": { "x": 0-100, "y": 0-100 }
@@ -143,7 +195,12 @@ hinweiseEn must be written in English (not German). Always fill both German and
 English text fields when you can describe the photo.`
   }
 
-  const pageLabel = context === 'here' ? 'Gästeseite' : 'Startseite'
+  const pageLabel =
+    context === 'here'
+      ? 'Gästeseite'
+      : context === 'eat-and-drink'
+        ? 'Eat-&-Drink-Sektion auf der Startseite'
+        : 'Startseite'
   return `Ich pflege die Website von Hotel Berlin, Berlin. Im Anhang ist ein Foto für
 das große Titelbild der ${pageLabel}. Es läuft dort im Wechsel
 mit anderen Fotos und wird auf dem Handy stark zugeschnitten.
@@ -169,8 +226,7 @@ Gib ausschließlich dieses JSON zurück, ohne Text davor oder danach:
     "stichworteDe": ["5 bis 10 Begriffe, die ein Gast suchen würde"],
     "stichworteEn": ["dieselben Begriffe auf Englisch"],
     "ortVorschlag": "genau einer der Namen oben, oder null",
-    "captionOverrideDe": "eigene Bildunterschrift Deutsch falls nötig, sonst null",
-    "captionOverrideEn": "eigene Bildunterschrift Englisch falls nötig, sonst null",
+    ${captionJsonHintDe}
     "tageszeit": "morgens | tagsüber | abends | nachts | null",
     "sichtbarerText": "Schrift im Bild, wortgetreu, oder null",
     "fokuspunkt": { "x": 0-100, "y": 0-100 }
@@ -360,16 +416,37 @@ function extractHinweise(data: {
   return { de, en, incomplete }
 }
 
+export type ParseHeroAiFailure = {
+  ok: false
+  error: 'json' | 'schema' | 'malformed'
+  reason?: string
+}
+
 export function parseHeroAiReply(
   raw: string,
-): { ok: true; data: ParsedHeroAiReply } | { ok: false; error: string } {
-  let text = raw.trim()
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i)
-  if (fence) text = fence[1].trim()
+): { ok: true; data: ParsedHeroAiReply } | ParseHeroAiFailure {
+  let record: Record<string, unknown>
   try {
-    const json = JSON.parse(text) as Record<string, unknown>
-    const parsed = heroAiReplySchema.safeParse(json)
-    if (!parsed.success) return { ok: false, error: 'malformed' }
+    const json = extractJsonObject(raw)
+    if (!json || typeof json !== 'object' || Array.isArray(json)) {
+      return { ok: false, error: 'json', reason: 'not-object' }
+    }
+    record = json as Record<string, unknown>
+  } catch {
+    return { ok: false, error: 'json', reason: 'invalid-json' }
+  }
+
+  const parsed = heroAiReplySchema.safeParse(record)
+  if (!parsed.success) {
+    const first = parsed.error.issues[0]
+    return {
+      ok: false,
+      error: 'schema',
+      reason: first ? `${first.path.join('.') || 'root'}: ${first.message}` : 'schema',
+    }
+  }
+
+  try {
     const g = parsed.data.gesehen
     const truncated: ParsedHeroAiReply['truncated'] = []
     const fokus = g?.fokuspunkt
@@ -383,16 +460,14 @@ export function parseHeroAiReply(
 
     const stichworteDe = clampKeywords(g?.stichworteDe)
     const stichworteEn = clampKeywords(g?.stichworteEn)
-    // Read hinweise from the raw JSON object (not only zod output) so top-level
-    // hinweiseEn is never dropped by schema quirks.
     const rawGesehen =
-      json.gesehen && typeof json.gesehen === 'object' && !Array.isArray(json.gesehen)
-        ? (json.gesehen as Record<string, unknown>)
+      record.gesehen && typeof record.gesehen === 'object' && !Array.isArray(record.gesehen)
+        ? (record.gesehen as Record<string, unknown>)
         : null
     const notes = extractHinweise({
-      hinweiseDe: json.hinweiseDe ?? parsed.data.hinweiseDe,
-      hinweiseEn: json.hinweiseEn ?? parsed.data.hinweiseEn,
-      hinweise: json.hinweise ?? parsed.data.hinweise,
+      hinweiseDe: record.hinweiseDe ?? parsed.data.hinweiseDe,
+      hinweiseEn: record.hinweiseEn ?? parsed.data.hinweiseEn,
+      hinweise: record.hinweise ?? parsed.data.hinweise,
       gesehen: rawGesehen ?? (g as Record<string, unknown> | null | undefined) ?? null,
     })
 
@@ -421,7 +496,6 @@ export function parseHeroAiReply(
         ortVorschlag: g?.ortVorschlag?.trim() || null,
         captionOverrideDe: g?.captionOverrideDe?.trim() || null,
         captionOverrideEn: g?.captionOverrideEn?.trim() || null,
-        // tageszeit intentionally ignored — model may return it; not stored (brief §5).
         sichtbarerText: g?.sichtbarerText?.trim() || null,
         fokuspunkt,
         hinweiseDe: notes.de,
@@ -431,8 +505,76 @@ export function parseHeroAiReply(
       },
     }
   } catch {
-    return { ok: false, error: 'malformed' }
+    return { ok: false, error: 'malformed', reason: 'map-failed' }
   }
+}
+
+/**
+ * Models often write: the place "Lütze" is … inside a JSON string.
+ * Escape " that are clearly interior (not followed by , } ] :).
+ */
+export function escapeInteriorQuotes(text: string): string {
+  let out = ''
+  let inString = false
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i]!
+    if (!inString) {
+      if (ch === '"') inString = true
+      out += ch
+      continue
+    }
+    if (ch === '\\') {
+      out += ch + (text[i + 1] ?? '')
+      i++
+      continue
+    }
+    if (ch === '"') {
+      const rest = text.slice(i + 1)
+      const endsString = /^\s*[,}\]:]/.test(rest) || rest.trim() === ''
+      if (endsString) {
+        inString = false
+        out += ch
+      } else {
+        out += '\\"'
+      }
+      continue
+    }
+    out += ch
+  }
+  return out
+}
+
+/** Pull a JSON object from pasted AI text (fences, prose wrappers, trailing commas). */
+function extractJsonObject(raw: string): unknown {
+  let text = raw.replace(/^\uFEFF/, '').trim()
+  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i)
+  if (fence) text = fence[1].trim()
+
+  const candidates = [text]
+  const start = text.indexOf('{')
+  const end = text.lastIndexOf('}')
+  if (start >= 0 && end > start) {
+    const sliced = text.slice(start, end + 1)
+    if (sliced !== text) candidates.push(sliced)
+  }
+
+  let lastError: unknown
+  for (const candidate of candidates) {
+    for (const variant of [
+      candidate,
+      candidate.replace(/,\s*([\]}])/g, '$1'),
+      escapeInteriorQuotes(candidate),
+      escapeInteriorQuotes(candidate.replace(/,\s*([\]}])/g, '$1')),
+    ]) {
+      try {
+        return JSON.parse(variant)
+      } catch (e) {
+        lastError = e
+      }
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error('invalid-json')
 }
 
 export function matchVenueByName(

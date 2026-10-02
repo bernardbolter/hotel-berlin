@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Gutter, useTranslation } from '@payloadcms/ui'
 
+import { GuidedBackToDashboard } from './guided/GuidedBackToDashboard'
 import { neuesWerkLocale } from './neuesWerkCopy'
 
 type Row = {
@@ -144,6 +145,7 @@ export function StandorteClient() {
   return (
     <Gutter>
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '24px 0 48px' }}>
+        <GuidedBackToDashboard />
         <h1 style={{ fontSize: 28, margin: '0 0 8px' }}>{t.title}</h1>
         <p style={{ margin: '0 0 20px', color: 'var(--theme-elevation-800)', fontSize: 14 }}>
           {t.intro}

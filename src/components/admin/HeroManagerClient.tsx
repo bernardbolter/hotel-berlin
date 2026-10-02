@@ -27,6 +27,8 @@ import {
   parseHeroTranslateReply,
 } from '@/lib/hero/combinedAiReply'
 import { heroCopy, heroPhotoHelp, heroUiLocale, type HeroManagerCopy } from '@/lib/hero/copy'
+import { EAT_AND_DRINK_VENUE_SLUGS, isEatAndDrinkVenueSlug } from '@/lib/hero/eatAndDrinkVenues'
+import type { HeroSlideContext } from '@/lib/hero/slideContext'
 import {
   compressImageForUpload,
 } from '@/lib/media/compressImageForUpload'
@@ -34,12 +36,13 @@ import { isMediaFileTooLarge, MEDIA_MASTER_EDGE, MEDIA_MAX_FILE_SIZE_MB } from '
 import { focalToPercent, percentToFocal } from '@/lib/media/focal'
 import { HelpMore } from './HelpMore'
 import { HeroStrip, type HeroStripItem } from './HeroStrip'
+import { GuidedBackToDashboard } from './guided/GuidedBackToDashboard'
 import { GuidedSection } from './guided/GuidedSection'
 import { StickyMissingBar } from './guided/StickyMissingBar'
 
-type Context = 'homepage' | 'here'
+type Context = HeroSlideContext
 
-type VenueOption = { id: number; name: string; location?: string | null }
+type VenueOption = { id: number; name: string; slug?: string | null; location?: string | null }
 
 type FormState = {
   id: number | null
@@ -323,16 +326,27 @@ export function HeroManagerClient({ context }: Props) {
 
     setSlides(mergeLocales(enRes.docs, deRes.docs))
     const enById = new Map(venueEn.docs.map((v) => [v.id, v]))
-    setVenues(
-      venueDe.docs
-        .map((v) => {
-          const en = enById.get(v.id)
-          const name = v.name?.trim() || en?.name?.trim() || ''
-          const location = v.location?.trim() || en?.location?.trim() || null
-          return { ...v, name, location }
-        })
-        .filter((v) => Boolean(v.name)),
-    )
+    const merged = venueDe.docs
+      .map((v) => {
+        const en = enById.get(v.id)
+        const name = v.name?.trim() || en?.name?.trim() || ''
+        const location = v.location?.trim() || en?.location?.trim() || null
+        const slug = v.slug?.trim() || en?.slug?.trim() || null
+        return { ...v, name, location, slug }
+      })
+      .filter((v) => Boolean(v.name))
+
+    // Eat & Drink place picker: Lütze, Wundermart, Frühstück only.
+    if (context === 'eat-and-drink') {
+      const order = new Map(EAT_AND_DRINK_VENUE_SLUGS.map((slug, i) => [slug, i]))
+      setVenues(
+        merged
+          .filter((v) => isEatAndDrinkVenueSlug(v.slug))
+          .sort((a, b) => (order.get(a.slug!) ?? 99) - (order.get(b.slug!) ?? 99)),
+      )
+    } else {
+      setVenues(merged)
+    }
   }, [api, context])
 
   useEffect(() => {
@@ -573,7 +587,13 @@ export function HeroManagerClient({ context }: Props) {
   const applyAiPaste = () => {
     const parsed = parseHeroAiReply(aiPaste)
     if (!parsed.ok) {
-      setError(t.aiMalformed)
+      setError(
+        parsed.error === 'json'
+          ? t.aiMalformedJson
+          : parsed.error === 'schema'
+            ? t.aiMalformedSchema
+            : t.aiMalformed,
+      )
       setNotice(null)
       return
     }
@@ -623,18 +643,16 @@ export function HeroManagerClient({ context }: Props) {
       consider('keywordsEn', form.keywordsEn, enKw && enKw !== deKw ? enKw : null)
     }
 
-    // Custom caption: only fill empty sides (typed draft stays; AI supplies the translation).
-    // Skip EN when it is identical to DE (model copied German into both).
+    // Custom caption: fill only empty sides (typed draft stays; AI supplies the translation).
     if (d.captionOverrideDe && !form.captionOverrideDe.trim()) {
       next.captionOverrideDe = d.captionOverrideDe
     }
-    if (
-      d.captionOverrideEn &&
-      !form.captionOverrideEn.trim() &&
-      d.captionOverrideEn !== d.captionOverrideDe &&
-      d.captionOverrideEn !== (form.captionOverrideDe || next.captionOverrideDe || '').trim()
-    ) {
-      next.captionOverrideEn = d.captionOverrideEn
+    if (d.captionOverrideEn && !form.captionOverrideEn.trim()) {
+      // Skip EN when it is identical to DE (model copied German into both).
+      const deCap = (form.captionOverrideDe || next.captionOverrideDe || d.captionOverrideDe || '').trim()
+      if (d.captionOverrideEn !== deCap) {
+        next.captionOverrideEn = d.captionOverrideEn
+      }
     }
 
     if (d.ortVorschlag) {
@@ -707,6 +725,12 @@ export function HeroManagerClient({ context }: Props) {
       next.aiNotesEn = appliedEnRef.current.aiNotesEn
     }
 
+    const captionMissingAfterApply =
+      (Boolean(form.captionOverrideEn.trim() || next.captionOverrideEn) &&
+        !(form.captionOverrideDe.trim() || next.captionOverrideDe)) ||
+      (Boolean(form.captionOverrideDe.trim() || next.captionOverrideDe) &&
+        !(form.captionOverrideEn.trim() || next.captionOverrideEn))
+
     setAppendVisibleText(d.sichtbarerText)
     setPendingOverwrite(overwrite)
     setPendingApply(next)
@@ -728,7 +752,9 @@ export function HeroManagerClient({ context }: Props) {
       : d.altEn && d.altEn !== d.altDe && overwrite.altEn
         ? ` Alt EN wartet auf „Auswahl übernehmen“.`
         : ` Alt EN fehlt in der KI-Antwort.`
-    if (enCount === 0 && d.hinweiseDe.length) {
+    if (captionMissingAfterApply) {
+      setNotice(t.captionTranslateMissing)
+    } else if (enCount === 0 && d.hinweiseDe.length) {
       setNotice(t.hinweiseMissingEn + notesSummary)
     } else if (d.hinweiseIncomplete && d.hinweiseEn.length && !d.hinweiseDe.length) {
       setNotice(t.hinweiseMissingDe)
@@ -744,7 +770,7 @@ export function HeroManagerClient({ context }: Props) {
     }
     const parsed = parseHeroTranslateReply(translatePaste)
     if (!parsed.ok) {
-      setError(t.aiMalformed)
+      setError(t.aiMalformedJson)
       return
     }
     setError(parsed.data.truncated.length ? t.aiTruncated : null)
@@ -1033,8 +1059,18 @@ export function HeroManagerClient({ context }: Props) {
 
   const hasPhoto = Boolean(form.mediaId)
   const gated = !hasPhoto
-  const title = context === 'here' ? t.hierTitle : t.startseiteTitle
-  const kicker = context === 'here' ? t.hierKicker : t.startseiteKicker
+  const title =
+    context === 'here'
+      ? t.hierTitle
+      : context === 'eat-and-drink'
+        ? t.essenTitle
+        : t.startseiteTitle
+  const kicker =
+    context === 'here'
+      ? t.hierKicker
+      : context === 'eat-and-drink'
+        ? t.essenKicker
+        : t.startseiteKicker
 
   return (
     <Gutter>
@@ -1065,6 +1101,7 @@ export function HeroManagerClient({ context }: Props) {
           }}
         >
           <div>
+            <GuidedBackToDashboard style={{ marginBottom: 10 }} />
             <p
               style={{
                 margin: 0,
@@ -1189,7 +1226,13 @@ export function HeroManagerClient({ context }: Props) {
 
         <GuidedSection id="hm-order" title={t.orderHeading}>
           {stripItems.length === 0 ? (
-            <p style={{ fontSize: 14 }}>{context === 'here' ? t.emptyHere : t.emptyHomepage}</p>
+            <p style={{ fontSize: 14 }}>
+              {context === 'here'
+                ? t.emptyHere
+                : context === 'eat-and-drink'
+                  ? t.emptyEssen
+                  : t.emptyHomepage}
+            </p>
           ) : (
             <HeroStrip
               items={stripItems}

@@ -9,6 +9,16 @@
   --cta-highlight: #f95d62;
   /* Rooms pages accent — muted terracotta; NOT coral. Large text / non-text only. */
   --rooms-highlight: #c16157;
+  /* Homepage Sleep & Relax band — tokens.json → color.rooms */
+  --surface-rooms: #f2e5e3;
+  --rooms-accent-text: #a3473d;
+  --image-panel: #f8efe7;
+  /* Homepage Meet & Work band — tokens.json → color.meetings */
+  --meetings-highlight: #1e4b5d;
+  --surface-meetings: #e6eef1;
+  /* Homepage Eat & Drink / Lütze band — tokens.json → color.eatAndDrink */
+  --surface-dining: #efe8e4;
+  --dining-chip: #faf8f5;
   /* Site content max width — 1440px */
   --site-max: 90rem;
   /* Sticky header offset for in-page hashes (`useHashOpen`). Matches `scroll-mt-28`. */
@@ -44,6 +54,13 @@
   --gold-light: #f9f2ea; /* ~10% --cat-food; dining / food sections */
   --green-light: #e7eae6; /* ~10–12% --green; neighbourhood sections */
   --teal-light: #ebf3f5; /* pullquotes; /here accent-tinted sections */
+  /* Homepage dark bookends + FAQ — tokens.json → color.sectionBg */
+  --surface-dark: #2c3e34;
+  --surface-neutral: #faf8f5;
+  --on-dark: #f2e5e3;
+  --on-dark-heading: #f8efe7;
+  --on-dark-muted: #d6cfc6;
+  --on-dark-link: #f0b8b0;
 
   /* Context accent — flipped by [data-context]. Category tokens stay independent. */
   --ctx-accent: #216a95; /* navy — home/outside; distinct from --cat-art teal */
@@ -649,19 +666,24 @@ body {
   --sweep-cta-ink: #c16157;
 }
 
+.sweep-cta--rooms-accent {
+  color: var(--rooms-accent-text);
+  --sweep-cta-ink: var(--rooms-accent-text);
+}
+
 .sweep-cta--ctx {
   color: var(--ctx-accent-text);
   --sweep-cta-ink: var(--ctx-accent-text);
 }
 
 .sweep-cta--meet-work {
-  color: #1e4b5d;
-  --sweep-cta-ink: #1e4b5d;
+  color: var(--meetings-highlight);
+  --sweep-cta-ink: var(--meetings-highlight);
 }
 
 .sweep-cta.sweep-cta--meet-work {
-  color: #1e4b5d;
-  --sweep-cta-ink: #1e4b5d;
+  color: var(--meetings-highlight);
+  --sweep-cta-ink: var(--meetings-highlight);
 }
 
 .sweep-cta--ink {
@@ -679,7 +701,73 @@ body {
   --sweep-cta-ink: var(--forest);
 }
 
-/* Dark panels: white label + white sweep; hover label returns to color token */
+/* Primary on dark bookends: blush fill → white sweep (not rooms red — AA fail on green). */
+.sweep-cta--on-dark {
+  min-height: 44px;
+  box-sizing: border-box;
+  background: var(--on-dark);
+  color: var(--surface-dark);
+  --sweep-cta-ink: var(--surface-dark);
+}
+
+.sweep-cta--on-dark::before {
+  background: #ffffff;
+  width: 2px;
+}
+
+.sweep-cta--on-dark:hover .sweep-cta__label,
+.sweep-cta--on-dark:focus-visible .sweep-cta__label {
+  color: var(--surface-dark);
+}
+
+/* Secondary on dark: outline, soft blush hover. */
+.sweep-cta--on-dark-secondary {
+  min-height: 44px;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--on-dark);
+  border: 1px solid var(--on-dark);
+  --sweep-cta-ink: var(--on-dark);
+}
+
+.sweep-cta--on-dark-secondary::before {
+  display: none;
+}
+
+.sweep-cta--on-dark-secondary:hover,
+.sweep-cta--on-dark-secondary:focus-visible {
+  background: color-mix(in srgb, var(--on-dark) 12%, transparent);
+}
+
+.sweep-cta--on-dark-secondary:hover .sweep-cta__label,
+.sweep-cta--on-dark-secondary:focus-visible .sweep-cta__label {
+  color: var(--on-dark);
+}
+
+/* Dark bookend strips — map header + book-direct CTA */
+.surface-dark-band {
+  background: var(--surface-dark);
+  color: var(--on-dark);
+}
+
+.surface-dark-band :focus-visible {
+  outline: 2px solid var(--on-dark-link);
+  outline-offset: 3px;
+}
+
+.surface-dark-band a:not(.sweep-cta) {
+  color: var(--on-dark-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.surface-dark-band a:not(.sweep-cta):hover,
+.surface-dark-band a:not(.sweep-cta):focus-visible {
+  color: #ffffff;
+}
+
+/* Dark panels: white label + white sweep; hover/focus label uses the
+   color token (e.g. meet-work blue). */
 .sweep-cta.sweep-cta--invert {
   color: #fff;
 }
@@ -2086,6 +2174,15 @@ body {
   .capped-row__list:not([data-count='1']):not([data-count='2']):not([data-count='3'])
     > :nth-child(n + 5) {
     display: none;
+  }
+
+  /* Three cards: keep 4-up card width — don't stretch across the full row. */
+  .capped-row__list[data-count='3'] {
+    --capped-4up-gap: clamp(20px, calc(20px + (100cqi - 1000px - 60px) * 0.28 / 3), 48px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--capped-4up-gap);
+    width: calc((100% - 3 * var(--capped-4up-gap)) * 0.75 + 2 * var(--capped-4up-gap));
+    max-width: 100%;
   }
 }
 

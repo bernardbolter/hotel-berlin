@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { staffWritableGlobal } from '@/access'
+import { staffWritableGlobal, hideFromHotelStaff } from '@/access'
 import { globalCacheHooks } from '@/lib/payload/revalidate'
 
 export const Meetings: GlobalConfig = {
@@ -9,6 +9,7 @@ export const Meetings: GlobalConfig = {
   access: staffWritableGlobal,
   label: 'Meetings page',
   admin: {
+    hidden: hideFromHotelStaff,
     description:
       'Editorial content for /meetings (DE: /tagungen). Hero, event formats, hybrid & food teasers, facilities.',
   },

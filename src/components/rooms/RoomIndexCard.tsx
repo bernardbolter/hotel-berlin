@@ -1,7 +1,6 @@
 'use client'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 
 import { SweepCta } from '@/components/primitives/SweepCta'
@@ -12,6 +11,9 @@ const SLIDE_MS = 350
 export type RoomIndexCardImage = {
   src: string
   alt: string
+  srcSet?: string
+  sizes?: string
+  objectPosition?: string
 }
 
 export type RoomIndexCardProps = {
@@ -171,7 +173,10 @@ export function RoomIndexCard({
         ].join(' ')}
       >
         <div
-          className="relative aspect-4/3 w-full overflow-hidden rounded-sm bg-gray-100"
+          className={[
+            'relative aspect-4/3 w-full overflow-hidden bg-gray-100',
+            index % 2 === 0 ? 'rounded-tl-[25px]' : 'rounded-tr-[25px]',
+          ].join(' ')}
           role="region"
           aria-roledescription="carousel"
           aria-label={galleryAria}
@@ -203,13 +208,18 @@ export function RoomIndexCard({
                 }}
                 aria-hidden={!isActive}
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={image.src}
+                  srcSet={image.srcSet}
+                  sizes={image.sizes ?? '(max-width: 768px) 100vw, 50vw'}
                   alt={image.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  priority={i === 0}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  style={
+                    image.objectPosition
+                      ? { objectPosition: image.objectPosition }
+                      : undefined
+                  }
                 />
               </div>
             )

@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
-import { staffWritableGlobal } from '@/access'
+import { staffWritableGlobal, hideFromHotelStaff } from '@/access'
 import { globalCacheHooks } from '@/lib/payload/revalidate'
 
 const navCache = globalCacheHooks('navigation')
@@ -10,6 +10,7 @@ export const Navigation: GlobalConfig = {
   label: 'Inside Navigation',
   access: staffWritableGlobal,
   admin: {
+    hidden: hideFromHotelStaff,
     description:
       'Choose and reorder up to 5 inside (/here) pages for the primary nav on /here. Outside primary links stay fixed in code.',
   },

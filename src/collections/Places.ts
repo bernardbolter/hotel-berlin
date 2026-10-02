@@ -1,8 +1,10 @@
 import type { CollectionConfig } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 
 export const Places: CollectionConfig = {
   slug: 'places',
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'name',
     defaultColumns: ['name', 'context', 'type', 'category', 'walkingMinutes'],
     group: 'Neighbourhood',

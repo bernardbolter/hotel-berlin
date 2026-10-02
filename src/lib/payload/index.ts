@@ -22,6 +22,7 @@ export {
   getFeaturedMeetingRooms,
   getMeetingRoomBySlug,
   getMeetingRooms,
+  getMeetingRoomsForTeaser,
   getMeetingRoomSlugs,
 } from './meetingRooms'
 export {

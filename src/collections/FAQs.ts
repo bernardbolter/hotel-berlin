@@ -1,8 +1,10 @@
 import type { CollectionConfig } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 
 export const FAQs: CollectionConfig = {
   slug: 'faqs',
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'question',
     defaultColumns: ['question', 'context', 'category', 'order'],
     group: 'Content',

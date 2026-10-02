@@ -23,6 +23,8 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { RoomsManagerListLink as RoomsManagerListLink_90896ebbc01a9a84c4a7b9d8ee151940 } from '../../../components/admin/RoomsManagerButtons'
+import { MeetingRoomsManagerListLink as MeetingRoomsManagerListLink_01d086cf2fe1e182a0feff01225fbeff } from '../../../components/admin/MeetingRoomsManagerButtons'
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { CompletenessPanel as CompletenessPanel_71fc084c37c6ff6ba7bbd473080427ec } from '../../../components/admin/CompletenessPanel'
 import { HeroManagerListLinks as HeroManagerListLinks_9af41cbea1e0392e91e19fd702433c1f } from '../../../components/admin/HeroManagerButtons'
@@ -36,6 +38,9 @@ import { NeuesWerkView as NeuesWerkView_22ab842e28c993c17a520fad44f49086 } from 
 import { StandorteView as StandorteView_9c56cab3debcf8138ca292cc1ef0ea62 } from '../../../components/admin/StandorteView'
 import { HeroStartseiteView as HeroStartseiteView_6f17c62249a9fb832b554346fd6a3add } from '../../../components/admin/HeroManagerView'
 import { HeroHierView as HeroHierView_6f17c62249a9fb832b554346fd6a3add } from '../../../components/admin/HeroManagerView'
+import { HeroEssenView as HeroEssenView_6f17c62249a9fb832b554346fd6a3add } from '../../../components/admin/HeroManagerView'
+import { RoomsManagerView as RoomsManagerView_3e52c74d038d6b00f295a434d8fdb04b } from '../../../components/admin/RoomsManagerView'
+import { MeetingRoomsManagerView as MeetingRoomsManagerView_35da097c8674296335d686bed297457c } from '../../../components/admin/MeetingRoomsManagerView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -65,6 +70,8 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/components/admin/RoomsManagerButtons#RoomsManagerListLink": RoomsManagerListLink_90896ebbc01a9a84c4a7b9d8ee151940,
+  "/components/admin/MeetingRoomsManagerButtons#MeetingRoomsManagerListLink": MeetingRoomsManagerListLink_01d086cf2fe1e182a0feff01225fbeff,
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
   "/components/admin/CompletenessPanel#CompletenessPanel": CompletenessPanel_71fc084c37c6ff6ba7bbd473080427ec,
   "/components/admin/HeroManagerButtons#HeroManagerListLinks": HeroManagerListLinks_9af41cbea1e0392e91e19fd702433c1f,
@@ -78,5 +85,8 @@ export const importMap = {
   "/components/admin/StandorteView#StandorteView": StandorteView_9c56cab3debcf8138ca292cc1ef0ea62,
   "/components/admin/HeroManagerView#HeroStartseiteView": HeroStartseiteView_6f17c62249a9fb832b554346fd6a3add,
   "/components/admin/HeroManagerView#HeroHierView": HeroHierView_6f17c62249a9fb832b554346fd6a3add,
+  "/components/admin/HeroManagerView#HeroEssenView": HeroEssenView_6f17c62249a9fb832b554346fd6a3add,
+  "/components/admin/RoomsManagerView#RoomsManagerView": RoomsManagerView_3e52c74d038d6b00f295a434d8fdb04b,
+  "/components/admin/MeetingRoomsManagerView#MeetingRoomsManagerView": MeetingRoomsManagerView_35da097c8674296335d686bed297457c,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

@@ -10,7 +10,7 @@ import type { MeetAndWorkCopy } from '@/lib/payload/homepage'
 
 const SLIDE_INTERVAL = 7000
 const CROSSFADE_MS = 900
-const PANEL = '#1E4B5D'
+const PANEL = 'var(--meetings-highlight)'
 
 /** Same scale as the rooms section heading */
 const TITLE_CLASS =

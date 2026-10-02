@@ -494,7 +494,7 @@ export const Hotel: GlobalConfig = {
       type: 'group',
       admin: {
         description:
-          'Homepage Lütze / Eat & Drink teaser — Rooms-style layout (text + arch photo + one Sweep CTA). Links to /restaurant.',
+          'Homepage Lütze / Eat & Drink teaser copy. Photos are managed under Hero Essen & Trinken (/admin/hero-essen).',
       },
       fields: [
         {
@@ -521,14 +521,17 @@ export const Hotel: GlobalConfig = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          admin: { description: 'Arch-topped teaser photo (interior / terrace).' },
+          admin: {
+            description:
+              'Fallback photo when no Eat & Drink hero slides exist. Prefer Hero Essen & Trinken for the rotating gallery.',
+          },
         },
         {
           name: 'imageAlt',
           type: 'text',
           localized: true,
           admin: {
-            description: 'Descriptive alt text — AEO ImageObject.description.',
+            description: 'Descriptive alt text for the fallback image — AEO ImageObject.description.',
           },
         },
         {

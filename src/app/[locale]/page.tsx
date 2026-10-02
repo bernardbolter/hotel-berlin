@@ -3,9 +3,9 @@ import { getTranslations } from 'next-intl/server'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteNavWithData } from '@/components/layout/SiteNavWithData'
 import type { SectionBackground } from '@/components/layout/SectionShell'
-import { EventsSection } from '@/components/events/EventsSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { HomeHero } from '@/components/home/HomeHero'
+import { HereHubStrip } from '@/components/here/HereHubStrip'
 import { LutzeSection } from '@/components/sections/LutzeSection'
 import { MeetingsSection } from '@/components/sections/MeetingsSection'
 import { NeighbourhoodMapSection } from '@/components/map/NeighbourhoodMapSection'
@@ -21,12 +21,12 @@ type Props = {
  */
 const HOME_SECTION_BG = {
   hero: 'dark-hero',
-  rooms: 'neutral-light',
-  meetings: 'dark-accent',
-  events: 'coral-light',
-  dining: 'gold-light',
-  neighbourhood: 'green-light',
-  faq: 'amber-light',
+  rooms: 'surface-rooms',
+  meetings: 'surface-meetings',
+  events: 'surface',
+  dining: 'surface-dining',
+  neighbourhood: 'none',
+  faq: 'surface-neutral',
   footer: 'dark-footer',
 } as const satisfies Record<string, SectionBackground>
 
@@ -48,17 +48,34 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params
+  const tEvents = await getTranslations({ locale, namespace: 'events' })
+
   return (
     <>
       <SiteNavWithData context="outside" />
       <main id="main-content">
         <HomeHero />
         <RoomsHero background={HOME_SECTION_BG.rooms} />
-        <MeetingsSection />
-        <EventsSection background={HOME_SECTION_BG.events} />
+        <MeetingsSection background={HOME_SECTION_BG.meetings} />
+        <HereHubStrip
+          locale={locale}
+          background={HOME_SECTION_BG.events}
+          framing="prospect"
+          heading={{
+            id: 'events-heading',
+            title: tEvents('label'),
+            cta: tEvents('viewAll'),
+            href: '/happenings',
+            rowAria: tEvents('rowAria'),
+          }}
+        />
         <LutzeSection background={HOME_SECTION_BG.dining} />
-        <NeighbourhoodMapSection background={HOME_SECTION_BG.neighbourhood} />
+        <NeighbourhoodMapSection
+          background={HOME_SECTION_BG.neighbourhood}
+          headerTone="dark"
+        />
         <FAQSection
           context="prospect"
           category="general"

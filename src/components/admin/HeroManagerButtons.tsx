@@ -1,13 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useTranslation } from '@payloadcms/ui'
+import { useAuth, useTranslation } from '@payloadcms/ui'
 
 import { heroCopy, heroUiLocale } from '@/lib/hero/copy'
+import type { HeroSlideContext } from '@/lib/hero/slideContext'
+import { MeetingRoomsManagerDashCard } from '@/components/admin/MeetingRoomsManagerButtons'
+import { RoomsManagerDashCard } from '@/components/admin/RoomsManagerButtons'
 
 type Counts = { live: number; paused: number }
 
-async function fetchCounts(context: 'homepage' | 'here'): Promise<Counts> {
+async function fetchCounts(context: HeroSlideContext): Promise<Counts> {
   const res = await fetch(
     `/api/hero-slides?limit=100&depth=0&where[context][equals]=${context}`,
     { credentials: 'include' },
@@ -27,7 +30,7 @@ function HeroDashCard({
   href: string
   title: string
   blurb: string
-  context: 'homepage' | 'here'
+  context: HeroSlideContext
 }) {
   const { i18n } = useTranslation()
   const t = heroCopy(i18n?.language)
@@ -71,11 +74,13 @@ function HeroDashCard({
   )
 }
 
-/** Dashboard strip: art + both hero managers. */
+/** Dashboard strip: art + both hero managers (hidden for hotel-staff). */
 export function GuidedAdminDashboard() {
+  const { user } = useAuth()
   const { i18n } = useTranslation()
   const lang = heroUiLocale(i18n?.language)
   const t = heroCopy(i18n?.language)
+  const hotelStaffOnly = (user as { role?: string } | null)?.role === 'hotel-staff'
   const art =
     lang === 'de'
       ? {
@@ -88,6 +93,15 @@ export function GuidedAdminDashboard() {
           blurb: 'Upload a photo and create a work — without a detour through the media library.',
           cta: 'New work',
         }
+
+  if (hotelStaffOnly) {
+    return (
+      <div style={{ margin: '0 0 1.5rem', display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <RoomsManagerDashCard />
+        <MeetingRoomsManagerDashCard />
+      </div>
+    )
+  }
 
   return (
     <div style={{ margin: '0 0 1.5rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -128,6 +142,14 @@ export function GuidedAdminDashboard() {
           blurb={t.dashboardBlurbHier}
           context="here"
         />
+        <HeroDashCard
+          href="/admin/hero-essen"
+          title={t.essenTitle}
+          blurb={t.dashboardBlurbEssen}
+          context="eat-and-drink"
+        />
+        <RoomsManagerDashCard />
+        <MeetingRoomsManagerDashCard />
       </div>
     </div>
   )
@@ -143,6 +165,9 @@ export function HeroManagerListLinks() {
       </a>
       <a className="btn btn--style-secondary btn--size-small" href="/admin/hero-hier">
         {t.listLinkHier}
+      </a>
+      <a className="btn btn--style-secondary btn--size-small" href="/admin/hero-essen">
+        {t.listLinkEssen}
       </a>
     </div>
   )

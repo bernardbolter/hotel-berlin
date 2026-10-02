@@ -2,16 +2,39 @@ import type { MeetingRoom } from '@/payload-types'
 
 import { getPayloadClient } from './client'
 
+const visibleWhere = {
+  or: [{ visibleOnSite: { equals: true } }, { visibleOnSite: { exists: false } }],
+}
+
 export async function getMeetingRooms(
   locale: 'de' | 'en' = 'en',
 ): Promise<MeetingRoom[]> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'meeting-rooms',
+    where: visibleWhere,
     locale,
     depth: 2,
     sort: 'displayOrder',
     limit: 50,
+  })
+  return docs
+}
+
+/** Meeting rooms for the homepage Meet & Work teaser. */
+export async function getMeetingRoomsForTeaser(
+  locale: 'de' | 'en' = 'en',
+): Promise<MeetingRoom[]> {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'meeting-rooms',
+    where: {
+      and: [{ 'homepageTeaser.enabled': { equals: true } }, visibleWhere],
+    },
+    sort: 'homepageTeaser.order',
+    locale,
+    depth: 2,
+    limit: 20,
   })
   return docs
 }
@@ -22,7 +45,9 @@ export async function getFeaturedMeetingRooms(
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'meeting-rooms',
-    where: { featured: { equals: true } },
+    where: {
+      and: [{ featured: { equals: true } }, visibleWhere],
+    },
     sort: 'displayOrder',
     locale,
     depth: 2,
@@ -38,7 +63,9 @@ export async function getMeetingRoomBySlug(
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'meeting-rooms',
-    where: { slug: { equals: slug } },
+    where: {
+      and: [{ slug: { equals: slug } }, visibleWhere],
+    },
     locale,
     depth: 2,
     limit: 1,
@@ -50,6 +77,7 @@ export async function getMeetingRoomSlugs(): Promise<string[]> {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'meeting-rooms',
+    where: visibleWhere,
     limit: 100,
     depth: 0,
     select: { slug: true },

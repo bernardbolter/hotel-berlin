@@ -1,4 +1,5 @@
 import type { CollectionAfterChangeHook, CollectionConfig } from 'payload'
+import { hideFromHotelStaff, isEditorOrAdminUser } from '@/access'
 
 import { sendMeetingInquiryEmails } from '@/lib/meetings/inquiryEmails'
 
@@ -18,14 +19,15 @@ const afterChange: CollectionAfterChangeHook = async ({ doc, operation, req }) =
 export const MeetingInquiries: CollectionConfig = {
   slug: 'meeting-inquiries',
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'contactPerson',
     defaultColumns: ['contactPerson', 'company', 'eventType', 'startDate', 'createdAt'],
   },
   access: {
     create: () => true,
-    read: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    read: ({ req }) => isEditorOrAdminUser(req.user),
+    update: ({ req }) => isEditorOrAdminUser(req.user),
+    delete: ({ req }) => isEditorOrAdminUser(req.user),
   },
   fields: [
     { name: 'company', type: 'text' },

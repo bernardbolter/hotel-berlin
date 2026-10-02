@@ -1,9 +1,11 @@
 import { slugField } from 'payload'
+import { hideFromHotelStaff } from '@/access'
 import type { CollectionConfig } from 'payload'
 
 export const People: CollectionConfig = {
   slug: 'people',
   admin: {
+    hidden: hideFromHotelStaff,
     useAsTitle: 'name',
     defaultColumns: ['name', 'type', 'status', 'updatedAt'],
     group: 'Neighbourhood',

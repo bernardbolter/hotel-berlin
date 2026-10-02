@@ -1,19 +1,72 @@
 import type { CollectionConfig } from 'payload'
 
+import { roomsAccess } from '@/access'
+import {
+  roomsImagesPatchEndpoint,
+  roomsImagesReorderEndpoint,
+  roomsImagesReplaceEndpoint,
+  roomsImagesUploadEndpoint,
+  roomsQuickUpdateEndpoint,
+} from '@/endpoints/roomsManager'
+import { roomsReorderPageEndpoint, roomsReorderSliderEndpoint } from '@/endpoints/roomsReorder'
+
 export const Rooms: CollectionConfig = {
   slug: 'rooms',
+  access: roomsAccess,
+  versions: {
+    maxPerDoc: 20,
+  },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'fromPrice', 'floorSizeM2', 'bathroomLabel', 'featured', 'displayOrder'],
+    defaultColumns: [
+      'name',
+      'visibleOnSite',
+      'fromPrice',
+      'floorSizeM2',
+      'bathroomLabel',
+      'featured',
+      'displayOrder',
+    ],
+    components: {
+      beforeListTable: ['/components/admin/RoomsManagerButtons#RoomsManagerListLink'],
+    },
   },
+  endpoints: [
+    roomsReorderPageEndpoint,
+    roomsReorderSliderEndpoint,
+    roomsImagesReorderEndpoint,
+    roomsImagesReplaceEndpoint,
+    roomsImagesUploadEndpoint,
+    roomsImagesPatchEndpoint,
+    roomsQuickUpdateEndpoint,
+  ],
   fields: [
     { name: 'name', type: 'text', required: true, localized: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     {
+      name: 'visibleOnSite',
+      type: 'checkbox',
+      defaultValue: true,
+      label: {
+        de: 'Auf der Website anzeigen',
+        en: 'Show on website',
+      },
+      admin: {
+        description: {
+          de: 'Ausgeblendete Zimmer erscheinen nicht im Startseiten-Slider, unter /rooms und in der Sitemap.',
+          en: 'Hidden rooms disappear from the homepage slider, /rooms and the sitemap.',
+        },
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'shortDescription',
       type: 'textarea',
       localized: true,
-      admin: { description: 'Max 160 chars. AI citation length.' },
+      admin: {
+        description:
+          'Auto-derived from the long description (max 160 chars + …). Prefer editing description; teaser surfaces truncate the long text.',
+      },
     },
     { name: 'description', type: 'richText', localized: true },
     { name: 'fromPrice', type: 'number', admin: { description: 'From-price in EUR' } },
@@ -116,10 +169,30 @@ export const Rooms: CollectionConfig = {
     {
       name: 'images',
       type: 'array',
+      admin: {
+        description: {
+          de: 'Erstes Foto = Titelbild. Reihenfolge: wide, zweiter Winkel, Bett, Bad, Detail, Aussicht. Querformat 3:2; 2000 px Breite empfohlen, kleinere Fotos sind erlaubt.',
+          en: 'First photo = cover. Order: wide, second angle, bed, bath, detail, view. Landscape 3:2; 2000px width recommended, smaller photos are allowed.',
+        },
+      },
       fields: [
         { name: 'image', type: 'upload', relationTo: 'media', required: true },
-        { name: 'alt', type: 'text', required: true },
-        { name: 'caption', type: 'text' },
+        { name: 'alt', type: 'text', required: true, localized: true },
+        { name: 'caption', type: 'text', localized: true },
+        {
+          name: 'shotType',
+          type: 'select',
+          options: [
+            { label: 'Wide', value: 'wide' },
+            { label: 'Bed', value: 'bed' },
+            { label: 'Bath', value: 'bath' },
+            { label: 'Detail', value: 'detail' },
+            { label: 'View', value: 'view' },
+          ],
+          admin: {
+            description: 'Optional shot category for gallery ordering guidance.',
+          },
+        },
       ],
     },
     {
@@ -170,6 +243,7 @@ export const Rooms: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           admin: {
+            hidden: true,
             description:
               'Unused for display — homepage always uses the room’s first gallery image. Kept for legacy CMS data only.',
           },

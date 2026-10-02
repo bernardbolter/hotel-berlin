@@ -5,6 +5,10 @@ import type { HeroSlide } from '@/components/home/heroSlides'
 import { focalToObjectPosition } from '@/lib/media/focal'
 import { mediaSizedUrl, mediaUrl as originalMediaUrl } from '@/lib/media/url'
 import { getPayloadClient } from '@/lib/payload/client'
+import { getMeetingRoomsForTeaser } from '@/lib/payload/meetingRooms'
+import type { HeroSlideContext } from '@/lib/hero/slideContext'
+
+export type { HeroSlideContext } from '@/lib/hero/slideContext'
 
 function heroMediaUrl(image: number | Media | null | undefined): string | null {
   return mediaSizedUrl(image, 'hero')
@@ -89,12 +93,13 @@ function mapHomepageSlides(enPage: Homepage, dePage: Homepage): HeroSlide[] {
     .filter((slide): slide is HeroSlide => slide !== null)
 }
 
-export type HeroSlideContext = 'homepage' | 'here'
-
 /** Homepage includes untagged rows so the new `context` field cannot empty the live hero. */
 export function heroSlideContextWhere(context: HeroSlideContext): Where {
   if (context === 'here') {
     return { context: { equals: 'here' } }
+  }
+  if (context === 'eat-and-drink') {
+    return { context: { equals: 'eat-and-drink' } }
   }
   return {
     or: [{ context: { equals: 'homepage' } }, { context: { exists: false } }],
@@ -140,8 +145,8 @@ export async function getHeroSlides(
 
     if (fromCollection.length > 0) return fromCollection
 
-    // /here has no legacy global / hardcoded fallback — those are homepage-only.
-    if (context === 'here') return []
+    // Non-homepage contexts have no legacy global / hardcoded fallback.
+    if (context !== 'homepage') return []
 
     const [enPage, dePage] = await Promise.all([
       payload.findGlobal({ slug: 'homepage', locale: 'en', depth: 2 }),
@@ -283,6 +288,30 @@ const meetAndWorkDefaults: Record<
   },
 }
 
+/** Meet & Work rotation from meeting rooms flagged for the homepage teaser. */
+async function meetingRoomTeaserSlides(
+  locale: 'de' | 'en',
+  fallbackAlt: string,
+): Promise<MeetAndWorkSlide[]> {
+  const rooms = await getMeetingRoomsForTeaser(locale)
+
+  return rooms
+    .map((room) => {
+      const cover = room.images?.[0]
+      const src = cardMediaUrl(cover?.image) ?? cardMediaUrl(room.teaserImage)
+      if (!src) return null
+      const coverMedia =
+        cover?.image && typeof cover.image === 'object' ? cover.image : null
+      return {
+        id: `meeting-room-${room.id}`,
+        src,
+        alt: cover?.alt?.trim() || coverMedia?.alt?.trim() || fallbackAlt,
+        caption: room.name?.trim() || '',
+      } satisfies MeetAndWorkSlide
+    })
+    .filter((slide): slide is MeetAndWorkSlide => slide !== null)
+}
+
 export async function getMeetAndWork(locale: 'de' | 'en'): Promise<MeetAndWorkCopy> {
   const defaults = meetAndWorkDefaults[locale]
   const fallbackSlides: MeetAndWorkSlide[] = [
@@ -303,7 +332,9 @@ export async function getMeetAndWork(locale: 'de' | 'en'): Promise<MeetAndWorkCo
     })) as Hotel
 
     const block = hotel.meetAndWork
-    const slides =
+    // Hotel.meetAndWork stays copy-only; slides live on the meeting rooms.
+    const fromMeetingRooms = await meetingRoomTeaserSlides(locale, defaults.slideFallback.alt)
+    const fromHotel =
       block?.slides
         ?.map((slide, index) => {
           const src = cardMediaUrl(slide.image)
@@ -316,6 +347,7 @@ export async function getMeetAndWork(locale: 'de' | 'en'): Promise<MeetAndWorkCo
           } satisfies MeetAndWorkSlide
         })
         .filter((slide): slide is MeetAndWorkSlide => slide !== null) ?? []
+    const slides = fromMeetingRooms.length > 0 ? fromMeetingRooms : fromHotel
 
     return {
       kicker: block?.kicker?.trim() || defaults.kicker,
@@ -397,5 +429,59 @@ export async function getEatAndDrink(locale: 'de' | 'en'): Promise<EatAndDrinkCo
     }
   } catch {
     return defaults
+  }
+}
+
+/**
+ * Eat & Drink teaser slider — hero-slides with context `eat-and-drink`,
+ * falling back to the single Hotel.eatAndDrink.image when no slides exist.
+ */
+export async function getEatAndDrinkSlides(): Promise<HeroSlide[]> {
+  const fromCollection = await getHeroSlides('eat-and-drink')
+  if (fromCollection.length > 0) return fromCollection
+
+  try {
+    const payload = await getPayloadClient()
+    const [enHotel, deHotel] = await Promise.all([
+      payload.findGlobal({ slug: 'hotel', locale: 'en', depth: 1 }) as Promise<Hotel>,
+      payload.findGlobal({ slug: 'hotel', locale: 'de', depth: 1 }) as Promise<Hotel>,
+    ])
+
+    const enImage = enHotel.eatAndDrink?.image
+    const src = heroMediaUrl(enImage) || cardMediaUrl(enImage)
+    if (!src || src.startsWith('/api/media/')) {
+      const fallback = eatAndDrinkDefaults.en.image
+      return [
+        {
+          src: fallback.src,
+          altEN: fallback.alt,
+          altDE: eatAndDrinkDefaults.de.image.alt,
+          captionEN: '',
+          captionDE: '',
+        },
+      ]
+    }
+
+    const media = typeof enImage === 'object' ? enImage : null
+    return [
+      {
+        src,
+        altEN: enHotel.eatAndDrink?.imageAlt?.trim() || eatAndDrinkDefaults.en.image.alt,
+        altDE: deHotel.eatAndDrink?.imageAlt?.trim() || eatAndDrinkDefaults.de.image.alt,
+        captionEN: '',
+        captionDE: '',
+        objectPosition: focalToObjectPosition(media?.focalX, media?.focalY),
+      },
+    ]
+  } catch {
+    return [
+      {
+        src: eatAndDrinkDefaults.en.image.src,
+        altEN: eatAndDrinkDefaults.en.image.alt,
+        altDE: eatAndDrinkDefaults.de.image.alt,
+        captionEN: '',
+        captionDE: '',
+      },
+    ]
   }
 }

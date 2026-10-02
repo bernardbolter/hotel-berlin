@@ -338,11 +338,11 @@ export function HeroManagerClient({ context }: Props) {
 
     // Eat & Drink place picker: Lütze, Wundermart, Frühstück only.
     if (context === 'eat-and-drink') {
-      const order = new Map(EAT_AND_DRINK_VENUE_SLUGS.map((slug, i) => [slug, i]))
+      const order = new Map<string, number>(EAT_AND_DRINK_VENUE_SLUGS.map((slug, i) => [slug, i]))
       setVenues(
         merged
           .filter((v) => isEatAndDrinkVenueSlug(v.slug))
-          .sort((a, b) => (order.get(a.slug!) ?? 99) - (order.get(b.slug!) ?? 99)),
+          .sort((a, b) => (order.get(a.slug ?? '') ?? 99) - (order.get(b.slug ?? '') ?? 99)),
       )
     } else {
       setVenues(merged)

@@ -77,6 +77,7 @@ export interface Config {
     venues: Venue;
     'hero-slides': HeroSlide;
     amenities: Amenity;
+    'faq-topics': FaqTopic;
     faqs: Faq;
     artists: Artist;
     artworks: Artwork;
@@ -108,6 +109,7 @@ export interface Config {
     venues: VenuesSelect<false> | VenuesSelect<true>;
     'hero-slides': HeroSlidesSelect<false> | HeroSlidesSelect<true>;
     amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
+    'faq-topics': FaqTopicsSelect<false> | FaqTopicsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     artists: ArtistsSelect<false> | ArtistsSelect<true>;
     artworks: ArtworksSelect<false> | ArtworksSelect<true>;
@@ -133,6 +135,7 @@ export interface Config {
     navigation: Navigation;
     footer: Footer;
     meetings: Meeting;
+    'faq-placements': FaqPlacement;
   };
   globalsSelect: {
     hotel: HotelSelect<false> | HotelSelect<true>;
@@ -140,6 +143,7 @@ export interface Config {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     meetings: MeetingsSelect<false> | MeetingsSelect<true>;
+    'faq-placements': FaqPlacementsSelect<false> | FaqPlacementsSelect<true>;
   };
   locale: 'de' | 'en';
   widgets: {
@@ -908,6 +912,10 @@ export interface Amenity {
    */
   price?: string | null;
   /**
+   * Advance-notice minutes for booking this amenity (e.g. sauna 45 → {{saunaNotice}}). Leave empty if none.
+   */
+  noticeMinutes?: number | null;
+  /**
    * Optional “Was” spec, e.g. “8 × Typ 2” or “Permanent”.
    */
   what?: string | null;
@@ -991,15 +999,19 @@ export interface Faq {
    */
   question: string;
   /**
-   * Plain text, not richText. Keep it to 1–3 sentences — this ships verbatim into FAQPage JSON-LD acceptedAnswer.text. If a question needs links or lists, summarize here and point to a policy page.
+   * Plain text, not richText. Keep it to 1–3 sentences — this ships verbatim into FAQPage JSON-LD acceptedAnswer.text. May contain {{tokens}} (resolved at render in a later step). URLs, emails and phone numbers are auto-linked on the site.
    */
   answer: string;
   /**
-   * prospect = /faq and mini blocks on outside pages. guest = /here/faq and mini blocks on /here. No "both" — duplicate the record if needed.
+   * DEPRECATED — being replaced by `audience` (which adds "both"). Kept for the current fetch path; do not edit for new FAQs. Will be hidden after audience backfill is verified.
    */
   context: 'prospect' | 'guest';
   /**
-   * Use a category that matches this record’s context. Taxonomy is provisional until real questions land.
+   * Who this FAQ is for. "both" replaces duplicate prospect/guest pairs. Not required until the structure backfill is verified; then it becomes required and replaces context.
+   */
+  audience?: ('prospect' | 'guest' | 'both') | null;
+  /**
+   * Provisional taxonomy — superseded by topic → faq-topics. Hidden; kept until the category→topic map is verified, then retired.
    */
   category:
     | 'rooms-booking'
@@ -1020,7 +1032,83 @@ export interface Faq {
     | 'getting-around'
     | 'house-rules';
   /**
-   * Optional pin — forces this question into a page’s mini block regardless of category. Use sparingly; category matching covers most cases.
+   * Primary topic for grouping on /faq and for route placement fill. Required after structure backfill is verified.
+   */
+  topic?: (number | null) | FaqTopic;
+  /**
+   * Optional extra topics so this FAQ can fill more than one route placement.
+   */
+  secondaryTopics?: (number | FaqTopic)[] | null;
+  /**
+   * When a route is over its cap, lower numbers survive first. Pinned FAQs are never trimmed (Step 2).
+   */
+  priority?: ('1' | '2' | '3') | null;
+  /**
+   * Force this FAQ onto these route keys regardless of topic fill. Options come from src/lib/faq/routes.ts.
+   */
+  pinnedRoutes?:
+    | (
+        | 'home'
+        | 'rooms'
+        | 'room-detail'
+        | 'meetings'
+        | 'amenities'
+        | 'sustainability'
+        | 'offers'
+        | 'contact'
+        | 'faq'
+        | 'here'
+        | 'here-dining'
+        | 'here-getting-around'
+        | 'here-faq'
+        | 'policy-checkin'
+        | 'policy-cancellation'
+        | 'policy-pets'
+        | 'policy-fees'
+        | 'policy-payment'
+      )[]
+    | null;
+  /**
+   * Pin this FAQ to specific entities (e.g. balcony FAQ only on rooms that have balconies). Used by room-detail / meeting placements in Step 2.
+   */
+  pinnedEntities?:
+    | (
+        | {
+            relationTo: 'rooms';
+            value: number | Room;
+          }
+        | {
+            relationTo: 'meeting-rooms';
+            value: number | MeetingRoom;
+          }
+        | {
+            relationTo: 'venues';
+            value: number | Venue;
+          }
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+      )[]
+    | null;
+  /**
+   * Old slugs/anchors that must keep opening this FAQ after a merge (Step 3). Do not clear absorbed slugs.
+   */
+  aliasSlugs?:
+    | {
+        /**
+         * Former FAQ slug, e.g. guest-checkin after merge into check-in-time.
+         */
+        slug: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * If this record was absorbed into another FAQ, point at the survivor. Set in Step 3; leave empty until then.
+   */
+  mergedInto?: (number | null) | Faq;
+  /**
+   * OLD pin model — unused in live data. Hidden; replaced by pinnedRoutes / pinnedEntities. Not dropped (hide-don't-delete).
    */
   relevantPages?: (number | Page)[] | null;
   /**
@@ -1031,6 +1119,40 @@ export interface Faq {
    * Anchor id for deep links, e.g. /faq#pet-policy.
    */
   slug: string;
+  /**
+   * Open questions, source notes, HOLD reasons. Admin-only — never rendered on the site.
+   */
+  internalNote?: string | null;
+  /**
+   * Where this Q&A came from. Existing 47 are website; chatbot triage fills gaps later.
+   */
+  source?: ('chatbot' | 'website' | 'staff') | null;
+  /**
+   * Last content review date. Drives a "stale >12 months" admin filter later.
+   */
+  lastReviewed?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-topics".
+ */
+export interface FaqTopic {
+  id: number;
+  /**
+   * Stable id used in code and the reconciliation workbook, e.g. checkin-checkout. Do not rename after FAQs reference it.
+   */
+  slug: string;
+  /**
+   * EN + DE label shown on /faq topic grouping and in the admin.
+   */
+  label: string;
+  /**
+   * Order of topic groups on the full FAQ pages. Lower comes first.
+   */
+  sortOrder: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -1820,6 +1942,10 @@ export interface PayloadLockedDocument {
         value: number | Amenity;
       } | null)
     | ({
+        relationTo: 'faq-topics';
+        value: number | FaqTopic;
+      } | null)
+    | ({
         relationTo: 'faqs';
         value: number | Faq;
       } | null)
@@ -2285,6 +2411,7 @@ export interface AmenitiesSelect<T extends boolean = true> {
       };
   hoursOverride?: T;
   price?: T;
+  noticeMinutes?: T;
   what?: T;
   summary?: T;
   details?: T;
@@ -2309,18 +2436,46 @@ export interface AmenitiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-topics_select".
+ */
+export interface FaqTopicsSelect<T extends boolean = true> {
+  slug?: T;
+  label?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faqs_select".
  */
 export interface FaqsSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
   context?: T;
+  audience?: T;
   category?: T;
+  topic?: T;
+  secondaryTopics?: T;
+  priority?: T;
+  pinnedRoutes?: T;
+  pinnedEntities?: T;
+  aliasSlugs?:
+    | T
+    | {
+        slug?: T;
+        id?: T;
+      };
+  mergedInto?: T;
   relevantPages?: T;
   order?: T;
   slug?: T;
+  internalNote?: T;
+  source?: T;
+  lastReviewed?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2725,8 +2880,33 @@ export interface Hotel {
   shortDescription?: string | null;
   url?: string | null;
   telephone?: string | null;
+  /**
+   * Reception / guest-care direct line for {{phoneReception}}. HOLD until the hotel confirms — leave empty so dependent FAQs stay hidden.
+   */
+  receptionPhone?: string | null;
   conferencePhone?: string | null;
   email?: string | null;
+  /**
+   * Structured addresses for FAQ tokens. Leave empty until confirmed — empty sources hide tokenised FAQs.
+   */
+  emails?: {
+    /**
+     * {{emailReservations}} — leave empty until confirmed.
+     */
+    reservations?: string | null;
+    /**
+     * {{emailSustainability}} — leave empty until confirmed.
+     */
+    sustainability?: string | null;
+    /**
+     * {{emailCareers}} — leave empty until confirmed.
+     */
+    careers?: string | null;
+  };
+  /**
+   * Public lost-property portal URL for {{lostPropertyUrl}}. Leave empty until confirmed.
+   */
+  lostPropertyUrl?: string | null;
   address?: {
     streetAddress?: string | null;
     addressLocality?: string | null;
@@ -2756,6 +2936,91 @@ export interface Hotel {
   };
   checkinTime?: string | null;
   checkoutTime?: string | null;
+  /**
+   * Structured early check-in facts for FAQ tokens. Do not scrape guestStay prose.
+   */
+  earlyCheckin?: {
+    /**
+     * Earliest early check-in time, e.g. 06:00 → {{earlyCheckinFrom}}.
+     */
+    from?: string | null;
+    /**
+     * Early check-in fee in EUR (number). Formatted as €n / n €.
+     */
+    fee?: number | null;
+  };
+  /**
+   * Structured late check-out facts. Leave empty until conflict C3 is resolved (seedNow=false).
+   */
+  lateCheckout?: {
+    /**
+     * Latest late check-out time → {{lateCheckoutTime}}.
+     */
+    until?: string | null;
+    /**
+     * Late check-out fee in EUR → {{lateCheckoutFee}}.
+     */
+    fee?: number | null;
+  };
+  /**
+   * Garage facts for FAQ tokens. Separate from guestStay.parking prose (do not parse that copy).
+   */
+  parking?: {
+    /**
+     * Number of spaces → {{parkingSpaces}}.
+     */
+    spaces?: number | null;
+    /**
+     * Hourly rate EUR → {{parkingHourly}}.
+     */
+    hourly?: number | null;
+    /**
+     * Daily maximum EUR → {{parkingDaily}}.
+     */
+    dailyMax?: number | null;
+    /**
+     * Max vehicle height in metres, e.g. 1.8 → {{parkingMaxHeight}}.
+     */
+    maxHeight?: number | null;
+  };
+  /**
+   * Pet fee EUR per day (number) → {{petFee}}. Preferred over guestStay.more.pets prose.
+   */
+  petFee?: number | null;
+  /**
+   * Numbers for cancellation FAQ tokens. Confirm with the hotel before changing.
+   */
+  ratePolicy?: {
+    /**
+     * Same-day flexible cancel deadline, e.g. 18:00 → {{cancelFlexibleUntil}}.
+     */
+    flexibleCancelUntil?: string | null;
+    /**
+     * No-show charge percent, e.g. 90 → {{noShowCharge}}.
+     */
+    noShowPercent?: number | null;
+  };
+  /**
+   * Smoking cleaning fee EUR → {{smokingFee}}.
+   */
+  smokingFee?: number | null;
+  /**
+   * Per-minute room phone rates for FAQ tokens.
+   */
+  roomPhoneRates?: {
+    /**
+     * Domestic per-minute EUR → {{phoneRateDomestic}}.
+     */
+    domestic?: number | null;
+    /**
+     * International per-minute minimum EUR → {{phoneRateIntlMin}}.
+     */
+    intlMin?: number | null;
+    /**
+     * International per-minute maximum EUR → {{phoneRateIntlMax}}.
+     */
+    intlMax?: number | null;
+  };
   guestStay?: {
     /**
      * Guest WiFi SSID — shown in monospace pill. Not localised.
@@ -3404,6 +3669,67 @@ export interface Meeting {
   createdAt?: string | null;
 }
 /**
+ * Per-route FAQ placement: audience, topics, cap, and optional heading. Used by getFAQsForRoute when FAQ_ROUTING_V2 is on. Seed from doc/faqs/faq-placements.json.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-placements".
+ */
+export interface FaqPlacement {
+  id: number;
+  /**
+   * One row per route key. Route must be unique across rows.
+   */
+  placements?:
+    | {
+        /**
+         * Route registry key from src/lib/faq/routes.ts.
+         */
+        route:
+          | 'home'
+          | 'rooms'
+          | 'room-detail'
+          | 'meetings'
+          | 'amenities'
+          | 'sustainability'
+          | 'offers'
+          | 'contact'
+          | 'faq'
+          | 'here'
+          | 'here-dining'
+          | 'here-getting-around'
+          | 'here-faq'
+          | 'policy-checkin'
+          | 'policy-cancellation'
+          | 'policy-pets'
+          | 'policy-fees'
+          | 'policy-payment';
+        /**
+         * Fill matches FAQs whose audience is this value or "both". Placement "both" matches every FAQ audience.
+         */
+        audience: 'prospect' | 'guest' | 'both';
+        /**
+         * Topics that fill this route. Ignored when showAll is checked. Empty + not showAll → pins only.
+         */
+        topics?: (number | FaqTopic)[] | null;
+        /**
+         * When checked, fill includes every topic (subject to audience). Cap is ignored.
+         */
+        showAll?: boolean | null;
+        /**
+         * Max items on the surface (pinned never trimmed). Ignored when showAll is checked. Leave empty for uncapped non-showAll only if intentional.
+         */
+        cap?: number | null;
+        /**
+         * Optional section heading override for this route. Leave empty to use i18n default.
+         */
+        heading?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hotel_select".
  */
@@ -3414,8 +3740,17 @@ export interface HotelSelect<T extends boolean = true> {
   shortDescription?: T;
   url?: T;
   telephone?: T;
+  receptionPhone?: T;
   conferencePhone?: T;
   email?: T;
+  emails?:
+    | T
+    | {
+        reservations?: T;
+        sustainability?: T;
+        careers?: T;
+      };
+  lostPropertyUrl?: T;
   address?:
     | T
     | {
@@ -3442,6 +3777,41 @@ export interface HotelSelect<T extends boolean = true> {
       };
   checkinTime?: T;
   checkoutTime?: T;
+  earlyCheckin?:
+    | T
+    | {
+        from?: T;
+        fee?: T;
+      };
+  lateCheckout?:
+    | T
+    | {
+        until?: T;
+        fee?: T;
+      };
+  parking?:
+    | T
+    | {
+        spaces?: T;
+        hourly?: T;
+        dailyMax?: T;
+        maxHeight?: T;
+      };
+  petFee?: T;
+  ratePolicy?:
+    | T
+    | {
+        flexibleCancelUntil?: T;
+        noShowPercent?: T;
+      };
+  smokingFee?: T;
+  roomPhoneRates?:
+    | T
+    | {
+        domestic?: T;
+        intlMin?: T;
+        intlMax?: T;
+      };
   guestStay?:
     | T
     | {
@@ -3834,6 +4204,26 @@ export interface MeetingsSelect<T extends boolean = true> {
       };
   closingHeadline?: T;
   closingCtaLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-placements_select".
+ */
+export interface FaqPlacementsSelect<T extends boolean = true> {
+  placements?:
+    | T
+    | {
+        route?: T;
+        audience?: T;
+        topics?: T;
+        showAll?: T;
+        cap?: T;
+        heading?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

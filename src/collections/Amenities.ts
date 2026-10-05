@@ -110,6 +110,14 @@ export const Amenities: CollectionConfig = {
       },
     },
     {
+      name: 'noticeMinutes',
+      type: 'number',
+      admin: {
+        description:
+          'Advance-notice minutes for booking this amenity (e.g. sauna 45 → {{saunaNotice}}). Leave empty if none.',
+      },
+    },
+    {
       name: 'what',
       type: 'text',
       localized: true,

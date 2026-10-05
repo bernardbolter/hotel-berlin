@@ -13,6 +13,8 @@ export type FAQAccordionItem = {
   id: string
   question: string
   answer: string
+  /** Former slugs that should still open this item via location.hash */
+  aliasIds?: string[]
 }
 
 export type FAQAccordionProps = {
@@ -69,10 +71,13 @@ export function FAQAccordion({
   useEffect(() => {
     if (typeof window === 'undefined') return
     const hash = window.location.hash.replace(/^#/, '')
-    if (hash && items.some((item) => item.id === hash)) {
-      setOpenId(hash)
-      document.getElementById(`faq-question-${hash}`)?.scrollIntoView({ block: 'start' })
-    }
+    if (!hash) return
+    const match = items.find(
+      (item) => item.id === hash || item.aliasIds?.includes(hash),
+    )
+    if (!match) return
+    setOpenId(match.id)
+    document.getElementById(`faq-question-${match.id}`)?.scrollIntoView({ block: 'start' })
   }, [items])
 
   const list = (

@@ -1,0 +1,81 @@
+{
+  "identical_all": true,
+  "surfaces": [
+    {
+      "surface": "home-de",
+      "path": "/de",
+      "identical": true,
+      "ids": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "q_count": 4,
+      "ld_count": 4
+    },
+    {
+      "surface": "home-en",
+      "path": "/en",
+      "identical": true,
+      "ids": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "q_count": 4,
+      "ld_count": 4
+    },
+    {
+      "surface": "rooms-de",
+      "path": "/de/zimmer",
+      "identical": true,
+      "ids": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "q_count": 4,
+      "ld_count": 4
+    },
+    {
+      "surface": "rooms-en",
+      "path": "/en/rooms",
+      "identical": true,
+      "ids": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "q_count": 4,
+      "ld_count": 4
+    },
+    {
+      "surface": "here-de",
+      "path": "/de/hier",
+      "identical": true,
+      "ids": [
+        "guest-wifi",
+        "guest-luggage",
+        "guest-checkout"
+      ],
+      "q_count": 3,
+      "ld_count": 3
+    },
+    {
+      "surface": "here-en",
+      "path": "/en/here",
+      "identical": true,
+      "ids": [
+        "guest-wifi",
+        "guest-luggage",
+        "guest-checkout"
+      ],
+      "q_count": 3,
+      "ld_count": 3
+    }
+  ]
+}

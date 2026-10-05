@@ -1,0 +1,736 @@
+{
+  "generated": "2026-10-05",
+  "note": "Backfill data for FAQ System Part B Step 1. Source: HotelBerlin_FAQ_Reconciliation.xlsx. plannedAction/mergeGroup are informational: Step 1 executes NO merges.",
+  "topics": [
+    {
+      "slug": "checkin-checkout",
+      "label": {
+        "en": "Check-in & check-out",
+        "de": "Check-in & Check-out"
+      },
+      "sortOrder": 10
+    },
+    {
+      "slug": "getting-here",
+      "label": {
+        "en": "Getting here",
+        "de": "Anreise"
+      },
+      "sortOrder": 20
+    },
+    {
+      "slug": "parking",
+      "label": {
+        "en": "Parking",
+        "de": "Parken"
+      },
+      "sortOrder": 30
+    },
+    {
+      "slug": "breakfast",
+      "label": {
+        "en": "Breakfast",
+        "de": "Frühstück"
+      },
+      "sortOrder": 40
+    },
+    {
+      "slug": "dining",
+      "label": {
+        "en": "Eating & drinking",
+        "de": "Essen & Trinken"
+      },
+      "sortOrder": 50
+    },
+    {
+      "slug": "rooms",
+      "label": {
+        "en": "Rooms",
+        "de": "Zimmer"
+      },
+      "sortOrder": 60
+    },
+    {
+      "slug": "in-room",
+      "label": {
+        "en": "In your room",
+        "de": "Im Zimmer"
+      },
+      "sortOrder": 70
+    },
+    {
+      "slug": "wifi",
+      "label": {
+        "en": "WiFi",
+        "de": "WLAN"
+      },
+      "sortOrder": 80
+    },
+    {
+      "slug": "wellness",
+      "label": {
+        "en": "Sauna & fitness",
+        "de": "Sauna & Fitness"
+      },
+      "sortOrder": 90
+    },
+    {
+      "slug": "activities",
+      "label": {
+        "en": "Activities",
+        "de": "Freizeit"
+      },
+      "sortOrder": 100
+    },
+    {
+      "slug": "services",
+      "label": {
+        "en": "Services",
+        "de": "Services"
+      },
+      "sortOrder": 110
+    },
+    {
+      "slug": "bikes",
+      "label": {
+        "en": "Bikes",
+        "de": "Fahrrad"
+      },
+      "sortOrder": 120
+    },
+    {
+      "slug": "pets",
+      "label": {
+        "en": "Pets",
+        "de": "Haustiere"
+      },
+      "sortOrder": 130
+    },
+    {
+      "slug": "payment",
+      "label": {
+        "en": "Payment",
+        "de": "Zahlung"
+      },
+      "sortOrder": 140
+    },
+    {
+      "slug": "loyalty",
+      "label": {
+        "en": "Loyalty programme",
+        "de": "Bonusprogramm"
+      },
+      "sortOrder": 150
+    },
+    {
+      "slug": "sustainability",
+      "label": {
+        "en": "Sustainability",
+        "de": "Nachhaltigkeit"
+      },
+      "sortOrder": 160
+    },
+    {
+      "slug": "meetings",
+      "label": {
+        "en": "Meetings",
+        "de": "Tagungen"
+      },
+      "sortOrder": 170
+    },
+    {
+      "slug": "contact",
+      "label": {
+        "en": "Contact",
+        "de": "Kontakt"
+      },
+      "sortOrder": 180
+    },
+    {
+      "slug": "lost-property",
+      "label": {
+        "en": "Lost property",
+        "de": "Fundsachen"
+      },
+      "sortOrder": 190
+    },
+    {
+      "slug": "cancellation",
+      "label": {
+        "en": "Cancellation",
+        "de": "Stornierung"
+      },
+      "sortOrder": 200
+    },
+    {
+      "slug": "accessibility",
+      "label": {
+        "en": "Accessibility",
+        "de": "Barrierefreiheit"
+      },
+      "sortOrder": 210
+    },
+    {
+      "slug": "health-safety",
+      "label": {
+        "en": "Health & safety",
+        "de": "Gesundheit & Sicherheit"
+      },
+      "sortOrder": 220
+    },
+    {
+      "slug": "getting-around",
+      "label": {
+        "en": "Getting around",
+        "de": "Unterwegs"
+      },
+      "sortOrder": 230
+    },
+    {
+      "slug": "house-rules",
+      "label": {
+        "en": "House rules",
+        "de": "Hausregeln"
+      },
+      "sortOrder": 240
+    }
+  ],
+  "records": [
+    {
+      "slug": "check-in-time",
+      "audience": "both",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Survivor + diff",
+      "mergeGroup": "G1"
+    },
+    {
+      "slug": "parking",
+      "audience": "both",
+      "topic": "parking",
+      "secondaryTopics": [
+        "getting-here"
+      ],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Survivor + diff",
+      "mergeGroup": "G2"
+    },
+    {
+      "slug": "pet-policy",
+      "audience": "both",
+      "topic": "pets",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Survivor + diff",
+      "mergeGroup": "G3"
+    },
+    {
+      "slug": "airport-transfer",
+      "audience": "both",
+      "topic": "getting-here",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Keep – CONFLICT",
+      "mergeGroup": null
+    },
+    {
+      "slug": "cancellation-flexible",
+      "audience": "prospect",
+      "topic": "cancellation",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "breakfast-times",
+      "audience": "both",
+      "topic": "breakfast",
+      "secondaryTopics": [
+        "dining"
+      ],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Survivor + diff – CONFLICT",
+      "mergeGroup": "G4"
+    },
+    {
+      "slug": "guest-checkin",
+      "audience": "both",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Merge into check-in-time",
+      "mergeGroup": "G1"
+    },
+    {
+      "slug": "guest-checkout",
+      "audience": "both",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Keep + diff – CONFLICT",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-luggage",
+      "audience": "both",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep (wins over F03)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-lost-and-found",
+      "audience": "guest",
+      "topic": "lost-property",
+      "secondaryTopics": [
+        "contact"
+      ],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep + diff",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-do-not-disturb",
+      "audience": "guest",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-wifi",
+      "audience": "guest",
+      "topic": "wifi",
+      "secondaryTopics": [
+        "in-room"
+      ],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Keep (wins over F12)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-minibar",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-safe",
+      "audience": "guest",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-housekeeping",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [
+        "sustainability"
+      ],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep – CONFLICT",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-iron",
+      "audience": "guest",
+      "topic": "services",
+      "secondaryTopics": [
+        "in-room"
+      ],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep (wins over F23)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-adapter",
+      "audience": "guest",
+      "topic": "services",
+      "secondaryTopics": [
+        "in-room"
+      ],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep (wins over F22)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-air-conditioning",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-tap-water",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-phone-rates",
+      "audience": "guest",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-card-only",
+      "audience": "both",
+      "topic": "payment",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Survivor + diff",
+      "mergeGroup": "G5"
+    },
+    {
+      "slug": "guest-atm",
+      "audience": "guest",
+      "topic": "payment",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-currency-exchange",
+      "audience": "guest",
+      "topic": "payment",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-medical-on-call",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-emergency",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Survivor (review)",
+      "mergeGroup": "G7"
+    },
+    {
+      "slug": "guest-gp",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-pharmacy-nollendorf",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Survivor + diff",
+      "mergeGroup": "G6"
+    },
+    {
+      "slug": "guest-pharmacy-wittenbergplatz",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Merge into guest-pharmacy-nollendorf",
+      "mergeGroup": "G6"
+    },
+    {
+      "slug": "guest-babysitting",
+      "audience": "both",
+      "topic": "services",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-staff-24-7",
+      "audience": "guest",
+      "topic": "health-safety",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Merge into guest-emergency",
+      "mergeGroup": "G7"
+    },
+    {
+      "slug": "guest-parking",
+      "audience": "both",
+      "topic": "parking",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Merge into parking",
+      "mergeGroup": "G2"
+    },
+    {
+      "slug": "guest-ev-charging",
+      "audience": "both",
+      "topic": "parking",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-bike-garage",
+      "audience": "both",
+      "topic": "bikes",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep (wins over F30)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-car-rental",
+      "audience": "guest",
+      "topic": "getting-around",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-taxi",
+      "audience": "guest",
+      "topic": "getting-around",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-jogging",
+      "audience": "guest",
+      "topic": "getting-around",
+      "secondaryTopics": [
+        "wellness"
+      ],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-dogs",
+      "audience": "both",
+      "topic": "pets",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Merge into pet-policy",
+      "mergeGroup": "G3"
+    },
+    {
+      "slug": "guest-nonsmoking",
+      "audience": "both",
+      "topic": "house-rules",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-gym",
+      "audience": "both",
+      "topic": "wellness",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep (wins over F28)",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-sauna",
+      "audience": "both",
+      "topic": "wellness",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Keep – CONFLICT",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-business-center",
+      "audience": "guest",
+      "topic": "services",
+      "secondaryTopics": [],
+      "priority": 3,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-care-center",
+      "audience": "guest",
+      "topic": "contact",
+      "secondaryTopics": [
+        "services"
+      ],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-room-service",
+      "audience": "both",
+      "topic": "dining",
+      "secondaryTopics": [
+        "in-room"
+      ],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep – CONFLICT",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-breakfast",
+      "audience": "both",
+      "topic": "breakfast",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Merge into breakfast-times",
+      "mergeGroup": "G4"
+    },
+    {
+      "slug": "guest-lutze-hours",
+      "audience": "both",
+      "topic": "dining",
+      "secondaryTopics": [],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep – make computed",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-wundermart",
+      "audience": "both",
+      "topic": "services",
+      "secondaryTopics": [
+        "dining"
+      ],
+      "priority": 2,
+      "source": "website",
+      "plannedAction": "Keep",
+      "mergeGroup": null
+    },
+    {
+      "slug": "guest-dining-card-only",
+      "audience": "both",
+      "topic": "payment",
+      "secondaryTopics": [],
+      "priority": 1,
+      "source": "website",
+      "plannedAction": "Merge into guest-card-only",
+      "mergeGroup": "G5"
+    }
+  ],
+  "mergeGroups": [
+    {
+      "group": "G1",
+      "survivor": "check-in-time",
+      "absorbed": "guest-checkin",
+      "audienceAfter": "both"
+    },
+    {
+      "group": "G2",
+      "survivor": "parking",
+      "absorbed": "guest-parking",
+      "audienceAfter": "both"
+    },
+    {
+      "group": "G3",
+      "survivor": "pet-policy",
+      "absorbed": "guest-dogs",
+      "audienceAfter": "both"
+    },
+    {
+      "group": "G4",
+      "survivor": "breakfast-times",
+      "absorbed": "guest-breakfast",
+      "audienceAfter": "both"
+    },
+    {
+      "group": "G5",
+      "survivor": "guest-card-only",
+      "absorbed": "guest-dining-card-only",
+      "audienceAfter": "both"
+    },
+    {
+      "group": "G6",
+      "survivor": "guest-pharmacy-nollendorf",
+      "absorbed": "guest-pharmacy-wittenbergplatz",
+      "audienceAfter": "guest"
+    },
+    {
+      "group": "G7",
+      "survivor": "guest-emergency",
+      "absorbed": "guest-staff-24-7",
+      "audienceAfter": "guest"
+    }
+  ]
+}

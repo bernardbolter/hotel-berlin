@@ -1,0 +1,1160 @@
+{
+  "base": "http://localhost:3000",
+  "capturedAt": "2026-10-05T19:32:55.064Z",
+  "flagHint": "unset",
+  "faq-de": {
+    "path": "/de/faq",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer",
+      "guest-luggage",
+      "guest-checkout",
+      "breakfast-times",
+      "guest-lutze-hours",
+      "guest-wundermart",
+      "guest-nonsmoking",
+      "guest-gym",
+      "guest-sauna",
+      "guest-room-service",
+      "guest-card-only",
+      "cancellation-flexible",
+      "guest-ev-charging",
+      "guest-bike-garage",
+      "guest-minibar",
+      "guest-housekeeping",
+      "guest-air-conditioning",
+      "guest-tap-water",
+      "guest-babysitting"
+    ],
+    "renderedCount": 22,
+    "jsonldCount": 22,
+    "namesMatch": false,
+    "textsMatch": false,
+    "parity": false,
+    "rendered": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit 208 Plätzen: 4 € pro Stunde, maximal 25 € pro Tag. Einfahrtshöhe 1,80 m. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      },
+      {
+        "name": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+        "text": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+      },
+      {
+        "name": "Wann ist der Check-out?",
+        "text": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+      },
+      {
+        "name": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?",
+        "text": "Frühstück gibt es Mo–Fr 06:30–10:00, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. 23 € Erwachsene, 12 € ab 6 Jahren."
+      },
+      {
+        "name": "Wann hat Lütze auf?",
+        "text": "Lütze hat von 10:00–01:00 auf."
+      },
+      {
+        "name": "Wann hat der Wundermart auf?",
+        "text": "Wundermart ist 24/7 in der Lobby. Zahlung nur mit Karte."
+      },
+      {
+        "name": "Darf ich im Hotel rauchen?",
+        "text": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr."
+      },
+      {
+        "name": "Wann hat das Gym auf?",
+        "text": "Das Gym ist 24/7 für Hotelgäste offen."
+      },
+      {
+        "name": "Wie nutze ich die Sauna?",
+        "text": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center."
+      },
+      {
+        "name": "Gibt es Zimmerservice?",
+        "text": "Kein Zimmerservice — Abholung an der Bar."
+      },
+      {
+        "name": "Kann ich bar zahlen?",
+        "text": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus."
+      },
+      {
+        "name": "Wie lautet die Stornierungsbedingung beim flexiblen Tarif?",
+        "text": "Flexible Buchungen im Hotel Berlin, Berlin können bis 18:00 am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden 90 % der ersten Nacht berechnet."
+      },
+      {
+        "name": "Gibt es E-Laden?",
+        "text": "Ja. 8 AC-Punkte, bis 22 kW, Typ 2."
+      },
+      {
+        "name": "Kann ich ein Fahrrad unterstellen?",
+        "text": "Ja. Es gibt eine Fahrradgarage mit E-Bike-Ladung."
+      },
+      {
+        "name": "Gibt es eine Minibar?",
+        "text": "Die Minibar ist leer und als eigener Kühlschrank gedacht. Snacks und Getränke gibt es 24/7 im Wundermart in der Lobby."
+      },
+      {
+        "name": "Wie oft kommt Housekeeping?",
+        "text": "Housekeeping kommt täglich. Bettwäsche wird alle drei Tage gewechselt."
+      },
+      {
+        "name": "Kann ich die Klimaanlage einstellen?",
+        "text": "Ja. Die Zimmertemperatur lässt sich um etwa ±3 °C regeln."
+      },
+      {
+        "name": "Ist das Leitungswasser trinkbar?",
+        "text": "Ja. Berliner Leitungswasser ist Trinkwasser."
+      },
+      {
+        "name": "Kann das Hotel Babysitting organisieren?",
+        "text": "Ja. Das Guest Care Center vermittelt eine Babysitting-Agentur."
+      }
+    ],
+    "jsonld": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+      },
+      {
+        "name": "Wann ist der Check-out?",
+        "text": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit 208 Plätzen: 4 € pro Stunde, maximal 25 € pro Tag. Einfahrtshöhe 1,80 m. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?",
+        "text": "Frühstück gibt es Mo–Fr 06:30–10:00, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. 23 € Erwachsene, 12 € ab 6 Jahren."
+      },
+      {
+        "name": "Wie nutze ich die Sauna?",
+        "text": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Kann ich bar zahlen?",
+        "text": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus."
+      },
+      {
+        "name": "Wie lautet die Stornierungsbedingung beim flexiblen Tarif?",
+        "text": "Flexible Buchungen im Hotel Berlin, Berlin können bis 18:00 am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden 90 % der ersten Nacht berechnet."
+      },
+      {
+        "name": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+        "text": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+      },
+      {
+        "name": "Gibt es E-Laden?",
+        "text": "Ja. 8 AC-Punkte, bis 22 kW, Typ 2."
+      },
+      {
+        "name": "Gibt es Zimmerservice?",
+        "text": "Kein Zimmerservice — Abholung an der Bar."
+      },
+      {
+        "name": "Wann hat Lütze auf?",
+        "text": "Lütze hat von 10:00–01:00 auf."
+      },
+      {
+        "name": "Wie oft kommt Housekeeping?",
+        "text": "Housekeeping kommt täglich. Bettwäsche wird alle drei Tage gewechselt."
+      },
+      {
+        "name": "Kann ich die Klimaanlage einstellen?",
+        "text": "Ja. Die Zimmertemperatur lässt sich um etwa ±3 °C regeln."
+      },
+      {
+        "name": "Wann hat das Gym auf?",
+        "text": "Das Gym ist 24/7 für Hotelgäste offen."
+      },
+      {
+        "name": "Wann hat der Wundermart auf?",
+        "text": "Wundermart ist 24/7 in der Lobby. Zahlung nur mit Karte."
+      },
+      {
+        "name": "Kann ich ein Fahrrad unterstellen?",
+        "text": "Ja. Es gibt eine Fahrradgarage mit E-Bike-Ladung."
+      },
+      {
+        "name": "Darf ich im Hotel rauchen?",
+        "text": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr."
+      },
+      {
+        "name": "Gibt es eine Minibar?",
+        "text": "Die Minibar ist leer und als eigener Kühlschrank gedacht. Snacks und Getränke gibt es 24/7 im Wundermart in der Lobby."
+      },
+      {
+        "name": "Ist das Leitungswasser trinkbar?",
+        "text": "Ja. Berliner Leitungswasser ist Trinkwasser."
+      },
+      {
+        "name": "Kann das Hotel Babysitting organisieren?",
+        "text": "Ja. Das Guest Care Center vermittelt eine Babysitting-Agentur."
+      }
+    ]
+  },
+  "faq-en": {
+    "path": "/en/faq",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer",
+      "guest-luggage",
+      "guest-checkout",
+      "breakfast-times",
+      "guest-lutze-hours",
+      "guest-wundermart",
+      "guest-nonsmoking",
+      "guest-gym",
+      "guest-sauna",
+      "guest-room-service",
+      "guest-card-only",
+      "cancellation-flexible",
+      "guest-ev-charging",
+      "guest-bike-garage",
+      "guest-minibar",
+      "guest-housekeeping",
+      "guest-air-conditioning",
+      "guest-tap-water",
+      "guest-babysitting"
+    ],
+    "renderedCount": 22,
+    "jsonldCount": 22,
+    "namesMatch": false,
+    "textsMatch": false,
+    "parity": false,
+    "rendered": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has an underground garage with 208 spaces: €4 per hour, maximum €25 per day. Entry height is 1.80 m. Access is from Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      },
+      {
+        "name": "Where can I store luggage before check-in or after check-out?",
+        "text": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "What time is check-out?",
+        "text": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+      },
+      {
+        "name": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+        "text": "Breakfast is served Monday to Friday 06:30–10:00, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. €23 for adults, €12 from age 6."
+      },
+      {
+        "name": "When is Lütze open?",
+        "text": "Lütze is open 10:00–01:00."
+      },
+      {
+        "name": "When is Wundermart open?",
+        "text": "Wundermart is 24/7 in the lobby. Card payment only."
+      },
+      {
+        "name": "Can I smoke in the hotel?",
+        "text": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee."
+      },
+      {
+        "name": "When is the gym open?",
+        "text": "The gym is open 24/7 for hotel guests."
+      },
+      {
+        "name": "How do I use the sauna?",
+        "text": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot."
+      },
+      {
+        "name": "Is there room service?",
+        "text": "No room service — collect food and drinks at the bar."
+      },
+      {
+        "name": "Can I pay with cash?",
+        "text": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too."
+      },
+      {
+        "name": "What is the cancellation policy for a flexible rate?",
+        "text": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night."
+      },
+      {
+        "name": "Is there EV charging?",
+        "text": "Yes. 8 AC points, up to 22 kW, Type 2."
+      },
+      {
+        "name": "Can I store a bike?",
+        "text": "Yes. There is a bike garage with e-bike charging."
+      },
+      {
+        "name": "Is there a minibar?",
+        "text": "The minibar is empty on purpose — use it as your own fridge. Snacks and drinks are at Wundermart in the lobby, 24/7."
+      },
+      {
+        "name": "How often is housekeeping?",
+        "text": "Housekeeping is daily. Bed linen is changed every three days."
+      },
+      {
+        "name": "Can I adjust the air conditioning?",
+        "text": "Yes. The room climate can be adjusted by about ±3 °C."
+      },
+      {
+        "name": "Is the tap water drinkable?",
+        "text": "Yes. Berlin tap water is drinking water."
+      },
+      {
+        "name": "Can the hotel arrange babysitting?",
+        "text": "Yes. Guest Care can book a babysitting agency for you."
+      }
+    ],
+    "jsonld": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is."
+      },
+      {
+        "name": "What time is check-out?",
+        "text": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has an underground garage with 208 spaces: €4 per hour, maximum €25 per day. Entry height is 1.80 m. Access is from Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+        "text": "Breakfast is served Monday to Friday 06:30–10:00, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. €23 for adults, €12 from age 6."
+      },
+      {
+        "name": "How do I use the sauna?",
+        "text": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "Can I pay with cash?",
+        "text": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too."
+      },
+      {
+        "name": "What is the cancellation policy for a flexible rate?",
+        "text": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night."
+      },
+      {
+        "name": "Where can I store luggage before check-in or after check-out?",
+        "text": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "Is there EV charging?",
+        "text": "Yes. 8 AC points, up to 22 kW, Type 2."
+      },
+      {
+        "name": "Is there room service?",
+        "text": "No room service — collect food and drinks at the bar."
+      },
+      {
+        "name": "When is Lütze open?",
+        "text": "Lütze is open 10:00–01:00."
+      },
+      {
+        "name": "How often is housekeeping?",
+        "text": "Housekeeping is daily. Bed linen is changed every three days."
+      },
+      {
+        "name": "Can I adjust the air conditioning?",
+        "text": "Yes. The room climate can be adjusted by about ±3 °C."
+      },
+      {
+        "name": "When is the gym open?",
+        "text": "The gym is open 24/7 for hotel guests."
+      },
+      {
+        "name": "When is Wundermart open?",
+        "text": "Wundermart is 24/7 in the lobby. Card payment only."
+      },
+      {
+        "name": "Can I store a bike?",
+        "text": "Yes. There is a bike garage with e-bike charging."
+      },
+      {
+        "name": "Can I smoke in the hotel?",
+        "text": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee."
+      },
+      {
+        "name": "Is there a minibar?",
+        "text": "The minibar is empty on purpose — use it as your own fridge. Snacks and drinks are at Wundermart in the lobby, 24/7."
+      },
+      {
+        "name": "Is the tap water drinkable?",
+        "text": "Yes. Berlin tap water is drinking water."
+      },
+      {
+        "name": "Can the hotel arrange babysitting?",
+        "text": "Yes. Guest Care can book a babysitting agency for you."
+      }
+    ]
+  },
+  "here-faq-de": {
+    "path": "/de/hier/faq",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer",
+      "guest-luggage",
+      "guest-checkout",
+      "guest-lost-and-found",
+      "guest-do-not-disturb",
+      "breakfast-times",
+      "guest-lutze-hours",
+      "guest-wundermart",
+      "guest-wifi",
+      "guest-minibar",
+      "guest-safe",
+      "guest-housekeeping",
+      "guest-iron",
+      "guest-adapter",
+      "guest-air-conditioning",
+      "guest-tap-water",
+      "guest-phone-rates",
+      "guest-nonsmoking",
+      "guest-gym",
+      "guest-sauna",
+      "guest-business-center",
+      "guest-care-center",
+      "guest-room-service",
+      "guest-card-only",
+      "guest-atm",
+      "guest-currency-exchange",
+      "guest-ev-charging",
+      "guest-bike-garage",
+      "guest-car-rental",
+      "guest-taxi",
+      "guest-jogging",
+      "guest-medical-on-call",
+      "guest-emergency",
+      "guest-gp",
+      "guest-pharmacy-nollendorf",
+      "guest-babysitting"
+    ],
+    "renderedCount": 39,
+    "jsonldCount": 39,
+    "namesMatch": false,
+    "textsMatch": false,
+    "parity": false,
+    "rendered": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit 208 Plätzen: 4 € pro Stunde, maximal 25 € pro Tag. Einfahrtshöhe 1,80 m. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      },
+      {
+        "name": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+        "text": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+      },
+      {
+        "name": "Wann ist der Check-out?",
+        "text": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+      },
+      {
+        "name": "Wo ist das Fundbüro?",
+        "text": "Fundbüro läuft über das Guest Care Center neben der Lobby, rund um die Uhr."
+      },
+      {
+        "name": "Wie funktioniert das Bitte-nicht-stören-Schild?",
+        "text": "Das Bitte-nicht-stören-Schild hängt an die Tür. Housekeeping lässt das Zimmer dann in Ruhe, bis du es abnimmst."
+      },
+      {
+        "name": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?",
+        "text": "Frühstück gibt es Mo–Fr 06:30–10:00, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. 23 € Erwachsene, 12 € ab 6 Jahren."
+      },
+      {
+        "name": "Wann hat Lütze auf?",
+        "text": "Lütze hat von 10:00–01:00 auf."
+      },
+      {
+        "name": "Wann hat der Wundermart auf?",
+        "text": "Wundermart ist 24/7 in der Lobby. Zahlung nur mit Karte."
+      },
+      {
+        "name": "Wie verbinde ich mich mit dem WLAN?",
+        "text": "Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht."
+      },
+      {
+        "name": "Gibt es eine Minibar?",
+        "text": "Die Minibar ist leer und als eigener Kühlschrank gedacht. Snacks und Getränke gibt es 24/7 im Wundermart in der Lobby."
+      },
+      {
+        "name": "Wie nutze ich den Zimmersafe?",
+        "text": "Zimmersafes richtet das Guest Care Center neben der Lobby ein."
+      },
+      {
+        "name": "Wie oft kommt Housekeeping?",
+        "text": "Housekeeping kommt täglich. Bettwäsche wird alle drei Tage gewechselt."
+      },
+      {
+        "name": "Kann ich ein Bügeleisen bekommen?",
+        "text": "Ja — über die 9 vom Zimmertelefon, dann bringt Guest Care ein Bügeleisen."
+      },
+      {
+        "name": "Wo bekomme ich einen Adapter?",
+        "text": "Adapter liegen im Wundermart in der Lobby, 24/7, Zahlung per Karte."
+      },
+      {
+        "name": "Kann ich die Klimaanlage einstellen?",
+        "text": "Ja. Die Zimmertemperatur lässt sich um etwa ±3 °C regeln."
+      },
+      {
+        "name": "Ist das Leitungswasser trinkbar?",
+        "text": "Ja. Berliner Leitungswasser ist Trinkwasser."
+      },
+      {
+        "name": "Was kostet das Zimmertelefon?",
+        "text": "Inland kostet 0,40 €/Min. Ausland kostet 0,80–3,20 €/Min."
+      },
+      {
+        "name": "Darf ich im Hotel rauchen?",
+        "text": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr."
+      },
+      {
+        "name": "Wann hat das Gym auf?",
+        "text": "Das Gym ist 24/7 für Hotelgäste offen."
+      },
+      {
+        "name": "Wie nutze ich die Sauna?",
+        "text": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center."
+      },
+      {
+        "name": "Wo ist das Business Center?",
+        "text": "Das Business Center ist in der Lobby."
+      },
+      {
+        "name": "Wo ist das Guest Care Center?",
+        "text": "Das Guest Care Center ist 24/7 neben der Lobby."
+      },
+      {
+        "name": "Gibt es Zimmerservice?",
+        "text": "Kein Zimmerservice — Abholung an der Bar."
+      },
+      {
+        "name": "Kann ich bar zahlen?",
+        "text": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus."
+      },
+      {
+        "name": "Wo ist der nächste Geldautomat?",
+        "text": "Commerzbank hat einen Geldautomaten gegenüber dem Hotel."
+      },
+      {
+        "name": "Kann ich im Hotel Geld wechseln?",
+        "text": "Im Haus gibt es keine Wechselstube. Die nächste ist im Bahnhof Zoologischer Garten."
+      },
+      {
+        "name": "Gibt es E-Laden?",
+        "text": "Ja. 8 AC-Punkte, bis 22 kW, Typ 2."
+      },
+      {
+        "name": "Kann ich ein Fahrrad unterstellen?",
+        "text": "Ja. Es gibt eine Fahrradgarage mit E-Bike-Ladung."
+      },
+      {
+        "name": "Wo kann ich ein Auto mieten?",
+        "text": "StarCar, Schillstraße 9, 1 Minute. Avis, Hertz und Europcar, Tauentzienstraße 9–11, 10 Minuten."
+      },
+      {
+        "name": "Wie bekomme ich ein Taxi?",
+        "text": "Das Guest Care Center neben der Lobby ruft eins. Halteplatz am Lützowplatz."
+      },
+      {
+        "name": "Wo kann ich joggen?",
+        "text": "Am nächsten ist der Tiergarten. Guest Care zeigt dir auch die Kanalrunden."
+      },
+      {
+        "name": "Wen rufe ich außerhalb der Sprechzeiten?",
+        "text": "Ärztlicher Bereitschaftsdienst: 116 117. Notruf: 112."
+      },
+      {
+        "name": "Wie ist der Notruf?",
+        "text": "Notruf 112 für Feuerwehr, Rettung und Polizei. Rund um die Uhr ist geschultes Personal im Haus."
+      },
+      {
+        "name": "Gibt es einen Hausarzt in der Nähe?",
+        "text": "Hausarzt am Nollendorfplatz, etwa 10 Minuten zu Fuß."
+      },
+      {
+        "name": "Wo ist die nächste Apotheke?",
+        "text": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. Außerdem Apotheke am Wittenbergplatz, Bayreuther Straße 44."
+      },
+      {
+        "name": "Kann das Hotel Babysitting organisieren?",
+        "text": "Ja. Das Guest Care Center vermittelt eine Babysitting-Agentur."
+      }
+    ],
+    "jsonld": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+      },
+      {
+        "name": "Wann ist der Check-out?",
+        "text": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit 208 Plätzen: 4 € pro Stunde, maximal 25 € pro Tag. Einfahrtshöhe 1,80 m. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?",
+        "text": "Frühstück gibt es Mo–Fr 06:30–10:00, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. 23 € Erwachsene, 12 € ab 6 Jahren."
+      },
+      {
+        "name": "Wie verbinde ich mich mit dem WLAN?",
+        "text": "Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht."
+      },
+      {
+        "name": "Wie nutze ich die Sauna?",
+        "text": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Kann ich bar zahlen?",
+        "text": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus."
+      },
+      {
+        "name": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+        "text": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+      },
+      {
+        "name": "Gibt es E-Laden?",
+        "text": "Ja. 8 AC-Punkte, bis 22 kW, Typ 2."
+      },
+      {
+        "name": "Gibt es Zimmerservice?",
+        "text": "Kein Zimmerservice — Abholung an der Bar."
+      },
+      {
+        "name": "Wann hat Lütze auf?",
+        "text": "Lütze hat von 10:00–01:00 auf."
+      },
+      {
+        "name": "Wie oft kommt Housekeeping?",
+        "text": "Housekeeping kommt täglich. Bettwäsche wird alle drei Tage gewechselt."
+      },
+      {
+        "name": "Kann ich die Klimaanlage einstellen?",
+        "text": "Ja. Die Zimmertemperatur lässt sich um etwa ±3 °C regeln."
+      },
+      {
+        "name": "Wann hat das Gym auf?",
+        "text": "Das Gym ist 24/7 für Hotelgäste offen."
+      },
+      {
+        "name": "Wann hat der Wundermart auf?",
+        "text": "Wundermart ist 24/7 in der Lobby. Zahlung nur mit Karte."
+      },
+      {
+        "name": "Kann ich ein Fahrrad unterstellen?",
+        "text": "Ja. Es gibt eine Fahrradgarage mit E-Bike-Ladung."
+      },
+      {
+        "name": "Wo ist das Guest Care Center?",
+        "text": "Das Guest Care Center ist 24/7 neben der Lobby."
+      },
+      {
+        "name": "Wo ist das Fundbüro?",
+        "text": "Fundbüro läuft über das Guest Care Center neben der Lobby, rund um die Uhr."
+      },
+      {
+        "name": "Wen rufe ich außerhalb der Sprechzeiten?",
+        "text": "Ärztlicher Bereitschaftsdienst: 116 117. Notruf: 112."
+      },
+      {
+        "name": "Wie ist der Notruf?",
+        "text": "Notruf 112 für Feuerwehr, Rettung und Polizei. Rund um die Uhr ist geschultes Personal im Haus."
+      },
+      {
+        "name": "Darf ich im Hotel rauchen?",
+        "text": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr."
+      },
+      {
+        "name": "Wie funktioniert das Bitte-nicht-stören-Schild?",
+        "text": "Das Bitte-nicht-stören-Schild hängt an die Tür. Housekeeping lässt das Zimmer dann in Ruhe, bis du es abnimmst."
+      },
+      {
+        "name": "Gibt es eine Minibar?",
+        "text": "Die Minibar ist leer und als eigener Kühlschrank gedacht. Snacks und Getränke gibt es 24/7 im Wundermart in der Lobby."
+      },
+      {
+        "name": "Wie nutze ich den Zimmersafe?",
+        "text": "Zimmersafes richtet das Guest Care Center neben der Lobby ein."
+      },
+      {
+        "name": "Ist das Leitungswasser trinkbar?",
+        "text": "Ja. Berliner Leitungswasser ist Trinkwasser."
+      },
+      {
+        "name": "Was kostet das Zimmertelefon?",
+        "text": "Inland kostet 0,40 €/Min. Ausland kostet 0,80–3,20 €/Min."
+      },
+      {
+        "name": "Kann ich ein Bügeleisen bekommen?",
+        "text": "Ja — über die 9 vom Zimmertelefon, dann bringt Guest Care ein Bügeleisen."
+      },
+      {
+        "name": "Wo bekomme ich einen Adapter?",
+        "text": "Adapter liegen im Wundermart in der Lobby, 24/7, Zahlung per Karte."
+      },
+      {
+        "name": "Kann das Hotel Babysitting organisieren?",
+        "text": "Ja. Das Guest Care Center vermittelt eine Babysitting-Agentur."
+      },
+      {
+        "name": "Wo ist das Business Center?",
+        "text": "Das Business Center ist in der Lobby."
+      },
+      {
+        "name": "Wo ist der nächste Geldautomat?",
+        "text": "Commerzbank hat einen Geldautomaten gegenüber dem Hotel."
+      },
+      {
+        "name": "Kann ich im Hotel Geld wechseln?",
+        "text": "Im Haus gibt es keine Wechselstube. Die nächste ist im Bahnhof Zoologischer Garten."
+      },
+      {
+        "name": "Gibt es einen Hausarzt in der Nähe?",
+        "text": "Hausarzt am Nollendorfplatz, etwa 10 Minuten zu Fuß."
+      },
+      {
+        "name": "Wo ist die nächste Apotheke?",
+        "text": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. Außerdem Apotheke am Wittenbergplatz, Bayreuther Straße 44."
+      },
+      {
+        "name": "Wo kann ich ein Auto mieten?",
+        "text": "StarCar, Schillstraße 9, 1 Minute. Avis, Hertz und Europcar, Tauentzienstraße 9–11, 10 Minuten."
+      },
+      {
+        "name": "Wie bekomme ich ein Taxi?",
+        "text": "Das Guest Care Center neben der Lobby ruft eins. Halteplatz am Lützowplatz."
+      },
+      {
+        "name": "Wo kann ich joggen?",
+        "text": "Am nächsten ist der Tiergarten. Guest Care zeigt dir auch die Kanalrunden."
+      }
+    ]
+  },
+  "here-faq-en": {
+    "path": "/en/here/faq",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer",
+      "guest-luggage",
+      "guest-checkout",
+      "guest-lost-and-found",
+      "guest-do-not-disturb",
+      "breakfast-times",
+      "guest-lutze-hours",
+      "guest-wundermart",
+      "guest-wifi",
+      "guest-minibar",
+      "guest-safe",
+      "guest-housekeeping",
+      "guest-iron",
+      "guest-adapter",
+      "guest-air-conditioning",
+      "guest-tap-water",
+      "guest-phone-rates",
+      "guest-nonsmoking",
+      "guest-gym",
+      "guest-sauna",
+      "guest-business-center",
+      "guest-care-center",
+      "guest-room-service",
+      "guest-card-only",
+      "guest-atm",
+      "guest-currency-exchange",
+      "guest-ev-charging",
+      "guest-bike-garage",
+      "guest-car-rental",
+      "guest-taxi",
+      "guest-jogging",
+      "guest-medical-on-call",
+      "guest-emergency",
+      "guest-gp",
+      "guest-pharmacy-nollendorf",
+      "guest-babysitting"
+    ],
+    "renderedCount": 39,
+    "jsonldCount": 39,
+    "namesMatch": false,
+    "textsMatch": false,
+    "parity": false,
+    "rendered": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has an underground garage with 208 spaces: €4 per hour, maximum €25 per day. Entry height is 1.80 m. Access is from Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      },
+      {
+        "name": "Where can I store luggage before check-in or after check-out?",
+        "text": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "What time is check-out?",
+        "text": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+      },
+      {
+        "name": "Where is lost property?",
+        "text": "Lost property is handled by the Guest Care Center beside the lobby, 24/7."
+      },
+      {
+        "name": "How does the do-not-disturb sign work?",
+        "text": "Use the do-not-disturb sign on your door. Housekeeping will skip the room until you take it down."
+      },
+      {
+        "name": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+        "text": "Breakfast is served Monday to Friday 06:30–10:00, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. €23 for adults, €12 from age 6."
+      },
+      {
+        "name": "When is Lütze open?",
+        "text": "Lütze is open 10:00–01:00."
+      },
+      {
+        "name": "When is Wundermart open?",
+        "text": "Wundermart is 24/7 in the lobby. Card payment only."
+      },
+      {
+        "name": "How do I connect to the hotel WiFi?",
+        "text": "Ask at the Guest Care Center beside the lobby for the current network details. They will get you online."
+      },
+      {
+        "name": "Is there a minibar?",
+        "text": "The minibar is empty on purpose — use it as your own fridge. Snacks and drinks are at Wundermart in the lobby, 24/7."
+      },
+      {
+        "name": "How do I use the room safe?",
+        "text": "Room safes are set up through the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "How often is housekeeping?",
+        "text": "Housekeeping is daily. Bed linen is changed every three days."
+      },
+      {
+        "name": "Can I get an iron?",
+        "text": "Yes — dial 9 from the room phone and Guest Care will bring an iron."
+      },
+      {
+        "name": "Where can I get a plug adapter?",
+        "text": "Adapters are in Wundermart in the lobby, 24/7, card payment."
+      },
+      {
+        "name": "Can I adjust the air conditioning?",
+        "text": "Yes. The room climate can be adjusted by about ±3 °C."
+      },
+      {
+        "name": "Is the tap water drinkable?",
+        "text": "Yes. Berlin tap water is drinking water."
+      },
+      {
+        "name": "What does the room phone cost?",
+        "text": "Calls in Germany are €0.40 per minute. International calls are €0.80–€3.20 per minute."
+      },
+      {
+        "name": "Can I smoke in the hotel?",
+        "text": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee."
+      },
+      {
+        "name": "When is the gym open?",
+        "text": "The gym is open 24/7 for hotel guests."
+      },
+      {
+        "name": "How do I use the sauna?",
+        "text": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot."
+      },
+      {
+        "name": "Where is the business center?",
+        "text": "The business center is in the lobby."
+      },
+      {
+        "name": "Where is Guest Care?",
+        "text": "The Guest Care Center is beside the lobby and open 24/7."
+      },
+      {
+        "name": "Is there room service?",
+        "text": "No room service — collect food and drinks at the bar."
+      },
+      {
+        "name": "Can I pay with cash?",
+        "text": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too."
+      },
+      {
+        "name": "Where is the nearest ATM?",
+        "text": "Commerzbank has an ATM across the street from the hotel."
+      },
+      {
+        "name": "Can I change money at the hotel?",
+        "text": "There is no bureau de change in the hotel. The nearest is at Bahnhof Zoologischer Garten."
+      },
+      {
+        "name": "Is there EV charging?",
+        "text": "Yes. 8 AC points, up to 22 kW, Type 2."
+      },
+      {
+        "name": "Can I store a bike?",
+        "text": "Yes. There is a bike garage with e-bike charging."
+      },
+      {
+        "name": "Where can I rent a car?",
+        "text": "StarCar is at Schillstraße 9, about a minute away. Avis, Hertz and Europcar are at Tauentzienstraße 9–11, about 10 minutes."
+      },
+      {
+        "name": "How do I get a taxi?",
+        "text": "Ask the Guest Care Center beside the lobby to call one. There is a rank at Lützowplatz."
+      },
+      {
+        "name": "Where can I go for a run?",
+        "text": "Tiergarten is the closest loop. Guest Care can point you to the canal paths as well."
+      },
+      {
+        "name": "Who do I call for a doctor out of hours?",
+        "text": "The on-call medical service is 116 117. For emergencies call 112."
+      },
+      {
+        "name": "What is the emergency number?",
+        "text": "Call 112 for fire, ambulance, or police emergency. Trained staff are in the building around the clock."
+      },
+      {
+        "name": "Is there a GP nearby?",
+        "text": "There is a GP at Nollendorfplatz, about a 10-minute walk."
+      },
+      {
+        "name": "Where is the nearest pharmacy?",
+        "text": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. There is also a pharmacy at Wittenbergplatz, Bayreuther Straße 44."
+      },
+      {
+        "name": "Can the hotel arrange babysitting?",
+        "text": "Yes. Guest Care can book a babysitting agency for you."
+      }
+    ],
+    "jsonld": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is."
+      },
+      {
+        "name": "What time is check-out?",
+        "text": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has an underground garage with 208 spaces: €4 per hour, maximum €25 per day. Entry height is 1.80 m. Access is from Karl-Heinrich-Ulrichs-Straße."
+      },
+      {
+        "name": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+        "text": "Breakfast is served Monday to Friday 06:30–10:00, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. €23 for adults, €12 from age 6."
+      },
+      {
+        "name": "How do I connect to the hotel WiFi?",
+        "text": "Ask at the Guest Care Center beside the lobby for the current network details. They will get you online."
+      },
+      {
+        "name": "How do I use the sauna?",
+        "text": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "Can I pay with cash?",
+        "text": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too."
+      },
+      {
+        "name": "Where can I store luggage before check-in or after check-out?",
+        "text": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "Is there EV charging?",
+        "text": "Yes. 8 AC points, up to 22 kW, Type 2."
+      },
+      {
+        "name": "Is there room service?",
+        "text": "No room service — collect food and drinks at the bar."
+      },
+      {
+        "name": "When is Lütze open?",
+        "text": "Lütze is open 10:00–01:00."
+      },
+      {
+        "name": "How often is housekeeping?",
+        "text": "Housekeeping is daily. Bed linen is changed every three days."
+      },
+      {
+        "name": "Can I adjust the air conditioning?",
+        "text": "Yes. The room climate can be adjusted by about ±3 °C."
+      },
+      {
+        "name": "When is the gym open?",
+        "text": "The gym is open 24/7 for hotel guests."
+      },
+      {
+        "name": "When is Wundermart open?",
+        "text": "Wundermart is 24/7 in the lobby. Card payment only."
+      },
+      {
+        "name": "Can I store a bike?",
+        "text": "Yes. There is a bike garage with e-bike charging."
+      },
+      {
+        "name": "Where is Guest Care?",
+        "text": "The Guest Care Center is beside the lobby and open 24/7."
+      },
+      {
+        "name": "Where is lost property?",
+        "text": "Lost property is handled by the Guest Care Center beside the lobby, 24/7."
+      },
+      {
+        "name": "Who do I call for a doctor out of hours?",
+        "text": "The on-call medical service is 116 117. For emergencies call 112."
+      },
+      {
+        "name": "What is the emergency number?",
+        "text": "Call 112 for fire, ambulance, or police emergency. Trained staff are in the building around the clock."
+      },
+      {
+        "name": "Can I smoke in the hotel?",
+        "text": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee."
+      },
+      {
+        "name": "How does the do-not-disturb sign work?",
+        "text": "Use the do-not-disturb sign on your door. Housekeeping will skip the room until you take it down."
+      },
+      {
+        "name": "Is there a minibar?",
+        "text": "The minibar is empty on purpose — use it as your own fridge. Snacks and drinks are at Wundermart in the lobby, 24/7."
+      },
+      {
+        "name": "How do I use the room safe?",
+        "text": "Room safes are set up through the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "Is the tap water drinkable?",
+        "text": "Yes. Berlin tap water is drinking water."
+      },
+      {
+        "name": "What does the room phone cost?",
+        "text": "Calls in Germany are €0.40 per minute. International calls are €0.80–€3.20 per minute."
+      },
+      {
+        "name": "Can I get an iron?",
+        "text": "Yes — dial 9 from the room phone and Guest Care will bring an iron."
+      },
+      {
+        "name": "Where can I get a plug adapter?",
+        "text": "Adapters are in Wundermart in the lobby, 24/7, card payment."
+      },
+      {
+        "name": "Can the hotel arrange babysitting?",
+        "text": "Yes. Guest Care can book a babysitting agency for you."
+      },
+      {
+        "name": "Where is the business center?",
+        "text": "The business center is in the lobby."
+      },
+      {
+        "name": "Where is the nearest ATM?",
+        "text": "Commerzbank has an ATM across the street from the hotel."
+      },
+      {
+        "name": "Can I change money at the hotel?",
+        "text": "There is no bureau de change in the hotel. The nearest is at Bahnhof Zoologischer Garten."
+      },
+      {
+        "name": "Is there a GP nearby?",
+        "text": "There is a GP at Nollendorfplatz, about a 10-minute walk."
+      },
+      {
+        "name": "Where is the nearest pharmacy?",
+        "text": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. There is also a pharmacy at Wittenbergplatz, Bayreuther Straße 44."
+      },
+      {
+        "name": "Where can I rent a car?",
+        "text": "StarCar is at Schillstraße 9, about a minute away. Avis, Hertz and Europcar are at Tauentzienstraße 9–11, about 10 minutes."
+      },
+      {
+        "name": "How do I get a taxi?",
+        "text": "Ask the Guest Care Center beside the lobby to call one. There is a rank at Lützowplatz."
+      },
+      {
+        "name": "Where can I go for a run?",
+        "text": "Tiergarten is the closest loop. Guest Care can point you to the canal paths as well."
+      }
+    ]
+  },
+  "allParity": false
+}

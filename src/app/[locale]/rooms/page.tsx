@@ -191,7 +191,7 @@ export default async function RoomsIndexPage({ params }: Props) {
           </div>
         </div>
 
-        <FAQSection context="prospect" category="general" />
+        <FAQSection context="prospect" category="general" routeKey="rooms" />
       </main>
       <SiteFooter />
     </>

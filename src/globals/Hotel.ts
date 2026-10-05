@@ -46,8 +46,50 @@ export const Hotel: GlobalConfig = {
     },
     { name: 'url', type: 'text' },
     { name: 'telephone', type: 'text' },
+    {
+      name: 'receptionPhone',
+      type: 'text',
+      admin: {
+        description:
+          'Reception / guest-care direct line for {{phoneReception}}. HOLD until the hotel confirms — leave empty so dependent FAQs stay hidden.',
+      },
+    },
     { name: 'conferencePhone', type: 'text' },
     { name: 'email', type: 'email' },
+    {
+      name: 'emails',
+      label: 'Department emails',
+      type: 'group',
+      admin: {
+        description:
+          'Structured addresses for FAQ tokens. Leave empty until confirmed — empty sources hide tokenised FAQs.',
+      },
+      fields: [
+        {
+          name: 'reservations',
+          type: 'email',
+          admin: { description: '{{emailReservations}} — leave empty until confirmed.' },
+        },
+        {
+          name: 'sustainability',
+          type: 'email',
+          admin: { description: '{{emailSustainability}} — leave empty until confirmed.' },
+        },
+        {
+          name: 'careers',
+          type: 'email',
+          admin: { description: '{{emailCareers}} — leave empty until confirmed.' },
+        },
+      ],
+    },
+    {
+      name: 'lostPropertyUrl',
+      type: 'text',
+      admin: {
+        description:
+          'Public lost-property portal URL for {{lostPropertyUrl}}. Leave empty until confirmed.',
+      },
+    },
     {
       name: 'address',
       type: 'group',
@@ -90,6 +132,138 @@ export const Hotel: GlobalConfig = {
     },
     { name: 'checkinTime', type: 'text' },
     { name: 'checkoutTime', type: 'text' },
+    {
+      name: 'earlyCheckin',
+      label: 'Early check-in',
+      type: 'group',
+      admin: {
+        description: 'Structured early check-in facts for FAQ tokens. Do not scrape guestStay prose.',
+      },
+      fields: [
+        {
+          name: 'from',
+          type: 'text',
+          admin: { description: 'Earliest early check-in time, e.g. 06:00 → {{earlyCheckinFrom}}.' },
+        },
+        {
+          name: 'fee',
+          type: 'number',
+          admin: { description: 'Early check-in fee in EUR (number). Formatted as €n / n €.' },
+        },
+      ],
+    },
+    {
+      name: 'lateCheckout',
+      label: 'Late check-out',
+      type: 'group',
+      admin: {
+        description:
+          'Structured late check-out facts. Leave empty until conflict C3 is resolved (seedNow=false).',
+      },
+      fields: [
+        {
+          name: 'until',
+          type: 'text',
+          admin: { description: 'Latest late check-out time → {{lateCheckoutTime}}.' },
+        },
+        {
+          name: 'fee',
+          type: 'number',
+          admin: { description: 'Late check-out fee in EUR → {{lateCheckoutFee}}.' },
+        },
+      ],
+    },
+    {
+      name: 'parking',
+      label: 'Parking (structured)',
+      type: 'group',
+      admin: {
+        description:
+          'Garage facts for FAQ tokens. Separate from guestStay.parking prose (do not parse that copy).',
+      },
+      fields: [
+        {
+          name: 'spaces',
+          type: 'number',
+          admin: { description: 'Number of spaces → {{parkingSpaces}}.' },
+        },
+        {
+          name: 'hourly',
+          type: 'number',
+          admin: { description: 'Hourly rate EUR → {{parkingHourly}}.' },
+        },
+        {
+          name: 'dailyMax',
+          type: 'number',
+          admin: { description: 'Daily maximum EUR → {{parkingDaily}}.' },
+        },
+        {
+          name: 'maxHeight',
+          type: 'number',
+          admin: { description: 'Max vehicle height in metres, e.g. 1.8 → {{parkingMaxHeight}}.' },
+        },
+      ],
+    },
+    {
+      name: 'petFee',
+      type: 'number',
+      admin: {
+        description:
+          'Pet fee EUR per day (number) → {{petFee}}. Preferred over guestStay.more.pets prose.',
+      },
+    },
+    {
+      name: 'ratePolicy',
+      label: 'Rate / cancellation policy facts',
+      type: 'group',
+      admin: {
+        description: 'Numbers for cancellation FAQ tokens. Confirm with the hotel before changing.',
+      },
+      fields: [
+        {
+          name: 'flexibleCancelUntil',
+          type: 'text',
+          admin: {
+            description: 'Same-day flexible cancel deadline, e.g. 18:00 → {{cancelFlexibleUntil}}.',
+          },
+        },
+        {
+          name: 'noShowPercent',
+          type: 'number',
+          admin: { description: 'No-show charge percent, e.g. 90 → {{noShowCharge}}.' },
+        },
+      ],
+    },
+    {
+      name: 'smokingFee',
+      type: 'number',
+      admin: { description: 'Smoking cleaning fee EUR → {{smokingFee}}.' },
+    },
+    {
+      name: 'roomPhoneRates',
+      label: 'In-room phone rates',
+      type: 'group',
+      admin: {
+        description: 'Per-minute room phone rates for FAQ tokens.',
+      },
+      fields: [
+        {
+          name: 'domestic',
+          type: 'number',
+          admin: { description: 'Domestic per-minute EUR → {{phoneRateDomestic}}.' },
+        },
+        {
+          name: 'intlMin',
+          type: 'number',
+          admin: { description: 'International per-minute minimum EUR → {{phoneRateIntlMin}}.' },
+        },
+        {
+          name: 'intlMax',
+          type: 'number',
+          admin: { description: 'International per-minute maximum EUR → {{phoneRateIntlMax}}.' },
+        },
+      ],
+    },
     {
       name: 'guestStay',
       label: 'Guest stay info (/here hero + extras)',

@@ -1,0 +1,230 @@
+{
+  "base": "http://localhost:3000",
+  "capturedAt": "2026-10-05T13:13:30.915Z",
+  "home-de": {
+    "path": "/de",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer"
+    ],
+    "questions": [
+      "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+      "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+      "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+      "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?"
+    ],
+    "answers": [
+      "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang.",
+      "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe.",
+      "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen.",
+      "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+    ],
+    "jsonld": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      }
+    ],
+    "faqpageCount": 1
+  },
+  "home-en": {
+    "path": "/en",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer"
+    ],
+    "questions": [
+      "What time can I check in at Hotel Berlin, Berlin?",
+      "Is there parking at Hotel Berlin, Berlin?",
+      "Are pets allowed at Hotel Berlin, Berlin?",
+      "How do I get to Hotel Berlin, Berlin from BER airport?"
+    ],
+    "answers": [
+      "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.",
+      "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.",
+      "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.",
+      "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+    ],
+    "jsonld": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      }
+    ],
+    "faqpageCount": 1
+  },
+  "rooms-de": {
+    "path": "/de/zimmer",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer"
+    ],
+    "questions": [
+      "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+      "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+      "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+      "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?"
+    ],
+    "answers": [
+      "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang.",
+      "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe.",
+      "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen.",
+      "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+    ],
+    "jsonld": [
+      {
+        "name": "Wann kann ich im Hotel Berlin, Berlin einchecken?",
+        "text": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang."
+      },
+      {
+        "name": "Gibt es Parkplätze im Hotel Berlin, Berlin?",
+        "text": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe."
+      },
+      {
+        "name": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?",
+        "text": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      {
+        "name": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?",
+        "text": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+      }
+    ],
+    "faqpageCount": 1
+  },
+  "rooms-en": {
+    "path": "/en/rooms",
+    "ids": [
+      "check-in-time",
+      "parking",
+      "pet-policy",
+      "airport-transfer"
+    ],
+    "questions": [
+      "What time can I check in at Hotel Berlin, Berlin?",
+      "Is there parking at Hotel Berlin, Berlin?",
+      "Are pets allowed at Hotel Berlin, Berlin?",
+      "How do I get to Hotel Berlin, Berlin from BER airport?"
+    ],
+    "answers": [
+      "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.",
+      "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.",
+      "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.",
+      "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+    ],
+    "jsonld": [
+      {
+        "name": "What time can I check in at Hotel Berlin, Berlin?",
+        "text": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access."
+      },
+      {
+        "name": "Is there parking at Hotel Berlin, Berlin?",
+        "text": "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby."
+      },
+      {
+        "name": "Are pets allowed at Hotel Berlin, Berlin?",
+        "text": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast."
+      },
+      {
+        "name": "How do I get to Hotel Berlin, Berlin from BER airport?",
+        "text": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total."
+      }
+    ],
+    "faqpageCount": 1
+  },
+  "here-de": {
+    "path": "/de/hier",
+    "ids": [
+      "guest-wifi",
+      "guest-luggage",
+      "guest-checkout"
+    ],
+    "questions": [
+      "Wie verbinde ich mich mit dem WLAN?",
+      "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+      "Wann ist der Check-out?"
+    ],
+    "answers": [
+      "Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht.",
+      "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby.",
+      "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+    ],
+    "jsonld": [
+      {
+        "name": "Wie verbinde ich mich mit dem WLAN?",
+        "text": "Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht."
+      },
+      {
+        "name": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?",
+        "text": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+      },
+      {
+        "name": "Wann ist der Check-out?",
+        "text": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+      }
+    ],
+    "faqpageCount": 1
+  },
+  "here-en": {
+    "path": "/en/here",
+    "ids": [
+      "guest-wifi",
+      "guest-luggage",
+      "guest-checkout"
+    ],
+    "questions": [
+      "How do I connect to the hotel WiFi?",
+      "Where can I store luggage before check-in or after check-out?",
+      "What time is check-out?"
+    ],
+    "answers": [
+      "Ask at the Guest Care Center beside the lobby for the current network details. They will get you online.",
+      "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby.",
+      "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+    ],
+    "jsonld": [
+      {
+        "name": "How do I connect to the hotel WiFi?",
+        "text": "Ask at the Guest Care Center beside the lobby for the current network details. They will get you online."
+      },
+      {
+        "name": "Where can I store luggage before check-in or after check-out?",
+        "text": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby."
+      },
+      {
+        "name": "What time is check-out?",
+        "text": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave."
+      }
+    ],
+    "faqpageCount": 1
+  }
+}

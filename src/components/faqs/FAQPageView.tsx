@@ -11,6 +11,7 @@ export type FAQPageItem = {
   answer: string
   category: FaqCategory
   order: number
+  aliasIds?: string[]
 }
 
 type CategoryOption = {
@@ -105,7 +106,12 @@ export function FAQPageView({
                 {label}
               </h2>
               <FAQAccordion
-                items={catItems.map(({ id, question, answer }) => ({ id, question, answer }))}
+                items={catItems.map(({ id, question, answer, aliasIds }) => ({
+                  id,
+                  question,
+                  answer,
+                  aliasIds,
+                }))}
                 variant="full"
                 context={context}
                 embedded

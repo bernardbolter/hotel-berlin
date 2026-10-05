@@ -53,17 +53,37 @@ export const GUEST_FAQ_CATEGORIES: FaqCategory[] = [
 export const HUB_FAQ_SLUGS = ['guest-wifi', 'guest-luggage', 'guest-checkout'] as const
 
 type GetFaqsParams = {
-  context: FaqContext
+  /** When omitted with allPublished, fetches every published FAQ. */
+  context?: FaqContext
   locale: string
   category?: FaqCategory
+  /**
+   * Fetch all published FAQs (both contexts) for getFAQsForRoute.
+   * Still the only Payload query path for FAQs — extends this helper rather
+   * than adding a parallel find().
+   */
+  allPublished?: boolean
 }
 
-/** Fetch FAQs for a context (locale-aware). */
-export async function getFaqs({ context, locale, category }: GetFaqsParams): Promise<Faq[]> {
+/** Fetch FAQs for a context (locale-aware), or all published when allPublished. */
+export async function getFaqs({
+  context,
+  locale,
+  category,
+  allPublished = false,
+}: GetFaqsParams): Promise<Faq[]> {
   const payload = await getPayloadClient()
-  const and: Where[] = [{ context: { equals: context } }]
-  if (category) {
-    and.push({ category: { equals: category } })
+  // Always require published: with overrideAccess (Local API), draft:false alone
+  // still returns documents whose _status is draft.
+  const and: Where[] = [{ _status: { equals: 'published' } }]
+  if (!allPublished) {
+    if (!context) {
+      throw new Error('getFaqs: context is required unless allPublished is true')
+    }
+    and.push({ context: { equals: context } })
+    if (category) {
+      and.push({ category: { equals: category } })
+    }
   }
 
   const { docs } = await payload.find({
@@ -74,6 +94,8 @@ export async function getFaqs({ context, locale, category }: GetFaqsParams): Pro
     sort: 'order',
     limit: 200,
     depth: 1,
+    // drafts enabled on faqs (Part B Step 1) — public fetches publish only
+    draft: false,
   })
 
   return docs as Faq[]

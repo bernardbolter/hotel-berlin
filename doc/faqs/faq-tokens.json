@@ -1,0 +1,405 @@
+{
+  "generated": "2026-10-05",
+  "note": "seedNow=true: value is attested by existing published FAQ text or an existing hotel field, safe to write now. seedNow=false: leave the source EMPTY so any FAQ using the token stays hidden until the hotel confirms. HOLD tokens have value null on purpose. Field names in sourceField are proposals - adapt to the real hotel global, report what you chose.",
+  "tokens": [
+    {
+      "token": "{{checkinTime}}",
+      "value": {
+        "en": "15:00",
+        "de": "15:00"
+      },
+      "sourceField": "hotel.checkinTime (exists)",
+      "seedNow": true,
+      "attestedBy": "check-in-time, guest-checkin",
+      "status": "Ready"
+    },
+    {
+      "token": "{{checkoutTime}}",
+      "value": {
+        "en": "12:00",
+        "de": "12:00"
+      },
+      "sourceField": "hotel.checkoutTime (exists)",
+      "seedNow": true,
+      "attestedBy": "guest-checkout",
+      "status": "Ready"
+    },
+    {
+      "token": "{{earlyCheckinFrom}}",
+      "value": {
+        "en": "06:00",
+        "de": "06:00"
+      },
+      "sourceField": "hotel.earlyCheckin.from (new)",
+      "seedNow": true,
+      "attestedBy": "check-in-time",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{earlyCheckinFee}}",
+      "value": {
+        "en": "€30",
+        "de": "30 €"
+      },
+      "sourceField": "hotel.earlyCheckin.fee (new)",
+      "seedNow": true,
+      "attestedBy": "check-in-time",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{lateCheckoutTime}}",
+      "value": {
+        "en": "15:00",
+        "de": "15:00"
+      },
+      "sourceField": "hotel.lateCheckout.until (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only (conflict C3)",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{lateCheckoutFee}}",
+      "value": {
+        "en": "€30",
+        "de": "30 €"
+      },
+      "sourceField": "hotel.lateCheckout.fee (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only (conflict C3)",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{breakfastWeekday}}",
+      "value": {
+        "en": "06:30–10:00",
+        "de": "06:30–10:00"
+      },
+      "sourceField": "existing breakfast hours (guestStay.breakfast.hours)",
+      "seedNow": true,
+      "attestedBy": "breakfast-times, guest-breakfast",
+      "status": "Ready"
+    },
+    {
+      "token": "{{breakfastWeekend}}",
+      "value": {
+        "en": "6:30–11:00",
+        "de": "6:30–11:00"
+      },
+      "sourceField": "existing breakfast hours",
+      "seedNow": false,
+      "attestedBy": "guest-breakfast says Sat/Sun; chatbot adds public holidays (C6)",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{breakfastPrice}}",
+      "value": {
+        "en": "€23",
+        "de": "23 €"
+      },
+      "sourceField": "hotel.breakfastPricing (exists)",
+      "seedNow": true,
+      "attestedBy": "guest-breakfast",
+      "status": "Ready"
+    },
+    {
+      "token": "{{breakfastPriceChild}}",
+      "value": {
+        "en": "€12",
+        "de": "12 €"
+      },
+      "sourceField": "hotel.breakfastPricing (exists)",
+      "seedNow": false,
+      "attestedBy": "guest-breakfast says 12, chatbot 11.50 (C6)",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{breakfastChildMinAge}}",
+      "value": {
+        "en": "6",
+        "de": "6"
+      },
+      "sourceField": "hotel.breakfastPricing (exists)",
+      "seedNow": true,
+      "attestedBy": "guest-breakfast",
+      "status": "Ready"
+    },
+    {
+      "token": "{{parkingSpaces}}",
+      "value": {
+        "en": "208",
+        "de": "208"
+      },
+      "sourceField": "hotel.parking.spaces (new)",
+      "seedNow": true,
+      "attestedBy": "guest-parking",
+      "status": "Ready"
+    },
+    {
+      "token": "{{parkingHourly}}",
+      "value": {
+        "en": "€4",
+        "de": "4 €"
+      },
+      "sourceField": "hotel.parking.hourly (new)",
+      "seedNow": true,
+      "attestedBy": "parking, guest-parking",
+      "status": "Ready"
+    },
+    {
+      "token": "{{parkingDaily}}",
+      "value": {
+        "en": "€25",
+        "de": "25 €"
+      },
+      "sourceField": "hotel.parking.dailyMax (new)",
+      "seedNow": true,
+      "attestedBy": "parking, guest-parking",
+      "status": "Ready"
+    },
+    {
+      "token": "{{parkingMaxHeight}}",
+      "value": {
+        "en": "1.80 m",
+        "de": "1,80 m"
+      },
+      "sourceField": "hotel.parking.maxHeight (new)",
+      "seedNow": true,
+      "attestedBy": "guest-parking",
+      "status": "Ready"
+    },
+    {
+      "token": "{{petFee}}",
+      "value": {
+        "en": "€30",
+        "de": "30 €"
+      },
+      "sourceField": "hotel.petFee (new, numeric)",
+      "seedNow": true,
+      "attestedBy": "pet-policy, guest-dogs",
+      "status": "Ready"
+    },
+    {
+      "token": "{{saunaNotice}}",
+      "value": {
+        "en": "45 minutes",
+        "de": "45 Minuten"
+      },
+      "sourceField": "amenities sauna (notice minutes)",
+      "seedNow": true,
+      "attestedBy": "guest-sauna",
+      "status": "Ready"
+    },
+    {
+      "token": "{{cancelFlexibleUntil}}",
+      "value": {
+        "en": "18:00",
+        "de": "18:00"
+      },
+      "sourceField": "hotel.ratePolicy.flexibleCancelUntil (new)",
+      "seedNow": true,
+      "attestedBy": "cancellation-flexible",
+      "status": "Ready"
+    },
+    {
+      "token": "{{noShowCharge}}",
+      "value": {
+        "en": "90%",
+        "de": "90 %"
+      },
+      "sourceField": "hotel.ratePolicy.noShowPercent (new)",
+      "seedNow": true,
+      "attestedBy": "cancellation-flexible",
+      "status": "Ready"
+    },
+    {
+      "token": "{{smokingFee}}",
+      "value": {
+        "en": "€250",
+        "de": "250 €"
+      },
+      "sourceField": "hotel.smokingFee (new)",
+      "seedNow": true,
+      "attestedBy": "guest-nonsmoking",
+      "status": "Ready"
+    },
+    {
+      "token": "{{phoneRateDomestic}}",
+      "value": {
+        "en": "€0.40",
+        "de": "0,40 €"
+      },
+      "sourceField": "hotel.roomPhoneRates.domestic (new)",
+      "seedNow": true,
+      "attestedBy": "guest-phone-rates",
+      "status": "Ready"
+    },
+    {
+      "token": "{{phoneRateIntlMin}}",
+      "value": {
+        "en": "€0.80",
+        "de": "0,80 €"
+      },
+      "sourceField": "hotel.roomPhoneRates.intlMin (new)",
+      "seedNow": true,
+      "attestedBy": "guest-phone-rates",
+      "status": "Ready"
+    },
+    {
+      "token": "{{phoneRateIntlMax}}",
+      "value": {
+        "en": "€3.20",
+        "de": "3,20 €"
+      },
+      "sourceField": "hotel.roomPhoneRates.intlMax (new)",
+      "seedNow": true,
+      "attestedBy": "guest-phone-rates",
+      "status": "Ready"
+    },
+    {
+      "token": "{{emailInfo}}",
+      "value": {
+        "en": "info@hotel-berlin.de",
+        "de": "info@hotel-berlin.de"
+      },
+      "sourceField": "hotel.email (exists)",
+      "seedNow": true,
+      "attestedBy": "hotel global",
+      "status": "Ready"
+    },
+    {
+      "token": "{{emailReservations}}",
+      "value": {
+        "en": "reservations@hotel-berlin.de",
+        "de": "reservations@hotel-berlin.de"
+      },
+      "sourceField": "hotel.emails.reservations (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{emailConference}}",
+      "value": {
+        "en": "conference@hotel-berlin.de",
+        "de": "conference@hotel-berlin.de"
+      },
+      "sourceField": "meetings.contactEmail (exists per Meetings brief)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{emailSustainability}}",
+      "value": {
+        "en": "sustainability@hotel-berlin.de",
+        "de": "sustainability@hotel-berlin.de"
+      },
+      "sourceField": "hotel.emails.sustainability (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{emailCareers}}",
+      "value": {
+        "en": "karriere@hotel-berlin.de",
+        "de": "karriere@hotel-berlin.de"
+      },
+      "sourceField": "hotel.emails.careers (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{hotelAddress}}",
+      "value": {
+        "en": "Lützowplatz 17, 10785 Berlin",
+        "de": "Lützowplatz 17, 10785 Berlin"
+      },
+      "sourceField": "hotel.address (exists)",
+      "seedNow": true,
+      "attestedBy": "hotel global",
+      "status": "Ready"
+    },
+    {
+      "token": "{{lostPropertyUrl}}",
+      "value": {
+        "en": "https://lost.faundit.com/hotel-berlin-berlin",
+        "de": "https://lost.faundit.com/hotel-berlin-berlin"
+      },
+      "sourceField": "hotel.lostPropertyUrl (new)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{roomLargestSize}}",
+      "value": {
+        "en": "95 m²",
+        "de": "95 m²"
+      },
+      "sourceField": "rooms.studio-45.floorSizeM2 (read from rooms)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{roomFamilySize}}",
+      "value": {
+        "en": "45 m²",
+        "de": "45 m²"
+      },
+      "sourceField": "rooms.premium-family.floorSizeM2 (read from rooms)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{roomPremiumSize}}",
+      "value": {
+        "en": "36 m²",
+        "de": "36 m²"
+      },
+      "sourceField": "rooms.premium.floorSizeM2 (read from rooms)",
+      "seedNow": false,
+      "attestedBy": "chatbot only",
+      "status": "Needs confirm"
+    },
+    {
+      "token": "{{wifiSsid}}",
+      "value": null,
+      "sourceField": "hotel.guestStay.wifiNetwork (exists)",
+      "seedNow": false,
+      "attestedBy": "unconfirmed – do not publish (D3)",
+      "status": "HOLD",
+      "heldValueForReferenceOnly": "HBB-Guestconnect"
+    },
+    {
+      "token": "{{saunaHours}}",
+      "value": null,
+      "sourceField": "amenities sauna hours",
+      "seedNow": false,
+      "attestedBy": "two conflicting schedules (checklist 3.13)",
+      "status": "HOLD",
+      "heldValueForReferenceOnly": "18:00–23:00"
+    },
+    {
+      "token": "{{phoneMain}}",
+      "value": null,
+      "sourceField": "hotel.telephone (exists)",
+      "seedNow": false,
+      "attestedBy": "three variants in circulation",
+      "status": "HOLD",
+      "heldValueForReferenceOnly": "+49 30 26050 / +493026050 / +49 30 2600 50"
+    },
+    {
+      "token": "{{phoneReception}}",
+      "value": null,
+      "sourceField": "hotel.receptionPhone (new)",
+      "seedNow": false,
+      "attestedBy": "one chatbot answer only",
+      "status": "HOLD",
+      "heldValueForReferenceOnly": "+49 30 2605 3103"
+    }
+  ]
+}

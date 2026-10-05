@@ -1,20 +1,22 @@
-import * as migration_20260921_090837_baseline from './20260921_090837_baseline'
-import * as migration_20260921_105545_add_user_role from './20260921_105545_add_user_role'
-import * as migration_20260921_110650_add_legal_documents from './20260921_110650_add_legal_documents'
-import * as migration_20260921_111010_add_venue_special_hours from './20260921_111010_add_venue_special_hours'
-import * as migration_20260928_134900_add_media_image_sizes from './20260928_134900_add_media_image_sizes'
-import * as migration_20260929_123200_media_alt_en_from_existing from './20260929_123200_media_alt_en_from_existing'
-import * as migration_20260930_111500_art_programme_a1 from './20260930_111500_art_programme_a1'
-import * as migration_20261001_120000_guided_entry_step2 from './20261001_120000_guided_entry_step2'
-import * as migration_20261001_180000_localize_artwork_medium_surface from './20261001_180000_localize_artwork_medium_surface'
-import * as migration_20261001_190000_add_subject_tag_type from './20261001_190000_add_subject_tag_type'
-import * as migration_20261001_220000_hero_slides_aeo_fields from './20261001_220000_hero_slides_aeo_fields'
-import * as migration_20261001_230000_hero_slides_localize_ai_notes from './20261001_230000_hero_slides_localize_ai_notes'
-import * as migration_20261001_240000_rooms_images_localize from './20261001_240000_rooms_images_localize'
-import * as migration_20261001_250000_rooms_manager_staff from './20261001_250000_rooms_manager_staff'
-import * as migration_20261001_260000_hero_slides_eat_drink_context from './20261001_260000_hero_slides_eat_drink_context'
-import * as migration_20261002_100000_meeting_rooms_manager from './20261002_100000_meeting_rooms_manager'
-import * as migration_20261002_110000_meeting_rooms_versions from './20261002_110000_meeting_rooms_versions'
+import * as migration_20260921_090837_baseline from './20260921_090837_baseline';
+import * as migration_20260921_105545_add_user_role from './20260921_105545_add_user_role';
+import * as migration_20260921_110650_add_legal_documents from './20260921_110650_add_legal_documents';
+import * as migration_20260921_111010_add_venue_special_hours from './20260921_111010_add_venue_special_hours';
+import * as migration_20260928_134900_add_media_image_sizes from './20260928_134900_add_media_image_sizes';
+import * as migration_20260929_123200_media_alt_en_from_existing from './20260929_123200_media_alt_en_from_existing';
+import * as migration_20260930_111500_art_programme_a1 from './20260930_111500_art_programme_a1';
+import * as migration_20261001_120000_guided_entry_step2 from './20261001_120000_guided_entry_step2';
+import * as migration_20261001_180000_localize_artwork_medium_surface from './20261001_180000_localize_artwork_medium_surface';
+import * as migration_20261001_190000_add_subject_tag_type from './20261001_190000_add_subject_tag_type';
+import * as migration_20261001_220000_hero_slides_aeo_fields from './20261001_220000_hero_slides_aeo_fields';
+import * as migration_20261001_230000_hero_slides_localize_ai_notes from './20261001_230000_hero_slides_localize_ai_notes';
+import * as migration_20261001_240000_rooms_images_localize from './20261001_240000_rooms_images_localize';
+import * as migration_20261001_250000_rooms_manager_staff from './20261001_250000_rooms_manager_staff';
+import * as migration_20261001_260000_hero_slides_eat_drink_context from './20261001_260000_hero_slides_eat_drink_context';
+import * as migration_20261002_100000_meeting_rooms_manager from './20261002_100000_meeting_rooms_manager';
+import * as migration_20261002_110000_meeting_rooms_versions from './20261002_110000_meeting_rooms_versions';
+import * as migration_20261005_140000_faq_topics_and_structure from './20261005_140000_faq_topics_and_structure'
+import * as migration_20261005_150000_faq_placements_hotel_facts from './20261005_150000_faq_placements_hotel_facts'
 
 export const migrations = [
   {
@@ -101,5 +103,15 @@ export const migrations = [
     up: migration_20261002_110000_meeting_rooms_versions.up,
     down: migration_20261002_110000_meeting_rooms_versions.down,
     name: '20261002_110000_meeting_rooms_versions',
+  },
+  {
+    up: migration_20261005_140000_faq_topics_and_structure.up,
+    down: migration_20261005_140000_faq_topics_and_structure.down,
+    name: '20261005_140000_faq_topics_and_structure',
+  },
+  {
+    up: migration_20261005_150000_faq_placements_hotel_facts.up,
+    down: migration_20261005_150000_faq_placements_hotel_facts.down,
+    name: '20261005_150000_faq_placements_hotel_facts',
   },
 ]

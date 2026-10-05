@@ -17,6 +17,7 @@ import { Artworks } from './collections/Artworks'
 import { Events } from './collections/Events'
 import { Exhibitions } from './collections/Exhibitions'
 import { FAQs } from './collections/FAQs'
+import { FaqTopics } from './collections/FaqTopics'
 import { HeroSlides } from './collections/HeroSlides'
 import { Pages } from './collections/Pages'
 import { LegalDocuments } from './collections/LegalDocuments'
@@ -31,6 +32,7 @@ import { Rooms } from './collections/Rooms'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Venues } from './collections/Venues'
+import { FaqPlacements } from './globals/FaqPlacements'
 import { Footer } from './globals/Footer'
 import { Hotel } from './globals/Hotel'
 import { Homepage } from './globals/Homepage'
@@ -126,6 +128,7 @@ export default buildConfig({
     Venues,
     HeroSlides,
     Amenities,
+    FaqTopics,
     FAQs,
     Artists,
     Artworks,
@@ -137,7 +140,7 @@ export default buildConfig({
     Pages,
     LegalDocuments,
   ],
-  globals: [Hotel, Homepage, Navigation, Footer, Meetings],
+  globals: [Hotel, Homepage, Navigation, Footer, Meetings, FaqPlacements],
   editor: lexicalEditor(),
   localization: {
     locales: ['de', 'en'],

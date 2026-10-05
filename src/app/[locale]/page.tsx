@@ -79,6 +79,7 @@ export default async function HomePage({ params }: Props) {
         <FAQSection
           context="prospect"
           category="general"
+          routeKey="home"
           background={HOME_SECTION_BG.faq}
         />
       </main>

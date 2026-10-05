@@ -3,6 +3,8 @@ import { getTranslations } from 'next-intl/server'
 import { JsonLdScript } from '@/components/aeo/JsonLdScript'
 import { FAQPageView } from '@/components/faqs/FAQPageView'
 import { buildFAQPageGraph } from '@/lib/aeo-schema/src/index'
+import { isFaqRoutingV2 } from '@/lib/faq/flag'
+import { getFAQsForRoute } from '@/lib/faq/getFaqsForRoute'
 import { hereAlternates } from '@/lib/here/canonical'
 import {
   FAQ_CATEGORY_I18N_KEY,
@@ -29,7 +31,17 @@ export async function generateMetadata({ params }: Props) {
 export default async function HereFaqPage({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations('faq')
-  const faqs = await getFaqs({ context: 'guest', locale })
+
+  const faqs = isFaqRoutingV2()
+    ? (await getFAQsForRoute('here-faq', locale)).items.map((f) => ({
+        slug: f.slug,
+        question: f.question,
+        answer: f.answer,
+        category: f.category as FaqCategory,
+        order: f.order,
+        aliasSlugs: f.aliasSlugs,
+      }))
+    : await getFaqs({ context: 'guest', locale })
 
   const items = faqs.map((f) => ({
     id: f.slug,
@@ -37,6 +49,10 @@ export default async function HereFaqPage({ params }: Props) {
     answer: f.answer,
     category: f.category as FaqCategory,
     order: f.order,
+    aliasIds:
+      'aliasSlugs' in f && Array.isArray(f.aliasSlugs)
+        ? f.aliasSlugs.map((a) => a.slug).filter(Boolean)
+        : undefined,
   }))
 
   const presentCategories = GUEST_FAQ_CATEGORIES.filter((cat) =>

@@ -1,0 +1,166 @@
+{
+  "mode": "WRITE",
+  "skipped": [],
+  "textDiff": [
+    {
+      "slug": "guest-checkout",
+      "locale": "en",
+      "field": "answer",
+      "old": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave.",
+      "new": "Check-out is by {{checkoutTime}}. Later check-out is arranged with the lobby hosts — ask on the morning you leave.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "guest-checkout",
+      "locale": "de",
+      "field": "answer",
+      "old": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen.",
+      "new": "Check-out ist bis {{checkoutTime}}. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "cancellation-flexible",
+      "locale": "en",
+      "field": "answer",
+      "old": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night.",
+      "new": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until {{cancelFlexibleUntil}} on the day of arrival. A late cancellation or no-show is charged at {{noShowCharge}} of the first night.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "cancellation-flexible",
+      "locale": "de",
+      "field": "answer",
+      "old": "Flexible Buchungen im Hotel Berlin, Berlin können bis 18:00 am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden 90 % der ersten Nacht berechnet.",
+      "new": "Flexible Buchungen im Hotel Berlin, Berlin können bis {{cancelFlexibleUntil}} am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden {{noShowCharge}} der ersten Nacht berechnet.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "guest-nonsmoking",
+      "locale": "en",
+      "field": "answer",
+      "old": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee.",
+      "new": "No. This is a non-smoking hotel. Smoking in the room incurs a {{smokingFee}} cleaning fee.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "guest-nonsmoking",
+      "locale": "de",
+      "field": "answer",
+      "old": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr.",
+      "new": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet {{smokingFee}} Reinigungsgebühr.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "guest-sauna",
+      "locale": "en",
+      "field": "answer",
+      "old": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot.",
+      "new": "The sauna is on request, with {{saunaNotice}}’ notice. Ask Guest Care to book a slot.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "guest-sauna",
+      "locale": "de",
+      "field": "answer",
+      "old": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center.",
+      "new": "Die Sauna ist auf Anfrage, {{saunaNotice}} Vorlauf. Ein Slot läuft über das Guest Care Center.",
+      "kind": "token-conversion (no visible change)"
+    },
+    {
+      "slug": "check-in-time",
+      "locale": "en",
+      "field": "answer",
+      "old": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.",
+      "new": "Check-in at Hotel Berlin, Berlin is from {{checkinTime}}. Early check-in from {{earlyCheckinFrom}} is available for {{earlyCheckinFee}} if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "check-in-time",
+      "locale": "de",
+      "field": "answer",
+      "old": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang.",
+      "new": "Check-in im Hotel Berlin, Berlin ist ab {{checkinTime}}. Früher Check-in ab {{earlyCheckinFrom}} gibt es für {{earlyCheckinFee}}, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "parking",
+      "locale": "en",
+      "field": "answer",
+      "old": "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.",
+      "new": "Yes. Hotel Berlin, Berlin has an underground garage with {{parkingSpaces}} spaces: {{parkingHourly}} per hour, maximum {{parkingDaily}} per day. Entry height is {{parkingMaxHeight}}. Access is from Karl-Heinrich-Ulrichs-Straße.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "parking",
+      "locale": "de",
+      "field": "answer",
+      "old": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe.",
+      "new": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit {{parkingSpaces}} Plätzen: {{parkingHourly}} pro Stunde, maximal {{parkingDaily}} pro Tag. Einfahrtshöhe {{parkingMaxHeight}}. Zufahrt über die Karl-Heinrich-Ulrichs-Straße.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "pet-policy",
+      "locale": "en",
+      "field": "answer",
+      "old": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.",
+      "new": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of {{petFee}} per night. Pets are also welcome at breakfast.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "pet-policy",
+      "locale": "de",
+      "field": "answer",
+      "old": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen.",
+      "new": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. {{petFee}} pro Nacht. Haustiere sind auch beim Frühstück willkommen.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "breakfast-times",
+      "locale": "en",
+      "field": "question",
+      "old": "What are the breakfast times at Hotel Berlin?",
+      "new": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "breakfast-times",
+      "locale": "en",
+      "field": "answer",
+      "old": "Breakfast is served daily from 06:30 to 10:00. It is a full buffet with vegan options available.",
+      "new": "Breakfast is served Monday to Friday {{breakfastWeekday}}, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. {{breakfastPrice}} for adults, €12 from age 6.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "breakfast-times",
+      "locale": "de",
+      "field": "question",
+      "old": "Wann ist das Frühstück im Hotel Berlin?",
+      "new": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "breakfast-times",
+      "locale": "de",
+      "field": "answer",
+      "old": "Frühstück gibt es täglich von 06:30 bis 10:00. Volles Buffet mit veganen Optionen.",
+      "new": "Frühstück gibt es Mo–Fr {{breakfastWeekday}}, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. {{breakfastPrice}} Erwachsene, 12 € ab 6 Jahren.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "guest-card-only",
+      "locale": "en",
+      "field": "answer",
+      "old": "No. The hotel is card and contactless only — no cash.",
+      "new": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too.",
+      "kind": "merge (visible change)"
+    },
+    {
+      "slug": "guest-card-only",
+      "locale": "de",
+      "field": "answer",
+      "old": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld.",
+      "new": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus.",
+      "kind": "merge (visible change)"
+    }
+  ]
+}

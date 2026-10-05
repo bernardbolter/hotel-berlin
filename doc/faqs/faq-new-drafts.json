@@ -1,0 +1,414 @@
+{
+  "generated": "2026-10-05",
+  "note": "20 net-new FAQs from the chatbot triage. Import as DRAFT ONLY. Never publish from a script; Bernard/hotel review in the CMS. Slugs are new and do not collide with the 47.",
+  "records": [
+    {
+      "externalId": "F02",
+      "slug": "online-check-in",
+      "audience": "both",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Can I check in online?",
+        "de": "Kann ich online einchecken?"
+      },
+      "answer": {
+        "en": "Yes. A few days before you arrive we'll email you an invitation to check in online, from home or on the move. Once that's done, collect your room key at the self-check-in desk in the lobby. If anything goes wrong, reach the team by chat or call {{phoneReception}} at any time.",
+        "de": "Ja. Ein paar Tage vor deiner Anreise schicken wir dir eine E-Mail mit der Einladung zum Online-Check-in – von zu Hause oder unterwegs. Danach holst du deinen Zimmerschlüssel am Self-Check-in-Desk in der Lobby ab. Wenn etwas nicht klappt, erreichst du das Team jederzeit per Chat oder unter {{phoneReception}}."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Phone number conflict – see Tokens. Confirm the chat channel is live on the new site. Wording says 'reception' – see conflict C7 (Guest Care Center)."
+    },
+    {
+      "externalId": "F05",
+      "slug": "check-out-key-return",
+      "audience": "guest",
+      "topic": "checkin-checkout",
+      "secondaryTopics": [],
+      "priority": 3,
+      "question": {
+        "en": "Do I need to leave my key in the room at check-out?",
+        "de": "Muss ich beim Check-out den Schlüssel im Zimmer lassen?"
+      },
+      "answer": {
+        "en": "No. Check out at one of the check-out terminals in the lobby, or check out online and drop your key in the key box. If you need help, ask reception.",
+        "de": "Nein. Du kannst an den Check-out-Terminals in der Lobby auschecken oder online auschecken und deinen Schlüssel in die Rückgabebox werfen. Bei Fragen hilft dir die Rezeption gern."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY]  Wording says 'reception' – see conflict C7 (Guest Care Center)."
+    },
+    {
+      "externalId": "F09",
+      "slug": "breakfast-location",
+      "audience": "guest",
+      "topic": "breakfast",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Where is the breakfast restaurant?",
+        "de": "Wo finde ich das Frühstücksrestaurant?"
+      },
+      "answer": {
+        "en": "The breakfast restaurant is at the end of the lobby hall.",
+        "de": "Das Frühstücksrestaurant liegt am Ende der Lobbyhalle."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Dropped the 'follow the aroma of fresh bread rolls' chatbot line – add back if you want that voice."
+    },
+    {
+      "externalId": "F14",
+      "slug": "quiet-room",
+      "audience": "prospect",
+      "topic": "rooms",
+      "secondaryTopics": [],
+      "priority": 1,
+      "question": {
+        "en": "Can I request a quiet room?",
+        "de": "Kann ich ein ruhiges Zimmer bekommen?"
+      },
+      "answer": {
+        "en": "Every room category has rooms facing the street and rooms facing the courtyard. If you're sensitive to noise, mention it when you book and reception will do its best to give you a quieter room.",
+        "de": "In jeder Zimmerkategorie gibt es Zimmer zur Straße und zum Innenhof. Wenn du lärmempfindlich bist, gib das bitte bei der Buchung an – die Rezeption versucht dann, dir ein ruhigeres Zimmer zuzuweisen."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Dropped 'situated in the centre of the capital' (imprecise). Wording says 'reception' – see conflict C7 (Guest Care Center)."
+    },
+    {
+      "externalId": "F15",
+      "slug": "balcony",
+      "audience": "prospect",
+      "topic": "rooms",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Do any rooms have a balcony?",
+        "de": "Gibt es Zimmer mit Balkon?"
+      },
+      "answer": {
+        "en": "Some Premium rooms have a very small balcony. It has no seating, and smoking isn't permitted there. If a balcony matters to you, mention it when you book and we'll try to accommodate you, subject to availability.",
+        "de": "Einige Premium-Zimmer haben einen sehr kleinen Balkon. Er hat keine Sitzmöbel, und Rauchen ist dort nicht erlaubt. Wenn dir ein Balkon wichtig ist, gib das bitte bei der Buchung an; wir versuchen dann, ihn je nach Verfügbarkeit zu berücksichtigen."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Good candidate to pin to specific room-detail pages via pinnedEntities (only rooms that actually have balconies)."
+    },
+    {
+      "externalId": "F16",
+      "slug": "largest-rooms",
+      "audience": "prospect",
+      "topic": "rooms",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Which are the largest rooms?",
+        "de": "Welche Zimmer sind die größten?"
+      },
+      "answer": {
+        "en": "The largest is Studio 45 at {{roomLargestSize}}, with its own sauna, a large bath, a lounge, a DJ deck and vinyl records. Next come the Premium Family Rooms (from {{roomFamilySize}}), and the Premium Rooms are also spacious at {{roomPremiumSize}}.",
+        "de": "Das größte Zimmer ist das Studio 45 mit {{roomLargestSize}}, mit eigener Sauna, großer Badewanne, Lounge, DJ-Pult und Vinylplatten. Danach kommen die Premium Family Rooms (ab {{roomFamilySize}}); auch die Premium-Zimmer sind mit {{roomPremiumSize}} sehr geräumig."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Check against rooms.floorSizeM2 – ideally the tokens read from the rooms collection. 'Studio 45' at 95 m² – confirm the name/size pairing."
+    },
+    {
+      "externalId": "F17",
+      "slug": "find-your-room",
+      "audience": "guest",
+      "topic": "rooms",
+      "secondaryTopics": [
+        "in-room"
+      ],
+      "priority": 3,
+      "question": {
+        "en": "How do I find my room?",
+        "de": "Wie finde ich mein Zimmer?"
+      },
+      "answer": {
+        "en": "Check your room number. Three-digit numbers (for example 315) are in the premium wing on the 3rd floor – take the lifts at the end of the lobby hall. For four-digit numbers (for example 1315), take the lifts in the lobby hall next to the kiosks. [CONFIRM: floor for four-digit rooms]",
+        "de": "Schau auf deine Zimmernummer. Dreistellige Nummern (z. B. 315) liegen im Premium-Flügel im 3. Stock – nimm die Aufzüge am Ende der Lobbyhalle. Bei vierstelligen Nummern (z. B. 1315) nimmst du die Aufzüge in der Lobbyhalle neben den Kiosken. [BESTÄTIGEN: Etage der vierstelligen Zimmer]"
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "HOLD",
+      "internalNote": "[HOLD] Original says BOTH 315 and 1315 are on the 3rd floor – almost certainly wrong. Also the original had unbalanced brackets."
+    },
+    {
+      "externalId": "F18",
+      "slug": "lift-key-card",
+      "audience": "guest",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 3,
+      "question": {
+        "en": "Do I need my key card to use the lifts?",
+        "de": "Brauche ich meine Schlüsselkarte für den Aufzug?"
+      },
+      "answer": {
+        "en": "Yes, you need your key card to use the lifts.",
+        "de": "Ja, für die Aufzüge brauchst du deine Schlüsselkarte."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] "
+    },
+    {
+      "externalId": "F19",
+      "slug": "nespresso-machine",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Is there a Nespresso machine in the room?",
+        "de": "Gibt es eine Nespresso-Maschine im Zimmer?"
+      },
+      "answer": {
+        "en": "Yes, your room has a Nespresso machine for your use. [CONFIRM: capsules included? complimentary or charged?]",
+        "de": "Ja, in deinem Zimmer steht eine Nespresso-Maschine zur Verfügung. [BESTÄTIGEN: Kapseln inklusive? Kostenlos oder kostenpflichtig?]"
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "HOLD",
+      "internalNote": "[HOLD] Chatbot said capsules are 'from Rezemo' – looks like a typo/hallucination; not repeated. Need the real answer."
+    },
+    {
+      "externalId": "F21",
+      "slug": "streaming-stick",
+      "audience": "both",
+      "topic": "in-room",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Can I connect my own streaming stick (e.g. Amazon Fire TV) to the TV?",
+        "de": "Kann ich meinen eigenen Streaming-Stick (z. B. Amazon Fire TV) am Fernseher anschließen?"
+      },
+      "answer": {
+        "en": "Unfortunately not – the TV's HDMI ports are locked for other devices. Ask reception about your options; some rooms may have a streaming platform built in.",
+        "de": "Leider nicht – die HDMI-Anschlüsse sind für andere Geräte gesperrt. Frag bitte an der Rezeption nach Alternativen; eventuell gibt es Zimmer mit integrierter Streaming-Plattform."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] 'Maybe rooms with integrated streaming' is vague – which rooms? Casting (Chromecast/AirPlay) not mentioned. Wording says 'reception' – see conflict C7 (Guest Care Center)."
+    },
+    {
+      "externalId": "F24",
+      "slug": "laundry-service",
+      "audience": "both",
+      "topic": "services",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Do you offer a laundry service?",
+        "de": "Gibt es einen Wäscheservice?"
+      },
+      "answer": {
+        "en": "Yes. We pick up your laundry from your room and have it cleaned by an external laundry – just let the team know. There are no coin-operated or self-service laundry facilities in the hotel.",
+        "de": "Ja. Wir holen deine Wäsche auf dem Zimmer ab und lassen sie extern reinigen – sag dem Team einfach Bescheid. Einen Waschsalon oder Self-Service-Waschmaschinen gibt es im Haus nicht."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Merged rows 8 + 9. No turnaround time or prices anywhere – Gaps G11."
+    },
+    {
+      "externalId": "F25",
+      "slug": "printing",
+      "audience": "guest",
+      "topic": "services",
+      "secondaryTopics": [],
+      "priority": 3,
+      "question": {
+        "en": "Can you print a document for me?",
+        "de": "Könnt ihr ein Dokument für mich ausdrucken?"
+      },
+      "answer": {
+        "en": "Yes. Email the attachment to {{emailInfo}} and the reception team will print it for you.",
+        "de": "Ja. Schick den Anhang per E-Mail an {{emailInfo}}, die Rezeption druckt ihn für dich aus."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Any charge? Guests only? Gaps G15. Wording says 'reception' – see conflict C7 (Guest Care Center)."
+    },
+    {
+      "externalId": "F27",
+      "slug": "sauna-clothing",
+      "audience": "both",
+      "topic": "wellness",
+      "secondaryTopics": [],
+      "priority": 3,
+      "question": {
+        "en": "Is the sauna clothing-free?",
+        "de": "Ist die Sauna textilfrei?"
+      },
+      "answer": {
+        "en": "In Germany it's common to use the sauna without swimwear, usually wrapped in a towel. In our hotel it isn't required – if you feel more comfortable covered up, that's absolutely fine.",
+        "de": "In Deutschland ist es üblich, ohne Badebekleidung in die Sauna zu gehen, meist nur mit einem Handtuch. Bei uns im Hotel ist das keine Pflicht – wenn du dich bekleidet wohler fühlst, ist das völlig in Ordnung."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Chatbot wrote 'textile clothing'; softened to 'swimwear'."
+    },
+    {
+      "externalId": "F29",
+      "slug": "fingerboard-park",
+      "audience": "both",
+      "topic": "activities",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Is there still a fingerboard park?",
+        "de": "Gibt es den Fingerboard-Park noch?"
+      },
+      "answer": {
+        "en": "Yes, the fingerboard park is still there. [ADD: where to find it, opening times]",
+        "de": "Ja, den Fingerboard-Park gibt es noch. [ERGÄNZEN: Ort und Zeiten]"
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "HOLD",
+      "internalNote": "[HOLD] Launch checklist 3.15: location, photos and hours still outstanding from the hotel."
+    },
+    {
+      "externalId": "F31",
+      "slug": "bike-rental",
+      "audience": "both",
+      "topic": "bikes",
+      "secondaryTopics": [
+        "getting-here"
+      ],
+      "priority": 2,
+      "question": {
+        "en": "Can I rent a bike?",
+        "de": "Kann ich ein Fahrrad leihen?"
+      },
+      "answer": {
+        "en": "Yes, there's a bike hire station right at the hotel. Scan the QR code at the station, download the app, and you're ready to ride.",
+        "de": "Ja, direkt im Hotel gibt es eine Leihstation. Scanne dort den QR-Code, lade die App herunter, und es kann losgehen."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Which provider/app, and what does it cost? Not stated."
+    },
+    {
+      "externalId": "F33",
+      "slug": "loyalty-programme",
+      "audience": "prospect",
+      "topic": "loyalty",
+      "secondaryTopics": [],
+      "priority": 2,
+      "question": {
+        "en": "Do you have a loyalty programme?",
+        "de": "Gibt es ein Bonusprogramm?"
+      },
+      "answer": {
+        "en": "Yes, you can take part in Radisson Rewards, which is open to new and returning guests. Members can earn points towards free nights, get member rates and discounts on food and drinks, and enjoy priority check-in and check-out. See the programme terms for current benefits.",
+        "de": "Ja, du kannst bei uns an Radisson Rewards teilnehmen – offen für neue und bestehende Mitglieder. Mitglieder sammeln Punkte für Freinächte, erhalten Mitgliedsraten und Rabatte auf Speisen und Getränke und profitieren von bevorzugtem Check-in und Check-out. Aktuelle Vorteile findest du in den Programmbedingungen."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Needs confirm",
+      "internalNote": "[NEEDS CONFIRM] Removed 'save up to 15%' and 'easier premium status' – third-party programme claims that go stale. Confirm programme name and link target."
+    },
+    {
+      "externalId": "F35",
+      "slug": "meeting-room-booking",
+      "audience": "prospect",
+      "topic": "meetings",
+      "secondaryTopics": [],
+      "priority": 1,
+      "question": {
+        "en": "How do I book a meeting room?",
+        "de": "Wie buche ich einen Tagungsraum?"
+      },
+      "answer": {
+        "en": "Send us an enquiry through our meeting request form, or email our conference team at {{emailConference}}.",
+        "de": "Nutze unser Anfrageformular für Tagungen oder schreib an unser Conference-Team: {{emailConference}}."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Chatbot only gave the email; form reference added from the Meetings brief (/meetings/request)."
+    },
+    {
+      "externalId": "F36",
+      "slug": "contact-hotel",
+      "audience": "both",
+      "topic": "contact",
+      "secondaryTopics": [],
+      "priority": 1,
+      "question": {
+        "en": "How can I contact the hotel?",
+        "de": "Wie kann ich das Hotel kontaktieren?"
+      },
+      "answer": {
+        "en": "Phone: {{phoneMain}}. Email: {{emailInfo}}. For room and booking enquiries: {{emailReservations}}. Address: {{hotelAddress}}.",
+        "de": "Telefon: {{phoneMain}}. E-Mail: {{emailInfo}}. Für Zimmer- und Buchungsanfragen: {{emailReservations}}. Adresse: {{hotelAddress}}."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "HOLD",
+      "internalNote": "[HOLD] Merged rows 19 + 26. Three different phone numbers in the sheet – see Tokens. Should really be a contact block, not an accordion item."
+    },
+    {
+      "externalId": "F37",
+      "slug": "prepayment-invoice",
+      "audience": "both",
+      "topic": "payment",
+      "secondaryTopics": [
+        "contact"
+      ],
+      "priority": 3,
+      "question": {
+        "en": "How do I change a prepayment invoice?",
+        "de": "Wie lasse ich eine Vorauszahlungsrechnung ändern?"
+      },
+      "answer": {
+        "en": "Email {{emailInfo}} with the invoice number, the new billing address and the email address the amended invoice should be sent to.",
+        "de": "Schreib an {{emailInfo}} und gib die Rechnungsnummer, die neue Rechnungsadresse und die E-Mail-Adresse an, an die die geänderte Rechnung gehen soll."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Only relevant to people with an existing booking – low priority."
+    },
+    {
+      "externalId": "F38",
+      "slug": "sustainability-contact",
+      "audience": "both",
+      "topic": "sustainability",
+      "secondaryTopics": [
+        "contact"
+      ],
+      "priority": 2,
+      "question": {
+        "en": "Who is the contact for sustainability?",
+        "de": "Wer ist Ansprechperson für Nachhaltigkeit?"
+      },
+      "answer": {
+        "en": "Our Sustainability Manager is happy to answer your questions: {{emailSustainability}}.",
+        "de": "Unser Nachhaltigkeitsmanagement beantwortet deine Fragen gern: {{emailSustainability}}."
+      },
+      "source": "chatbot",
+      "status": "draft",
+      "workbookStatus": "Ready",
+      "internalNote": "[READY] Better as a contact line on the sustainability page; kept here so the topic has an entry."
+    }
+  ]
+}

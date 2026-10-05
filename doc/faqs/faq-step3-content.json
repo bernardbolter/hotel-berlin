@@ -1,0 +1,147 @@
+{
+  "generated": "2026-10-05",
+  "note": "Step 3 content. conversions: token-ised answers for non-merged records, each verified by round-trip (resolved text == current text, using tokenValueOverrides). merges: execute as survivor text replacement; absorbed record -> _status draft + mergedInto=survivor; survivor.aliasSlugs += absorbed slug.",
+  "tokenValueOverrides": {
+    "breakfastWeekday": {
+      "en": "06:30–10:00",
+      "de": "06:30–10:00"
+    },
+    "noShowCharge": {
+      "en": "90%",
+      "de": "90 %"
+    }
+  },
+  "conversions": [
+    {
+      "slug": "guest-checkout",
+      "answer_en": "Check-out is by {{checkoutTime}}. Later check-out is arranged with the lobby hosts — ask on the morning you leave.",
+      "answer_de": "Check-out ist bis {{checkoutTime}}. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen.",
+      "roundTripVerified": true
+    },
+    {
+      "slug": "cancellation-flexible",
+      "answer_en": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until {{cancelFlexibleUntil}} on the day of arrival. A late cancellation or no-show is charged at {{noShowCharge}} of the first night.",
+      "answer_de": "Flexible Buchungen im Hotel Berlin, Berlin können bis {{cancelFlexibleUntil}} am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden {{noShowCharge}} der ersten Nacht berechnet.",
+      "roundTripVerified": true
+    },
+    {
+      "slug": "guest-nonsmoking",
+      "answer_en": "No. This is a non-smoking hotel. Smoking in the room incurs a {{smokingFee}} cleaning fee.",
+      "answer_de": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet {{smokingFee}} Reinigungsgebühr.",
+      "roundTripVerified": true
+    },
+    {
+      "slug": "guest-sauna",
+      "answer_en": "The sauna is on request, with {{saunaNotice}}’ notice. Ask Guest Care to book a slot.",
+      "answer_de": "Die Sauna ist auf Anfrage, {{saunaNotice}} Vorlauf. Ein Slot läuft über das Guest Care Center.",
+      "roundTripVerified": true
+    }
+  ],
+  "merges": [
+    {
+      "group": "G1",
+      "survivor": "check-in-time",
+      "absorbed": "guest-checkin",
+      "audience": "both",
+      "question": {
+        "en": "What time can I check in at Hotel Berlin, Berlin?",
+        "de": "Wann kann ich im Hotel Berlin, Berlin einchecken?"
+      },
+      "answer": {
+        "en": "Check-in at Hotel Berlin, Berlin is from {{checkinTime}}. Early check-in from {{earlyCheckinFrom}} is available for {{earlyCheckinFee}} if a room is ready — or book the night before for guaranteed early access. If you arrive before your room is ready, the Guest Care Center can store your luggage until it is.",
+        "de": "Check-in im Hotel Berlin, Berlin ist ab {{checkinTime}}. Früher Check-in ab {{earlyCheckinFrom}} gibt es für {{earlyCheckinFee}}, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+      },
+      "taken": "Survivor = check-in-time (full hotel name, early check-in). Luggage sentence from guest-checkin. Chatbot's 'arrive after 18:00 – tell us' NOT added (chatbot-only, wording depends on C7)."
+    },
+    {
+      "group": "G2",
+      "survivor": "parking",
+      "absorbed": "guest-parking",
+      "audience": "both",
+      "question": {
+        "en": "Is there parking at Hotel Berlin, Berlin?",
+        "de": "Gibt es Parkplätze im Hotel Berlin, Berlin?"
+      },
+      "answer": {
+        "en": "Yes. Hotel Berlin, Berlin has an underground garage with {{parkingSpaces}} spaces: {{parkingHourly}} per hour, maximum {{parkingDaily}} per day. Entry height is {{parkingMaxHeight}}. Access is from Karl-Heinrich-Ulrichs-Straße.",
+        "de": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit {{parkingSpaces}} Plätzen: {{parkingHourly}} pro Stunde, maximal {{parkingDaily}} pro Tag. Einfahrtshöhe {{parkingMaxHeight}}. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+      },
+      "taken": "Guest details (208, 1.80 m, access street) win over prospect 'over 200'. Prospect's 'EV charging available nearby' DROPPED (conflicts with guest-ev-charging, C5) – EV stays in its own FAQ. Chatbot's 'outdoor and no reservation needed' NOT added (C5)."
+    },
+    {
+      "group": "G3",
+      "survivor": "pet-policy",
+      "absorbed": "guest-dogs",
+      "audience": "both",
+      "question": {
+        "en": "Are pets allowed at Hotel Berlin, Berlin?",
+        "de": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?"
+      },
+      "answer": {
+        "en": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of {{petFee}} per night. Pets are also welcome at breakfast.",
+        "de": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. {{petFee}} pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+      },
+      "taken": "pet-policy wins; guest-dogs adds nothing ('per day' vs 'per night' – C9, 'per night' kept). Chatbot's advance-notice line NOT added."
+    },
+    {
+      "group": "G4",
+      "survivor": "breakfast-times",
+      "absorbed": "guest-breakfast",
+      "audience": "both",
+      "question": {
+        "en": "When is breakfast at Hotel Berlin, Berlin, and what does it cost?",
+        "de": "Wann gibt es im Hotel Berlin, Berlin Frühstück, und was kostet es?"
+      },
+      "answer": {
+        "en": "Breakfast is served Monday to Friday {{breakfastWeekday}}, and Saturday and Sunday until 11:00. It is a full buffet with vegan options. {{breakfastPrice}} for adults, €12 from age 6.",
+        "de": "Frühstück gibt es Mo–Fr {{breakfastWeekday}}, Sa/So bis 11:00. Volles Buffet mit veganen Optionen. {{breakfastPrice}} Erwachsene, 12 € ab 6 Jahren."
+      },
+      "taken": "Weekday labels stay in prose; {{breakfastWeekday}} is the clock range only (06:30–10:00). Weekend time and child price left TYPED (seedNow=false until C6). Buffet/vegan claim kept from the prospect record (needs hotel confirm)."
+    },
+    {
+      "group": "G5",
+      "survivor": "guest-card-only",
+      "absorbed": "guest-dining-card-only",
+      "audience": "both",
+      "question": {
+        "en": "Can I pay with cash?",
+        "de": "Kann ich bar zahlen?"
+      },
+      "answer": {
+        "en": "No. The hotel is card and contactless only — no cash. This applies to food and drink in the hotel too.",
+        "de": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld. Das gilt auch für Essen und Trinken im Haus."
+      },
+      "taken": "Absorbs the dining-specific answer. Chatbot's accepted-methods list NOT added (Giropay unverified)."
+    },
+    {
+      "group": "G6",
+      "survivor": "guest-pharmacy-nollendorf",
+      "absorbed": "guest-pharmacy-wittenbergplatz",
+      "audience": "guest",
+      "question": {
+        "en": "Where is the nearest pharmacy?",
+        "de": "Wo ist die nächste Apotheke?"
+      },
+      "answer": {
+        "en": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. There is also a pharmacy at Wittenbergplatz, Bayreuther Straße 44.",
+        "de": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. Außerdem Apotheke am Wittenbergplatz, Bayreuther Straße 44."
+      },
+      "taken": "Survivor text UNCHANGED – it already names the Wittenbergplatz pharmacy."
+    },
+    {
+      "group": "G7",
+      "survivor": "guest-emergency",
+      "absorbed": "guest-staff-24-7",
+      "audience": "guest",
+      "question": {
+        "en": "What is the emergency number?",
+        "de": "Wie ist der Notruf?"
+      },
+      "answer": {
+        "en": "Call 112 for fire, ambulance, or police emergency. Trained staff are in the building around the clock.",
+        "de": "Notruf 112 für Feuerwehr, Rettung und Polizei. Rund um die Uhr ist geschultes Personal im Haus."
+      },
+      "taken": "Survivor text UNCHANGED – it already says trained staff are on site around the clock."
+    }
+  ]
+}

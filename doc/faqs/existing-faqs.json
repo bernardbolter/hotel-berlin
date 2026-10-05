@@ -1,0 +1,707 @@
+[
+  {
+    "slug": "check-in-time",
+    "context": "prospect",
+    "category": "general",
+    "order": 1,
+    "question": {
+      "en": "What time can I check in at Hotel Berlin, Berlin?",
+      "de": "Wann kann ich im Hotel Berlin, Berlin einchecken?"
+    },
+    "answer": {
+      "en": "Check-in at Hotel Berlin, Berlin is from 15:00. Early check-in from 06:00 is available for €30 if a room is ready — or book the night before for guaranteed early access.",
+      "de": "Check-in im Hotel Berlin, Berlin ist ab 15:00. Früher Check-in ab 06:00 gibt es für 30 €, wenn ein Zimmer bereit ist — oder die Nacht davor buchen für garantierten frühen Zugang."
+    },
+    "sourceFile": "src/seed/data.ts:969"
+  },
+  {
+    "slug": "parking",
+    "context": "prospect",
+    "category": "general",
+    "order": 2,
+    "question": {
+      "en": "Is there parking at Hotel Berlin, Berlin?",
+      "de": "Gibt es Parkplätze im Hotel Berlin, Berlin?"
+    },
+    "answer": {
+      "en": "Yes. Hotel Berlin, Berlin has underground parking with over 200 spaces. €4 per hour, maximum €25 per day. EV charging is available nearby.",
+      "de": "Ja. Das Hotel Berlin, Berlin hat eine Tiefgarage mit über 200 Plätzen. 4 € pro Stunde, maximal 25 € pro Tag. E-Ladestationen gibt es in der Nähe."
+    },
+    "sourceFile": "src/seed/data.ts:981"
+  },
+  {
+    "slug": "pet-policy",
+    "context": "prospect",
+    "category": "general",
+    "order": 3,
+    "question": {
+      "en": "Are pets allowed at Hotel Berlin, Berlin?",
+      "de": "Sind Haustiere im Hotel Berlin, Berlin erlaubt?"
+    },
+    "answer": {
+      "en": "Yes, pets are welcome at Hotel Berlin, Berlin. There is a charge of €30 per night. Pets are also welcome at breakfast.",
+      "de": "Ja, Haustiere sind im Hotel Berlin, Berlin willkommen. 30 € pro Nacht. Haustiere sind auch beim Frühstück willkommen."
+    },
+    "sourceFile": "src/seed/data.ts:993"
+  },
+  {
+    "slug": "airport-transfer",
+    "context": "prospect",
+    "category": "general",
+    "order": 4,
+    "question": {
+      "en": "How do I get to Hotel Berlin, Berlin from BER airport?",
+      "de": "Wie komme ich vom BER-Flughafen zum Hotel Berlin, Berlin?"
+    },
+    "answer": {
+      "en": "Take the RE7 or RB14 to Zoologischer Garten, then Bus 100 to Lützowplatz — right outside the hotel. Around 45–55 minutes total.",
+      "de": "Mit RE7 oder RB14 zum Zoologischen Garten, dann Bus 100 bis Lützowplatz — direkt vor dem Hotel. Rund 45–55 Minuten."
+    },
+    "sourceFile": "src/seed/data.ts:1005"
+  },
+  {
+    "slug": "cancellation-flexible",
+    "context": "prospect",
+    "category": "rooms-booking",
+    "order": 10,
+    "question": {
+      "en": "What is the cancellation policy for a flexible rate?",
+      "de": "Wie lautet die Stornierungsbedingung beim flexiblen Tarif?"
+    },
+    "answer": {
+      "en": "Flexible rate bookings at Hotel Berlin, Berlin can be cancelled free of charge until 18:00 on the day of arrival. A late cancellation or no-show is charged at 90% of the first night.",
+      "de": "Flexible Buchungen im Hotel Berlin, Berlin können bis 18:00 am Anreisetag kostenfrei storniert werden. Bei später Stornierung oder No-Show werden 90 % der ersten Nacht berechnet."
+    },
+    "sourceFile": "src/seed/data.ts:1017"
+  },
+  {
+    "slug": "breakfast-times",
+    "context": "prospect",
+    "category": "dining",
+    "order": 20,
+    "question": {
+      "en": "What are the breakfast times at Hotel Berlin?",
+      "de": "Wann ist das Frühstück im Hotel Berlin?"
+    },
+    "answer": {
+      "en": "Breakfast is served daily from 06:30 to 10:00. It is a full buffet with vegan options available.",
+      "de": "Frühstück gibt es täglich von 06:30 bis 10:00. Volles Buffet mit veganen Optionen."
+    },
+    "sourceFile": "src/seed/data.ts:1029"
+  },
+  {
+    "slug": "guest-checkin",
+    "context": "guest",
+    "category": "arrival-departure",
+    "order": 10,
+    "question": {
+      "en": "What time is check-in?",
+      "de": "Wann ist der Check-in?"
+    },
+    "answer": {
+      "en": "Check-in is from 15:00. If you arrive earlier, Guest Care can store your luggage until your room is ready.",
+      "de": "Check-in ist ab 15:00. Wenn du früher ankommst, bewahrt das Guest Care Center dein Gepäck auf, bis das Zimmer bereit ist."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:18"
+  },
+  {
+    "slug": "guest-checkout",
+    "context": "guest",
+    "category": "arrival-departure",
+    "order": 3,
+    "question": {
+      "en": "What time is check-out?",
+      "de": "Wann ist der Check-out?"
+    },
+    "answer": {
+      "en": "Check-out is by 12:00. Later check-out is arranged with the lobby hosts — ask on the morning you leave.",
+      "de": "Check-out ist bis 12:00. Späterer Check-out läuft über die Lobby Hosts — am Abreisetag in der Lobby fragen."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:33"
+  },
+  {
+    "slug": "guest-luggage",
+    "context": "guest",
+    "category": "arrival-departure",
+    "order": 2,
+    "question": {
+      "en": "Where can I store luggage before check-in or after check-out?",
+      "de": "Wo kann ich mein Gepäck vor dem Check-in oder nach dem Check-out lassen?"
+    },
+    "answer": {
+      "en": "Luggage storage is available before check-in and after check-out. Ask at the Guest Care Center beside the lobby.",
+      "de": "Gepäckaufbewahrung gibt es vor dem Check-in und nach dem Check-out. Frag im Guest Care Center neben der Lobby."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:48"
+  },
+  {
+    "slug": "guest-lost-and-found",
+    "context": "guest",
+    "category": "arrival-departure",
+    "order": 11,
+    "question": {
+      "en": "Where is lost property?",
+      "de": "Wo ist das Fundbüro?"
+    },
+    "answer": {
+      "en": "Lost property is handled by the Guest Care Center beside the lobby, 24/7.",
+      "de": "Fundbüro läuft über das Guest Care Center neben der Lobby, rund um die Uhr."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:63"
+  },
+  {
+    "slug": "guest-do-not-disturb",
+    "context": "guest",
+    "category": "arrival-departure",
+    "order": 12,
+    "question": {
+      "en": "How does the do-not-disturb sign work?",
+      "de": "Wie funktioniert das Bitte-nicht-stören-Schild?"
+    },
+    "answer": {
+      "en": "Use the do-not-disturb sign on your door. Housekeeping will skip the room until you take it down.",
+      "de": "Das Bitte-nicht-stören-Schild hängt an die Tür. Housekeeping lässt das Zimmer dann in Ruhe, bis du es abnimmst."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:76"
+  },
+  {
+    "slug": "guest-wifi",
+    "context": "guest",
+    "category": "in-room",
+    "order": 1,
+    "question": {
+      "en": "How do I connect to the hotel WiFi?",
+      "de": "Wie verbinde ich mich mit dem WLAN?"
+    },
+    "answer": {
+      "en": "Ask at the Guest Care Center beside the lobby for the current network details. They will get you online.",
+      "de": "Die aktuellen Netzdaten gibt es im Guest Care Center neben der Lobby. Dort wirst du online gebracht."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:93"
+  },
+  {
+    "slug": "guest-minibar",
+    "context": "guest",
+    "category": "in-room",
+    "order": 20,
+    "question": {
+      "en": "Is there a minibar?",
+      "de": "Gibt es eine Minibar?"
+    },
+    "answer": {
+      "en": "The minibar is empty on purpose — use it as your own fridge. Snacks and drinks are at Wundermart in the lobby, 24/7.",
+      "de": "Die Minibar ist leer und als eigener Kühlschrank gedacht. Snacks und Getränke gibt es 24/7 im Wundermart in der Lobby."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:108"
+  },
+  {
+    "slug": "guest-safe",
+    "context": "guest",
+    "category": "in-room",
+    "order": 21,
+    "question": {
+      "en": "How do I use the room safe?",
+      "de": "Wie nutze ich den Zimmersafe?"
+    },
+    "answer": {
+      "en": "Room safes are set up through the Guest Care Center beside the lobby.",
+      "de": "Zimmersafes richtet das Guest Care Center neben der Lobby ein."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:123"
+  },
+  {
+    "slug": "guest-housekeeping",
+    "context": "guest",
+    "category": "in-room",
+    "order": 22,
+    "question": {
+      "en": "How often is housekeeping?",
+      "de": "Wie oft kommt Housekeeping?"
+    },
+    "answer": {
+      "en": "Housekeeping is daily. Bed linen is changed every three days.",
+      "de": "Housekeeping kommt täglich. Bettwäsche wird alle drei Tage gewechselt."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:136"
+  },
+  {
+    "slug": "guest-iron",
+    "context": "guest",
+    "category": "in-room",
+    "order": 23,
+    "question": {
+      "en": "Can I get an iron?",
+      "de": "Kann ich ein Bügeleisen bekommen?"
+    },
+    "answer": {
+      "en": "Yes — dial 9 from the room phone and Guest Care will bring an iron.",
+      "de": "Ja — über die 9 vom Zimmertelefon, dann bringt Guest Care ein Bügeleisen."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:149"
+  },
+  {
+    "slug": "guest-adapter",
+    "context": "guest",
+    "category": "in-room",
+    "order": 24,
+    "question": {
+      "en": "Where can I get a plug adapter?",
+      "de": "Wo bekomme ich einen Adapter?"
+    },
+    "answer": {
+      "en": "Adapters are in Wundermart in the lobby, 24/7, card payment.",
+      "de": "Adapter liegen im Wundermart in der Lobby, 24/7, Zahlung per Karte."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:162"
+  },
+  {
+    "slug": "guest-air-conditioning",
+    "context": "guest",
+    "category": "in-room",
+    "order": 25,
+    "question": {
+      "en": "Can I adjust the air conditioning?",
+      "de": "Kann ich die Klimaanlage einstellen?"
+    },
+    "answer": {
+      "en": "Yes. The room climate can be adjusted by about ±3 °C.",
+      "de": "Ja. Die Zimmertemperatur lässt sich um etwa ±3 °C regeln."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:175"
+  },
+  {
+    "slug": "guest-tap-water",
+    "context": "guest",
+    "category": "in-room",
+    "order": 26,
+    "question": {
+      "en": "Is the tap water drinkable?",
+      "de": "Ist das Leitungswasser trinkbar?"
+    },
+    "answer": {
+      "en": "Yes. Berlin tap water is drinking water.",
+      "de": "Ja. Berliner Leitungswasser ist Trinkwasser."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:188"
+  },
+  {
+    "slug": "guest-phone-rates",
+    "context": "guest",
+    "category": "in-room",
+    "order": 27,
+    "question": {
+      "en": "What does the room phone cost?",
+      "de": "Was kostet das Zimmertelefon?"
+    },
+    "answer": {
+      "en": "Calls in Germany are €0.40 per minute. International calls are €0.80–€3.20 per minute.",
+      "de": "Inland kostet 0,40 €/Min. Ausland kostet 0,80–3,20 €/Min."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:201"
+  },
+  {
+    "slug": "guest-card-only",
+    "context": "guest",
+    "category": "money-payment",
+    "order": 30,
+    "question": {
+      "en": "Can I pay with cash?",
+      "de": "Kann ich bar zahlen?"
+    },
+    "answer": {
+      "en": "No. The hotel is card and contactless only — no cash.",
+      "de": "Nein. Zahlung nur mit Karte und kontaktlos — kein Bargeld."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:218"
+  },
+  {
+    "slug": "guest-atm",
+    "context": "guest",
+    "category": "money-payment",
+    "order": 31,
+    "question": {
+      "en": "Where is the nearest ATM?",
+      "de": "Wo ist der nächste Geldautomat?"
+    },
+    "answer": {
+      "en": "Commerzbank has an ATM across the street from the hotel.",
+      "de": "Commerzbank hat einen Geldautomaten gegenüber dem Hotel."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:231"
+  },
+  {
+    "slug": "guest-currency-exchange",
+    "context": "guest",
+    "category": "money-payment",
+    "order": 32,
+    "question": {
+      "en": "Can I change money at the hotel?",
+      "de": "Kann ich im Hotel Geld wechseln?"
+    },
+    "answer": {
+      "en": "There is no bureau de change in the hotel. The nearest is at Bahnhof Zoologischer Garten.",
+      "de": "Im Haus gibt es keine Wechselstube. Die nächste ist im Bahnhof Zoologischer Garten."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:244"
+  },
+  {
+    "slug": "guest-medical-on-call",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 40,
+    "question": {
+      "en": "Who do I call for a doctor out of hours?",
+      "de": "Wen rufe ich außerhalb der Sprechzeiten?"
+    },
+    "answer": {
+      "en": "The on-call medical service is 116 117. For emergencies call 112.",
+      "de": "Ärztlicher Bereitschaftsdienst: 116 117. Notruf: 112."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:261"
+  },
+  {
+    "slug": "guest-emergency",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 41,
+    "question": {
+      "en": "What is the emergency number?",
+      "de": "Wie ist der Notruf?"
+    },
+    "answer": {
+      "en": "Call 112 for fire, ambulance, or police emergency. Trained staff are in the building around the clock.",
+      "de": "Notruf 112 für Feuerwehr, Rettung und Polizei. Rund um die Uhr ist geschultes Personal im Haus."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:274"
+  },
+  {
+    "slug": "guest-gp",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 42,
+    "question": {
+      "en": "Is there a GP nearby?",
+      "de": "Gibt es einen Hausarzt in der Nähe?"
+    },
+    "answer": {
+      "en": "There is a GP at Nollendorfplatz, about a 10-minute walk.",
+      "de": "Hausarzt am Nollendorfplatz, etwa 10 Minuten zu Fuß."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:289"
+  },
+  {
+    "slug": "guest-pharmacy-nollendorf",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 43,
+    "question": {
+      "en": "Where is the nearest pharmacy?",
+      "de": "Wo ist die nächste Apotheke?"
+    },
+    "answer": {
+      "en": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. There is also a pharmacy at Wittenbergplatz, Bayreuther Straße 44.",
+      "de": "Quartier Apotheke Nolleturm, Nollendorfplatz 3–4. Außerdem Apotheke am Wittenbergplatz, Bayreuther Straße 44."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:302"
+  },
+  {
+    "slug": "guest-pharmacy-wittenbergplatz",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 44,
+    "question": {
+      "en": "Is there a pharmacy at Wittenbergplatz?",
+      "de": "Gibt es eine Apotheke am Wittenbergplatz?"
+    },
+    "answer": {
+      "en": "Yes — Apotheke am Wittenbergplatz, Bayreuther Straße 44.",
+      "de": "Ja — Apotheke am Wittenbergplatz, Bayreuther Straße 44."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:317"
+  },
+  {
+    "slug": "guest-babysitting",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 45,
+    "question": {
+      "en": "Can the hotel arrange babysitting?",
+      "de": "Kann das Hotel Babysitting organisieren?"
+    },
+    "answer": {
+      "en": "Yes. Guest Care can book a babysitting agency for you.",
+      "de": "Ja. Das Guest Care Center vermittelt eine Babysitting-Agentur."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:330"
+  },
+  {
+    "slug": "guest-staff-24-7",
+    "context": "guest",
+    "category": "health-emergency",
+    "order": 46,
+    "question": {
+      "en": "Is there staff in the building at night?",
+      "de": "Ist nachts jemand im Haus?"
+    },
+    "answer": {
+      "en": "Yes. Trained staff are in the hotel around the clock.",
+      "de": "Ja. Rund um die Uhr ist geschultes Personal im Haus."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:343"
+  },
+  {
+    "slug": "guest-parking",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 50,
+    "question": {
+      "en": "How does parking work?",
+      "de": "Wie funktioniert das Parken?"
+    },
+    "answer": {
+      "en": "The underground garage has 208 spaces, €4 per hour, max €25 per day. Entry height is 1.80 m. Access is from Karl-Heinrich-Ulrichs-Straße.",
+      "de": "Die Tiefgarage hat 208 Plätze, 4 €/Std., max. 25 €/Tag. Einfahrtshöhe 1,80 m. Zufahrt über die Karl-Heinrich-Ulrichs-Straße."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:358"
+  },
+  {
+    "slug": "guest-ev-charging",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 51,
+    "question": {
+      "en": "Is there EV charging?",
+      "de": "Gibt es E-Laden?"
+    },
+    "answer": {
+      "en": "Yes. 8 AC points, up to 22 kW, Type 2.",
+      "de": "Ja. 8 AC-Punkte, bis 22 kW, Typ 2."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:373"
+  },
+  {
+    "slug": "guest-bike-garage",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 52,
+    "question": {
+      "en": "Can I store a bike?",
+      "de": "Kann ich ein Fahrrad unterstellen?"
+    },
+    "answer": {
+      "en": "Yes. There is a bike garage with e-bike charging.",
+      "de": "Ja. Es gibt eine Fahrradgarage mit E-Bike-Ladung."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:386"
+  },
+  {
+    "slug": "guest-car-rental",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 53,
+    "question": {
+      "en": "Where can I rent a car?",
+      "de": "Wo kann ich ein Auto mieten?"
+    },
+    "answer": {
+      "en": "StarCar is at Schillstraße 9, about a minute away. Avis, Hertz and Europcar are at Tauentzienstraße 9–11, about 10 minutes.",
+      "de": "StarCar, Schillstraße 9, 1 Minute. Avis, Hertz und Europcar, Tauentzienstraße 9–11, 10 Minuten."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:399"
+  },
+  {
+    "slug": "guest-taxi",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 54,
+    "question": {
+      "en": "How do I get a taxi?",
+      "de": "Wie bekomme ich ein Taxi?"
+    },
+    "answer": {
+      "en": "Ask the Guest Care Center beside the lobby to call one. There is a rank at Lützowplatz.",
+      "de": "Das Guest Care Center neben der Lobby ruft eins. Halteplatz am Lützowplatz."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:414"
+  },
+  {
+    "slug": "guest-jogging",
+    "context": "guest",
+    "category": "getting-around",
+    "order": 55,
+    "question": {
+      "en": "Where can I go for a run?",
+      "de": "Wo kann ich joggen?"
+    },
+    "answer": {
+      "en": "Tiergarten is the closest loop. Guest Care can point you to the canal paths as well.",
+      "de": "Am nächsten ist der Tiergarten. Guest Care zeigt dir auch die Kanalrunden."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:428"
+  },
+  {
+    "slug": "guest-dogs",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 60,
+    "question": {
+      "en": "Are dogs allowed?",
+      "de": "Sind Hunde erlaubt?"
+    },
+    "answer": {
+      "en": "Yes. Dogs are €30 per day.",
+      "de": "Ja. Hunde kosten 30 €/Tag."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:443"
+  },
+  {
+    "slug": "guest-nonsmoking",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 61,
+    "question": {
+      "en": "Can I smoke in the hotel?",
+      "de": "Darf ich im Hotel rauchen?"
+    },
+    "answer": {
+      "en": "No. This is a non-smoking hotel. Smoking in the room incurs a €250 cleaning fee.",
+      "de": "Nein. Das Haus ist ein Nichtraucherhotel. Rauchen im Zimmer kostet 250 € Reinigungsgebühr."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:456"
+  },
+  {
+    "slug": "guest-gym",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 62,
+    "question": {
+      "en": "When is the gym open?",
+      "de": "Wann hat das Gym auf?"
+    },
+    "answer": {
+      "en": "The gym is open 24/7 for hotel guests.",
+      "de": "Das Gym ist 24/7 für Hotelgäste offen."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:471"
+  },
+  {
+    "slug": "guest-sauna",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 63,
+    "question": {
+      "en": "How do I use the sauna?",
+      "de": "Wie nutze ich die Sauna?"
+    },
+    "answer": {
+      "en": "The sauna is on request, with 45 minutes’ notice. Ask Guest Care to book a slot.",
+      "de": "Die Sauna ist auf Anfrage, 45 Minuten Vorlauf. Ein Slot läuft über das Guest Care Center."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:484"
+  },
+  {
+    "slug": "guest-business-center",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 64,
+    "question": {
+      "en": "Where is the business center?",
+      "de": "Wo ist das Business Center?"
+    },
+    "answer": {
+      "en": "The business center is in the lobby.",
+      "de": "Das Business Center ist in der Lobby."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:498"
+  },
+  {
+    "slug": "guest-care-center",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 65,
+    "question": {
+      "en": "Where is Guest Care?",
+      "de": "Wo ist das Guest Care Center?"
+    },
+    "answer": {
+      "en": "The Guest Care Center is beside the lobby and open 24/7.",
+      "de": "Das Guest Care Center ist 24/7 neben der Lobby."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:511"
+  },
+  {
+    "slug": "guest-room-service",
+    "context": "guest",
+    "category": "house-rules",
+    "order": 66,
+    "question": {
+      "en": "Is there room service?",
+      "de": "Gibt es Zimmerservice?"
+    },
+    "answer": {
+      "en": "No room service — collect food and drinks at the bar.",
+      "de": "Kein Zimmerservice — Abholung an der Bar."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:524"
+  },
+  {
+    "slug": "guest-breakfast",
+    "context": "guest",
+    "category": "dining",
+    "order": 70,
+    "question": {
+      "en": "When is breakfast, and what does it cost?",
+      "de": "Wann ist Frühstück, und was kostet es?"
+    },
+    "answer": {
+      "en": "Breakfast is 06:30–10:00, Saturday and Sunday until 11:00. €23 for adults, €12 from age 6.",
+      "de": "Frühstück 06:30–10:00, Sa/So bis 11:00. 23 € Erwachsene, 12 € ab 6 Jahren."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:539"
+  },
+  {
+    "slug": "guest-lutze-hours",
+    "context": "guest",
+    "category": "dining",
+    "order": 71,
+    "question": {
+      "en": "When is Lütze open?",
+      "de": "Wann hat Lütze auf?"
+    },
+    "answer": {
+      "en": "Lütze is open 10:00–01:00.",
+      "de": "Lütze hat von 10:00–01:00 auf."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:554"
+  },
+  {
+    "slug": "guest-wundermart",
+    "context": "guest",
+    "category": "dining",
+    "order": 72,
+    "question": {
+      "en": "When is Wundermart open?",
+      "de": "Wann hat der Wundermart auf?"
+    },
+    "answer": {
+      "en": "Wundermart is 24/7 in the lobby. Card payment only.",
+      "de": "Wundermart ist 24/7 in der Lobby. Zahlung nur mit Karte."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:567"
+  },
+  {
+    "slug": "guest-dining-card-only",
+    "context": "guest",
+    "category": "dining",
+    "order": 73,
+    "question": {
+      "en": "Can I pay cash at Lütze or breakfast?",
+      "de": "Kann ich in Lütze oder beim Frühstück bar zahlen?"
+    },
+    "answer": {
+      "en": "No. Food and drink in the hotel is card only — no cash.",
+      "de": "Nein. Essen & Trinken im Haus nur mit Karte — kein Bargeld."
+    },
+    "sourceFile": "src/seed/guest-az-faqs.ts:580"
+  }
+]

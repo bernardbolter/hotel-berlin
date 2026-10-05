@@ -1,0 +1,445 @@
+{
+  "generated": "2026-10-05",
+  "note": "Expected getFAQsForRoute output for the 47 existing records (merges NOT executed, no tokens). Pinned FAQs first, sorted by `order` then slug. Then fill: topic/audience matches sorted by priority, topic sortOrder, order, slug; fill is trimmed to cap minus pinned count. showAll routes have no cap. 'home', 'rooms' and 'here' reproduce today's rendered mini blocks exactly.",
+  "routes": {
+    "home": {
+      "audience": "prospect",
+      "cap": 4,
+      "showAll": false,
+      "pinned": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "fill": [],
+      "result": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "trimmedCount": 8
+    },
+    "rooms": {
+      "audience": "prospect",
+      "cap": 4,
+      "showAll": false,
+      "pinned": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "fill": [],
+      "result": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "airport-transfer"
+      ],
+      "trimmedCount": 5
+    },
+    "room-detail": {
+      "audience": "prospect",
+      "cap": 5,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "guest-room-service",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-minibar",
+        "guest-tap-water"
+      ],
+      "result": [
+        "guest-room-service",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-minibar",
+        "guest-tap-water"
+      ],
+      "trimmedCount": 0
+    },
+    "meetings": {
+      "audience": "prospect",
+      "cap": 5,
+      "showAll": false,
+      "pinned": [
+        "parking",
+        "airport-transfer"
+      ],
+      "fill": [
+        "guest-housekeeping"
+      ],
+      "result": [
+        "parking",
+        "airport-transfer",
+        "guest-housekeeping"
+      ],
+      "trimmedCount": 0
+    },
+    "amenities": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "guest-sauna",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-babysitting"
+      ],
+      "result": [
+        "guest-sauna",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-babysitting"
+      ],
+      "trimmedCount": 0
+    },
+    "sustainability": {
+      "audience": "prospect",
+      "cap": 5,
+      "showAll": false,
+      "pinned": [
+        "guest-housekeeping"
+      ],
+      "fill": [],
+      "result": [
+        "guest-housekeeping"
+      ],
+      "trimmedCount": 0
+    },
+    "offers": {
+      "audience": "prospect",
+      "cap": 5,
+      "showAll": false,
+      "pinned": [],
+      "fill": [],
+      "result": [],
+      "trimmedCount": 0
+    },
+    "contact": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [],
+      "result": [],
+      "trimmedCount": 0
+    },
+    "faq": {
+      "audience": "prospect",
+      "cap": null,
+      "showAll": true,
+      "pinned": [],
+      "fill": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-sauna",
+        "pet-policy",
+        "guest-dogs",
+        "guest-card-only",
+        "guest-dining-card-only",
+        "cancellation-flexible",
+        "guest-luggage",
+        "guest-ev-charging",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-nonsmoking",
+        "guest-minibar",
+        "guest-tap-water",
+        "guest-babysitting"
+      ],
+      "result": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-sauna",
+        "pet-policy",
+        "guest-dogs",
+        "guest-card-only",
+        "guest-dining-card-only",
+        "cancellation-flexible",
+        "guest-luggage",
+        "guest-ev-charging",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-nonsmoking",
+        "guest-minibar",
+        "guest-tap-water",
+        "guest-babysitting"
+      ],
+      "trimmedCount": 0
+    },
+    "here": {
+      "audience": "guest",
+      "cap": 3,
+      "showAll": false,
+      "pinned": [
+        "guest-wifi",
+        "guest-luggage",
+        "guest-checkout"
+      ],
+      "fill": [],
+      "result": [
+        "guest-wifi",
+        "guest-luggage",
+        "guest-checkout"
+      ],
+      "trimmedCount": 0
+    },
+    "here-dining": {
+      "audience": "guest",
+      "cap": 6,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-wundermart"
+      ],
+      "result": [
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-wundermart"
+      ],
+      "trimmedCount": 0
+    },
+    "here-getting-around": {
+      "audience": "guest",
+      "cap": 6,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "guest-ev-charging",
+        "guest-bike-garage",
+        "guest-car-rental"
+      ],
+      "result": [
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "guest-ev-charging",
+        "guest-bike-garage",
+        "guest-car-rental"
+      ],
+      "trimmedCount": 2
+    },
+    "here-faq": {
+      "audience": "guest",
+      "cap": null,
+      "showAll": true,
+      "pinned": [],
+      "fill": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-wifi",
+        "guest-sauna",
+        "pet-policy",
+        "guest-dogs",
+        "guest-card-only",
+        "guest-dining-card-only",
+        "guest-luggage",
+        "guest-ev-charging",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-care-center",
+        "guest-lost-and-found",
+        "guest-medical-on-call",
+        "guest-emergency",
+        "guest-nonsmoking",
+        "guest-do-not-disturb",
+        "guest-minibar",
+        "guest-safe",
+        "guest-tap-water",
+        "guest-phone-rates",
+        "guest-iron",
+        "guest-adapter",
+        "guest-babysitting",
+        "guest-business-center",
+        "guest-atm",
+        "guest-currency-exchange",
+        "guest-gp",
+        "guest-pharmacy-nollendorf",
+        "guest-pharmacy-wittenbergplatz",
+        "guest-staff-24-7",
+        "guest-car-rental",
+        "guest-taxi",
+        "guest-jogging"
+      ],
+      "result": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "airport-transfer",
+        "parking",
+        "guest-parking",
+        "breakfast-times",
+        "guest-breakfast",
+        "guest-wifi",
+        "guest-sauna",
+        "pet-policy",
+        "guest-dogs",
+        "guest-card-only",
+        "guest-dining-card-only",
+        "guest-luggage",
+        "guest-ev-charging",
+        "guest-room-service",
+        "guest-lutze-hours",
+        "guest-housekeeping",
+        "guest-air-conditioning",
+        "guest-gym",
+        "guest-wundermart",
+        "guest-bike-garage",
+        "guest-care-center",
+        "guest-lost-and-found",
+        "guest-medical-on-call",
+        "guest-emergency",
+        "guest-nonsmoking",
+        "guest-do-not-disturb",
+        "guest-minibar",
+        "guest-safe",
+        "guest-tap-water",
+        "guest-phone-rates",
+        "guest-iron",
+        "guest-adapter",
+        "guest-babysitting",
+        "guest-business-center",
+        "guest-atm",
+        "guest-currency-exchange",
+        "guest-gp",
+        "guest-pharmacy-nollendorf",
+        "guest-pharmacy-wittenbergplatz",
+        "guest-staff-24-7",
+        "guest-car-rental",
+        "guest-taxi",
+        "guest-jogging"
+      ],
+      "trimmedCount": 0
+    },
+    "policy-checkin": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "guest-luggage"
+      ],
+      "result": [
+        "check-in-time",
+        "guest-checkout",
+        "guest-checkin",
+        "guest-luggage"
+      ],
+      "trimmedCount": 0
+    },
+    "policy-cancellation": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "cancellation-flexible"
+      ],
+      "result": [
+        "cancellation-flexible"
+      ],
+      "trimmedCount": 0
+    },
+    "policy-pets": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "pet-policy",
+        "guest-dogs"
+      ],
+      "result": [
+        "pet-policy",
+        "guest-dogs"
+      ],
+      "trimmedCount": 0
+    },
+    "policy-fees": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "breakfast-times"
+      ],
+      "fill": [],
+      "result": [
+        "check-in-time",
+        "parking",
+        "pet-policy",
+        "breakfast-times"
+      ],
+      "trimmedCount": 0
+    },
+    "policy-payment": {
+      "audience": "prospect",
+      "cap": 8,
+      "showAll": false,
+      "pinned": [],
+      "fill": [
+        "guest-card-only",
+        "guest-dining-card-only"
+      ],
+      "result": [
+        "guest-card-only",
+        "guest-dining-card-only"
+      ],
+      "trimmedCount": 0
+    }
+  }
+}

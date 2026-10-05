@@ -61,7 +61,7 @@ function columnsFor(locale: Locale): FooterColumnData[] {
           ext('/about', 'Über uns'),
           ext('/sustainability', 'Nachhaltigkeit'),
           ext('https://careers.radissonhotels.com', 'Karriere'),
-          ext('/parking', 'Parken'),
+          ext('/policies/fees', 'Parken'),
         ],
       },
     ]
@@ -110,7 +110,7 @@ function columnsFor(locale: Locale): FooterColumnData[] {
         ext('/about', 'About'),
         ext('/sustainability', 'Sustainability'),
         ext('https://careers.radissonhotels.com', 'Careers'),
-        ext('/parking', 'Parking'),
+          ext('/policies/fees', 'Parking'),
       ],
     },
   ]
